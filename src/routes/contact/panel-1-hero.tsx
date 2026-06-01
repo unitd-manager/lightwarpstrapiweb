@@ -1,13 +1,18 @@
 import { motion } from "framer-motion";
 
+const SORA: React.CSSProperties = { fontFamily: '"Sora", sans-serif' };
+
 const cloud1 = "https://lightwarp3d.com/wp-content/uploads/2026/01/coffe2go-clound-num8.svg";
 const cloud2 = "https://lightwarp3d.com/wp-content/uploads/2026/01/cloud-img-2-1.svg";
 const cloud3 = "https://lightwarp3d.com/wp-content/uploads/2026/01/cloud-img-3.svg";
 
 export function ContactPanelHero() {
   return (
-    <section className="w-full bg-[#6b4fd8] pt-28 pb-12 relative overflow-hidden">
-      <div className="relative mx-auto max-w-[1200px] px-6 flex items-center justify-center min-h-[180px]">
+    <section
+      className="w-full bg-[#2E188D] pt-28 pb-12 relative overflow-hidden"
+      style={{ ...SORA, minHeight: '225px' }}
+    >
+      <div className="relative mx-auto max-w-[1200px] px-[4%] flex items-center justify-center min-h-[180px]">
 
         {/* Cloud bottom-left */}
         <motion.img
@@ -42,17 +47,16 @@ export function ContactPanelHero() {
           className="absolute right-24 top-2 w-[120px] sm:w-[179px] h-auto pointer-events-none select-none"
         />
 
-        {/* Decorative circles */}
-        <div className="absolute left-[38%] top-4 w-4 h-4 rounded-full bg-white/20 pointer-events-none" />
-        <div className="absolute left-[44%] top-2 w-3 h-3 rounded-full bg-white/15 pointer-events-none" />
-        <div className="absolute right-[38%] bottom-4 w-5 h-5 rounded-full bg-white/20 pointer-events-none" />
-
-        {/* Heading */}
+        {/* Heading — exact live-site typography */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="relative z-10 text-center text-[48px] sm:text-[64px] font-bold text-white leading-tight"
+          className="relative z-10 text-center text-white font-semibold tracking-[-2px]"
+          style={{
+            fontSize: 'clamp(40px, 5.5vw, 75px)',
+            lineHeight: 'clamp(1.2em, 1.15em, 85px)',
+          }}
         >
           Contact us
         </motion.h1>

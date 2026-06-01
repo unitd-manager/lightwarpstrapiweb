@@ -1,7 +1,9 @@
 import { Instagram, Youtube } from "lucide-react";
-import lightwarpLogo from "../assets/images/lightwarp_transparent.png";
+import lightwarpLogo from "../assets/images/lightwarp_logo_icon.png";
 
-function TikTokIcon({ size = 16 }: { size?: number }) {
+const SORA: React.CSSProperties = { fontFamily: '"Sora", sans-serif' };
+
+function TikTokIcon({ size = 20 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" />
@@ -11,10 +13,10 @@ function TikTokIcon({ size = 16 }: { size?: number }) {
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/10 bg-black">
+    <footer className="w-full bg-black border-t border-white/10" style={SORA}>
 
-      {/* Main grid */}
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 sm:grid-cols-4">
+      {/* Main grid — 4 cols desktop / 2 cols tablet / 1 col mobile */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-[60px] gap-x-[40px] p-[32px] md:p-[60px] lg:p-[100px]">
 
         {/* Logo */}
         <div className="flex items-start">
@@ -22,27 +24,35 @@ export function Footer() {
             <img
               src={lightwarpLogo}
               alt="Lightwarp"
-              className="h-20 w-auto object-contain"
+              className="h-auto w-full max-w-[68px] lg:max-w-full object-contain"
             />
           </a>
         </div>
 
         {/* Contact for Inquiries */}
         <div>
-          <h6 className="mb-4 text-sm font-semibold uppercase tracking-widest text-white">
+          <h6
+            className="uppercase text-white leading-[30px] mb-[20px]"
+            style={{ fontSize: '20px', fontWeight: 400 }}
+          >
             Contact for Inquiries
           </h6>
-          <ul className="space-y-2 text-sm text-muted-foreground">
+          <ul className="space-y-[8px]">
             <li>
               <a
                 href="mailto:info@lightwarp3d.com?subject=Consultation/Information Request"
-                className="hover:text-white transition-colors"
+                className="text-white hover:text-white/80 transition-colors"
+                style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
               >
                 Email: info@lightwarp3d.com
               </a>
             </li>
             <li>
-              <a href="tel:615-571-9395" className="hover:text-white transition-colors">
+              <a
+                href="tel:615-571-9395"
+                className="text-white hover:text-white/80 transition-colors"
+                style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
+              >
                 Phone: (615) 571-9395
               </a>
             </li>
@@ -51,7 +61,10 @@ export function Footer() {
 
         {/* Follow */}
         <div>
-          <h6 className="mb-4 text-sm font-semibold uppercase tracking-widest text-white">
+          <h6
+            className="uppercase text-white leading-[30px] mb-[20px]"
+            style={{ fontSize: '20px', fontWeight: 400 }}
+          >
             Follow
           </h6>
           <div className="flex items-center gap-3">
@@ -60,7 +73,7 @@ export function Footer() {
               href="https://www.instagram.com/lightwarp3d"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-white transition-colors"
+              className="text-white hover:text-white/80 transition-colors"
             >
               <Instagram size={20} strokeWidth={1.5} />
             </a>
@@ -69,7 +82,7 @@ export function Footer() {
               href="https://www.tiktok.com/@lightwarp3d"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-white transition-colors"
+              className="text-white hover:text-white/80 transition-colors"
             >
               <TikTokIcon size={20} />
             </a>
@@ -78,7 +91,7 @@ export function Footer() {
               href="https://www.youtube.com/@lightwarpstudios"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-white transition-colors"
+              className="text-white hover:text-white/80 transition-colors"
             >
               <Youtube size={20} strokeWidth={1.5} />
             </a>
@@ -87,14 +100,18 @@ export function Footer() {
 
         {/* Meet with us */}
         <div>
-          <h6 className="mb-4 text-sm font-semibold uppercase tracking-widest text-white">
-            Meet with us
+          <h6
+            className="uppercase text-white leading-[30px] mb-[20px]"
+            style={{ fontSize: '20px', fontWeight: 400 }}
+          >
+            Meet With Us
           </h6>
           <a
             href="https://calendar.app.google/zYHnxEYxui76S9tR6"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-semibold text-white hover:underline"
+            className="text-white hover:text-white/80 transition-colors"
+            style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
           >
             Schedule a meeting
           </a>
@@ -102,8 +119,11 @@ export function Footer() {
       </div>
 
       {/* Copyright bar */}
-      <div className="border-t border-white/5 py-5 px-6">
-        <p className="text-center text-xs text-muted-foreground">
+      <div className="border-t border-white/10 px-[32px] md:px-[60px] lg:px-[100px] py-5">
+        <p
+          className="text-white"
+          style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
+        >
           &copy;2026.&nbsp;Lightwarp LLC. All rights reserved.
         </p>
       </div>

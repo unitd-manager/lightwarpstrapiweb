@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 
+const SORA: React.CSSProperties = { fontFamily: '"Sora", sans-serif' };
+
 const founderPhoto = "https://lightwarp3d.com/wp-content/uploads/2026/01/HeadShot.jpg";
 
 const associates = [
@@ -19,29 +21,31 @@ const associates = [
 
 export function AboutPanelTeam() {
   return (
-    <section className="mx-auto max-w-[1200px] px-6 py-16 sm:py-24">
-
+    <section
+      className="mx-auto max-w-[1200px] px-[2%] py-[3%]"
+      style={SORA}
+    >
       {/* Meet our Team heading */}
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="mb-12 text-[36px] font-bold text-center"
+        className="text-[24px] sm:text-[35px] lg:text-[45px] font-semibold text-white text-center leading-tight lg:leading-[60px] tracking-[-1px] mb-[46px]"
       >
         Meet our Team
       </motion.h2>
 
-      {/* Founder — centered, rounded-square photo matching WP 360×360 */}
-      <div className="mb-20 flex justify-center">
+      {/* Founder */}
+      <div className="flex justify-center mb-[46px]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center"
+          className="text-center w-[29%] min-w-[180px]"
         >
-          <div className="mx-auto w-[220px] h-[220px] overflow-hidden rounded-xl">
+          <div className="mx-auto w-[50%] min-w-[120px] overflow-hidden rounded-[25px] border-2 border-black">
             <img
               src={founderPhoto}
               alt="Adithya Sathyanarayanan"
@@ -50,24 +54,35 @@ export function AboutPanelTeam() {
               onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
             />
           </div>
-          <h3 className="mt-5 text-[22px] font-semibold">Adithya Sathyanarayanan</h3>
-          <p className="mt-1 text-[14px] text-muted-foreground">Founder &amp; Chief Creative Officer</p>
+          <h3
+            className="mt-[20px] text-white font-semibold leading-[60px] tracking-[-1px]"
+            style={{ fontSize: '40px', marginBottom: '0px' }}
+          >
+            Adithya Sathyanarayanan
+          </h3>
+          <p
+            className="text-white font-normal leading-[30px]"
+            style={{ fontSize: '22px' }}
+          >
+            Founder &amp; Chief Creative Officer
+          </p>
         </motion.div>
       </div>
 
-      {/* Our Associates heading — same size as Meet our Team */}
+      {/* Our Associates heading */}
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="mb-10 text-[36px] font-bold"
+        className="text-[24px] sm:text-[35px] lg:text-[45px] font-semibold text-white text-center leading-tight lg:leading-[60px] tracking-[-1px] mb-[46px]"
+        style={{ marginTop: '10px' }}
       >
         Our Associates
       </motion.h2>
 
-      {/* Associates — 3-column plain text grid, no cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-10 gap-x-6">
+      {/* Associates — space-around, 3 per row */}
+      <div className="flex flex-row flex-wrap justify-around gap-y-[46px] px-[3%]">
         {associates.map((m, i) => (
           <motion.div
             key={m.name}
@@ -75,9 +90,20 @@ export function AboutPanelTeam() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.05 }}
+            className="w-full sm:w-[30%]"
           >
-            <h3 className="text-[20px] font-bold">{m.name}</h3>
-            <p className="mt-1 text-[13px] text-muted-foreground">{m.role}</p>
+            <h3
+              className="text-white font-semibold leading-[60px] tracking-[-1px]"
+              style={{ fontSize: '40px', marginBottom: '0px' }}
+            >
+              {m.name}
+            </h3>
+            <p
+              className="text-white font-normal leading-[30px]"
+              style={{ fontSize: '22px' }}
+            >
+              {m.role}
+            </p>
           </motion.div>
         ))}
       </div>
