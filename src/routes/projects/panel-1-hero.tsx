@@ -1,6 +1,12 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
 export function ProjectsPanelHero() {
   return (
     <section className="relative min-h-[90vh] overflow-hidden bg-[#05050d] text-white">
@@ -55,21 +61,13 @@ export function ProjectsPanelHero() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap">
                 <Link
-                  to="/projects/shell-you-be-mine"
+                  to={`/projects/${slugify("Shell You Be Mine")}`}
                   className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition hover:opacity-95"
                 >
                   Learn More
                 </Link>
-                <a
-                  href="https://www.youtube.com/watch?v=yinRrmEpfr4"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex rounded-full border border-white/20 bg-white/10 px-8 py-4 text-sm font-semibold text-white shadow-lg transition hover:bg-white/20"
-                >
-                  Watch Now
-                </a>
               </div>
             </div>
           </motion.div>
