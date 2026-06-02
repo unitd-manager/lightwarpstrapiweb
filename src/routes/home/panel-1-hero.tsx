@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export function HomePanelHero() {
   return (
-    <section className="relative w-screen max-w-none left-1/2 right-1/2 -mx-[50vw] -mt-6 h-screen flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative w-screen max-w-none left-1/2 right-1/2 -mx-[50vw] -mt-6 min-h-[100svh] flex flex-col items-center justify-center overflow-hidden">
       {/* Vimeo Video Background */}
       <div className="absolute inset-0 overflow-hidden">
         <iframe
@@ -12,8 +12,10 @@ export function HomePanelHero() {
             position: 'absolute',
             top: '50%',
             left: '50%',
-            width: '160%',
-            height: '160%',
+            width: '177.78vh',
+            height: '56.25vw',
+            minWidth: '100%',
+            minHeight: '100%',
             transform: 'translate(-50%, -50%)',
             border: 'none',
           }}
