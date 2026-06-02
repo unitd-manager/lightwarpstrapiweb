@@ -48,14 +48,14 @@ export function Navbar() {
           </Link>
 
           {/* Center nav links - desktop only */}
-          <ul className="hidden md:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">
+          <ul className="hidden md:flex items-center gap-12 absolute left-1/2 transform -translate-x-1/2">
             {links.map((l) => {
               const active = pathname === l.to;
               return (
                 <li key={l.to}>
                   <Link
                     to={l.to}
-                    className={`text-base font-medium transition-colors ${
+                    className={`text-[18px] font-semibold tracking-[-0.2px] transition-colors ${
                       active ? "text-white" : "text-white/70 hover:text-white"
                     }`}
                   >
