@@ -8,7 +8,7 @@ import Projects from "./routes/projects";
 import ShellYouBeMine from "./routes/projects/shell-you-be-mine";
 import Services from "./routes/services";
 import Privacy from "./routes/privacy";
-import Terms from "./routes/terms";
+import { PageTransitionOverlay } from "./components/page-transition-overlay";
 
 function NotFound() {
   return (
@@ -34,6 +34,8 @@ function NotFound() {
 
 export default function App() {
   return (
+    <>
+    <PageTransitionOverlay />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/portfolio" element={<Portfolio /> } />
@@ -43,8 +45,8 @@ export default function App() {
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/privacy" element={<Privacy />} />
-      <Route path="/terms" element={<Terms />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
+    </>
   );
 }
