@@ -24,7 +24,7 @@ export default function PortfolioHero() {
   }, []);
 
     return (
-  <section className="relative overflow-hidden bg-[#040816] pt-0 -mt-28 min-h-screen">
+  <section className="relative overflow-hidden bg-transparent pt-0 -mt-28 min-h-screen">
 
     {/* Background Effects */}
     <Particles count={70} />

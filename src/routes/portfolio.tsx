@@ -14,7 +14,7 @@ export default function Portfolio() {
 
       <Suspense
         fallback={
-          <div className="flex h-[300px] items-center justify-center bg-[#040816] text-white text-lg">
+          <div className="flex h-[300px] items-center justify-center bg-transparent text-white text-lg">
             Loading Portfolio...
           </div>
         }

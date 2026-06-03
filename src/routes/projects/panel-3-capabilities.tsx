@@ -10,7 +10,7 @@ const slugify = (s: string) =>
 
 export function ProjectsPanelCapabilities() {
   return (
-    <section className="relative overflow-hidden bg-[#04050f] text-white">
+    <section className="relative overflow-hidden bg-transparent text-white">
       <div className="absolute inset-0 overflow-hidden">
         <video
           src="/src/assets/images/video25.mp4"

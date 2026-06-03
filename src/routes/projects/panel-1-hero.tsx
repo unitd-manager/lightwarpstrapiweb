@@ -9,7 +9,7 @@ const slugify = (s: string) =>
 
 export function ProjectsPanelHero() {
   return (
-    <section className="relative min-h-[90vh] overflow-hidden bg-[#05050d] text-white">
+    <section className="relative min-h-[90vh] overflow-hidden bg-transparent text-white">
       <div className="absolute inset-0 overflow-hidden">
         <iframe
           src="https://www.youtube.com/embed/pLu4iXYhI4k?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=pLu4iXYhI4k"
@@ -30,29 +30,28 @@ export function ProjectsPanelHero() {
         <div className="absolute" />
       </div>
 
-     <div className="relative max-w-none w-screen left-1/2 right-1/2 -mx-[50vw] px-6 py-24 lg:py-28">
-        <div className="max-w-2xl ml-6 sm:ml-8 lg:ml-12">
-         
+     <div className="relative max-w-none w-screen left-1/2 right-1/2 -mx-[50vw] px-4 sm:px-6 py-16 sm:py-20 lg:py-28">
+        <div className="max-w-2xl mx-auto sm:mx-0 sm:ml-6 lg:ml-12">
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="mt-16 rounded-[2rem] border border-white/8 bg-black/25 p-10 backdrop-blur-md shadow-[0_40px_120px_rgba(0,0,0,0.45)]"
+            className="mt-10 sm:mt-16 rounded-[2rem] border border-white/8 bg-black/25 p-6 sm:p-8 md:p-10 backdrop-blur-md shadow-[0_40px_120px_rgba(0,0,0,0.45)]"
           >
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               <div className="space-y-4">
-                <h2 className="text-5xl font-semibold leading-tight sm:text-6xl">
+                <h2 className="text-3xl sm:text-5xl font-semibold leading-tight md:text-6xl">
                   Featured Project:
                   <br />
                   Shell You Be Mine?
                 </h2>
-                <p className="text-xl font-semibold text-white/80">
+                <p className="text-base sm:text-xl font-semibold text-white/80">
                   24 artists. 15 weeks. A Novel Realtime Pipeline.
                 </p>
               </div>
 
-              <div className="space-y-4 text-lg leading-8 text-white/75">
+              <div className="space-y-4 text-sm sm:text-lg leading-7 sm:leading-8 text-white/75">
                 <p>
                   That’s all it took for us to deliver this 3-minute, award-winning short from concept to final film. Showcased by 80lvl, Epic Games, Texas A&M, and multiple film festivals from Austin to Japan, <span className="text-white">Shell You Be Mine?</span> is a passion project that was meant to push real-time animation forward and deliver feature-quality results.
                 </p>

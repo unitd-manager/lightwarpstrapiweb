@@ -21,7 +21,7 @@ export function HomePanelShowcase() {
         <div className="grid gap-6 md:grid-cols-3">
           {creativeGifs.slice(0, 3).map((gif, index) => (
             <div key={index} className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <img src={gif} alt={`Creative GIF ${index + 1}`} className="h-[260px] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <img src={gif} alt={`Creative GIF ${index + 1}`} className="h-48 md:h-[260px] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
           ))}
         </div>
@@ -29,7 +29,7 @@ export function HomePanelShowcase() {
         <div className="grid gap-6 md:grid-cols-2">
           {creativeGifs.slice(3, 5).map((gif, index) => (
             <div key={index} className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <img src={gif} alt={`Creative GIF ${index + 4}`} className="h-[320px] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <img src={gif} alt={`Creative GIF ${index + 4}`} className="h-52 md:h-[320px] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
           ))}
         </div>
@@ -37,7 +37,7 @@ export function HomePanelShowcase() {
         <div className="grid gap-6 md:grid-cols-3">
           {creativeGifs.slice(5, 8).map((gif, index) => (
             <div key={index} className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <img src={gif} alt={`Creative GIF ${index + 6}`} className="h-[260px] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <img src={gif} alt={`Creative GIF ${index + 6}`} className="h-48 md:h-[260px] w-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
           ))}
         </div>

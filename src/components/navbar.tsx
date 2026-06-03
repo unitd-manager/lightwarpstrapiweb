@@ -32,7 +32,7 @@ export function Navbar() {
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-black">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-black/50 backdrop-blur-xl border-b border-white/[0.06]">
       <div className="w-full px-4 sm:px-6 py-4">
         <nav className="mx-auto max-w-full flex items-center justify-between">
           
@@ -48,14 +48,14 @@ export function Navbar() {
           </Link>
 
           {/* Center nav links - desktop only */}
-          <ul className="hidden md:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">
+          <ul className="hidden md:flex items-center gap-12 absolute left-1/2 transform -translate-x-1/2">
             {links.map((l) => {
               const active = pathname === l.to;
               return (
                 <li key={l.to}>
                   <Link
                     to={l.to}
-                    className={`text-base font-medium transition-colors ${
+                    className={`text-[18px] font-semibold tracking-[-0.2px] transition-colors ${
                       active ? "text-white" : "text-white/70 hover:text-white"
                     }`}
                   >
@@ -88,7 +88,7 @@ export function Navbar() {
             {/* Contact button */}
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2.5 text-base font-semibold text-white hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-semibold text-white hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
             >
               Contact Now
             </Link>
@@ -113,18 +113,32 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             className="md:hidden mt-4 bg-black/80 backdrop-blur-lg rounded-2xl p-4 border border-white/10"
           >
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-1">
               {links.map((l) => (
                 <li key={l.to}>
                   <Link
                     to={l.to}
-                    className="block px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                    className="block px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors text-base font-medium"
                   >
                     {l.label}
                   </Link>
                 </li>
               ))}
             </ul>
+            <div className="mt-3 pt-3 border-t border-white/10 flex items-center gap-4 px-4">
+              {socialNav.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="text-white/60 hover:text-white transition-colors"
+                >
+                  <Icon size={20} strokeWidth={1.5} />
+                </a>
+              ))}
+            </div>
           </motion.div>
         )}
       </div>

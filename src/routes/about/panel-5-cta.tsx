@@ -6,52 +6,119 @@ const keepInTouch2 = "https://lightwarp3d.com/wp-content/uploads/2026/01/KeepInT
 
 export function AboutPanelCta() {
   return (
-    <section className="w-full bg-[#e25830]">
-      <div className="relative mx-auto max-w-7xl flex items-center justify-center min-h-[340px] py-16 px-6">
+    /*
+     * Original Elementor: 1b6335b9
+     *   flex-direction: row, min-height 533px, background #D5462F
+     *   padding 0% top/bottom, 4% left/right
+     *   margin-top: 5%
+     */
+    <section
+      className="w-full relative overflow-hidden"
+      style={{
+        fontFamily: '"Sora", sans-serif',
+        backgroundColor: '#D5462F',
+        minHeight: '533px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '0 4%',
+        marginTop: '5%',
+      }}
+    >
+      {/* Left illustration — absolute, offset left like original */}
+      <motion.img
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        src={keepInTouch1}
+        alt=""
+        aria-hidden="true"
+        className="hidden sm:block absolute bottom-0 w-auto pointer-events-none select-none"
+        style={{ left: '-50px', height: '280px' }}
+      />
 
-        {/* Left illustration — portrait SVG (612×792), pinned bottom-left */}
-        <motion.img
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          src={keepInTouch1}
-          alt=""
-          aria-hidden="true"
-          className="absolute left-0 bottom-0 h-[220px] sm:h-[280px] w-auto pointer-events-none select-none"
-        />
+      {/*
+       * Center content: b312f45
+       *   flex column, gap 40px, padding 25% left/right
+       *   min-height 525px
+       */}
+      <div
+        className="relative z-10 text-center flex flex-col items-center"
+        style={{
+          paddingLeft: '25%',
+          paddingRight: '25%',
+          gap: '40px',
+          minHeight: '525px',
+          justifyContent: 'center',
+        }}
+      >
+        {/* Heading */}
+        <h2
+          className="text-black"
+          style={{
+            fontFamily: '"Sora", sans-serif',
+            fontSize: '45px',
+            fontWeight: 600,
+            lineHeight: '60px',
+            letterSpacing: '-1px',
+          }}
+        >
+          Let's work together!
+        </h2>
 
-        {/* Center content */}
-        <div className="relative z-10 text-center px-4 sm:px-56">
-          <h2 className="text-[36px] sm:text-[42px] font-black text-black leading-tight">
-            Let's work together!
-          </h2>
-          <p className="mt-4 text-[14px] text-black/80 max-w-sm mx-auto">
-            We are a team of real artists, technicians, and production staff with passion,
-            vision, and intention.
-            <br />
-            We are ready to help with any of your 3D visualization needs!
-          </p>
-          <Link
-            to="/contact"
-            className="mt-8 inline-flex items-center justify-center border border-[#6b4fd8] rounded bg-[#6b4fd8] hover:bg-[#5a3fc0] px-8 py-2.5 text-[14px] font-semibold text-white transition-colors"
-          >
-            Contact us
-          </Link>
-        </div>
+        {/* Body text */}
+        <p
+          className="text-black"
+          style={{
+            fontFamily: '"Sora", sans-serif',
+            fontSize: '16px',
+            fontWeight: 300,
+            lineHeight: '24px',
+          }}
+        >
+          We are a team of real artists, technicians, and production staff with passion,
+          vision, and intention.
+          <br />
+          We are ready to help with any of your 3D visualization needs!
+        </p>
 
-        {/* Right illustration — portrait SVG (612×792), pinned bottom-right */}
-        <motion.img
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          src={keepInTouch2}
-          alt=""
-          aria-hidden="true"
-          className="absolute right-0 bottom-0 h-[220px] sm:h-[280px] w-auto pointer-events-none select-none"
-        />
+        {/*
+         * Button: exact padding from original
+         *   padding-block 20px, padding-inline 44px
+         *   background: accent (#6250DA), border 2px white
+         */}
+        <Link
+          to="/contact"
+          className="inline-flex items-center justify-center rounded text-white hover:bg-white hover:text-black transition-colors"
+          style={{
+            fontFamily: '"Sora", sans-serif',
+            fontSize: '16px',
+            fontWeight: 400,
+            backgroundColor: '#6250DA',
+            border: '2px solid white',
+            paddingTop: '20px',
+            paddingBottom: '20px',
+            paddingLeft: '44px',
+            paddingRight: '44px',
+          }}
+        >
+          Contact us
+        </Link>
       </div>
+
+      {/* Right illustration */}
+      <motion.img
+        initial={{ opacity: 0, x: 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        src={keepInTouch2}
+        alt=""
+        aria-hidden="true"
+        className="hidden sm:block absolute bottom-0 w-auto pointer-events-none select-none"
+        style={{ right: '-50px', height: '280px' }}
+      />
     </section>
   );
 }

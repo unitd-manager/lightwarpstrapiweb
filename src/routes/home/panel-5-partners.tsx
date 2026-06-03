@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 const partners = [
   {
     image: "https://lightwarp3d.com/wp-content/uploads/2026/01/StrayerPicturesLogoWhiteTransparentDROPSHADOW2-scaled.png",
@@ -13,7 +11,8 @@ const partners = [
 
 export function HomePanelPartners() {
   return (
-    <section className="py-20 px-6 bg-black">
+<<<<<<< HEAD
+    <section className="py-20 px-6 bg-transparent">
       <div className="max-w-7xl mx-auto">
         {/* Title */}
         <motion.div
@@ -27,32 +26,29 @@ export function HomePanelPartners() {
             Partners and Clients
           </h2>
         </motion.div>
+=======
+    <section id="partners" className="bg-black pt-24 pb-10">
+      <div className="mx-auto max-w-[1660px] px-6">
+        <h2 className="text-center text-5xl md:text-6xl font-bold text-white">
+          Partners and Clients
+        </h2>
+>>>>>>> 9307146749d322ddf7e4afb63c28e1e9ca73697b
 
-        {/* Partners Layout */}
-        <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:gap-5 max-w-5xl mx-auto mt-12">
-          {partners.map((partner, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+        <div className="mt-16 flex items-center justify-center gap-20 md:gap-28">
+          {partners.map((partner, idx) => (
+            <img
+              key={partner.name}
+              src={partner.image}
+              alt={partner.name}
               className={
-                i === 0
-                  ? "flex items-center justify-center h-72 md:h-96 w-full md:w-1/2"
-                  : "flex items-center justify-center h-36 md:h-40 w-full md:w-1/3"
+                idx === 0
+                  ? "h-46 md:h-82 w-auto object-contain opacity-90"
+                  : "h-28 md:h-46 w-auto object-contain opacity-90"
               }
-            >
-              <img
-                src={partner.image}
-                alt={partner.name}
-                className={
-                  i === 0
-                    ? "max-h-full w-auto object-contain opacity-90"
-                    : "max-h-full w-auto object-contain opacity-90"
-                }
-              />
-            </motion.div>
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+            />
           ))}
         </div>
       </div>
