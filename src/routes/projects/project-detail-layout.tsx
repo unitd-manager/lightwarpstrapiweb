@@ -20,37 +20,37 @@ type ProjectDetailLayoutProps = {
 const extraProjects: VideoCard[] = [
   {
     title: "Shell You Be Mine?",
-    subtitle: "Featured Short · Real-Time Animation",
+    subtitle: "",
     video: "/src/assets/images/video24.mp4",
   },
   {
     title: "Stuffed",
-    subtitle: "Character Short · Technical Collaboration",
+    subtitle: "",
     video: "/src/assets/images/video26.mp4",
   },
   {
     title: "The Jab",
-    subtitle: "Student Short · Lighting & Compositing",
+    subtitle: "",
     video: "/src/assets/images/video10.mp4",
   },
   {
     title: "Samsung S7 ad",
-    subtitle: "Commercial · Product Lighting",
+    subtitle: "",
     video: "/src/assets/images/video17.mp4",
   },
   {
     title: "Caught Off Guard",
-    subtitle: "Studio Short · Pipeline & Visual FX",
+    subtitle: "",
     video: "/src/assets/images/video29.mp4",
   },
   {
     title: "Cyberia 2084",
-    subtitle: "Personal Passion Project · Cyberpunk Worldbuilding",
+    subtitle: "",
     video: "/src/assets/images/video4.mp4",
   },
   {
     title: "Stray Vista Studios",
-    subtitle: "Virtual Production · Unreal Engine",
+    subtitle: "",
     video: "/src/assets/images/video1.mp4",
   },
 ];
@@ -84,6 +84,8 @@ export function ProjectDetailLayout({
           { title: "", subtitle: "", video: "/src/assets/images/video25.mp4" },
         ]
       : extraProjects;
+  const isRightAligned = title === "Shell You Be Mine?";
+
   return (
     <PageShell>
       <section className="relative min-h-[75vh] overflow-hidden bg-[#05050d] text-white">

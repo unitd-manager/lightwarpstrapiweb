@@ -6,11 +6,9 @@ export default function OurCapabilities() {
   return (
     <ProjectDetailLayout
       title="Lush Victorian Garden"
-      subtitle="Lighting, Compositing, Cinematography"
+      subtitle=""
       overview={[
-        "Curated work from the Lightwarp team across commercial, cinematic, and experiential projects.",
-        "Created in collaboration with my friend Alyssa Curran, this project gave me the opportunity to light a lush, naturalistic exterior environment while leaning into a whimsical, storybook vibe.",
-        "Using RenderMan’s ML denoiser and finishing touches in Nuke, I layered bloom, god rays, chromatic aberration, and a subtle vignette to enhance depth and atmosphere while preserving naturalistic lighting.",
+        "Created in collaboration with my friend Alyssa Curran, this project gave me the opportunity to light a lush, naturalistic exterior environment while leaning into a whimsical, storybook vibe. The challenge was to balance a sense of wonder with grounded realism, ensuring the foliage, atmosphere, and composition all felt believable while still transporting viewers into a dreamlike space. Using RenderMan’s ML denoiser when it first released publically and finishing touches in Nuke, I layered in bloom, god rays, chromatic aberration, vignette, and subtle lighting fixes to enhance depth and magic. The final piece not only captured the intended charm but also deepened my passion for lighting as I grew my craft through experimentation and collaboration..",
       ]}
       videoSrc={video25}
       watchHref={video25}

@@ -59,7 +59,7 @@ export default function Stuffed() {
                 <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-tight tracking-[-0.03em]">
                   Stuffed
                 </h1>
-                <p className="text-xl text-white/70 max-w-2xl">
+                <p className="text-2xl text-white max-w-2xl">
                   Lighting, Rendering, Compositing, Pipeline and Rendering TD, Hair CFX, Surfacing Groom TD
                 </p>
               </div>
