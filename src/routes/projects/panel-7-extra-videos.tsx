@@ -82,10 +82,10 @@ export function ProjectsPanelExtraVideos() {
                 transition={{ duration: 0.8, delay: idx * 0.05 }}
                 className={`space-y-8 ${idx % 2 === 1 ? "lg:ml-auto lg:max-w-2xl lg:text-right" : "lg:max-w-2xl"}`}
               >
-                <div className="space-y-6">
-                  <h2 className="text-5xl font-semibold leading-tight sm:text-6xl">{item.title}</h2>
-                  <div className="space-y-4 text-lg leading-8 text-white/75">
-                    <p>{item.description}</p>
+                <div className="space-y-6 text-left">
+                  <h2 className="text-5xl font-semibold leading-tight sm:text-6xl text-left">{item.title}</h2>
+                  <div className="space-y-4 text-lg leading-8 text-white/75 text-left">
+                    <p className="text-left">{item.description}</p>
                   </div>
                 </div>
 
