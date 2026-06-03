@@ -6,6 +6,7 @@ import About from "./routes/about";
 import Contact from "./routes/contact";
 import Projects from "./routes/projects";
 import ShellYouBeMine from "./routes/projects/shell-you-be-mine";
+import Capabilities from "./routes/capabilities";
 import OurCapabilities from "./routes/projects/our-capabilities";
 import Stuffed from "./routes/projects/stuffed";
 import TheJab from "./routes/projects/the-jab";
@@ -47,6 +48,7 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/portfolio" element={<Portfolio /> } />
       <Route path="/projects" element={<Projects />} />
+      <Route path="/capabilities" element={<Capabilities />} />
       <Route path="/projects/shell-you-be-mine" element={<ShellYouBeMine />} />
       <Route path="/projects/our-capabilities" element={<OurCapabilities />} />
       <Route path="/projects/stuffed" element={<Stuffed />} />
