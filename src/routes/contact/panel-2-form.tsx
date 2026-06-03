@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-const SORA: React.CSSProperties = { fontFamily: '"Sora", sans-serif' };
-
 const locationIcon = "https://lightwarp3d.com/wp-content/uploads/2026/01/location_info.svg";
 const contactIcon  = "https://lightwarp3d.com/wp-content/uploads/2026/01/contact_info.svg";
 
@@ -29,179 +27,400 @@ export function ContactPanelForm() {
   const [sent, setSent] = useState(false);
 
   return (
+    /*
+     * Outer flex row — elementor-element-431d568a
+     *   Desktop:  flex-direction:row; padding:3% 4% 4% 4%; gap:0px; align-items:stretch;
+     *   Tablet:   padding:10% 4% 14% 4%; gap:35px; flex-wrap:wrap; justify-content:center;
+     *   Mobile:   margin-top:150px; padding:0% 6%; gap:80px;
+     *
+     * (All responsive overrides via .contact-outer-row CSS class)
+     */
     <section
-      className="mx-auto max-w-[1200px] px-[4%] pt-[10%] pb-[14%] lg:pt-[3%] lg:pb-[4%]"
-      style={SORA}
+      className="w-full flex flex-row flex-wrap items-stretch contact-outer-row"
+      style={{
+        fontFamily: '"Sora", sans-serif',
+        padding: '3% 4% 4% 4%',
+        gap: '30px',
+      }}
     >
-      <div className="flex flex-wrap gap-[35px] items-start lg:flex-nowrap">
 
-        {/* Left column — contact info */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="w-full lg:w-[45.815%] flex flex-col gap-[25px]"
+      {/*
+       * LEFT COLUMN — elementor-element-2ec5d63c
+       *   Desktop: width 45.815%; flex-direction:column; gap:25px; justify-content:flex-start;
+       *   Tablet:  width 100%; gap:25px; align-items:center;
+       *   Mobile:  width 100%; gap:90px;
+       */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="flex flex-col contact-left-col"
+        style={{
+          width: '44%',
+          gap: '25px',
+          justifyContent: 'flex-start',
+        }}
+      >
+
+        {/*
+         * "Get in touch" heading + description — elementor-element-6b2b9b08
+         *   image-box widget: text-align start, title margin-bottom 15px
+         *   Padding-left: 5% (applied on 17e3b8ff row in original; here applied on heading block)
+         */}
+        <div style={{ paddingLeft: '5%' }}>
+          {/*
+           * "Get in touch" heading — primary typography:
+           *   Sora, 45px, 600, 60px, -1px
+           *   Responsive: tablet 35px / mobile 24px (via .contact-form-heading CSS class)
+           */}
+          <h3
+            className="text-white contact-form-heading"
+            style={{
+              fontFamily: '"Sora", sans-serif',
+              fontSize: '45px',
+              fontWeight: 600,
+              lineHeight: '60px',
+              letterSpacing: '-1px',
+              marginBottom: '15px',
+            }}
+          >
+            Get in touch
+          </h3>
+          {/* Description — text typography: Sora, 16px, 300, 24px */}
+          <p
+            className="text-white"
+            style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
+          >
+            We are ready to do business with you and create stunning visuals and stories!
+            <br />
+            Send us a message through the form or contact us through the emails below to
+            get started! To schedule an appointment/virtual meeting via Google Meet, click
+            on the button below
+          </p>
+        </div>
+
+        {/*
+         * Contact cards container — elementor-element-3cc1a6d5 (flex column, gap 0)
+         *   Inner black row — elementor-element-3324dede:
+         *     bg:#000000; padding:2%; gap:20px; justify-content:space-between;
+         *     Tablet: padding:6%;
+         *     Mobile: padding:0 30px 30px 30px;
+         */}
+        <div
+          className="w-full flex flex-col"
+          style={{ gap: '0px' }}
         >
-          {/* Get in touch title + description */}
-          <div style={{ paddingLeft: '5%' }}>
-            <h3
-              className="text-white font-semibold leading-tight lg:leading-[60px] tracking-[-1px]"
-              style={{ fontSize: 'clamp(24px, 3.5vw, 45px)' }}
-            >
-              Get in touch
-            </h3>
-            <p
-              className="mt-4 text-white font-light leading-[24px]"
-              style={{ fontSize: '16px' }}
-            >
-              We are ready to do business with you and create stunning visuals and stories!
-              <br />
-              Send us a message through the form or contact us through the emails below to
-              get started! To schedule an appointment/virtual meeting via Google Meet, click
-              on the button below
-            </p>
-          </div>
-
-          {/* Contact cards — black container with white-bordered boxes */}
-          <div className="bg-black p-[2%] md:p-[6%] lg:p-[2%]">
-            <div className="flex flex-col md:flex-row gap-[20px]">
-              {/* New Business */}
+          <div
+            className="w-full flex flex-row justify-between contact-cards-bg"
+            style={{
+              backgroundColor: '#000000',
+              padding: '2%',
+              gap: '20px',
+            }}
+          >
+            {/* New Business card wrapper — elementor-element-f03efce (50% width) */}
+            <div className="flex-1">
+              {/*
+               * New Business card — elementor-element-4afe4da9
+               *   padding:5%; border:2px solid #FFFFFF; border-radius:25px;
+               *   image width: 112px
+               */}
               <div
-                className="flex-1 flex flex-col items-center text-center rounded-[25px] border-2 border-white p-4 sm:p-6"
+                className="flex flex-col items-center text-center"
+                style={{
+                  padding: '5%',
+                  border: '2px solid #FFFFFF',
+                  borderRadius: '25px',
+                }}
               >
                 <img
                   src={locationIcon}
                   alt=""
                   aria-hidden="true"
-                  className="h-10 w-10 sm:h-14 sm:w-14 object-contain mb-4"
+                  style={{ width: '112px', height: 'auto', marginBottom: '15px' }}
                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                 />
-                <p className="text-white font-normal leading-[30px] text-lg sm:text-[25px]">
+                {/* Title — typography-31148ca: Sora, 25px, 400, 30px */}
+                <p
+                  className="text-white contact-card-label"
+                  style={{
+                    fontFamily: '"Sora", sans-serif',
+                    fontSize: '25px',
+                    fontWeight: 400,
+                    lineHeight: '30px',
+                  }}
+                >
                   New Business
                 </p>
+                {/* Email — text typography: 16px, 300, 24px */}
                 <p
-                  className="mt-2 text-white font-light leading-[24px] break-all"
-                  style={{ fontSize: '16px' }}
+                  className="text-white mt-2 break-all"
+                  style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
                 >
                   newbiz@lightwarp3d.com
                 </p>
               </div>
+            </div>
 
-              {/* Information */}
+            {/* Information card wrapper — elementor-element-0877fa5 (50% width) */}
+            <div className="flex-1">
+              {/*
+               * Information card — elementor-element-58cbd48b
+               *   padding:5%; border:2px solid #FFFFFF; border-radius:25px;
+               *   image width: 112px
+               */}
               <div
-                className="flex-1 flex flex-col items-center text-center rounded-[25px] border-2 border-white p-4 sm:p-6"
+                className="flex flex-col items-center text-center"
+                style={{
+                  padding: '5%',
+                  border: '2px solid #FFFFFF',
+                  borderRadius: '25px',
+                }}
               >
                 <img
                   src={contactIcon}
                   alt=""
                   aria-hidden="true"
-                  className="h-10 w-10 sm:h-14 sm:w-14 object-contain mb-4"
+                  style={{ width: '112px', height: 'auto', marginBottom: '15px' }}
                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                 />
-                <p className="text-white font-normal leading-[30px] text-lg sm:text-[25px]">
+                {/* Title — typography-31148ca: Sora, 25px, 400, 30px */}
+                <p
+                  className="text-white contact-card-label"
+                  style={{
+                    fontFamily: '"Sora", sans-serif',
+                    fontSize: '25px',
+                    fontWeight: 400,
+                    lineHeight: '30px',
+                  }}
+                >
                   Information
                 </p>
+                {/* Email — text typography: 16px, 300, 24px */}
                 <p
-                  className="mt-2 text-white font-light leading-[24px] break-all"
-                  style={{ fontSize: '16px' }}
+                  className="text-white mt-2 break-all"
+                  style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
                 >
                   info@lightwarp3d.com
                 </p>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Schedule a Meeting button — centered per live site */}
-          <div className="flex justify-center">
-            <a
-              href="https://calendar.app.google/zYHnxEYxui76S9tR6"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 rounded-[10px] bg-[#F64418] hover:bg-[#d93a10] px-8 py-3 text-white transition-colors"
-              style={{ fontSize: '16px', fontWeight: 400 }}
-            >
-              <GoogleGIcon />
-              Schedule a Meeting
-            </a>
-          </div>
-        </motion.div>
+        {/*
+         * Schedule button row — elementor-element-17e3b8ff / 0dbad69 / f7da458
+         *   padding-left: 5%; gap: 50px (single child so gap doesn't matter visually)
+         *   Button: bg #F64418 (--e-global-color-c1efd99); border-radius: 10px;
+         *   accent typography: Sora, 16px, normal/400, 20px line-height
+         *   padding-block: 12px; padding-inline: 40px (from accent button defaults)
+         */}
+        <div style={{ paddingLeft: '5%', marginTop: '5px' }}>
+          <a
+            href="https://calendar.app.google/zYHnxEYxui76S9tR6"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 text-white transition-opacity hover:opacity-90"
+            style={{
+              fontFamily: '"Sora", sans-serif',
+              fontSize: '16px',
+              fontWeight: 400,
+              lineHeight: '20px',
+              backgroundColor: '#F64418',
+              borderRadius: '10px',
+              paddingTop: '12px',
+              paddingBottom: '12px',
+              paddingLeft: '40px',
+              paddingRight: '40px',
+            }}
+          >
+            <GoogleGIcon />
+            Schedule a Meeting
+          </a>
+        </div>
+      </motion.div>
 
-        {/* Right column — form card */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="w-full lg:w-[55%] rounded-[25px] bg-[#6250DA] border-2 border-black p-[3%] max-md:pt-[10%] max-md:pb-[10%] max-md:px-[7%]"
+      {/*
+       * RIGHT COLUMN — Form card: elementor-element-7f84906a
+       *   Desktop: width 55%; flex-direction:column; gap:40px; padding:3%;
+       *            border:2px solid #000000; border-radius:25px; bg:#6250DA;
+       *   Mobile:  padding:10% 7%;
+       *
+       * Form widget — elementor-element-58dc0fdf:
+       *   --ehp-form-row-gap: 32px;
+       *   --ehp-form-field-border-width: 1px; --ehp-form-field-border-color: #FFFFFF;
+       *   --ehp-form-field-bg-color: #ffffff; --ehp-form-field-text-color: #58595B;
+       *   --ehp-form-button-padding-block: 12px; --ehp-form-button-padding-inline: 40px;
+       *   Send button bg: --e-global-color-78ad7a8 = #000000; hover bg: #FFFFFF;
+       *   Send button text: #FCFCFC; hover text: #000000;
+       */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="flex flex-col contact-right-col contact-form-card"
+        style={{
+          flex: '1 1 0',
+          gap: '40px',
+          padding: '3%',
+          border: '2px solid #000000',
+          borderRadius: '25px',
+          backgroundColor: '#6250DA',
+        }}
+      >
+        {/* "We would love to hear from you!" — typography-31148ca: 25px/400/30px */}
+        <p
+          className="text-white"
+          style={{
+            fontFamily: '"Sora", sans-serif',
+            fontSize: '25px',
+            fontWeight: 400,
+            lineHeight: '30px',
+          }}
         >
-          <p
-            className="text-white font-normal leading-[30px] mb-[32px]"
-            style={{ fontSize: 'clamp(21px, 1.9vw, 25px)' }}
-          >
-            We would love to hear from you!
-          </p>
+          We would love to hear from you!
+        </p>
 
-          <form
-            onSubmit={(e) => { e.preventDefault(); setSent(true); }}
-            className="flex flex-col gap-[32px]"
-          >
-            <input
-              name="name"
-              type="text"
-              placeholder="Name"
-              className="w-full rounded-lg bg-white px-4 py-3 outline-none border border-gray-200"
-              style={{ fontSize: '16px', fontWeight: 300, color: '#58595B' }}
-            />
+        <form
+          onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+          className="flex flex-col"
+          style={{ gap: '32px' }}
+        >
+          {/* Name field */}
+          <input
+            name="name"
+            type="text"
+            placeholder="Name"
+            className="w-full outline-none"
+            style={{
+              fontFamily: '"Sora", sans-serif',
+              fontSize: '16px',
+              fontWeight: 300,
+              lineHeight: '24px',
+              color: '#58595B',
+              backgroundColor: '#ffffff',
+              border: '1px solid #FFFFFF',
+              borderRadius: '4px',
+              paddingTop: '10px',
+              paddingBottom: '10px',
+              paddingLeft: '14px',
+              paddingRight: '14px',
+            }}
+          />
 
-            <input
-              name="email"
-              type="email"
-              placeholder="Email"
-              className="w-full rounded-lg bg-white px-4 py-3 outline-none border border-gray-200"
-              style={{ fontSize: '16px', fontWeight: 300, color: '#58595B' }}
-            />
+          {/* Email field */}
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            className="w-full outline-none"
+            style={{
+              fontFamily: '"Sora", sans-serif',
+              fontSize: '16px',
+              fontWeight: 300,
+              lineHeight: '24px',
+              color: '#58595B',
+              backgroundColor: '#ffffff',
+              border: '1px solid #FFFFFF',
+              borderRadius: '4px',
+              paddingTop: '10px',
+              paddingBottom: '10px',
+              paddingLeft: '14px',
+              paddingRight: '14px',
+            }}
+          />
 
-            <div className="relative w-full">
-              <select
-                name="subject"
-                className="w-full rounded-lg bg-white px-4 py-3 pr-10 outline-none border border-gray-200 appearance-none cursor-pointer"
-                style={{ fontSize: '16px', fontWeight: 300, color: '#58595B' }}
-              >
-                <option value="">Subject</option>
-                {subjects.map((s) => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </select>
-              <svg
-                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-                width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </div>
+          {/* Subject dropdown */}
+          <div className="relative w-full">
+            <select
+              name="subject"
+              className="w-full outline-none appearance-none cursor-pointer"
+              style={{
+                fontFamily: '"Sora", sans-serif',
+                fontSize: '16px',
+                fontWeight: 300,
+                lineHeight: '24px',
+                color: '#58595B',
+                backgroundColor: '#ffffff',
+                border: '1px solid #FFFFFF',
+                borderRadius: '4px',
+                paddingTop: '10px',
+                paddingBottom: '10px',
+                paddingLeft: '14px',
+                paddingRight: '40px',
+              }}
+            >
+              <option value="">Subject</option>
+              {subjects.map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+            <svg
+              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+              width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </div>
 
-            <textarea
-              name="message"
-              rows={5}
-              placeholder="Message"
-              className="w-full rounded-lg bg-white px-4 py-3 outline-none border border-gray-200 resize-none"
-              style={{ fontSize: '16px', fontWeight: 300, color: '#58595B' }}
-            />
+          {/* Message textarea */}
+          <textarea
+            name="message"
+            rows={5}
+            placeholder="Message"
+            className="w-full outline-none resize-none"
+            style={{
+              fontFamily: '"Sora", sans-serif',
+              fontSize: '16px',
+              fontWeight: 300,
+              lineHeight: '24px',
+              color: '#58595B',
+              backgroundColor: '#ffffff',
+              border: '1px solid #FFFFFF',
+              borderRadius: '4px',
+              paddingTop: '10px',
+              paddingBottom: '10px',
+              paddingLeft: '14px',
+              paddingRight: '14px',
+            }}
+          />
 
+          {/*
+           * Send button — elementor-element-58dc0fdf
+           *   bg: --e-global-color-78ad7a8 = #000000
+           *   hover bg: --e-global-color-primary = #FFFFFF
+           *   text: #FCFCFC; hover text: --e-global-color-78ad7a8 = #000000
+           *   padding-block: 12px; padding-inline: 40px
+           *   accent typography: Sora, 16px, 400, 20px
+           */}
+          <div>
             <button
               type="submit"
               disabled={sent}
-              className="w-full sm:w-auto rounded-lg bg-black hover:bg-black/80 transition-colors disabled:opacity-60"
-              style={{ fontSize: '16px', color: '#FCFCFC', paddingBlock: '12px', paddingInline: '40px' }}
+              className="inline-flex items-center justify-center transition-colors hover:bg-white hover:text-black disabled:opacity-60"
+              style={{
+                fontFamily: '"Sora", sans-serif',
+                fontSize: '16px',
+                fontWeight: 400,
+                lineHeight: '20px',
+                color: '#FCFCFC',
+                backgroundColor: '#000000',
+                borderRadius: '4px',
+                paddingTop: '12px',
+                paddingBottom: '12px',
+                paddingLeft: '40px',
+                paddingRight: '40px',
+              }}
             >
               {sent ? "Sent ✓" : "Send"}
             </button>
-          </form>
-        </motion.div>
+          </div>
+        </form>
+      </motion.div>
 
-      </div>
     </section>
   );
 }

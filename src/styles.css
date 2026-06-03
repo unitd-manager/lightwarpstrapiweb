@@ -221,6 +221,32 @@
 
 /* ── About page — pixel-perfect match to original Elementor CSS ── */
 
+/* ── CTA heading responsive (00db7d0 typography) ── */
+@media (max-width: 1024px) {
+  .cta-heading {
+    font-size: 52px !important;
+    line-height: 1.1em !important;
+    letter-spacing: -2px !important;
+  }
+  .cta-content {
+    padding-left: 15% !important;
+    padding-right: 15% !important;
+  }
+}
+@media (max-width: 767px) {
+  .cta-heading {
+    font-size: 40px !important;
+    line-height: 1.2em !important;
+  }
+  .cta-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    gap: 25px !important;
+    padding-bottom: 50px !important;
+    min-height: 205px !important;
+  }
+}
+
 /* Tablet: max-width 1024px */
 @media (max-width: 1024px) {
   .founder-box {
@@ -276,5 +302,144 @@
   .associate-role {
     font-size: 4vw !important;
     line-height: 1.2em !important;
+  }
+}
+
+/* ── Contact page — pixel-perfect match to Elementor CSS (post-33.css) ── */
+
+/* Hero section min-height responsive */
+@media (max-width: 1024px) {
+  .contact-hero-section { min-height: 340px !important; }
+}
+@media (max-width: 767px) {
+  .contact-hero-section { min-height: 240px !important; }
+}
+
+/*
+ * Hero heading — typography 00db7d0:
+ *   Desktop: 75px / 600 / 85px / -2px
+ *   Tablet:  52px / 1.1em / -2px   (from global kit 00db7d0 tablet override)
+ *   Mobile:  40px / 1.2em           (from global kit 00db7d0 mobile override)
+ */
+@media (max-width: 1024px) {
+  .contact-hero-heading {
+    font-size: 52px !important;
+    line-height: 1.1em !important;
+    letter-spacing: -2px !important;
+  }
+}
+@media (max-width: 767px) {
+  .contact-hero-heading {
+    font-size: 40px !important;
+    line-height: 1.2em !important;
+  }
+}
+
+/*
+ * Form outer row — elementor-element-431d568a responsive:
+ *   Desktop:  flex-direction:row; padding:3% 4% 4% 4%; gap:0px;
+ *   Tablet:   padding:10% 4% 14% 4%; gap:35px; flex-wrap:wrap; justify-content:center;
+ *   Mobile:   margin-top:150px; padding:0% 6%; gap:80px;
+ */
+@media (max-width: 1024px) {
+  .contact-outer-row {
+    padding: 10% 4% 14% 4% !important;
+    gap: 35px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+}
+@media (max-width: 767px) {
+  .contact-outer-row {
+    margin-top: 150px !important;
+    padding: 0% 6% !important;
+    gap: 80px !important;
+    justify-content: flex-start !important;
+  }
+}
+
+/*
+ * Left column — elementor-element-2ec5d63c responsive:
+ *   Desktop: width 45.815%;
+ *   Tablet:  width 100%; align-items:center;
+ *   Mobile:  width 100%; gap:90px;
+ */
+@media (max-width: 1024px) {
+  .contact-left-col {
+    width: 100% !important;
+    align-items: center !important;
+  }
+}
+@media (max-width: 767px) {
+  .contact-left-col {
+    width: 100% !important;
+    gap: 90px !important;
+    align-items: flex-start !important;
+  }
+}
+
+/*
+ * "Get in touch" heading — primary typography:
+ *   Desktop: Sora 45px / 600 / 60px / -1px
+ *   Tablet:  35px / 1.2em
+ *   Mobile:  24px / 1.2em
+ */
+@media (max-width: 1024px) {
+  .contact-form-heading {
+    font-size: 35px !important;
+    line-height: 1.2em !important;
+  }
+}
+@media (max-width: 767px) {
+  .contact-form-heading {
+    font-size: 24px !important;
+    line-height: 1.2em !important;
+  }
+}
+
+/*
+ * Contact card labels — typography-31148ca (25px/400/30px)
+ *   Tablet: 21px / 1.2em
+ *   Mobile: same as tablet
+ */
+@media (max-width: 1024px) {
+  .contact-card-label {
+    font-size: 21px !important;
+    line-height: 1.2em !important;
+  }
+}
+
+/*
+ * Black bg contact-cards container — elementor-element-3324dede:
+ *   Desktop: padding:2%; gap:20px;
+ *   Tablet:  padding:6%;
+ *   Mobile:  padding:0 30px 30px 30px;
+ */
+@media (max-width: 1024px) {
+  .contact-cards-bg {
+    padding: 6% !important;
+  }
+}
+@media (max-width: 767px) {
+  .contact-cards-bg {
+    padding: 0 30px 30px 30px !important;
+    flex-direction: column !important;
+  }
+}
+
+/*
+ * Right column (form card) — elementor-element-7f84906a:
+ *   Desktop: width 55%;
+ *   Tablet:  width 100%;
+ *   Mobile:  width 100%; padding:10% 7%;
+ */
+@media (max-width: 1024px) {
+  .contact-right-col {
+    width: 100% !important;
+  }
+}
+@media (max-width: 767px) {
+  .contact-form-card {
+    padding: 10% 7% !important;
   }
 }

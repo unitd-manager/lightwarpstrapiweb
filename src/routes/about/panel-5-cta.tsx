@@ -44,7 +44,7 @@ export function AboutPanelCta() {
        *   min-height 525px
        */}
       <div
-        className="relative z-10 text-center flex flex-col items-center"
+        className="relative z-10 text-center flex flex-col items-center cta-content"
         style={{
           paddingLeft: '25%',
           paddingRight: '25%',
@@ -53,15 +53,15 @@ export function AboutPanelCta() {
           justifyContent: 'center',
         }}
       >
-        {/* Heading */}
+        {/* Heading — 00db7d0 typography: 75px / 600 / 85px line-height / -2px tracking */}
         <h2
-          className="text-black"
+          className="text-black cta-heading"
           style={{
             fontFamily: '"Sora", sans-serif',
-            fontSize: '45px',
+            fontSize: '75px',
             fontWeight: 600,
-            lineHeight: '60px',
-            letterSpacing: '-1px',
+            lineHeight: '85px',
+            letterSpacing: '-2px',
           }}
         >
           Let's work together!
