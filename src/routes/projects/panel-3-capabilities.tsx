@@ -24,7 +24,7 @@ export function ProjectsPanelCapabilities() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
       </div>
       <div className="relative mx-auto max-w-7xl px-6 py-24 lg:py-28">
-        <div className="grid gap-16 lg:grid-cols-1 lg:justify-end lg:items-center">
+        <div className="grid gap-16 lg:grid-cols-1 lg:items-start">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
