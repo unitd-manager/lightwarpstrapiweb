@@ -4,7 +4,7 @@ const crabStill = "https://lightwarp3d.com/wp-content/uploads/2026/01/CrabStill.
 
 export function AboutPanelStory() {
   return (
-    <section className="mx-auto max-w-[1320px] px-9 pt-19 pb-15">
+    <section className="mx-auto `max-w-1320px` px-9 pt-19 pb-15">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -36,10 +36,10 @@ export function AboutPanelStory() {
 
         {/* Right: story text — exact live-site typography */}
         <div className="w-full lg:w-[58%] p-[5%] flex flex-col justify-center pt-16">
-          <h4 className="font-['Sora'] text-[20px] sm:text-[33px] lg:text-[45px] text-white font-semibold leading-tight lg:leading-[60px] tracking-[-1px] mb-[30px]">
+          <h4 className="font-['Sora'] text-[20px] sm:text-[33px] lg:text-[45px] text-white font-semibold leading-tight `lg:leading-60px` tracking-[-1px] `mb-30px`">
             Our Story
           </h4>
-          <p className="text-[16px] md:text-[17px] lg:text-[17px] text-white font-light leading-[24px] text-justify">
+          <p className="text-[16px] md:text-[17px] lg:text-[17px] text-white font-light `leading-24px` text-justify">
             Started by an alum of Texas A&amp;M University, Lightwarp 3D Studio was built on a
             vision of using real-time rendering with tools like Unreal Engine and Blender to
             create high-quality 3D stories and visuals at blazing fast speed. With our
