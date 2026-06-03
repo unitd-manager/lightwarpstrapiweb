@@ -3,29 +3,34 @@ import { motion } from "framer-motion";
 
 export function HomePanelCta() {
   return (
+<<<<<<< HEAD
     <section className="py-20 px-6 bg-transparent">
+=======
+    <section className="pt-2 pb-24 px-6 bg-black">
+>>>>>>> 9307146749d322ddf7e4afb63c28e1e9ca73697b
       <div className="max-w-8xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="overflow-hidden rounded-[2.5rem] bg-[#5b4aeb] p-6 sm:p-8 md:p-10 lg:p-12 shadow-[0_40px_80px_rgba(91,74,235,0.25)]"
+          className="overflow-hidden rounded-[2.5rem] bg-[#5b4aeb] p-5 sm:p-6 md:p-8 lg:p-10 shadow-[0_40px_80px_rgba(91,74,235,0.25)]"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-10 items-center">
-            <div className="flex justify-center lg:justify-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 lg:gap-4 items-center">
+            <div className="flex justify-center lg:justify-end">
               <img
                 src="https://lightwarp3d.com/wp-content/uploads/2026/01/ShellyPose1.png"
                 alt="Shelly Character"
-                className="w-full max-w-[360px] md:max-w-[420px] object-contain"
+                className="w-full max-w-[320px] md:max-w-[380px] lg:max-w-[360px] object-contain"
               />
             </div>
 
-            <div className="text-center lg:text-left text-white">
+            <div className="text-center text-white">
               <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight tracking-[-0.03em] mb-6">
-                We are excited to work with you!
+                <span className="block">We are excited to</span>
+                <span className="block">work with you!</span>
               </h2>
-              <p className="mx-auto max-w-3xl text-base sm:text-lg text-white/90 leading-relaxed mb-10 lg:mx-0">
+              <p className="mx-auto max-w-3xl text-base sm:text-lg text-white/90 leading-relaxed mb-10">
                 Get started with your 3D animated vision today! Click on the Connect button for inquiries, questions, or needs! We will get back to you quickly and help you get started!
               </p>
               <Link

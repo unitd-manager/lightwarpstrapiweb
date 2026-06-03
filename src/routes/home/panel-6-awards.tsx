@@ -1,5 +1,27 @@
 import { motion } from "framer-motion";
 
+const AWARDS_HEADING_STYLE: React.CSSProperties = {
+  fontFamily: '"DM Sans", sans-serif',
+  fontSize: "35px",
+  fontWeight: 500,
+  fontStyle: "normal",
+  textDecoration: "none",
+  lineHeight: "1.3em",
+  letterSpacing: "0px",
+  wordSpacing: "0px",
+};
+
+const AWARDS_HEADING_STYLESS: React.CSSProperties = {
+  fontFamily: '"DM Sans", sans-serif',
+  fontSize: "30px",
+  fontWeight: 500,
+  fontStyle: "normal",
+  textDecoration: "none",
+  lineHeight: "1.3em",
+  letterSpacing: "0px",
+  wordSpacing: "0px",
+};
+
 const awards = [
   {
     image: "https://lightwarp3d.com/wp-content/uploads/2026/01/AUTS_2025_WinnerLaurels13.png",
@@ -24,7 +46,11 @@ const artists = [
 
 export function HomePanelAwards() {
   return (
+<<<<<<< HEAD
     <section className="py-20 px-6 bg-transparent">
+=======
+    <section className="pt-10 pb-24 px-6 bg-black">
+>>>>>>> 9307146749d322ddf7e4afb63c28e1e9ca73697b
       <div className="max-w-7xl mx-auto">
         {/* Awards Section */}
         <motion.div
@@ -32,9 +58,12 @@ export function HomePanelAwards() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-20"
+          className="mb-24"
         >
-          <h3 className="text-3xl md:text-4xl font-bold text-white mb-12">
+          <h3
+            className="text-white mb-16"
+            style={AWARDS_HEADING_STYLE}
+          >
             Awards & Accolades
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
@@ -64,7 +93,10 @@ export function HomePanelAwards() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h3
+            className="text-white mb-8"
+            style={AWARDS_HEADING_STYLESS}
+          >
             Artists with experience from*
           </h3>
        
@@ -87,8 +119,11 @@ export function HomePanelAwards() {
             ))}
           </div>
 
-          <p className="mt-8 text-xs text-white/40 max-w-2xl text-right ml-auto">
-            *Logos shown only to represent prior professional experience of team members and do not imply current affiliation, partnership, or endorsement. All logos and trademarks are the property of their respective owners.
+          <p
+            className="mt-6 text-[10px] leading-[1.4] text-white/50 max-w-[420px] text-right ml-auto"
+            style={{ fontFamily: '"DM Sans", sans-serif' }}
+          >
+            <br/>*Logos shown only to represent prior professional experience of team members and do not imply current affiliation, partnership, or endorsement. All logos and trademarks are the property of their respective owners.
           </p>
         </motion.div>
       </div>

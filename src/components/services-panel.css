@@ -1,0 +1,363 @@
+/* Services Panel Styling - Elementor Integration */
+
+.services-section {
+  padding: 6rem 1.5rem;
+  background-color: #000;
+  font-family: "Sora", sans-serif;
+}
+
+.services-container {
+  max-width: 104rem;
+  margin: 0 auto;
+}
+
+.services-title-wrapper {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.services-title {
+  font-size: clamp(2.5rem, 8vw, 3.75rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+/* Grid Layout - Elementor Grid */
+.services-grid {
+  --display: grid;
+  --e-con-grid-template-columns: repeat(4, 1fr);
+  --e-con-grid-template-rows: repeat(1, 1fr);
+  --gap: 2% 2%;
+  --row-gap: 2%;
+  --column-gap: 2%;
+  --grid-auto-flow: row;
+  --overflow: hidden;
+  --margin-top: 0%;
+  --margin-bottom: 0%;
+  --margin-left: 0%;
+  --margin-right: 0%;
+  --padding-top: 2%;
+  --padding-bottom: 4%;
+  --padding-left: 4%;
+  --padding-right: 4%;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.75rem;
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    --e-con-grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .services-grid {
+    grid-template-columns: repeat(1, 1fr);
+    --e-con-grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* Elementor Container Classes */
+.e-con-boxed.e-grid {
+  grid-auto-flow: row;
+}
+
+.e-con-full {
+  width: 100%;
+}
+
+.e-flex {
+  display: flex;
+}
+
+.e-con {
+  display: flex;
+  --container-max-width: 1660px;
+  --container-default-padding-top: 0px;
+  --container-default-padding-right: 0px;
+  --container-default-padding-bottom: 0px;
+  --container-default-padding-left: 0px;
+}
+
+/* Service Card Wrapper */
+.service-card-wrapper {
+  height: 100%;
+}
+
+/* Service Card - Elementor Element */
+.service-card {
+  --align-self: flex-start;
+  --display: flex;
+  --flex-direction: column;
+  --justify-content: space-between;
+  --align-items: center;
+  --gap: 0px 0px;
+  --border-radius: 49px 49px 49px 49px;
+  --padding-top: 0%;
+  --padding-bottom: 0%;
+  --padding-left: 0%;
+  --padding-right: 0%;
+  --overflow: hidden;
+
+  position: relative;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  height: 16.75rem;
+  overflow: hidden;
+  border-radius: 49px;
+  padding: 2.25rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+  color: inherit;
+  gap: 1rem;
+}
+
+.service-card:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 26px 56px rgba(0, 0, 0, 0.6);
+}
+
+/* Animation Classes - Elementor */
+.animated {
+  animation-duration: 1.25s;
+}
+
+.animated-fast {
+  animation-duration: 0.75s;
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+  animation-fill-mode: both;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Container Styles */
+.service-title-container {
+  --display: flex;
+  --flex-direction: column;
+  --justify-content: flex-start;
+  --gap: 0px 0px;
+  --padding-top: 0%;
+  --padding-bottom: 0%;
+  --padding-left: 0%;
+  --padding-right: 0%;
+
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.service-description-container {
+  --display: flex;
+  --flex-direction: column;
+  --justify-content: flex-start;
+  --align-items: flex-start;
+  --gap: 0px 0px;
+
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+  gap: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.service-learn-container {
+  --display: flex;
+  --flex-direction: row;
+  --justify-content: center;
+  --align-items: center;
+  --gap: 0.75rem;
+
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0;
+  margin-top: auto;
+  width: 100%;
+}
+
+/* Widget Styles */
+.elementor-widget {
+  display: flex;
+  width: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.elementor-widget-heading {
+  width: 100%;
+  padding: 0;
+}
+
+.elementor-widget-text-editor {
+  width: auto;
+  padding: 0;
+}
+
+.service-description-container .elementor-widget-text-editor {
+  width: 100%;
+}
+
+.elementor-widget-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.elementor-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.elementor-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Service Title */
+.service-title {
+  font-size: 30px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 35px;
+  letter-spacing: -1px;
+  max-width: 280px;
+  margin: 0 auto;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-family: "Sora", Sans-serif;
+}
+
+/* Service Description */
+.service-description {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 24px;
+  max-width: 320px;
+  margin: 0 auto;
+  font-weight: 300;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  font-family: "Sora", Sans-serif;
+}
+
+/* Learn More Text */
+.service-learn-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ff8c00;
+  transition: color 0.3s ease;
+  margin: 0;
+}
+
+/* SVG Icon */
+.e-font-icon-svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: #ff8c00;
+  transition: fill 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover Effects */
+.service-card:hover .service-learn-text,
+.service-card:hover .e-font-icon-svg {
+  color: #ffa500;
+  fill: #ffa500;
+}
+
+.service-card:hover .e-font-icon-svg {
+  transform: translateX(0.25rem);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .services-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .services-title-wrapper {
+    margin-bottom: 3rem;
+  }
+
+  .services-grid {
+    --padding-top: 1%;
+    --padding-bottom: 2%;
+    --padding-left: 2%;
+    --padding-right: 2%;
+    padding: 0;
+    gap: 1.25rem;
+    --row-gap: 1.5%;
+    --column-gap: 1.5%;
+  }
+
+  .service-card {
+    min-height: 18rem;
+    border-radius: 2.5rem;
+    --border-radius: 40px 40px 40px 40px;
+    padding: 2rem;
+  }
+
+  .service-title {
+    font-size: 1.5rem;
+  }
+
+  .service-description {
+    font-size: 0.95rem;
+  }
+
+  .service-description-container {
+    padding: 0;
+  }
+
+  .service-learn-container {
+    padding: 0;
+  }
+
+  .elementor-widget-heading {
+    padding: 0;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .service-card,
+  .service-learn-text,
+  .e-font-icon-svg,
+  .animated-fast,
+  .animated,
+  .fadeInUp {
+    transition: none;
+    animation: none;
+  }
+}

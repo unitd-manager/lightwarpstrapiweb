@@ -30,7 +30,11 @@ const services = [
 
 export function HomePanelServices() {
   return (
+<<<<<<< HEAD
     <section className="py-20 px-6 bg-transparent">
+=======
+    <section className="py-24 px-6 bg-black">
+>>>>>>> 9307146749d322ddf7e4afb63c28e1e9ca73697b
       <div className="max-w-7xl mx-auto">
         {/* Title */}
         <motion.div
@@ -38,15 +42,15 @@ export function HomePanelServices() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
+          <h2 className="text-5xl md:text-6xl lg:text-5xl font-bold text-white">
             Our Services
           </h2>
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, i) => (
             <motion.div
               key={service.title}
@@ -57,23 +61,21 @@ export function HomePanelServices() {
             >
               <Link
                 to={service.href}
-                className={`group relative flex flex-col justify-between h-full overflow-hidden rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br ${service.bgColor} min-h-[280px]`}
+                className={`group relative flex flex-col justify-center items-center text-center h-full overflow-hidden rounded-[56px] px-10 py-12 transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br ${service.bgColor} min-h-[380px]`}
               >
-                {/* Card Content */}
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
+                  <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-6 leading-tight max-w-[280px]">
                     {service.title}
                   </h3>
-                  <p className="text-white/90 text-sm leading-relaxed">
+                  <p className="text-white/85 text-base leading-relaxed max-w-[320px] mx-auto">
                     {service.description}
                   </p>
                 </div>
 
-                {/* Learn More Link */}
-                <div className="mt-8 flex items-center gap-2">
-                  <span className="text-white font-medium text-sm">Learn More</span>
+                <div className="mt-8 flex items-center gap-3">
+                  <h6 className="text-orange-400 font-semibold text-base">Learn More</h6>
                   <svg
-                    className="w-5 h-5 text-white transition-transform group-hover:translate-x-2"
+                    className="w-6 h-6 text-orange-400 transition-transform group-hover:translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
