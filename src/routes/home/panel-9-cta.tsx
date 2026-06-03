@@ -3,11 +3,7 @@ import { motion } from "framer-motion";
 
 export function HomePanelCta() {
   return (
-<<<<<<< HEAD
     <section className="py-20 px-6 bg-transparent">
-=======
-    <section className="pt-2 pb-24 px-6 bg-transparent">
->>>>>>> 40ff87457ea96c6bc6a3c53ade732917792d04f3
       <div className="max-w-8xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -21,7 +17,7 @@ export function HomePanelCta() {
               <img
                 src="https://lightwarp3d.com/wp-content/uploads/2026/01/ShellyPose1.png"
                 alt="Shelly Character"
-                className="w-full max-w-[320px] md:max-w-[380px] lg:max-w-[360px] object-contain"
+                className="w-full max-w-[320px] `md:max-w-380px` `lg:max-w-360px` object-contain"
               />
             </div>
 

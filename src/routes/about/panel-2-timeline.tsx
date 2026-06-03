@@ -17,7 +17,7 @@ export function AboutPanelTimeline() {
       subtitle="A studio born on the coast, obsessed with light. We treat every frame like a lighthouse: a focused beam guiding attention through darkness."
     >
       <div className="relative pl-8 md:pl-0">
-        <div className="absolute left-3 top-0 bottom-0 w-px bg-gradient-to-b from-pink via-violet to-blue md:left-1/2 md:-translate-x-1/2" />
+        <div className="absolute left-3 top-0 bottom-0 w-px `bg-gradient-to-b` from-pink via-violet to-blue md:left-1/2 md:-translate-x-1/2" />
         <div className="space-y-12">
           {timeline.map((t, i) => (
             <motion.div
