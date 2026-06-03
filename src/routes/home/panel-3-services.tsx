@@ -30,11 +30,7 @@ const services = [
 
 export function HomePanelServices() {
   return (
-<<<<<<< HEAD
-    <section className="py-20 px-6 bg-transparent">
-=======
     <section className="py-24 px-6 bg-black">
->>>>>>> 40ff87457ea96c6bc6a3c53ade732917792d04f3
       <div className="max-w-7xl mx-auto">
         {/* Title */}
         <motion.div

@@ -14,7 +14,7 @@ const subjects = [
 
 function GoogleGIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style={{ flexShrink: 0 }}>
       <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
       <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
       <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" />
@@ -22,6 +22,7 @@ function GoogleGIcon() {
     </svg>
   );
 }
+
 
 export function ContactPanelForm() {
   const [sent, setSent] = useState(false);
@@ -66,9 +67,9 @@ export function ContactPanelForm() {
         {/*
          * "Get in touch" heading + description — elementor-element-6b2b9b08
          *   image-box widget: text-align start, title margin-bottom 15px
-         *   Padding-left: 5% (applied on 17e3b8ff row in original; here applied on heading block)
+         *   NO padding-left — heading starts at left column edge (original CSS has no indent here)
          */}
-        <div style={{ paddingLeft: '5%' }}>
+        <div>
           {/*
            * "Get in touch" heading — primary typography:
            *   Sora, 45px, 600, 60px, -1px
@@ -216,12 +217,18 @@ export function ContactPanelForm() {
          *   accent typography: Sora, 16px, normal/400, 20px line-height
          *   padding-block: 12px; padding-inline: 40px (from accent button defaults)
          */}
-        <div style={{ paddingLeft: '5%', marginTop: '5px' }}>
+        <div style={{ marginTop: '5px', alignSelf: 'center' }}>
+          {/*
+           * Schedule a Meeting button — elementor-element-f7da458
+           *   bg: #F64418 (c1efd99); color: #FFFFFF; border-radius: 10px;
+           *   hover color: #000000 (secondary); NO icon — plain text only
+           *   accent typography: Sora, 16px, 400, 20px line-height
+           */}
           <a
             href="https://calendar.app.google/zYHnxEYxui76S9tR6"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 text-white transition-opacity hover:opacity-90"
+            className="inline-flex items-center gap-2 text-white hover:text-black transition-colors"
             style={{
               fontFamily: '"Sora", sans-serif',
               fontSize: '16px',
@@ -229,10 +236,10 @@ export function ContactPanelForm() {
               lineHeight: '20px',
               backgroundColor: '#F64418',
               borderRadius: '10px',
-              paddingTop: '12px',
-              paddingBottom: '12px',
-              paddingLeft: '40px',
-              paddingRight: '40px',
+              paddingTop: '20px',
+              paddingBottom: '20px',
+              paddingLeft: '44px',
+              paddingRight: '44px',
             }}
           >
             <GoogleGIcon />
@@ -396,28 +403,36 @@ export function ContactPanelForm() {
            *   padding-block: 12px; padding-inline: 40px
            *   accent typography: Sora, 16px, 400, 20px
            */}
-          <div>
-            <button
-              type="submit"
-              disabled={sent}
-              className="inline-flex items-center justify-center transition-colors hover:bg-white hover:text-black disabled:opacity-60"
-              style={{
-                fontFamily: '"Sora", sans-serif',
-                fontSize: '16px',
-                fontWeight: 400,
-                lineHeight: '20px',
-                color: '#FCFCFC',
-                backgroundColor: '#000000',
-                borderRadius: '4px',
-                paddingTop: '12px',
-                paddingBottom: '12px',
-                paddingLeft: '40px',
-                paddingRight: '40px',
-              }}
-            >
-              {sent ? "Sent ✓" : "Send"}
-            </button>
-          </div>
+          {/*
+           * Send button — elementor-element-58dc0fdf form button
+           *   bg: #000000 (78ad7a8); text: #FCFCFC;
+           *   border: 2px solid #FFFFFF
+           *   hover bg: #FFFFFF; hover text: #000000
+           *   padding-block: 12px; padding-inline: 40px
+           *   accent typography: Sora, 16px, 400, 20px
+           *   width: full (spans full form content width)
+           */}
+          <button
+            type="submit"
+            disabled={sent}
+            className="inline-flex items-center justify-center contact-send-btn transition-colors hover:bg-white hover:text-black disabled:opacity-60"
+            style={{
+              fontFamily: '"Sora", sans-serif',
+              fontSize: '16px',
+              fontWeight: 400,
+              lineHeight: '20px',
+              color: '#FCFCFC',
+              backgroundColor: '#000000',
+              borderRadius: '4px',
+              paddingTop: '12px',
+              paddingBottom: '12px',
+              paddingLeft: '60px',
+              paddingRight: '60px',
+              alignSelf: 'flex-start',
+            }}
+          >
+            {sent ? "Sent ✓" : "Send"}
+          </button>
         </form>
       </motion.div>
 

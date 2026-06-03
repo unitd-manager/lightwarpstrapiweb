@@ -4,8 +4,8 @@ import { useState } from "react";
 const services = [
   {
     title: "3D Commercials & Cinematics",
-    bg: "bg-[#3f34f5]",
-    hex: "#3f34f5",
+    bg: "bg-[#341FBE]",
+    hex: "#341FBE",
     description: (
       <>
         Want to capture attention and spark engagement with <strong>high-quality animated commercial campaigns</strong> that tell your story with style? Our team can help you do that!
@@ -25,8 +25,8 @@ const services = [
   },
   {
     title: "3D Asset Services",
-    bg: "bg-[#bb2e7a]",
-    hex: "#bb2e7a",
+    bg: "bg-[#AC1F72]",
+    hex: "#AC1F72",
     description: (
       <>
         Need <strong>stunning, optimized 3D assets</strong> for your game, film, or virtual production? We can craft <strong>environments, props, and in-world assets</strong> with precision and creativity—balancing artistry with technical performance.
@@ -46,8 +46,8 @@ const services = [
   },
   {
     title: "Original IP & Content",
-    bg: "bg-[#1f9ab4]",
-    hex: "#1f9ab4",
+    bg: "bg-[#168399]",
+    hex: "#168399",
     description: (
       <>
         Looking for <strong>original characters, rich backstories, or IP development?</strong> We design <strong>iconic characters and immersive storylines</strong> tailored to your brand, campaign, or transmedia universe—ready to evolve into animations, games, comics, or merchandise.
@@ -67,8 +67,8 @@ const services = [
   },
   {
     title: "Creative & Technical Consulting",
-    bg: "bg-[#5b1af6]",
-    hex: "#5b1af6",
+    bg: "bg-[#4C11A7]",
+    hex: "#4C11A7",
     description: (
       <>
         Need help <strong>navigating real-time production?</strong> We offer <strong>expert consulting in real-time rendering workflows, pipeline development, and creative problem-solving</strong>. With real-world experience delivering projects across animation, games, and virtual production, we understand what it takes to move ideas from concept to execution efficiently and at scale.
@@ -97,16 +97,21 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className={`${service.bg} rounded-[2rem] p-6 sm:p-8 md:p-10 text-white shadow-[0_40px_80px_rgba(0,0,0,0.25)] flex flex-col`}
+      className={`${service.bg} text-white shadow-[0_40px_80px_rgba(0,0,0,0.25)] flex flex-col`}
+      style={{ borderRadius: "49px", padding: "5%", alignItems: "center", textAlign: "center" }}
     >
-      <h3 className="text-2xl font-semibold mb-6">{service.title}</h3>
+      <h3
+        className="text-2xl font-semibold mb-6"
+        style={{ fontFamily: '"DM Sans", sans-serif', fontWeight: 600 }}
+      >{service.title}</h3>
 
       {/* Description with clamp */}
-      <div className="relative">
+      <div className="relative" style={{ width: "100%" }}>
         <div
-          className={`text-base leading-7 text-white/90 overflow-hidden transition-all duration-500 ease-in-out ${
+          className={`overflow-hidden transition-all duration-500 ease-in-out ${
             expanded ? "max-h-[600px]" : "max-h-[7.5rem]"
           }`}
+          style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "rgba(255,255,255,0.90)" }}
         >
           {service.description}
         </div>
@@ -122,11 +127,12 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
 
       <button
         onClick={() => setExpanded((v) => !v)}
-        className="mt-3 self-start text-[11px] font-bold tracking-[0.2em] uppercase text-white/50 hover:text-white/90 transition-colors duration-200 flex items-center gap-1.5"
+        className="mt-3 text-white/50 hover:text-white/90 transition-colors duration-200 flex items-center gap-1.5"
+        style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 500 }}
       >
         {expanded ? "Show less" : "Read more"}
         <svg
-          className={`w-3 h-3 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
+          className={`w-4 h-4 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -138,10 +144,10 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
 
       {/* Sub-items — always visible, pinned to bottom */}
       {service.subItems && service.subItems.length > 0 && (
-        <div className="mt-auto pt-8">
+        <div className="mt-auto pt-8" style={{ width: "100%" }}>
           <div className="flex items-center gap-3 mb-5">
             <div className="h-px flex-1 bg-gradient-to-r from-white/40 to-transparent" />
-            <span className="text-[9px] font-black tracking-[0.35em] uppercase text-white/40">What We Offer</span>
+            <span style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 500 }} className="text-white/40 uppercase tracking-[0.2em]">What We Offer</span>
             <div className="h-px flex-1 bg-gradient-to-l from-white/40 to-transparent" />
           </div>
           <div className="grid grid-cols-2 gap-2">
@@ -169,13 +175,26 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
 
 export function ServicesPanelServices() {
   return (
-    <section className="bg-transparent px-6 py-24">
+    <section className="bg-transparent px-6 pt-24 pb-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-semibold text-white">Lightwarp has you covered</h2>
+          <h2
+            className="services-cards-heading"
+            style={{
+              fontFamily: '"Sora", sans-serif',
+              fontSize: "52px",
+              fontWeight: 600,
+              lineHeight: "62px",
+              letterSpacing: "-1px",
+              color: "#FFFFFF",
+              textAlign: "center",
+            }}
+          >
+            Lightwarp has you covered
+          </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid md:grid-cols-2" style={{ gap: "2vw" }}>
           {services.map((service) => (
             <ServiceCard key={service.title} service={service} />
           ))}
