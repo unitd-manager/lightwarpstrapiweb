@@ -1,52 +1,31 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import video1 from "../../assets/images/video1.mp4";
+import image01 from "../../assets/images/image01.png";
 
 const videoCards = [
-  {
-   
-    video: video1,
-  },
-  {
-  
-    video: video1,
-  },
-  {
-    
-    video: video1,
-  },
-  {
-  
-    video: video1,
-  },
-  {
-   
-    video: video1,
-  },
-  {
-    
-    video: video1,
-  },
+  { title: "", subtitle: "", video: video1 },
+  { title: "", subtitle: "", video: video1 },
+  { title: "", subtitle: "", video: video1 },
+  { title: "", subtitle: "", video: video1 },
+  { title: "", subtitle: "", video: video1 },
+  { title: "", subtitle: "", video: video1 },
 ];
 
-export default function Stuffed() {
+export default function StrayVistaStudios() {
   return (
     <PageShell>
-      <section className="relative min-h-[75vh] overflow-hidden bg-[#05050d] text-white">
-        <div className="absolute inset-0 overflow-hidden">
-          <video
-            src={video1}
-            className="absolute top-1/2 left-1/2 h-[160%] w-[160%] -translate-x-1/2 -translate-y-1/2 object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
+      <section className="bg-[#05050d] text-white">
+        <div className="relative left-1/2 right-1/2 mx-[-50vw] w-screen overflow-hidden mb-10">
+          <img
+            src={image01}
+            alt="Stray Vista Studios"
+            className="w-full h-auto object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#05050d] via-black/70 to-transparent" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:py-28">
-          <div className="grid gap-12 lg:grid-cols-[1fr_minmax(440px,0.9fr)] items-center">
+        <div className="mx-auto max-w-7xl px-6 py-12 lg:py-20">
+          <div className="grid gap-12 lg:grid-cols-[1.4fr_minmax(440px,0.9fr)] items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -55,7 +34,6 @@ export default function Stuffed() {
               className="space-y-8"
             >
               <div className="space-y-6 max-w-3xl">
-                
                 <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-tight tracking-[-0.03em]">
                   Stray Vista Studios
                 </h1>
@@ -73,7 +51,6 @@ I had participated in 4 major projects in my time at Stray Vista:
 3) A commercial for KANE shoes, where I served as a VP operator on-set
 4) A campaign commerical for the Film Texas Initiative starring Matthew McConaughey, Woody Harrelson, Dennis Quaid, Billy Bob Thornton, and Renée Zellweger to promote in-state productions and incentives, where I served as a set production assistant and studio representative to help setup, run, and takedown the whole production.
                 </p>
-               
                 <div className="flex flex-wrap gap-4">
                   <a
                     href={video1}
@@ -113,39 +90,35 @@ I had participated in 4 major projects in my time at Stray Vista:
             </motion.div>
           </div>
         </div>
-      </section>
 
-      <section className="bg-black py-16 px-6">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-8 md:grid-cols-2">
-            {videoCards.map((card) => (
-              <motion.article
-                key={card.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
-              >
-                <div className="relative overflow-hidden">
-                  <video
-                    src={card.video}
-                    className="w-full aspect-[16/9] object-cover"
-                    muted
-                    loop
-                    playsInline
-                    autoPlay
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <p className="text-xs uppercase tracking-[0.3em] text-white/60">{card.subtitle}</p>
-                    <h3 className="mt-2 text-2xl font-semibold text-white">{card.title}</h3>
+        <section className="bg-black py-16 px-6">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-8 md:grid-cols-2">
+              {videoCards.map((card, index) => (
+                <motion.article
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
+                >
+                  <div className="relative overflow-hidden">
+                    <video
+                      src={card.video}
+                      className="w-full aspect-[16/9] object-cover"
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   </div>
-                </div>
-              </motion.article>
-            ))}
+                </motion.article>
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
       </section>
     </PageShell>
   );

@@ -1,5 +1,6 @@
 import { ProjectDetailLayout } from "./project-detail-layout";
 import video18 from "../../assets/images/video18.mp4";
+import image03 from "../../assets/images/image03.png";
 
 export default function ShellYouBeMine() {
   return (
@@ -14,6 +15,7 @@ export default function ShellYouBeMine() {
       videoSrc={video18}
       watchHref="https://www.youtube.com/watch?v=yinRrmEpfr4"
       watchLabel="Watch Full Film"
+      backgroundImage={image03}
     />
   );
 }

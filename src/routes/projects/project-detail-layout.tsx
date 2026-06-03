@@ -15,6 +15,7 @@ type ProjectDetailLayoutProps = {
   watchHref: string;
   watchLabel: string;
   backgroundImage?: string;
+  relatedProjects?: VideoCard[];
 };
 
 const extraProjects: VideoCard[] = [
@@ -63,9 +64,10 @@ export function ProjectDetailLayout({
   watchHref,
   watchLabel,
   backgroundImage,
+  relatedProjects: relatedProjectsProp,
 }: ProjectDetailLayoutProps) {
   const relatedProjects: VideoCard[] =
-    title === "Shell You Be Mine?"
+    relatedProjectsProp || (title === "Shell You Be Mine?"
       ? [
           { title: "", subtitle: "", video: "/src/assets/images/video18.mp4" },
           { title: "", subtitle: "", video: "/src/assets/images/video19.mp4" },
@@ -83,8 +85,117 @@ export function ProjectDetailLayout({
           { title: "", subtitle: "", video: "/src/assets/images/video25.mp4" },
           { title: "", subtitle: "", video: "/src/assets/images/video25.mp4" },
         ]
-      : extraProjects;
+      : title === "Stuffed"
+      ? [
+          { title: "", subtitle: "", video: "/src/assets/images/video26.mp4" },
+          { title: "", subtitle: "", video: "/src/assets/images/video26.mp4" },
+          { title: "", subtitle: "", video: "/src/assets/images/video26.mp4" },
+          { title: "", subtitle: "", video: "/src/assets/images/video26.mp4" },
+          { title: "", subtitle: "", video: "/src/assets/images/video26.mp4" },
+          { title: "", subtitle: "", video: "/src/assets/images/video26.mp4" },
+        ]
+      : extraProjects);
   const isRightAligned = title === "Shell You Be Mine?";
+  const isLushGarden = title === "Lush Victorian Garden";
+  const isShellYouBeMine = title === "Shell You Be Mine?";
+  const isStuffed = title === "Stuffed";
+
+  if (isLushGarden || isShellYouBeMine || isStuffed) {
+    return (
+      <PageShell>
+        <section className="bg-black text-white">
+          <div className="w-full overflow-hidden">
+            <img
+              src={backgroundImage}
+              alt={title}
+              className="w-full h-[45vh] max-w-none object-cover"
+            />
+          </div>
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+            <div className="grid gap-12 lg:grid-cols-[1.3fr_0.9fr] items-start">
+              <div className="space-y-8">
+                <div className="space-y-6 max-w-2xl">
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
+                  <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-tight tracking-[-0.03em]">
+                    {title}
+                  </h1>
+                </div>
+
+                <div className="space-y-6 text-lg leading-8 text-white/75 max-w-2xl">
+                  {overview.map((paragraph, idx) => (
+                    <p key={idx}>{paragraph}</p>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-4">
+                  <a
+                    href={watchHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+                  >
+                    {watchLabel}
+                  </a>
+                  <a
+                    href="/projects"
+                    className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+                  >
+                    All Projects
+                  </a>
+                </div>
+              </div>
+
+              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
+                <video
+                  src={videoSrc}
+                  className="w-full aspect-[16/9] object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-black py-16 px-6">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-8 md:grid-cols-2">
+              {relatedProjects.map((card) => (
+                <motion.article
+                  key={card.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
+                >
+                  <div className="relative overflow-hidden">
+                    <video
+                      src={card.video}
+                      className="w-full aspect-[16/9] object-cover"
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <p className="text-xs uppercase tracking-[0.3em] text-white/60">{card.subtitle}</p>
+                      <h3 className="mt-2 text-2xl font-semibold text-white">{card.title}</h3>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+      </PageShell>
+    );
+  }
 
   return (
     <PageShell>
