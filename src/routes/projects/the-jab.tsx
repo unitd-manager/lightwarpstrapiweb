@@ -31,7 +31,7 @@ export default function TheJab() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="space-y-8"
+              className="space-y-8 text-left"
             >
               <div className="space-y-6 max-w-3xl">
                 <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-tight tracking-[-0.03em]">
@@ -42,14 +42,14 @@ export default function TheJab() {
                 </p>
               </div>
 
-              <div className="space-y-6 max-w-2xl">
-                <p className="text-lg leading-8 text-white/75">
+              <div className="space-y-6 max-w-2xl text-left" style={{ textAlign: "left" }}>
+                <p className="text-lg leading-8 text-white/75" style={{ textAlign: "left" }}>
                   The Jab was a group short film project and my final student short at Texas A&M before I finished my masters degree. I had rolled on to the project late as a lighting/compositing artist and with the very little time of 1 month before delivery and still majorly contributed in delivering the short and fixing many data issues and hitches that would have stalled the film from being completed on the final layout and material assembly.
                 </p>
-                <p className="text-lg leading-8 text-white/75">
+                <p className="text-lg leading-8 text-white/75" style={{ textAlign: "left" }}>
                   The lighting design of The Jab was truly a new challenge for me, as due there being no visdev/concept art, little primary references and a singular matte painting for the whole scene, light setup was primarily designed based on what would seamlessly work with that background element as personally consulting to that team of wanted to push for a punchy, graphic, saturated look with sun dawn tones of reds, magentas and cool purple for the film to bring visual appeal.
                 </p>
-                <p className="text-lg leading-8 text-white/75">
+                <p className="text-lg leading-8 text-white/75" style={{ textAlign: "left" }}>
                   The major creative challenge I decided to take for this project was to created animated dramatic lights that would accentuate the theatrical performance of the chameleon, primary being the blue stage light that appears at the climax of the short. This was accomplished by fully rendering all lights on in RenderMan and through light group splits, animate the lights in Nuke for flickers, eye spec light, and dramatic ramps.
                 </p>
                 <div className="flex flex-wrap gap-4">
