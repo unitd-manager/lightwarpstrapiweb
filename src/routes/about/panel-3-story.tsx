@@ -24,7 +24,7 @@ export function AboutPanelStory() {
         </div>*/}
 
 
-<div className="w-full lg:w-[42%] flex items-center justify-center py-20">
+<div className="w-full lg:w-[45.5%] flex items-center justify-center py-20">
   <img
     src={crabStill}
     alt="3D Studio Crab Still"
@@ -35,12 +35,12 @@ export function AboutPanelStory() {
 
 
         {/* Right: story text — exact live-site typography */}
-        <div className="w-full lg:w-[58%] p-[5%] flex flex-col justify-center pt-16">
+        <div className="w-full lg:w-[54.5%] p-[5%] flex flex-col justify-center pt-16">
           <h4 className="font-['Sora'] text-[20px] sm:text-[33px] lg:text-[45px] pb-[30px] text-white font-semibold leading-tight `lg:leading-60px` tracking-[-1px] `mb-30px`">
             Our Story
           </h4>
 
-          <p className="text-[14px] md:text-[15px] lg:text-[15px] font-bold text-white font-light `leading-24px` text-justify">
+          <p className="text-[14px] md:text-[4px] lg:text-[15px] word-spacing:[2px] font-medium text-white font-light leading-[25px] text-justify">
             Started by an alum of Texas A&amp;M University, Lightwarp 3D Studio was built on a
             vision of using real-time rendering with tools like Unreal Engine and Blender to
             create high-quality 3D stories and visuals at blazing fast speed. With our
