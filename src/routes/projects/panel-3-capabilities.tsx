@@ -3,7 +3,7 @@ import { VideoPlayer } from "../../components/video-player";
 
 export function ProjectsPanelCapabilities() {
   return (
-    <section className="relative overflow-hidden bg-[#04050f] text-white">
+    <section className="relative overflow-hidden bg-transparent text-white">
       <div className="absolute inset-0 overflow-hidden">
         <iframe
           src="https://player.vimeo.com/video/1153379831?autoplay=1&loop=1&muted=1&background=1"

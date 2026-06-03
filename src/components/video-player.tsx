@@ -13,8 +13,8 @@ function getVimeoId(src: string): string | null {
 
 function autoplayUrl(src: string): string {
   const base = src.split("?")[0];
-  if (src.includes("youtube.com")) return `${base}?autoplay=1&rel=0&modestbranding=1&showinfo=0`;
-  if (src.includes("vimeo.com")) return `${base}?autoplay=1`;
+  if (src.includes("youtube.com")) return `${base}?autoplay=1&mute=1&rel=0&modestbranding=1&showinfo=0&playsinline=1`;
+  if (src.includes("vimeo.com")) return `${base}?autoplay=1&muted=1&playsinline=1`;
   return src;
 }
 
@@ -37,7 +37,7 @@ export function VideoPlayer({ src, title }: { src: string; title: string }) {
         title={title}
         className="h-full w-full"
         frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       />
     );

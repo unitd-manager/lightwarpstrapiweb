@@ -68,20 +68,16 @@ export function ContactPanelForm() {
             <div className="flex flex-col md:flex-row gap-[20px]">
               {/* New Business */}
               <div
-                className="flex-1 flex flex-col items-center text-center rounded-[25px] border-2 border-white"
-                style={{ padding: '5%' }}
+                className="flex-1 flex flex-col items-center text-center rounded-[25px] border-2 border-white p-4 sm:p-6"
               >
                 <img
                   src={locationIcon}
                   alt=""
                   aria-hidden="true"
-                  className="h-14 w-14 object-contain mb-4"
+                  className="h-10 w-10 sm:h-14 sm:w-14 object-contain mb-4"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                 />
-                <p
-                  className="text-white font-normal leading-[30px]"
-                  style={{ fontSize: '25px' }}
-                >
+                <p className="text-white font-normal leading-[30px] text-lg sm:text-[25px]">
                   New Business
                 </p>
                 <p
@@ -94,20 +90,16 @@ export function ContactPanelForm() {
 
               {/* Information */}
               <div
-                className="flex-1 flex flex-col items-center text-center rounded-[25px] border-2 border-white"
-                style={{ padding: '5%' }}
+                className="flex-1 flex flex-col items-center text-center rounded-[25px] border-2 border-white p-4 sm:p-6"
               >
                 <img
                   src={contactIcon}
                   alt=""
                   aria-hidden="true"
-                  className="h-14 w-14 object-contain mb-4"
+                  className="h-10 w-10 sm:h-14 sm:w-14 object-contain mb-4"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                 />
-                <p
-                  className="text-white font-normal leading-[30px]"
-                  style={{ fontSize: '25px' }}
-                >
+                <p className="text-white font-normal leading-[30px] text-lg sm:text-[25px]">
                   Information
                 </p>
                 <p
@@ -201,7 +193,7 @@ export function ContactPanelForm() {
             <button
               type="submit"
               disabled={sent}
-              className="w-[33%] rounded-lg bg-black hover:bg-black/80 transition-colors disabled:opacity-60"
+              className="w-full sm:w-auto rounded-lg bg-black hover:bg-black/80 transition-colors disabled:opacity-60"
               style={{ fontSize: '16px', color: '#FCFCFC', paddingBlock: '12px', paddingInline: '40px' }}
             >
               {sent ? "Sent ✓" : "Send"}

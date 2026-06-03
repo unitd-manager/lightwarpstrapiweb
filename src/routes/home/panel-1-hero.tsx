@@ -57,7 +57,7 @@ export function HomePanelHero() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="max-w-3xl"
         >
-          <p className="text-2xl sm:text-3xl md:text-4xl font-light text-white/95 leading-relaxed">
+          <p className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-light text-white/95 leading-relaxed">
             A New Age Creative 3D Studio. Powered by Real-Time 3D Technology
           </p>
         </motion.div>
@@ -71,7 +71,7 @@ export function HomePanelHero() {
         >
           <Link
             to="/projects#latest"
-            className="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/30 text-white px-10 py-4 rounded-full backdrop-blur-md transition-all duration-300 font-medium text-lg"
+            className="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/30 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full backdrop-blur-md transition-all duration-300 font-medium text-base sm:text-lg"
           >
             Our Recent Work
           </Link>

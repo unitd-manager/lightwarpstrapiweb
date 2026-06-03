@@ -218,3 +218,63 @@
   background: linear-gradient(180deg, var(--pink), var(--blue));
   border-radius: 10px;
 }
+
+/* ── About page — pixel-perfect match to original Elementor CSS ── */
+
+/* Tablet: max-width 1024px */
+@media (max-width: 1024px) {
+  .founder-box {
+    width: 40vw !important;
+    max-width: 40vw !important;
+  }
+  .founder-name {
+    font-size: 35px !important;
+    line-height: 1.2em !important;
+  }
+  .founder-role {
+    font-size: 21px !important;
+    line-height: 1.2em !important;
+  }
+  .associate-name {
+    font-size: 35px !important;
+    line-height: 1.2em !important;
+  }
+  .associate-role {
+    font-size: 21px !important;
+    line-height: 1.2em !important;
+  }
+  .associate-row {
+    padding-left: 0 !important;
+    padding-right: 4% !important;
+  }
+}
+
+/* Mobile: max-width 767px */
+@media (max-width: 767px) {
+  .founder-box {
+    width: 40vw !important;
+    max-width: 40vw !important;
+  }
+  .founder-name {
+    font-size: 5vw !important;
+    line-height: 1.2em !important;
+  }
+  .founder-role {
+    font-size: 4vw !important;
+    line-height: 1.2em !important;
+  }
+  .associate-row {
+    justify-content: space-between !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-bottom: 15% !important;
+  }
+  .associate-name {
+    font-size: 5vw !important;
+    line-height: 1.2em !important;
+  }
+  .associate-role {
+    font-size: 4vw !important;
+    line-height: 1.2em !important;
+  }
+}

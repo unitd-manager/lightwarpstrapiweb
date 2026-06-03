@@ -13,7 +13,7 @@ function TikTokIcon({ size = 20 }: { size?: number }) {
 
 export function Footer() {
   return (
-    <footer className="w-full bg-black border-t border-white/10" style={SORA}>
+    <footer className="w-full bg-black/50 backdrop-blur-xl border-t border-white/10" style={SORA}>
 
       {/* Main grid — 4 cols desktop / 2 cols tablet / 1 col mobile */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-[60px] gap-x-[40px] p-[32px] md:p-[60px] lg:p-[100px]">

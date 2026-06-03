@@ -24,7 +24,7 @@ const artists = [
 
 export function HomePanelAwards() {
   return (
-    <section className="py-20 px-6 bg-black">
+    <section className="py-20 px-6 bg-transparent">
       <div className="max-w-7xl mx-auto">
         {/* Awards Section */}
         <motion.div

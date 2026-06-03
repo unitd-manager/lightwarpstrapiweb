@@ -31,44 +31,14 @@ import video28 from "../../assets/images/video28.mp4";
 import video29 from "../../assets/images/video29.mp4";
 
 const videos = [
-  video25,
-  video2,
-  video9,
-  video17,
-  video4,
-  video28,
-  video11,
-  video1,
-  video22,
-  video6,
-  video14,
-  video29,
-  video3,
-  video19,
-  video8,
-  video24,
-  video12,
-  video27,
-  video5,
-  video16,
-  video21,
-  video10,
-  video26,
-  video7,
-  video15,
-  video23,
-  video13,
-  video18,
-  video20,
+  video25, video2,  video9,  video17, video4,  video28,
+  video11, video1,  video22, video6,  video14, video29,
+  video3,  video19, video8,  video24, video12, video27,
+  video5,  video16, video21, video10, video26, video7,
+  video15, video23, video13, video18, video20,
 ];
 
-const VideoCard = ({
-  src,
-  height,
-}: {
-  src: string;
-  height: string;
-}) => (
+const VideoCard = ({ src, height }: { src: string; height: string }) => (
   <div className="group overflow-hidden rounded-3xl bg-black shadow-2xl">
     <video
       autoPlay
@@ -85,86 +55,86 @@ const VideoCard = ({
 
 export default function PortfolioGallery() {
   return (
-    <div className="space-y-6 bg-[#040816] p-6">
+    <div className="space-y-6 bg-transparent p-4 sm:p-6">
 
-      {/* Row 1 */}
+      {/* Row 1 — 2 col */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <VideoCard src={videos[0]} height="h-80" />
-        <VideoCard src={videos[1]} height="h-80" />
+        <VideoCard src={videos[0]} height="h-52 md:h-80" />
+        <VideoCard src={videos[1]} height="h-52 md:h-80" />
       </div>
 
-      {/* Row 2 */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <VideoCard src={videos[2]} height="h-64" />
-        <VideoCard src={videos[3]} height="h-64" />
-        <VideoCard src={videos[4]} height="h-64" />
+      {/* Row 2 — 3 col */}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <VideoCard src={videos[2]} height="h-44 md:h-64" />
+        <VideoCard src={videos[3]} height="h-44 md:h-64" />
+        <VideoCard src={videos[4]} height="h-44 md:h-64" />
       </div>
 
-      {/* Row 3 */}
-      <VideoCard src={videos[5]} height="h-[500px]" />
+      {/* Row 3 — full width */}
+      <VideoCard src={videos[5]} height="h-56 md:h-[500px]" />
 
-      {/* Row 4 */}
+      {/* Row 4 — 2 col */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <VideoCard src={videos[6]} height="h-72" />
-        <VideoCard src={videos[7]} height="h-72" />
+        <VideoCard src={videos[6]} height="h-48 md:h-72" />
+        <VideoCard src={videos[7]} height="h-48 md:h-72" />
       </div>
 
-      {/* Row 5 */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <VideoCard src={videos[8]} height="h-72" />
-        <VideoCard src={videos[9]} height="h-72" />
-        <VideoCard src={videos[10]} height="h-72" />
+      {/* Row 5 — 3 col */}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <VideoCard src={videos[8]}  height="h-48 md:h-72" />
+        <VideoCard src={videos[9]}  height="h-48 md:h-72" />
+        <VideoCard src={videos[10]} height="h-48 md:h-72" />
       </div>
 
-      {/* Row 6 */}
-      <VideoCard src={videos[11]} height="h-[450px]" />
+      {/* Row 6 — full width */}
+      <VideoCard src={videos[11]} height="h-52 md:h-[450px]" />
 
-      {/* Row 7 */}
+      {/* Row 7 — 2 col */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <VideoCard src={videos[12]} height="h-80" />
-        <VideoCard src={videos[13]} height="h-80" />
+        <VideoCard src={videos[12]} height="h-52 md:h-80" />
+        <VideoCard src={videos[13]} height="h-52 md:h-80" />
       </div>
 
-      {/* Row 8 */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <VideoCard src={videos[14]} height="h-64" />
-        <VideoCard src={videos[15]} height="h-64" />
-        <VideoCard src={videos[16]} height="h-64" />
+      {/* Row 8 — 3 col */}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <VideoCard src={videos[14]} height="h-44 md:h-64" />
+        <VideoCard src={videos[15]} height="h-44 md:h-64" />
+        <VideoCard src={videos[16]} height="h-44 md:h-64" />
       </div>
 
-      {/* Row 9 */}
-      <VideoCard src={videos[17]} height="h-[550px]" />
+      {/* Row 9 — full width */}
+      <VideoCard src={videos[17]} height="h-60 md:h-[550px]" />
 
-      {/* Row 10 */}
+      {/* Row 10 — 2 col */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <VideoCard src={videos[18]} height="h-72" />
-        <VideoCard src={videos[19]} height="h-72" />
+        <VideoCard src={videos[18]} height="h-48 md:h-72" />
+        <VideoCard src={videos[19]} height="h-48 md:h-72" />
       </div>
 
-      {/* Row 11 */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <VideoCard src={videos[20]} height="h-64" />
-        <VideoCard src={videos[21]} height="h-64" />
-        <VideoCard src={videos[22]} height="h-64" />
+      {/* Row 11 — 3 col */}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <VideoCard src={videos[20]} height="h-44 md:h-64" />
+        <VideoCard src={videos[21]} height="h-44 md:h-64" />
+        <VideoCard src={videos[22]} height="h-44 md:h-64" />
       </div>
 
-      {/* Row 12 */}
-      <VideoCard src={videos[23]} height="h-[500px]" />
+      {/* Row 12 — full width */}
+      <VideoCard src={videos[23]} height="h-56 md:h-[500px]" />
 
-      {/* Row 13 */}
+      {/* Row 13 — 2 col */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <VideoCard src={videos[24]} height="h-72" />
-        <VideoCard src={videos[25]} height="h-72" />
+        <VideoCard src={videos[24]} height="h-48 md:h-72" />
+        <VideoCard src={videos[25]} height="h-48 md:h-72" />
       </div>
 
-      {/* Row 14 */}
+      {/* Row 14 — 2 col */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <VideoCard src={videos[26]} height="h-72" />
-        <VideoCard src={videos[27]} height="h-72" />
+        <VideoCard src={videos[26]} height="h-48 md:h-72" />
+        <VideoCard src={videos[27]} height="h-48 md:h-72" />
       </div>
 
-      {/* Row 15 */}
-      <VideoCard src={videos[28]} height="h-[550px]" />
+      {/* Row 15 — full width */}
+      <VideoCard src={videos[28]} height="h-60 md:h-[550px]" />
     </div>
   );
 }

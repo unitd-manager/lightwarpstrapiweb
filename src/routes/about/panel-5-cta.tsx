@@ -1,70 +1,124 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const SORA: React.CSSProperties = { fontFamily: '"Sora", sans-serif' };
-
 const keepInTouch1 = "https://lightwarp3d.com/wp-content/uploads/2026/01/KeepinTouch1.svg";
 const keepInTouch2 = "https://lightwarp3d.com/wp-content/uploads/2026/01/KeepInTouch2.svg";
 
 export function AboutPanelCta() {
   return (
+    /*
+     * Original Elementor: 1b6335b9
+     *   flex-direction: row, min-height 533px, background #D5462F
+     *   padding 0% top/bottom, 4% left/right
+     *   margin-top: 5%
+     */
     <section
-      className="w-full bg-[#D5462F]"
-      style={{ ...SORA, minHeight: '533px' }}
+      className="w-full relative overflow-hidden"
+      style={{
+        fontFamily: '"Sora", sans-serif',
+        backgroundColor: '#D5462F',
+        minHeight: '533px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '0 4%',
+        marginTop: '5%',
+      }}
     >
+      {/* Left illustration — absolute, offset left like original */}
+      <motion.img
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        src={keepInTouch1}
+        alt=""
+        aria-hidden="true"
+        className="hidden sm:block absolute bottom-0 w-auto pointer-events-none select-none"
+        style={{ left: '-50px', height: '280px' }}
+      />
+
+      {/*
+       * Center content: b312f45
+       *   flex column, gap 40px, padding 25% left/right
+       *   min-height 525px
+       */}
       <div
-        className="relative mx-auto max-w-7xl flex items-center justify-center px-[4%]"
-        style={{ minHeight: '533px' }}
+        className="relative z-10 text-center flex flex-col items-center"
+        style={{
+          paddingLeft: '25%',
+          paddingRight: '25%',
+          gap: '40px',
+          minHeight: '525px',
+          justifyContent: 'center',
+        }}
       >
-        {/* Left illustration */}
-        <motion.img
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          src={keepInTouch1}
-          alt=""
-          aria-hidden="true"
-          className="absolute left-0 bottom-0 h-[220px] sm:h-[280px] w-auto pointer-events-none select-none"
-        />
+        {/* Heading */}
+        <h2
+          className="text-black"
+          style={{
+            fontFamily: '"Sora", sans-serif',
+            fontSize: '45px',
+            fontWeight: 600,
+            lineHeight: '60px',
+            letterSpacing: '-1px',
+          }}
+        >
+          Let's work together!
+        </h2>
 
-        {/* Center content — 25% horizontal padding on the text block */}
-        <div className="relative z-10 text-center w-full px-[25%] flex flex-col items-center gap-[40px]">
-          <h2
-            className="text-[24px] sm:text-[35px] lg:text-[45px] font-semibold text-black leading-tight lg:leading-[60px] tracking-[-1px]"
-          >
-            Let's work together!
-          </h2>
-          <p
-            className="text-black font-light leading-[24px]"
-            style={{ fontSize: '16px' }}
-          >
-            We are a team of real artists, technicians, and production staff with passion,
-            vision, and intention.
-            <br />
-            We are ready to help with any of your 3D visualization needs!
-          </p>
-          <Link
-            to="/contact"
-            className="inline-flex items-center justify-center rounded bg-[#6250DA] hover:bg-white border-2 border-white px-11 py-5 text-white hover:text-black transition-colors"
-            style={{ fontSize: '16px', fontWeight: 400 }}
-          >
-            Contact us
-          </Link>
-        </div>
+        {/* Body text */}
+        <p
+          className="text-black"
+          style={{
+            fontFamily: '"Sora", sans-serif',
+            fontSize: '16px',
+            fontWeight: 300,
+            lineHeight: '24px',
+          }}
+        >
+          We are a team of real artists, technicians, and production staff with passion,
+          vision, and intention.
+          <br />
+          We are ready to help with any of your 3D visualization needs!
+        </p>
 
-        {/* Right illustration */}
-        <motion.img
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          src={keepInTouch2}
-          alt=""
-          aria-hidden="true"
-          className="absolute right-0 bottom-0 h-[220px] sm:h-[280px] w-auto pointer-events-none select-none"
-        />
+        {/*
+         * Button: exact padding from original
+         *   padding-block 20px, padding-inline 44px
+         *   background: accent (#6250DA), border 2px white
+         */}
+        <Link
+          to="/contact"
+          className="inline-flex items-center justify-center rounded text-white hover:bg-white hover:text-black transition-colors"
+          style={{
+            fontFamily: '"Sora", sans-serif',
+            fontSize: '16px',
+            fontWeight: 400,
+            backgroundColor: '#6250DA',
+            border: '2px solid white',
+            paddingTop: '20px',
+            paddingBottom: '20px',
+            paddingLeft: '44px',
+            paddingRight: '44px',
+          }}
+        >
+          Contact us
+        </Link>
       </div>
+
+      {/* Right illustration */}
+      <motion.img
+        initial={{ opacity: 0, x: 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        src={keepInTouch2}
+        alt=""
+        aria-hidden="true"
+        className="hidden sm:block absolute bottom-0 w-auto pointer-events-none select-none"
+        style={{ right: '-50px', height: '280px' }}
+      />
     </section>
   );
 }

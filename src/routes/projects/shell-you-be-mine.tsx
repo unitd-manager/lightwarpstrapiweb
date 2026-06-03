@@ -27,7 +27,7 @@ export default function ShellYouBeMine() {
   return (
     <PageShell>
       {/* Hero */}
-      <section className="relative min-h-[60vh] overflow-hidden bg-[#05050d] text-white flex items-end pb-16 pt-32">
+      <section className="relative min-h-[60vh] overflow-hidden bg-transparent text-white flex items-end pb-12 sm:pb-16 pt-24 sm:pt-32">
         <div className="absolute inset-0">
           <iframe
             src="https://www.youtube.com/embed/pLu4iXYhI4k?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&playlist=pLu4iXYhI4k"
@@ -66,7 +66,7 @@ export default function ShellYouBeMine() {
       </section>
 
       {/* Video */}
-      <section className="bg-black py-4">
+      <section className="bg-transparent py-4">
         <div className="mx-auto max-w-6xl px-6">
           <div className="relative overflow-hidden rounded-2xl" style={{ paddingTop: "56.25%" }}>
             <iframe
@@ -82,8 +82,8 @@ export default function ShellYouBeMine() {
       </section>
 
       {/* Description */}
-      <section className="bg-black py-20 px-6">
-        <div className="mx-auto max-w-6xl grid gap-16 lg:grid-cols-2 lg:gap-24 items-start">
+      <section className="bg-transparent py-20 px-6">
+        <div className="mx-auto max-w-6xl grid gap-12 md:grid-cols-2 md:gap-16 lg:gap-24 items-start">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -193,7 +193,7 @@ export default function ShellYouBeMine() {
       </section>
 
       {/* Credits */}
-      <section className="bg-[#07080f] py-16 px-6">
+      <section className="bg-transparent py-16 px-6">
         <div className="mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

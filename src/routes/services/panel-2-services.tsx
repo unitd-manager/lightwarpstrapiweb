@@ -97,7 +97,7 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className={`${service.bg} rounded-[2rem] p-10 text-white shadow-[0_40px_80px_rgba(0,0,0,0.25)] flex flex-col`}
+      className={`${service.bg} rounded-[2rem] p-6 sm:p-8 md:p-10 text-white shadow-[0_40px_80px_rgba(0,0,0,0.25)] flex flex-col`}
     >
       <h3 className="text-2xl font-semibold mb-6">{service.title}</h3>
 
@@ -169,10 +169,10 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
 
 export function ServicesPanelServices() {
   return (
-    <section className="bg-black px-6 py-24">
+    <section className="bg-transparent px-6 py-24">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <h2 className="text-5xl md:text-6xl font-semibold text-white">Lightwarp has you covered</h2>
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-semibold text-white">Lightwarp has you covered</h2>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
