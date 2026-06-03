@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export function HomePanelCta() {
   return (
-    <section className="pt-2 pb-24 px-6 bg-black">
+    <section className="pt-2 pb-24 px-6 bg-transparent">
       <div className="max-w-8xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

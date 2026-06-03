@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const partners = [
   {
     image: "https://lightwarp3d.com/wp-content/uploads/2026/01/StrayerPicturesLogoWhiteTransparentDROPSHADOW2-scaled.png",
@@ -11,11 +13,20 @@ const partners = [
 
 export function HomePanelPartners() {
   return (
-    <section id="partners" className="bg-black pt-24 pb-10">
-      <div className="mx-auto max-w-[1660px] px-6">
-        <h2 className="text-center text-5xl md:text-6xl font-bold text-white">
-          Partners and Clients
-        </h2>
+    <section className="pt-24 pb-10 bg-transparent">
+      <div className="max-w-7xl mx-auto">
+        {/* Title */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-5xl md:text-6xl font-bold text-white">
+            Partners and Clients
+          </h2>
+        </motion.div>
 
         <div className="mt-16 flex items-center justify-center gap-20 md:gap-28">
           {partners.map((partner, idx) => (
