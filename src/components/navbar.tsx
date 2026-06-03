@@ -32,7 +32,7 @@ export function Navbar() {
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-black/50 backdrop-blur-xl border-b border-white/[0.06]">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-black border-b border-white/[0.06]">
       <div className="w-full px-4 sm:px-6 py-4">
         <nav className="mx-auto max-w-full flex items-center justify-between">
           
@@ -69,7 +69,7 @@ export function Navbar() {
           {/* Right side: social icons + Contact */}
           <div className="flex items-center gap-3 md:gap-5 ml-auto">
             
-            {/* Social icons - desktop only */}
+            {/* Social icons - desktop only 
             <div className="hidden md:flex items-center gap-3">
               {socialNav.map(({ label, href, Icon }) => (
                 <a
@@ -83,7 +83,7 @@ export function Navbar() {
                   <Icon size={18} strokeWidth={1.5} />
                 </a>
               ))}
-            </div>
+            </div>*/}
 
             {/* Contact button */}
             <Link
@@ -111,7 +111,7 @@ export function Navbar() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden mt-4 bg-black/80 backdrop-blur-lg rounded-2xl p-4 border border-white/10"
+            className="md:hidden mt-4 bg-black rounded-2xl p-4 border border-white/10"
           >
             <ul className="flex flex-col gap-1">
               {links.map((l) => (

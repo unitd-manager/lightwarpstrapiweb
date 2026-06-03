@@ -6,6 +6,13 @@ import About from "./routes/about";
 import Contact from "./routes/contact";
 import Projects from "./routes/projects";
 import ShellYouBeMine from "./routes/projects/shell-you-be-mine";
+import OurCapabilities from "./routes/projects/our-capabilities";
+import Stuffed from "./routes/projects/stuffed";
+import TheJab from "./routes/projects/the-jab";
+import SamsungS7Ad from "./routes/projects/samsung-s7-ad";
+import CaughtOffGuard from "./routes/projects/caught-off-guard";
+import Cyberia2084 from "./routes/projects/cyberia-2084";
+import StrayVistaStudios from "./routes/projects/stray-vista-studios";
 import Services from "./routes/services";
 import Privacy from "./routes/privacy";
 import { PageTransitionOverlay } from "./components/page-transition-overlay";
@@ -41,6 +48,13 @@ export default function App() {
       <Route path="/portfolio" element={<Portfolio /> } />
       <Route path="/projects" element={<Projects />} />
       <Route path="/projects/shell-you-be-mine" element={<ShellYouBeMine />} />
+      <Route path="/projects/our-capabilities" element={<OurCapabilities />} />
+      <Route path="/projects/stuffed" element={<Stuffed />} />
+      <Route path="/projects/the-jab" element={<TheJab />} />
+      <Route path="/projects/samsung-s7-ad" element={<SamsungS7Ad />} />
+      <Route path="/projects/caught-off-guard" element={<CaughtOffGuard />} />
+      <Route path="/projects/cyberia-2084" element={<Cyberia2084 />} />
+      <Route path="/projects/stray-vista-studios" element={<StrayVistaStudios />} />
       <Route path="/services" element={<Services />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />

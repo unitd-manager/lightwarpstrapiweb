@@ -13,7 +13,11 @@ const partners = [
 
 export function HomePanelPartners() {
   return (
+<<<<<<< HEAD
     <section className="py-20 px-6 bg-transparent">
+=======
+    <section className="pt-24 pb-10 bg-transparent">
+>>>>>>> 40ff87457ea96c6bc6a3c53ade732917792d04f3
       <div className="max-w-7xl mx-auto">
         {/* Title */}
         <motion.div
