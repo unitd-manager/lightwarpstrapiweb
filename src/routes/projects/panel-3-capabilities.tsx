@@ -32,14 +32,14 @@ export function ProjectsPanelCapabilities() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="space-y-8 lg:ml-auto lg:max-w-2xl lg:text-right"
+            className="space-y-8 lg:ml-auto lg:max-w-2xl"
           >
             <div className="space-y-6">
               <h2 className="text-5xl font-semibold leading-tight sm:text-6xl">
                 Lush Victorian Garden
               </h2>
             </div>
-            <p className="max-w-2xl text-sm leading-7 text-white/60">
+            <p className="max-w-2xl text-left text-lg leading-7 text-white/60">
               Created in collaboration with my friend Alyssa Curran, this project gave me the opportunity to light a lush, naturalistic exterior environment while leaning into a whimsical, storybook vibe. The challenge was to balance a sense of wonder with grounded realism, ensuring the foliage, atmosphere, and composition all felt believable while still transporting viewers into a dreamlike space. Using RenderMan’s ML denoiser when it first released publically and finishing touches in Nuke, I layered in bloom, god rays, chromatic aberration, vignette, and subtle lighting fixes to enhance depth and magic. The final piece not only captured the intended charm but also deepened my passion for lighting as I grew my craft through experimentation and collaboration.
             </p>
              <div className="flex flex-wrap gap-4">

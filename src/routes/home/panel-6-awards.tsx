@@ -116,7 +116,7 @@ export function HomePanelAwards() {
           </div>
 
           <p
-            className="mt-6 text-[10px] leading-[1.4] text-white/50 max-w-[420px] text-right ml-auto"
+            className="mt-6 text-[10px] leading-[1.4] text-white/50 `max-w-420px` text-right ml-auto"
             style={{ fontFamily: '"DM Sans", sans-serif' }}
           >
             <br/>*Logos shown only to represent prior professional experience of team members and do not imply current affiliation, partnership, or endorsement. All logos and trademarks are the property of their respective owners.

@@ -14,18 +14,18 @@ export function AboutPanelStory() {
         style={{ fontFamily: '"Sora", sans-serif' }}
       >
         {/* Left: crab image — sits flush to bottom */}
-        <div className="w-full lg:w-[48%] flex items-center justify-center py-16">
+        <div className="w-full lg:w-[45.5%] flex items-center justify-center py-20">
           <img
             src={crabStill}
             alt="3D Studio Crab Still"
-            className="w-full h-auto object-contain"
+            className="w-full h-auto object-contain translate-x-12"
             decoding="async"
           />
         </div>
 
         {/* Right: story text — exact live-site typography */}
-        <div className="w-full lg:w-[52%] p-[5%] flex flex-col justify-center pt-16">
-          <h4 className="font-['Sora'] text-[24px] sm:text-[35px] lg:text-[50px] text-white font-semibold leading-tight lg:leading-[60px] tracking-[-1px] mb-[40px]">
+        <div className="w-full lg:w-[54.5%] p-[5%] flex flex-col justify-center pt-16">
+          <h4 className="font-['Sora'] text-[20px] sm:text-[33px] lg:text-[45px] pb-[30px] text-white font-semibold leading-tight lg:leading-[60px] tracking-[-1px] mb-[30px]">
             Our Story
           </h4>
           <p className="text-[16px] md:text-[17px] lg:text-[18px] text-white font-light leading-[24px] text-justify">

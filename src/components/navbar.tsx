@@ -5,10 +5,11 @@ import { Instagram, Youtube, Linkedin } from "lucide-react";
 import lightwarpLogo from "../assets/images/lightwarp_transparent.png";
 
 const links = [
-  { to: "/",          label: "Home"      },
-  { to: "/services",  label: "Services"  },
-  { to: "/projects",  label: "Projects"  },
-  { to: "/about",     label: "About"     },
+  { to: "/",             label: "Home"         },
+  { to: "/services",     label: "Services"     },
+  { to: "/projects",     label: "Projects"     },
+  { to: "/capabilities", label: "Capabilities" },
+  { to: "/about",        label: "About"        },
 ] as const;
 
 const socialNav = [

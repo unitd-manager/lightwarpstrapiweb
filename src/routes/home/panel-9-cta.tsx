@@ -17,7 +17,7 @@ export function HomePanelCta() {
               <img
                 src="https://lightwarp3d.com/wp-content/uploads/2026/01/ShellyPose1.png"
                 alt="Shelly Character"
-                className="w-full max-w-[320px] md:max-w-[380px] lg:max-w-[360px] object-contain"
+                className="w-full max-w-[320px] `md:max-w-380px` `lg:max-w-360px` object-contain"
               />
             </div>
 

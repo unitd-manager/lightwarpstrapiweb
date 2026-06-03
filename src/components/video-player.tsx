@@ -11,15 +11,61 @@ function getVimeoId(src: string): string | null {
   return match ? match[1] : null;
 }
 
-function autoplayUrl(src: string): string {
-  const base = src.split("?")[0];
-  if (src.includes("youtube.com")) return `${base}?autoplay=1&mute=1&rel=0&modestbranding=1&showinfo=0&playsinline=1`;
-  if (src.includes("vimeo.com")) return `${base}?autoplay=1&muted=1&playsinline=1`;
-  return src;
+function embedUrl(
+  src: string,
+  options: { autoplay: boolean; muted: boolean; loop: boolean; playsInline: boolean; hideControls: boolean },
+): string {
+  try {
+    const url = new URL(src);
+
+    if (options.autoplay) url.searchParams.set("autoplay", "1");
+    if (options.muted) {
+      url.searchParams.set(src.includes("youtube.com") ? "mute" : "muted", "1");
+    }
+
+    if (options.playsInline) url.searchParams.set("playsinline", "1");
+
+    if (src.includes("youtube.com")) {
+      url.searchParams.set("rel", "0");
+      url.searchParams.set("modestbranding", "1");
+      if (options.hideControls) url.searchParams.set("controls", "0");
+
+      if (options.loop) {
+        url.searchParams.set("loop", "1");
+        const id = getYouTubeId(src);
+        if (id) url.searchParams.set("playlist", id);
+      }
+    }
+
+    if (src.includes("vimeo.com")) {
+      if (options.hideControls) {
+        url.searchParams.set("background", "1");
+        url.searchParams.set("title", "0");
+        url.searchParams.set("byline", "0");
+        url.searchParams.set("portrait", "0");
+      }
+      if (options.loop) url.searchParams.set("loop", "1");
+      url.searchParams.set("autopause", "0");
+    }
+
+    return url.toString();
+  } catch {
+    return src;
+  }
 }
 
-export function VideoPlayer({ src, title }: { src: string; title: string }) {
-  const [playing, setPlaying] = useState(false);
+export function VideoPlayer({
+  src,
+  title,
+  autoplay = false,
+  hideControls = false,
+}: {
+  src: string;
+  title: string;
+  autoplay?: boolean;
+  hideControls?: boolean;
+}) {
+  const [playing, setPlaying] = useState(autoplay);
 
   const youtubeId = getYouTubeId(src);
   const vimeoId = getVimeoId(src);
@@ -33,7 +79,13 @@ export function VideoPlayer({ src, title }: { src: string; title: string }) {
   if (playing) {
     return (
       <iframe
-        src={autoplayUrl(src)}
+        src={embedUrl(src, {
+          autoplay: true,
+          muted: true,
+          loop: true,
+          playsInline: true,
+          hideControls,
+        })}
         title={title}
         className="h-full w-full"
         frameBorder="0"
