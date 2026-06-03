@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { VideoPlayer } from "../../components/video-player";
 import { Link } from "react-router-dom";
 import video25 from "../../assets/images/video25.mp4";
-
+ 
 
 const slugify = (s: string) =>
   s
