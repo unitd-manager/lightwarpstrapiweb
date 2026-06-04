@@ -9,12 +9,12 @@ const slugify = (s: string) =>
 
 export function ProjectsPanelHero() {
   return (
-    <section className="relative min-h-[90svh] overflow-hidden bg-transparent text-white sm:min-h-[90vh]">
+    <section className="relative h-[calc(100svh-80px)] overflow-hidden bg-transparent text-white sm:h-[calc(100vh-80px)]">
       <div className="absolute inset-0 overflow-hidden">
         <iframe
           src="https://www.youtube.com/embed/pLu4iXYhI4k?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=pLu4iXYhI4k"
           title="Shell You Be Mine? Background Video"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-[100%] border-0 scale-[1.25] sm:scale-[1.15]"
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.75] border-0 sm:scale-[1.25] md:scale-[1.15]"
           allow="autoplay; encrypted-media; picture-in-picture"
           allowFullScreen
         />
@@ -22,14 +22,14 @@ export function ProjectsPanelHero() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
       </div>
 
-     <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:py-28">
+     <div className="relative mx-auto flex h-full max-w-7xl items-center px-4 sm:px-6">
         <div className="max-w-2xl mx-auto sm:mx-0 sm:ml-6 lg:ml-12">
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="mt-10 sm:mt-16 rounded-[2rem] border border-white/8 bg-black/25 p-6 sm:p-8 md:p-10 backdrop-blur-md shadow-[0_40px_120px_rgba(0,0,0,0.45)]"
+            className="rounded-[2rem] border border-white/8 bg-black/25 p-6 backdrop-blur-md shadow-[0_40px_120px_rgba(0,0,0,0.45)] sm:p-8 md:p-10"
           >
             <div className="space-y-6 sm:space-y-8">
               <div className="space-y-4">
