@@ -39,10 +39,10 @@ function embedUrl(
 
     if (src.includes("vimeo.com")) {
       if (options.hideControls) {
-        url.searchParams.set("background", "1");
         url.searchParams.set("title", "0");
         url.searchParams.set("byline", "0");
         url.searchParams.set("portrait", "0");
+        url.searchParams.set("controls", "0");
       }
       if (options.loop) url.searchParams.set("loop", "1");
       url.searchParams.set("autopause", "0");

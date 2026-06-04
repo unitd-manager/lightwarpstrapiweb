@@ -1,7 +1,10 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { PageShell } from "../components/page-shell";
-import { Section } from "../components/section";
+// import { Section } from "../components/section";
 import { VideoPlayer } from "../components/video-player";
+import { ProjectsPanelHero } from "./projects/panel-1-hero";
+import { ProjectsPanelCapabilities } from "./projects/panel-3-capabilities";
+import { ProjectsPanelExtraVideos } from "./projects/panel-7-extra-videos";
 
 const projects = [
   {
@@ -51,23 +54,24 @@ const projects = [
 export default function Capabilities() {
   return (
     <PageShell>
-      <section className="relative overflow-hidden bg-black text-white">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent" />
-        <div className="mx-auto py-10 sm:py-14 lg:py-16">
-          <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-[#05050f] shadow-2xl shadow-black/30">
-            <div className="aspect-video w-full">
-              <VideoPlayer
-                src="https://player.vimeo.com/video/1153379831"
-                title="Lightwarp Studios Capabilities Reel"
-                autoplay
-                hideControls
-              />
-            </div>
+      <section className="bg-black text-white">
+        <div className="w-full bg-black">
+          <div className="aspect-video w-full">
+            <VideoPlayer
+              src="https://player.vimeo.com/video/1153379831"
+              title="Lightwarp Studios Capabilities Reel"
+              autoplay
+              hideControls
+            />
           </div>
         </div>
       </section>
 
-      <section className="bg-black text-white">
+            <ProjectsPanelHero />
+            <ProjectsPanelCapabilities />
+            <ProjectsPanelExtraVideos />
+
+      {/* <section className="bg-black text-white">
         <div className="mx-auto max-w-5xl px-6 py-16 lg:py-24">
           <div className="space-y-10">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.24em] text-white/70">
@@ -132,7 +136,7 @@ export default function Capabilities() {
             </article>
           ))}
         </div>
-      </Section>
+      </Section> */}
     </PageShell>
   );
 }
