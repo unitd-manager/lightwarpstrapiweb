@@ -52,22 +52,6 @@ export default function TheJab() {
                 <p className="text-lg leading-8 text-white/75" style={{ textAlign: "left" }}>
                   The major creative challenge I decided to take for this project was to created animated dramatic lights that would accentuate the theatrical performance of the chameleon, primary being the blue stage light that appears at the climax of the short. This was accomplished by fully rendering all lights on in RenderMan and through light group splits, animate the lights in Nuke for flickers, eye spec light, and dramatic ramps.
                 </p>
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href="https://www.youtube.com/watch?v=4d27i10x2wI"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
-                  >
-                    Watch Full Film
-                  </a>
-                  <a
-                    href="/projects"
-                    className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
-                  >
-                    All Projects
-                  </a>
-                </div>
               </div>
             </motion.div>
 
@@ -113,6 +97,26 @@ export default function TheJab() {
                 </div>
               </motion.article>
             ))}
+          </div>
+          <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
+            <a
+              href="/projects/stuffed"
+              className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+            >
+              Previous
+            </a>
+            <a
+              href="/projects"
+              className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+            >
+              Back to Project
+            </a>
+            <a
+              href="/projects/samsung-s7-ad"
+              className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+            >
+              Next
+            </a>
           </div>
         </div>
       </section>

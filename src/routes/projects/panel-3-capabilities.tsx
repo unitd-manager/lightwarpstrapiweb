@@ -12,15 +12,22 @@ const slugify = (s: string) =>
 
 export function ProjectsPanelCapabilities() {
   return (
-    <section className="relative overflow-hidden bg-transparent text-white">
+   <section className="relative min-h-[90vh] overflow-hidden bg-transparent text-white">
       <div className="absolute inset-0 overflow-hidden">
-        <video
-          src={video25}
-          className="absolute top-1/2 left-1/2 h-[160%] w-[160%] -translate-x-1/2 -translate-y-1/2 object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
+        <iframe
+          src="https://www.youtube.com/embed/b-qRx-LlB1A?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=b-qRx-LlB1A"
+          title="Lush Victorian Garden Background Video"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '160%',
+            height: '110%',
+            transform: 'translate(-50%, -50%)',
+            border: 'none',
+          }}
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />

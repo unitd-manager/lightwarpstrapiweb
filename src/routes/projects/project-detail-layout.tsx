@@ -16,6 +16,8 @@ type ProjectDetailLayoutProps = {
   watchLabel: string;
   backgroundImage?: string;
   relatedProjects?: VideoCard[];
+  previousHref?: string;
+  nextHref?: string;
 };
 
 const isYouTubeEmbed = (url: string): boolean => {
@@ -85,6 +87,8 @@ export function ProjectDetailLayout({
   watchLabel,
   backgroundImage,
   relatedProjects: relatedProjectsProp,
+  previousHref,
+  nextHref,
 }: ProjectDetailLayoutProps) {
   const relatedProjects: VideoCard[] =
     relatedProjectsProp || (title === "Shell You Be Mine?"
@@ -147,25 +151,26 @@ export function ProjectDetailLayout({
                     <p key={idx}>{paragraph}</p>
                   ))}
                 </div>
-
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href={watchHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
-                  >
-                    {watchLabel}
-                  </a>
-                  <a
-                    href="/projects"
-                    className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
-                  >
-                    All Projects
-                  </a>
-                </div>
               </div>
 
+              {!isLushGarden ? (
+                <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
+                  <VideoRenderer
+                    src={videoSrc}
+                    className="w-full aspect-[16/9] object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    controls
+                  />
+                </div>
+              ) : null}
+            </div>
+          </div>
+
+          {isLushGarden ? (
+            <div className="w-full overflow-hidden px-6 pb-16">
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
                 <VideoRenderer
                   src={videoSrc}
@@ -178,7 +183,7 @@ export function ProjectDetailLayout({
                 />
               </div>
             </div>
-          </div>
+          ) : null}
         </section>
 
         <section className="bg-black py-16 px-6">
@@ -207,6 +212,34 @@ export function ProjectDetailLayout({
                   </div>
                 </motion.article>
               ))}
+            </div>
+            <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
+              {previousHref ? (
+                <a
+                  href={previousHref}
+                  className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  Previous
+                </a>
+              ) : (
+                <div />
+              )}
+              <a
+                href="/projects"
+                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+              >
+                Back to Project
+              </a>
+              {nextHref ? (
+                <a
+                  href={nextHref}
+                  className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  Next
+                </a>
+              ) : (
+                <div />
+              )}
             </div>
           </div>
         </section>
@@ -269,22 +302,6 @@ export function ProjectDetailLayout({
                     {paragraph}
                   </p>
                 ))}
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href={watchHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
-                  >
-                    {watchLabel}
-                  </a>
-                  <a
-                    href="/projects"
-                    className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
-                  >
-                    All Projects
-                  </a>
-                </div>
               </div>
             </motion.div>
 
@@ -336,6 +353,34 @@ export function ProjectDetailLayout({
                 </div>
               </motion.article>
             ))}
+          </div>
+          <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
+            {previousHref ? (
+              <a
+                href={previousHref}
+                className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Previous
+              </a>
+            ) : (
+              <div />
+            )}
+            <a
+              href="/projects"
+              className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+            >
+              Back to Project
+            </a>
+            {nextHref ? (
+              <a
+                href={nextHref}
+                className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Next
+              </a>
+            ) : (
+              <div />
+            )}
           </div>
         </div>
       </section>

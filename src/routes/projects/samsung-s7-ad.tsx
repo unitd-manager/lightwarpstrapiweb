@@ -47,22 +47,6 @@ export default function SamsungS7Ad() {
                   This high school project marked my first dive into full 3D animation, and it remains a formative experience in my journey as an artist. Tasked with creating a commercial in Blender, I went far beyond the assignment’s requirements: modeling, surfacing, and lighting assets from scratch over the course of two months. It was here that I discovered my love for lighting, experimenting with HDRI-based product lighting, IES profiles, and camera choreography to highlight form and detail. Though created at an early stage in my career, this project laid the groundwork for my technical and artistic growth, teaching me both the discipline of a full production cycle and the excitement of storytelling through light.
                 </p>
 
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href="https://www.youtube.com/watch?v=4Esie0f7HVw"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
-                  >
-                    Watch Full Film
-                  </a>
-                  <a
-                    href="/projects"
-                    className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
-                  >
-                    All Projects
-                  </a>
-                </div>
               </div>
             </motion.div>
 
@@ -106,6 +90,26 @@ export default function SamsungS7Ad() {
                   </div>
                 </motion.article>
               ))}
+            </div>
+            <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
+              <a
+                href="/projects/the-jab"
+                className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Previous
+              </a>
+              <a
+                href="/projects"
+                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+              >
+                Back to Project
+              </a>
+              <a
+                href="/projects/caught-off-guard"
+                className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Next
+              </a>
             </div>
           </div>
         </section>
