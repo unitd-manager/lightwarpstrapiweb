@@ -1,36 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Instagram, Youtube, Linkedin } from "lucide-react";
 import lightwarpLogo from "../assets/images/lightwarp_transparent.png";
 
 const links = [
-  { to: "/",             label: "Home"         },
-  { to: "/services",     label: "Services"     },
-  { to: "/projects",     label: "Projects"     },
+  { to: "/", label: "Home" },
+  { to: "/services", label: "Services" },
+  { to: "/projects", label: "Projects" },
   { to: "/capabilities", label: "Capabilities" },
-  { to: "/about",        label: "About"        },
-] as const;
-
-const socialNav = [
-  { label: "Instagram", href: "https://www.instagram.com/lightwarp3d",     Icon: Instagram },
-  { label: "YouTube",   href: "https://www.youtube.com/@lightwarpstudios", Icon: Youtube   },
-  { label: "LinkedIn",  href: "https://www.linkedin.com/company/lightwarp", Icon: Linkedin  },
+  { to: "/about", label: "About" },
 ];
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen]         = useState(false);
-  const { pathname }            = useLocation();
+  const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => setOpen(false), [pathname]);
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full bg-black border-b border-white/[0.06]">
@@ -75,9 +62,7 @@ export function Navbar() {
             <img
               src={lightwarpLogo}
               alt="Lightwarp"
-              className="h-14 w-auto object-contain"
-              decoding="async"
-              draggable={false}
+              className="h-12 sm:h-14 w-auto object-contain"
             />
           </Link>
 
@@ -95,7 +80,12 @@ export function Navbar() {
                         : "text-white/70 hover:text-[#6250DA] hover:border-b-2 hover:border-[#6250DA]"
                     }`}
                   >
-                    {l.label}
+                    <span>{l.label}</span>
+                    <span
+                      className={`pointer-events-none absolute left-0 -bottom-2 h-[2px] w-full origin-left bg-violet-400 transition-transform duration-300 ${
+                        active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                    />
                   </Link>
                 </li>
               );
@@ -152,4 +142,3 @@ export function Navbar() {
     </header>
   );
 }
- 
