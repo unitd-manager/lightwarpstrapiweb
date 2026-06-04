@@ -13,6 +13,8 @@ export default function Stuffed() {
       watchHref="https://www.youtube.com/watch?v=bzCrjcqWliU&t=1s"
       watchLabel="Watch Full Film"
       backgroundImage={image04}
+      previousHref="/projects/our-capabilities"
+      nextHref="/projects/the-jab"
     />
   );
 }

@@ -46,22 +46,6 @@ export default function CaughtOffGuard() {
                 <p className="text-lg leading-8 text-white/75">
                   As project manager and pipeline lead, I directed my team in creating Caught Off Guard, a playful short film known for its dynamic lighting and stylized visuals. This was one of the first studio shorts at Texas A&M to implement the ACES color workflow, much before it became widely adopted in the industry, and I led the charge in bringing this system into production. On the artistic side, I lit and rendered sequences in RenderMan, surfaced the main serpent character and props, and explored advanced compositing techniques in Nuke including post volumetrics, motion blur, and depth of field. I also designed animated lighting driven by video playback to simulate interactive illumination from computer screens. The result was a technically ambitious and visually engaging short that gave me early experience as both a creative and technical leader.
                 </p>
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href="https://www.youtube.com/watch?v=7iZBroHtizk"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
-                  >
-                    Watch Full Film
-                  </a>
-                  <a
-                    href="/projects"
-                    className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
-                  >
-                    All Projects
-                  </a>
-                </div>
               </div>
             </motion.div>
 
@@ -106,6 +90,26 @@ export default function CaughtOffGuard() {
                   </div>
                 </motion.article>
               ))}
+            </div>
+            <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
+              <a
+                href="/projects/samsung-s7-ad"
+                className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Previous
+              </a>
+              <a
+                href="/projects"
+                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+              >
+                Back to Project
+              </a>
+              <a
+                href="/projects/cyberia-2084"
+                className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Next
+              </a>
             </div>
           </div>
         </section>

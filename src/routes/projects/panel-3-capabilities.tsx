@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
-import { VideoPlayer } from "../../components/video-player";
 import { Link } from "react-router-dom";
-import video25 from "../../assets/images/video25.mp4";
  
 
 const slugify = (s: string) =>
@@ -12,20 +10,19 @@ const slugify = (s: string) =>
 
 export function ProjectsPanelCapabilities() {
   return (
-    <section className="relative overflow-hidden bg-transparent text-white">
+   <section className="relative min-h-[90svh] overflow-hidden bg-transparent text-white sm:min-h-[90vh]">
       <div className="absolute inset-0 overflow-hidden">
-        <video
-          src={video25}
-          className="absolute top-1/2 left-1/2 h-[160%] w-[160%] -translate-x-1/2 -translate-y-1/2 object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
+        <iframe
+          src="https://www.youtube.com/embed/b-qRx-LlB1A?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=b-qRx-LlB1A"
+          title="Lush Victorian Garden Background Video"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-[100%] border-0"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
       </div>
-      <div className="relative mx-auto max-w-7xl px-6 py-24 lg:py-28">
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
         <div className="grid gap-16 lg:grid-cols-1 lg:items-start">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -35,11 +32,11 @@ export function ProjectsPanelCapabilities() {
             className="space-y-8 lg:ml-auto lg:max-w-2xl"
           >
             <div className="space-y-6">
-              <h2 className="text-5xl font-semibold leading-tight sm:text-6xl">
+              <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">
                 Lush Victorian Garden
               </h2>
             </div>
-            <p className="max-w-2xl text-left text-lg leading-7 text-white/60">
+            <p className="max-w-2xl text-left text-base leading-7 text-white/60 sm:text-lg sm:leading-8">
               Created in collaboration with my friend Alyssa Curran, this project gave me the opportunity to light a lush, naturalistic exterior environment while leaning into a whimsical, storybook vibe. The challenge was to balance a sense of wonder with grounded realism, ensuring the foliage, atmosphere, and composition all felt believable while still transporting viewers into a dreamlike space. Using RenderMan’s ML denoiser when it first released publically and finishing touches in Nuke, I layered in bloom, god rays, chromatic aberration, vignette, and subtle lighting fixes to enhance depth and magic. The final piece not only captured the intended charm but also deepened my passion for lighting as I grew my craft through experimentation and collaboration.
             </p>
              <div className="flex flex-wrap gap-4">

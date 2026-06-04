@@ -13,6 +13,8 @@ export default function OurCapabilities() {
       watchHref="https://www.youtube.com/watch?v=b-qRx-LlB1A&t=2s"
       watchLabel="Watch Full Reel"
       backgroundImage={image1}
+      previousHref="/projects/shell-you-be-mine"
+      nextHref="/projects/stuffed"
     />
   );
 }

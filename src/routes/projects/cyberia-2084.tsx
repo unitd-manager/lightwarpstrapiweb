@@ -47,22 +47,6 @@ export default function Cyberia2084() {
                   Cyberia 2084 is a personal passion project: a travelogue-style introduction to a sprawling cyberpunk city, built in one semester as a solo effort. Inspired by Ian Hubert’s “lazy tutorials” and dense image-based texturing techniques, I challenged myself to see how much worldbuilding I could accomplish independently, creating a multilayered dystopia filled with atmosphere, detail, and scale. Rendered in Blender using baked lighting, irradiance caching, and optimized techniques for reflections and GI, the project became my first real-time cinematic experiment. Completing Cyberia 2084 earned me the Disney Aggie Alumni Award scholarship, presented by the head of characters at Walt Disney Animation Studios and signed by Disney alumni. Beyond the recognition, this film fueled my work ethic and strengthened my passion for building worlds that tell stories through scale and light.
                 </p>
 
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href="https://www.youtube.com/watch?v=pTmzrHqdS_4"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
-                  >
-                    Watch Full Film
-                  </a>
-                  <a
-                    href="/projects"
-                    className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
-                  >
-                    All Projects
-                  </a>
-                </div>
               </div>
             </motion.div>
 
@@ -106,6 +90,26 @@ export default function Cyberia2084() {
                   </div>
                 </motion.article>
               ))}
+            </div>
+            <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
+              <a
+                href="/projects/caught-off-guard"
+                className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Previous
+              </a>
+              <a
+                href="/projects"
+                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+              >
+                Back to Project
+              </a>
+              <a
+                href="/projects/stray-vista-studios"
+                className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Next
+              </a>
             </div>
           </div>
         </section>

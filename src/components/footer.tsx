@@ -1,5 +1,5 @@
 import { Instagram, Youtube } from "lucide-react";
-import lightwarpLogo from "../assets/images/lightwarp_logo_icon.png";
+import lightwarpLogo from "../assets/images/lightwarp_transparent.png";
 
 const SORA: React.CSSProperties = { fontFamily: '"Sora", sans-serif' };
 
@@ -16,7 +16,7 @@ export function Footer() {
     <footer className="w-full bg-black/50 backdrop-blur-xl border-t border-white/10" style={SORA}>
 
       {/* Main grid — 4 cols desktop / 2 cols tablet / 1 col mobile */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-[60px] gap-x-[40px] p-[32px] md:p-[60px] lg:p-[100px]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[340px_1fr_1fr_1fr] gap-y-[60px] gap-x-[40px] p-[32px] md:p-[60px] lg:p-[100px]">
 
         {/* Logo + Copyright */}
         <div className="flex flex-col items-start gap-5">
@@ -24,11 +24,11 @@ export function Footer() {
             <img
               src={lightwarpLogo}
               alt="Lightwarp"
-              className="h-auto w-full max-w-[68px] lg:max-w-full object-contain"
+              className="object-contain w-full h-auto lg:h-[180px] lg:w-[320px] lg:max-w-none"
             />
           </a>
           <p
-            className="text-white whitespace-nowrap"
+            className="text-white"
             style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
           >
             &copy;2026. Lightwarp LLC. All rights reserved.
@@ -38,7 +38,7 @@ export function Footer() {
         {/* Contact for Inquiries */}
         <div>
           <h6
-            className="uppercase text-white leading-[30px] mb-[20px]"
+            className="text-white leading-[30px] mb-[20px]"
             style={{ fontSize: '20px', fontWeight: 400 }}
           >
             Contact for Inquiries
@@ -68,7 +68,7 @@ export function Footer() {
         {/* Follow */}
         <div>
           <h6
-            className="uppercase text-white leading-[30px] mb-[20px]"
+            className="text-white leading-[30px] mb-[20px]"
             style={{ fontSize: '20px', fontWeight: 400 }}
           >
             Follow
@@ -107,10 +107,10 @@ export function Footer() {
         {/* Meet with us */}
         <div>
           <h6
-            className="uppercase text-white leading-[30px] mb-[20px]"
+            className="text-white leading-[30px] mb-[20px]"
             style={{ fontSize: '20px', fontWeight: 400 }}
           >
-            Meet With Us
+            Meet with us
           </h6>
           <a
             href="https://calendar.app.google/zYHnxEYxui76S9tR6"

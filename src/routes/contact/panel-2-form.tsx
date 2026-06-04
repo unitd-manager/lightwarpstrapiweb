@@ -291,7 +291,7 @@ export function ContactPanelForm() {
         </p>
 
         <form
-          onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+          onSubmit={(e) => { e.preventDefault(); (e.target as HTMLFormElement).reset(); setSent(true); }}
           className="flex flex-col"
           style={{ gap: '32px' }}
         >
@@ -412,27 +412,38 @@ export function ContactPanelForm() {
            *   accent typography: Sora, 16px, 400, 20px
            *   width: full (spans full form content width)
            */}
-          <button
-            type="submit"
-            disabled={sent}
-            className="inline-flex items-center justify-center contact-send-btn transition-colors hover:bg-white hover:text-black disabled:opacity-60"
-            style={{
-              fontFamily: '"Sora", sans-serif',
-              fontSize: '16px',
-              fontWeight: 400,
-              lineHeight: '20px',
-              color: '#FCFCFC',
-              backgroundColor: '#000000',
-              borderRadius: '4px',
-              paddingTop: '12px',
-              paddingBottom: '12px',
-              paddingLeft: '60px',
-              paddingRight: '60px',
-              alignSelf: 'flex-start',
-            }}
-          >
-            {sent ? "Sent ✓" : "Send"}
-          </button>
+          <div className="flex flex-col gap-3">
+            <button
+              type="submit"
+              disabled={sent}
+              className="inline-flex items-center justify-center contact-send-btn transition-colors hover:bg-white hover:text-black disabled:opacity-60"
+              style={{
+                fontFamily: '"Sora", sans-serif',
+                fontSize: '16px',
+                fontWeight: 400,
+                lineHeight: '20px',
+                color: '#FCFCFC',
+                backgroundColor: '#000000',
+                borderRadius: '4px',
+                paddingTop: '12px',
+                paddingBottom: '12px',
+                paddingLeft: '60px',
+                paddingRight: '60px',
+                alignSelf: 'flex-start',
+              }}
+            >
+              Send
+            </button>
+
+            {sent && (
+              <div className="flex items-center gap-2" style={{ fontFamily: '"Sora", sans-serif', fontSize: '14px', fontWeight: 400, color: '#FFFFFF' }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Your submission was successful.
+              </div>
+            )}
+          </div>
         </form>
       </motion.div>
 

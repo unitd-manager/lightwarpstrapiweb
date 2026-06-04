@@ -16,8 +16,8 @@ const services = [
     ),
     subItems: [
       "TV & Social Media Ads",
-      "Game Cinematics & Trailers",
-      "Previs & Animatics",
+      "Game Cinematics",
+      "3D Previs/Animatics",
       "Storyboards",
       "Product Visualizations",
       "Brand Films",
@@ -37,11 +37,11 @@ const services = [
     ),
     subItems: [
       "Environment & World Building",
+      "Prop Creation & Asset Development",
+      "In-World Asset Production",
       "Hero Asset Creation",
-      "Character Modeling & Rigging",
+      "3D Modeling Services",
       "Look Development & Texturing",
-      "Prop & Level Design",
-      "USD / Game-Ready Assets",
     ],
   },
   {
@@ -57,12 +57,12 @@ const services = [
       </>
     ),
     subItems: [
-      "Original Short Films",
-      "Character & World Design",
-      "Transmedia Story Development",
-      "Pilot & Series Production",
-      "Narrative Concept & Scripting",
-      "Merchandise-Ready IP",
+      "Character Creation & Development",
+      "Backstory & World Building",
+      "IP Development",
+      "Narrative & Storyline Design",
+      "Transmedia Content Creation",
+      "Campaign & Creative Concepts",
     ],
   },
   {
@@ -78,12 +78,12 @@ const services = [
       </>
     ),
     subItems: [
-      "Real-Time Pipeline Development",
-      "Unreal Engine Integration",
+      "Real-Time Rendering Workflows",
+      "Pipeline Development",
+      "Creative Problem Solving",
       "Team & Workflow Optimization",
-      "Virtual Production Setup",
-      "Project Scoping & Planning",
-      "Technical Art Direction",
+      "Project Planning & Strategy",
+      "Production Execution Support",
     ],
   },
 ];
@@ -145,11 +145,6 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
       {/* Sub-items — always visible, pinned to bottom */}
       {service.subItems && service.subItems.length > 0 && (
         <div className="mt-auto pt-8" style={{ width: "100%" }}>
-          <div className="flex items-center gap-3 mb-5">
-            <div className="h-px flex-1 bg-gradient-to-r from-white/40 to-transparent" />
-            <span style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 500 }} className="text-white/40">What We Offer</span>
-            <div className="h-px flex-1 bg-gradient-to-l from-white/40 to-transparent" />
-          </div>
           <div className="grid grid-cols-2 gap-2">
             {service.subItems.map((item) => (
               <div
