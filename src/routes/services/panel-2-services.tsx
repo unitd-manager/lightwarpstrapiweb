@@ -147,7 +147,7 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
         <div className="mt-auto pt-8" style={{ width: "100%" }}>
           <div className="flex items-center gap-3 mb-5">
             <div className="h-px flex-1 bg-gradient-to-r from-white/40 to-transparent" />
-            <span style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 500 }} className="text-white/40 uppercase tracking-[0.2em]">What We Offer</span>
+            <span style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 500 }} className="text-white/40">What We Offer</span>
             <div className="h-px flex-1 bg-gradient-to-l from-white/40 to-transparent" />
           </div>
           <div className="grid grid-cols-2 gap-2">
@@ -175,9 +175,9 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
 
 export function ServicesPanelServices() {
   return (
-    <section className="bg-transparent px-6 pt-24 pb-8">
+    <section className="bg-transparent px-6 pt-24 pb-8 services-main-section">
       <div className="mx-auto max-w-7xl">
-        <div className="text-center mb-12">
+        <div className="text-center mb-5 sm:mb-12">
           <h2
             className="services-cards-heading"
             style={{
@@ -194,7 +194,7 @@ export function ServicesPanelServices() {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2" style={{ gap: "2vw" }}>
+        <div className="grid md:grid-cols-2" style={{ gap: "clamp(12px, 2vw, 40px)" }}>
           {services.map((service) => (
             <ServiceCard key={service.title} service={service} />
           ))}

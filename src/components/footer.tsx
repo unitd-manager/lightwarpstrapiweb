@@ -18,8 +18,8 @@ export function Footer() {
       {/* Main grid — 4 cols desktop / 2 cols tablet / 1 col mobile */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-[60px] gap-x-[40px] p-[32px] md:p-[60px] lg:p-[100px]">
 
-        {/* Logo */}
-        <div className="flex items-start">
+        {/* Logo + Copyright */}
+        <div className="flex flex-col items-start gap-5">
           <a href="/">
             <img
               src={lightwarpLogo}
@@ -27,6 +27,12 @@ export function Footer() {
               className="h-auto w-full max-w-[68px] lg:max-w-full object-contain"
             />
           </a>
+          <p
+            className="text-white whitespace-nowrap"
+            style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
+          >
+            &copy;2026. Lightwarp LLC. All rights reserved.
+          </p>
         </div>
 
         {/* Contact for Inquiries */}
@@ -118,15 +124,8 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Copyright bar */}
-      <div className="border-t border-white/10 px-[32px] md:px-[60px] lg:px-[100px] py-5">
-        <p
-          className="text-white"
-          style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
-        >
-          &copy;2026.&nbsp;Lightwarp LLC. All rights reserved.
-        </p>
-      </div>
+      {/* Bottom border line */}
+      <div className="border-t border-white/10" />
     </footer>
   );
 }
