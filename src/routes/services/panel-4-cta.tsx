@@ -44,7 +44,7 @@ export function ServicesPanelCta() {
         className="block md:hidden lg:block absolute pointer-events-none select-none services-cta-char-left"
         style={{
           left: "65px",
-          top: "84px",
+          top: "40px",
           height: "360px",
           width: "auto",
         }}
@@ -55,7 +55,7 @@ export function ServicesPanelCta() {
         className="relative z-10 flex flex-col items-center services-cta-inner"
         style={{
           textAlign: "center",
-          maxWidth: "560px",
+          maxWidth: "720px",
           padding: "50px 20px",
         }}
       >
@@ -122,7 +122,7 @@ export function ServicesPanelCta() {
         className="block md:hidden lg:block absolute pointer-events-none select-none services-cta-char-right"
         style={{
           right: "65px",
-          top: "84px",
+          top: "40px",
           height: "360px",
           width: "auto",
         }}

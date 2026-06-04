@@ -20,7 +20,7 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-black border-b border-white/[0.06]">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-black">
       {/* ── Fixed 100px header row ── */}
       <div className="w-full px-4 sm:px-6 h-[100px] flex items-center">
 
@@ -74,18 +74,13 @@ export function Navbar() {
                 <li key={l.to}>
                   <Link
                     to={l.to}
-                    className={`text-[18px] font-semibold tracking-[-0.2px] transition-all pb-0.5 ${
+                    className={`text-[18px] font-semibold tracking-[-0.2px] transition-colors ${
                       active
-                        ? "text-[#6250DA] border-b-2 border-[#6250DA]"
-                        : "text-white/70 hover:text-[#6250DA] hover:border-b-2 hover:border-[#6250DA]"
+                        ? "text-[#6250DA]"
+                        : "text-white/70 hover:text-[#6250DA]"
                     }`}
                   >
-                    <span>{l.label}</span>
-                    <span
-                      className={`pointer-events-none absolute left-0 -bottom-2 h-[2px] w-full origin-left bg-violet-400 transition-transform duration-300 ${
-                        active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                      }`}
-                    />
+                    {l.label}
                   </Link>
                 </li>
               );
