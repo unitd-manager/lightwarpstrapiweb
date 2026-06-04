@@ -66,7 +66,6 @@ export function ServicesPanelProcess() {
           lineHeight: "60px",
           letterSpacing: "-1px",
           color: "#FFFFFF",
-          textAlign: "center",
           marginBottom: "3%",
         }}
       >
@@ -85,7 +84,7 @@ export function ServicesPanelProcess() {
           fontWeight: 300,
           lineHeight: "24px",
           color: "#FFFFFF",
-          textAlign: "center",
+          // textAlign: "center",
         }}
       >
         Our cutting-edge pipeline is built with production scalability, real-time rendering,
