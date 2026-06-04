@@ -5,75 +5,122 @@ const crabStill =
 
 export function AboutPanelStory() {
   return (
-    <section className="mx-auto max-w-[1340px] px-4 sm:px-6 pt-2 sm:pt-2 pb-2 sm:pb-2">
+    <section className="mx-auto max-w-[1300px] px-6 pt-[9px] pb-12">
 
-
+      {/* ================= MOBILE ================= */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
         className="
-          flex flex-col lg:flex-row
+          lg:hidden
+          overflow-hidden
+          rounded-[24px]
+          bg-[#6250DA]
+          border border-white/20
+          shadow-[0_0_35px_rgba(255,255,255,0.12)]
+          p-6
+        "
+        style={{ fontFamily: '"Sora", sans-serif' }}
+      >
+        <div className="flex justify-center">
+          <img
+            src={crabStill}
+            alt="3D Studio Crab"
+            className="w-full max-w-[300px] h-auto object-contain"
+          />
+        </div>
+
+        <h4
+          className="
+            mt-4
+            text-[26px]
+            text-white
+            font-extrabold
+            tracking-[-1px]
+            text-center
+            leading-15
+          "
+        >
+          Our Story
+        </h4>
+
+        <p
+          className="
+            mt-4
+            text-[15px]
+            leading-[23px]
+            tracking-[-0.8px]
+            text-white
+            text-center
+            font-light
+          "
+        >
+          Started by an alum of Texas A&amp;M University, Lightwarp 3D
+          Studio was built on a vision of using real-time rendering with
+          tools like Unreal Engine and Blender to create high-quality 3D
+          stories and visuals at blazing fast speed. With our proprietary
+          real-time pipeline and workflows, we create, iterate, and deliver
+          results fast and with cinematic quality as a leading-edge studio.
+          We bring our industry experience at major animated studios and a
+          talented associate team to ensure quality and results for you.
+        </p>
+      </motion.div>
+
+      {/* ================= DESKTOP ================= */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        className="
+          hidden lg:flex
           items-stretch
           overflow-hidden
-          rounded-[28px]
+          rounded-[24px]
           bg-[#6250DA]
           border border-white/20
           shadow-[0_0_35px_rgba(255,255,255,0.12)]
         "
         style={{ fontFamily: '"Sora", sans-serif' }}
       >
-        {/* Left: Crab Image */}
+        {/* Left */}
         <div
           className="
-            w-full lg:w-[46.5%]
+            w-[46.5%]
             flex items-center justify-center
-            pt-3 pb-2
-            sm:py-6
-            lg:py-8
+            py-12
           "
         >
           <img
             src={crabStill}
-            alt="3D Studio Crab Still"
-            decoding="async"
+            alt="3D Studio Crab"
             className="
-              block
               w-full
-              max-w-[320px]
-              sm:max-w-[440px]
-              lg:max-w-none
               h-auto
               object-contain
-              lg:translate-x-20
+              translate-x-20
             "
           />
         </div>
 
-        {/* Right: Story Text */}
+        {/* Right */}
         <div
           className="
-            w-full lg:w-[54.5%]
-            p-6
-            sm:p-[5%]
+            w-[54.5%]
+            p-[5%]
             flex flex-col justify-center
-            pt-2
-            sm:pt-10
-            lg:pt-16
           "
         >
           <h4
             className="
-              text-[20px]
-              sm:text-[33px]
-              lg:text-[45px]
-              pb-6
-              sm:pb-[30px]
+              text-[46px]
+              pb-[30px]
               text-white
-              font-semibold
-              leading-tight
-              tracking-[-1px]
+              font-extrabold
+              leading-[1.1]
+              tracking-[-1.4px]
             "
           >
             Our Story
@@ -81,12 +128,11 @@ export function AboutPanelStory() {
 
           <p
             className="
-              text-[14px]
-              md:text-[15px]
+              text-[15px]
               text-white
               font-light
               leading-[24px]
-              tracking-wide
+              tracking-[0.025em]
               text-justify
             "
           >
@@ -101,6 +147,7 @@ export function AboutPanelStory() {
           </p>
         </div>
       </motion.div>
+
     </section>
   );
 }

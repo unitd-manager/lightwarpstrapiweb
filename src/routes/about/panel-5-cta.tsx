@@ -9,113 +9,240 @@ const keepInTouch2 =
 
 export function AboutPanelCta() {
   return (
-    <section
-      className="relative w-full overflow-hidden"
-      style={{
-        backgroundColor: "#D5462F",
-        minHeight: "620px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: '"Sora", sans-serif',
-      }}
-    >
-      {/* Left Character */}
-      <motion.img
-        src={keepInTouch1}
-        alt=""
-        initial={{ opacity: 0, x: -40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="hidden lg:block absolute bottom-0 select-none pointer-events-none"
-        style={{
-          left: "65px",
-          top: "84px",
-          height: "360px",
-          width: "auto",
-        }}
-      />
+    <section className="relative w-full overflow-hidden font-['Sora']">
 
-      {/* Content */}
-      <div
-        className="relative z-10 flex flex-col items-center text-center px-6"
-        style={{
-          maxWidth: "760px",
-          margin: "0 auto",
-        }}
+      {/* ================= MOBILE ================= */}
+      <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.7 }}
+  className="
+    lg:hidden
+    relative
+    bg-[#D5462F]
+    min-h-[500px]
+    flex flex-col
+    items-center
+    justify-center
+    px-3
+    py-6
+    text-center
+    overflow-hidden
+  "
+>
+  {/* Left Character */}
+  <img
+    src={keepInTouch1}
+    alt=""
+    className="
+      absolute
+      left-[-190px]
+      bottom-40
+      w-[100px]
+      h-[300px]
+      scale-300
+     select-none
+      pointer-events-none
+    "
+  />
+
+  {/* Right Character */}
+  {/*<img
+    src={keepInTouch2}
+    alt=""
+    className="
+      absolute
+      right-[-190px]
+      bottom-40
+
+      w-[100px]
+      h-[300px]
+      scale-300
+      select-none
+      pointer-events-none
+    "
+  />*/}
+
+
+
+  {/* Right Character */}
+{/*<motion.img
+  src={keepInTouch2}
+  alt=""
+  initial={{ opacity: 0, x: 40 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.8 }}
+  className="
+    absolute
+    right-[-190px]
+    top-1/2
+    -translate-y-1/2
+    h-[520px]
+    w-auto
+    select-none
+    pointer-events-none
+    z-0
+  "
+/>*/}
+
+  <h2
+    className="
+      text-[45px]
+      font-extrabold
+      leading-[1.05]
+      tracking-[-2px]
+      text-black
+      relative z-10
+    "
+  >
+    Let's work
+    <br />
+    together!
+  </h2>
+
+  <p
+    className="
+      mt-8
+      max-w-[280px]
+      text-[14px]
+      leading-[1.5]
+      text-black
+      font-light
+      relative z-10
+      tracking-[0.013em]
+      
+    "
+  >
+    We are a team of real artists, technicians, and production staff
+    with passion, vision, and intention. We are ready to help with any
+    of your 3D visualization needs!
+  </p>
+
+  <Link
+    to="/contact"
+    className="
+      mt-10
+      w-[170px]
+      h-[60px]
+      bg-[#6250DA]
+      border-2 border-white
+      rounded-[8px]
+      text-white
+      text-[16px]
+      font-medium
+      flex items-center justify-center
+      no-underline
+      relative z-10
+    "
+  >
+    Contact us
+  </Link>
+</motion.div>
+
+      {/* ================= DESKTOP ================= */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        className="
+          hidden
+          lg:flex
+          relative
+          min-h-[620px]
+          items-center
+          justify-center
+          bg-[#D5462F]
+        "
       >
-        <h2
+        {/* Left Character */}
+        <motion.img
+          src={keepInTouch1}
+          alt=""
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="absolute select-none pointer-events-none"
           style={{
-            fontFamily: '"Sora", sans-serif',
-            fontSize: "78px",
-            fontWeight: 800,
-            lineHeight: "1",
-            letterSpacing: "-3px",
-            color: "#000",
-            margin: 0,
-            marginBottom: "50px",
-            textAlign: "center",
+            left: "65px",
+            top: "84px",
+            height: "360px",
+            width: "auto",
           }}
-        >
-          Let's work
-          <br />
-          together!
-        </h2>
+        />
 
-        <p
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-[760px]">
+          <h2
+            className="
+              text-[78px]
+              font-extrabold
+              leading-[1]
+              tracking-[-3px]
+              text-black
+              mb-[50px]
+            "
+          >
+            Let's work
+            <br />
+            together!
+          </h2>
+
+          <p
+            className="
+              text-[16px]
+              leading-[1.8]
+              text-black
+              max-w-[600px]
+              mb-[45px]
+              font-light
+            "
+          >
+            We are a team of real artists, technicians, and production staff
+            with passion, vision, and intention. We are ready to help with any
+            of your 3D visualization needs!
+          </p>
+
+          <Link
+            to="/contact"
+            className="
+              w-[180px]
+              h-[64px]
+              bg-[#6250DA]
+              border-2 border-white
+              rounded-[8px]
+              text-white
+              text-[16px]
+              font-medium
+              flex items-center justify-center
+              no-underline
+              transition-all duration-300
+            "
+          >
+            Contact us
+          </Link>
+        </div>
+
+        {/* Right Character */}
+        <motion.img
+          src={keepInTouch2}
+          alt=""
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="absolute select-none pointer-events-none"
           style={{
-            fontSize: "16px",
-            lineHeight: "1.8",
-            color: "#000",
-            maxWidth: "600px",
-            marginBottom: "45px",
-            fontWeight: "100",
+            right: "65px",
+            top: "84px",
+            height: "360px",
+            width: "auto",
           }}
-        >
-          We are a team of real artists, technicians, and production staff with
-          passion, vision, and intention. We are ready to help with any of your
-          3D visualization needs!
-        </p>
-
-        <Link
-          to="/contact"
-          style={{
-            width: "180px",
-            height: "64px",
-            backgroundColor: "#6250DA",
-            border: "2px solid #FFFFFF",
-            borderRadius: "8px",
-            color: "#FFFFFF",
-            fontSize: "16px",
-            fontWeight: 500,
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            transition: "all 0.3s ease",
-          }}
-        >
-          Contact us
-        </Link>
-      </div>
-
-      {/* Right Character */}
-      <motion.img
-        src={keepInTouch2}
-        alt=""
-        initial={{ opacity: 0, x: 40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="hidden lg:block absolute bottom-0 select-none pointer-events-none"
-        style={{
-          right: "65px",
-          top: "84px",
-          height: "360px",
-          width: "auto",
-        }}
-      />
+        />
+      </motion.div>
     </section>
   );
 }
