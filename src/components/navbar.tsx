@@ -56,11 +56,16 @@ export function Navbar() {
                 <li key={l.to}>
                   <Link
                     to={l.to}
-                    className={`text-[18px] font-semibold tracking-[-0.2px] transition-colors ${
-                      active ? "text-white" : "text-white/70 hover:text-white"
+                    className={`group relative text-[18px] font-semibold tracking-[-0.2px] transition-colors ${
+                      active ? "text-violet-400" : "text-white/80 hover:text-violet-400"
                     }`}
                   >
-                    {l.label}
+                    <span>{l.label}</span>
+                    <span
+                      className={`pointer-events-none absolute left-0 -bottom-2 h-[2px] w-full origin-left bg-violet-400 transition-transform duration-300 ${
+                        active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                    />
                   </Link>
                 </li>
               );

@@ -4,7 +4,7 @@ const crabStill = "https://lightwarp3d.com/wp-content/uploads/2026/01/CrabStill.
 
 export function AboutPanelStory() {
   return (
-    <section className="mx-auto max-w-[1300px] px-6 pt-16 pb-12">
+    <section className="mx-auto max-w-[1300px] px-6 pt-9px pb-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
