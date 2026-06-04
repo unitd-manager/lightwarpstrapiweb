@@ -20,20 +20,12 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <header
-      className="
-        fixed top-0 left-0 right-0
-        z-[9999]
-        h-[80px]
-        bg-black/80
-        backdrop-blur-md
-        border-b border-white/10
-      "
-    >
-      <div className="h-full px-4 sm:px-6 flex items-center">
-        <nav className="mx-auto w-full flex items-center justify-between">
-          {/* LOGO */}
-          <Link to="/" className="flex-shrink-0">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-black border-b border-white/[0.06]">
+      <div className="w-full px-4 sm:px-6 h-[100px] flex items-center">
+        <nav className="mx-auto max-w-full w-full flex items-center justify-between">
+          
+          {/* Logo */}
+          <Link to="/" className="z-10 flex-shrink-0">
             <img
               src={lightwarpLogo}
               alt="Lightwarp"
@@ -41,22 +33,28 @@ export function Navbar() {
             />
           </Link>
 
-          {/* DESKTOP LINKS */}
-          <ul className="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
-            {links.map((l) => (
-              <li key={l.to}>
-                <Link
-                  to={l.to}
-                  className={`text-[18px] font-semibold transition ${
-                    pathname === l.to
-                      ? "text-white"
-                      : "text-white/70 hover:text-white"
-                  }`}
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
+          {/* Center nav links - desktop only */}
+          <ul className="hidden md:flex items-center gap-12 absolute left-1/2 transform -translate-x-1/2">
+            {links.map((l) => {
+              const active = pathname === l.to;
+              return (
+                <li key={l.to}>
+                  <Link
+                    to={l.to}
+                    className={`group relative text-[18px] font-semibold tracking-[-0.2px] transition-colors ${
+                      active ? "text-violet-400" : "text-white/80 hover:text-violet-400"
+                    }`}
+                  >
+                    <span>{l.label}</span>
+                    <span
+                      className={`pointer-events-none absolute left-0 -bottom-2 h-[2px] w-full origin-left bg-violet-400 transition-transform duration-300 ${
+                        active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           {/* RIGHT SIDE */}

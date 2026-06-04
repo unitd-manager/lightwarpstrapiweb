@@ -56,20 +56,39 @@ export default function Capabilities() {
     <PageShell>
       <section className="bg-black text-white">
         <div className="w-full bg-black">
-          <div className="aspect-video w-full">
+          <div className="w-full h-[calc(100vh-100px)] overflow-hidden">
             <VideoPlayer
               src="https://player.vimeo.com/video/1153379831"
               title="Lightwarp Studios Capabilities Reel"
               autoplay
               hideControls
+              cover
             />
           </div>
         </div>
       </section>
 
-            <ProjectsPanelHero />
-            <ProjectsPanelCapabilities />
-            <ProjectsPanelExtraVideos />
+     <section className="relative text-white">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-700/25 via-cyan-500/15 to-indigo-700/25" />
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="relative mx-auto max-w-7xl px-6 py-12 lg:py-16 text-center">
+          <div className="inline-flex items-center justify-center gap-3">
+            <div className="h-px w-10 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+            <span className="text-xs uppercase tracking-[0.35em] text-white/70">
+              Overview
+            </span>
+            <div className="h-px w-10 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+          </div>
+          <h1 className="mt-4 text-4xl font-semibold tracking-[-0.03em] sm:text-5xl text-white bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/60 [text-shadow:0_1px_0_rgba(255,255,255,0.18),0_-1px_0_rgba(0,0,0,0.7),0_14px_30px_rgba(0,0,0,0.55)]">
+            OUR CAPABILITIES
+          </h1>
+          <div className="mx-auto mt-5 h-px w-full max-w-3xl bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+        </div>
+      </section>
+
+      <ProjectsPanelHero />
+      <ProjectsPanelCapabilities />
+      <ProjectsPanelExtraVideos />
 
       {/* <section className="bg-black text-white">
         <div className="mx-auto max-w-5xl px-6 py-16 lg:py-24">

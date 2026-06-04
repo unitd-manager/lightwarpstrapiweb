@@ -7,7 +7,7 @@ export function PanelHeroes() {
       <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
      
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold text-white leading-tight tracking-[-0.02em]">
-          PROJECTS
+          Projects
         </h1>
         
       </div>

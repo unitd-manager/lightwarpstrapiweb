@@ -4,15 +4,12 @@ import { motion } from "framer-motion";
 /*
  * Elementor: elementor-element-4296891 — bg #D5462F; overflow hidden
  *
- * 3-column flex layout:
- *   Left  22% — character image, bottom-aligned, ~85% section height
- *   Center flex-1 — heading + description + button, vertically centered
- *   Right 22% — character image, bottom-aligned, ~85% section height
+ * Mirrors the About page "Let's Work Together" CTA approach:
+ *   - Section: position relative, flex center
+ *   - Characters: position absolute, left/right: 65px, top: 84px, height: 360px
+ *   - Content: centered div with z-index 10
  *
- * Characters anchored at column bottom, height fills from above heading level
- * down to section bottom. No absolute positioning — uses flex alignment.
- *
- * Heading: Sora 75px/600/85px/-2px; color #000000; max-width 480px → wraps
+ * Heading: Sora 75px/600/85px/-2px; color #000000
  * Description: Sora 16px/300/24px; color #000000
  * Button: bg #6250DA; border 2px solid white; border-radius 12px; padding 20px/44px
  */
@@ -23,140 +20,113 @@ const keepInTouch2 = "https://lightwarp3d.com/wp-content/uploads/2026/01/KeepInT
 export function ServicesPanelCta() {
   return (
     <section
-      className="overflow-hidden services-cta-section"
+      className="relative overflow-hidden services-cta-section"
       style={{
         backgroundColor: "#D5462F",
         minHeight: "533px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         fontFamily: '"Sora", sans-serif',
         marginLeft: "12px",
         marginRight: "12px",
       }}
     >
-      {/* 3-column flex row — full section height */}
-      <div
+      {/* ── Left character ── */}
+      <motion.img
+        src={keepInTouch1}
+        alt=""
+        aria-hidden="true"
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        className="block md:hidden lg:block absolute pointer-events-none select-none services-cta-char-left"
         style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "stretch",
-          width: "100%",
-          height: "533px",
-          minHeight: "533px",
-          paddingLeft: "20px",
-          paddingRight: "20px",
+          left: "65px",
+          top: "84px",
+          height: "360px",
+          width: "auto",
+        }}
+      />
+
+      {/* ── Center content ── */}
+      <div
+        className="relative z-10 flex flex-col items-center services-cta-inner"
+        style={{
+          textAlign: "center",
+          maxWidth: "560px",
+          padding: "50px 20px",
         }}
       >
-        {/* ── Left character column (22%) ── */}
-        <div
+        <h2
+          className="services-cta-heading"
           style={{
-            flex: "0 0 22%",
-            height: "533px",
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-            overflow: "hidden",
+            fontFamily: '"Sora", sans-serif',
+            fontSize: "75px",
+            fontWeight: 600,
+            lineHeight: "85px",
+            letterSpacing: "-2px",
+            color: "#000000",
+            marginBottom: "40px",
           }}
         >
-          <motion.img
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            src={keepInTouch1}
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none select-none"
-            style={{ height: "88%", width: "auto", objectFit: "contain", objectPosition: "bottom right" }}
-          />
-        </div>
+          Ready to get started?
+        </h2>
 
-        {/* ── Center text column ── */}
-        <div
+        <p
           style={{
-            flex: "1",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            gap: "40px",
-            padding: "50px 20px",
+            fontFamily: '"Sora", sans-serif',
+            fontSize: "16px",
+            fontWeight: 300,
+            lineHeight: "24px",
+            color: "#000000",
+            marginBottom: "40px",
           }}
         >
-          <h2
-            className="services-cta-heading"
-            style={{
-              fontFamily: '"Sora", sans-serif',
-              fontSize: "75px",
-              fontWeight: 600,
-              lineHeight: "85px",
-              letterSpacing: "-2px",
-              color: "#000000",
-              maxWidth: "480px",
-            }}
-          >
-            Ready to get started?
-          </h2>
+          Whether it's individual assets or a full animation, our team is here to help! Click
+          the button below to get stellar content for your 3D needs
+        </p>
 
-          <p
-            style={{
-              fontFamily: '"Sora", sans-serif',
-              fontSize: "16px",
-              fontWeight: 300,
-              lineHeight: "24px",
-              color: "#000000",
-            }}
-          >
-            Whether it's individual assets or a full animation, our team is here to help! Click
-            the button below to get stellar content for your 3D needs
-          </p>
-
-          <Link
-            to="/contact"
-            className="inline-flex items-center justify-center transition-colors hover:bg-white hover:text-black services-cta-btn"
-            style={{
-              fontFamily: '"Sora", sans-serif',
-              fontSize: "16px",
-              fontWeight: 400,
-              lineHeight: "20px",
-              color: "#FFFFFF",
-              backgroundColor: "#6250DA",
-              border: "2px solid #FFFFFF",
-              borderRadius: "12px",
-              paddingTop: "20px",
-              paddingBottom: "20px",
-              paddingLeft: "44px",
-              paddingRight: "44px",
-            }}
-          >
-            Contact us
-          </Link>
-        </div>
-
-        {/* ── Right character column (22%) ── */}
-        <div
+        <Link
+          to="/contact"
+          className="inline-flex items-center justify-center transition-colors hover:bg-white hover:text-black services-cta-btn"
           style={{
-            flex: "0 0 22%",
-            height: "533px",
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "flex-start",
-            overflow: "hidden",
+            fontFamily: '"Sora", sans-serif',
+            fontSize: "16px",
+            fontWeight: 400,
+            lineHeight: "20px",
+            color: "#FFFFFF",
+            backgroundColor: "#6250DA",
+            border: "2px solid #FFFFFF",
+            borderRadius: "12px",
+            paddingTop: "20px",
+            paddingBottom: "20px",
+            paddingLeft: "44px",
+            paddingRight: "44px",
           }}
         >
-          <motion.img
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            src={keepInTouch2}
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none select-none"
-            style={{ height: "88%", width: "auto", objectFit: "contain", objectPosition: "bottom left" }}
-          />
-        </div>
-
+          Contact us
+        </Link>
       </div>
+
+      {/* ── Right character ── */}
+      <motion.img
+        src={keepInTouch2}
+        alt=""
+        aria-hidden="true"
+        initial={{ opacity: 0, x: 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        className="block md:hidden lg:block absolute pointer-events-none select-none services-cta-char-right"
+        style={{
+          right: "65px",
+          top: "84px",
+          height: "360px",
+          width: "auto",
+        }}
+      />
     </section>
   );
 }

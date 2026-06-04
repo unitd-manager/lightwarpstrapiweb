@@ -4,16 +4,16 @@ import video10 from "../../assets/images/video10.mp4";
 import image02 from "../../assets/images/image02.png";
 
 const videoCards = [
-  { title: "", subtitle: "", video: video10 },
-  { title: "", subtitle: "", video: video10 },
-  { title: "", subtitle: "", video: video10 },
-  { title: "", subtitle: "", video: video10 },
-  { title: "", subtitle: "", video: video10 },
-  { title: "", subtitle: "", video: video10 },
+  { title: "", subtitle: "", video: "/src/assets/images/img15.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img16.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img17.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img18.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img15.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img18.png" },
 ];
 
 export default function TheJab() {
-  return (
+  return (  
     <PageShell>
       <section className="bg-[#05050d] text-white">
         <div className="relative left-1/2 right-1/2 mx-[-50vw] w-screen overflow-hidden">
@@ -54,7 +54,7 @@ export default function TheJab() {
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <a
-                    href={video10}
+                    href="https://www.youtube.com/watch?v=4d27i10x2wI"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
@@ -78,14 +78,12 @@ export default function TheJab() {
               transition={{ duration: 0.8 }}
             >
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <video
-                  src={video10}
+                <iframe
+                  src="https://www.youtube.com/embed/4d27i10x2wI"
                   className="w-full aspect-[16/9] object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  controls
+                  style={{ border: "none" }}
+                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 />
               </div>
             </motion.div>
@@ -106,13 +104,10 @@ export default function TheJab() {
                 className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
               >
                 <div className="relative overflow-hidden">
-                  <video
+                  <img
                     src={card.video}
+                    alt={card.title}
                     className="w-full aspect-[16/9] object-cover"
-                    muted
-                    loop
-                    playsInline
-                    autoPlay
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 </div>

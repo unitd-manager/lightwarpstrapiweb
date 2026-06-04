@@ -1,12 +1,12 @@
 export function ServicesPanelHero() {
   return (
-    <section className="relative overflow-hidden bg-transparent pt-24 pb-16">
-      <div className="absolute inset-0 bg-gradient-to-r from-[#4f33f7] via-[#3321d7] to-[#1d1a80]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(91,48,255,0.14),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(0,172,255,0.12),transparent_28%)]" />
-
-      <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
+    <section
+      className="relative overflow-hidden flex items-center justify-center py-5"
+      style={{ backgroundColor: "#2E188D", minHeight: "180px", paddingLeft: "4%", paddingRight: "4%" }}
+    >
+      <div className="relative z-10 text-center">
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold text-white leading-tight tracking-[-0.02em]">
-          SERVICES
+          Services
         </h1>
       </div>
     </section>

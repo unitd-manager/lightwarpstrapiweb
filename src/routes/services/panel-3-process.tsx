@@ -93,16 +93,17 @@ export function ServicesPanelProcess() {
         Unreal Engine, and cloud workflows to create and iterate.
       </motion.p>
 
-      {/* Logo row — single line, evenly spaced, centered */}
+      {/* Logo row — wraps on smaller screens */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
+        className="services-logo-row"
         style={{
           display: "flex",
           flexDirection: "row",
-          flexWrap: "nowrap",
+          flexWrap: "wrap",
           alignItems: "center",
           justifyContent: "space-evenly",
           marginTop: "20px",
@@ -112,6 +113,7 @@ export function ServicesPanelProcess() {
         {logos.map((logo) => (
           <div
             key={logo.alt}
+            className="services-logo-cell"
             style={{
               display: "flex",
               alignItems: "center",
@@ -122,6 +124,7 @@ export function ServicesPanelProcess() {
             <img
               src={logo.src}
               alt={logo.alt}
+              className="services-logo-img"
               style={{
                 height: "80px",
                 width: "auto",

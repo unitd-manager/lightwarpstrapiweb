@@ -4,12 +4,12 @@ import video4 from "../../assets/images/video4.mp4";
 import image05 from "../../assets/images/image05.png";
 
 const videoCards = [
-  { title: "", subtitle: "", video: video4 },
-  { title: "", subtitle: "", video: video4 },
-  { title: "", subtitle: "", video: video4 },
-  { title: "", subtitle: "", video: video4 },
-  { title: "", subtitle: "", video: video4 },
-  { title: "", subtitle: "", video: video4 },
+  { title: "", subtitle: "", video: "/src/assets/images/img27.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img28.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img29.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img30.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img27.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img28.png" },
 ];
 
 export default function Cyberia2084() {
@@ -49,7 +49,7 @@ export default function Cyberia2084() {
 
                 <div className="flex flex-wrap gap-4">
                   <a
-                    href={video4}
+                    href="https://www.youtube.com/watch?v=pTmzrHqdS_4"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
@@ -73,14 +73,12 @@ export default function Cyberia2084() {
               transition={{ duration: 0.8 }}
             >
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <video
-                  src={video4}
+                <iframe
+                  src="https://www.youtube.com/embed/pTmzrHqdS_4"
                   className="w-full aspect-[16/9] object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  controls
+                  style={{ border: "none" }}
+                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 />
               </div>
             </motion.div>
@@ -100,13 +98,9 @@ export default function Cyberia2084() {
                   className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
                 >
                   <div className="relative overflow-hidden">
-                    <video
+                    <img
                       src={card.video}
                       className="w-full aspect-[16/9] object-cover"
-                      muted
-                      loop
-                      playsInline
-                      autoPlay
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   </div>
