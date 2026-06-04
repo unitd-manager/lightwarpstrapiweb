@@ -12,7 +12,7 @@ export default function ShellYouBeMine() {
         "I built an entire Unreal Engine pipeline from the ground up, stress-testing it as we went, and used it to handle lighting, grooming workflows between Blender and Unreal, and advanced hair shading that really pushed the renderer. I also stepped in as VFX supervisor, problem-solving everything from FX integration to custom facial expression tools to material export scripts (my first real dive into Python scripting for Unreal!). It was a crash course in leadership and technical direction, and I loved every second of finding solutions and making the film possible.",
         "We wrapped the whole 3 min film in just 15 weeks, and the response was beyond anything I expected: features by the official Epic Games and Unreal Engine team themselves, coverage and a article on 80lvl, and screenings at Short Shorts Film Festival & Asia as well as Austin Under the Stars, where it was nominated for Best Student Short. For me, the project was proof that when you combine community, good pipelines, and a bit of stubborn determination, you can create something way bigger than the sum of its parts."
       ]}
-      videoSrc={video18}
+      videoSrc="https://www.youtube.com/embed/KLuK2LiG3n4"
       watchHref="https://www.youtube.com/watch?v=yinRrmEpfr4"
       watchLabel="Watch Full Film"
       backgroundImage={image03}

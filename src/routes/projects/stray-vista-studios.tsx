@@ -4,12 +4,12 @@ import video1 from "../../assets/images/video1.mp4";
 import image01 from "../../assets/images/image01.png";
 
 const videoCards = [
-  { title: "", subtitle: "", video: video1 },
-  { title: "", subtitle: "", video: video1 },
-  { title: "", subtitle: "", video: video1 },
-  { title: "", subtitle: "", video: video1 },
-  { title: "", subtitle: "", video: video1 },
-  { title: "", subtitle: "", video: video1 },
+  { title: "", subtitle: "", video: "/src/assets/images/img31.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img32.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img33.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img34.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img31.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img32.png" },
 ];
 
 export default function StrayVistaStudios() {
@@ -53,7 +53,7 @@ I had participated in 4 major projects in my time at Stray Vista:
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <a
-                    href={video1}
+                    href="https://www.youtube.com/watch?v=w0GfewGYR3g"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
@@ -77,14 +77,12 @@ I had participated in 4 major projects in my time at Stray Vista:
               transition={{ duration: 0.8 }}
             >
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <video
-                  src={video1}
+                <iframe
+                  src="https://www.youtube.com/embed/w0GfewGYR3g"
                   className="w-full aspect-[16/9] object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  controls
+                  style={{ border: "none" }}
+                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 />
               </div>
             </motion.div>
@@ -104,13 +102,9 @@ I had participated in 4 major projects in my time at Stray Vista:
                   className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
                 >
                   <div className="relative overflow-hidden">
-                    <video
+                    <img
                       src={card.video}
                       className="w-full aspect-[16/9] object-cover"
-                      muted
-                      loop
-                      playsInline
-                      autoPlay
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   </div>
