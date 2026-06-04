@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import video24 from "../../assets/images/video24.mp4";
 
 const slugify = (s: string) =>
   s
@@ -22,18 +23,18 @@ export function ProjectsPanelHero() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
       </div>
 
-     <div className="relative mx-auto flex h-full max-w-7xl items-center px-4 sm:px-6">
-        <div className="max-w-2xl mx-auto sm:mx-0 sm:ml-6 lg:ml-12">
+     <div className="relative flex h-full w-full items-center px-4 sm:px-6 lg:px-10">
+        <div className="w-full">
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="rounded-[2rem] border border-white/8 bg-black/25 p-6 backdrop-blur-md shadow-[0_40px_120px_rgba(0,0,0,0.45)] sm:p-8 md:p-10"
+            className="w-full max-w-[640px] rounded-[3rem] bg-transparent p-6 backdrop-blur-xl shadow-[0_40px_120px_rgba(0,0,0,0.45)] sm:p-8 md:p-8"
           >
             <div className="space-y-6 sm:space-y-8">
               <div className="space-y-4">
-                <h2 className="text-3xl sm:text-5xl font-semibold leading-tight md:text-6xl">
+                <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">
                   Featured Project:
                   <br />
                   Shell You Be Mine?
@@ -55,9 +56,9 @@ export function ProjectsPanelHero() {
               <div className="flex flex-wrap">
                 <Link
                   to={`/projects/${slugify("Shell You Be Mine")}`}
-                  className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition hover:opacity-95"
+                  className="inline-flex rounded-full bg-[#6B5CFF] px-8 py-4 text-sm font-semibold text-white shadow-lg transition hover:opacity-95"
                 >
-                  Learn More
+                  Watch Now
                 </Link>
               </div>
             </div>
