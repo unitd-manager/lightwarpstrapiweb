@@ -16,6 +16,7 @@ export default function ShellYouBeMine() {
       watchHref="https://www.youtube.com/watch?v=yinRrmEpfr4"
       watchLabel="Watch Full Film"
       backgroundImage={image03}
+      nextHref="/projects/our-capabilities"
     />
   );
 }

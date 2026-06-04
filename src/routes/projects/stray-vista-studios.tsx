@@ -51,22 +51,6 @@ I had participated in 4 major projects in my time at Stray Vista:
 3) A commercial for KANE shoes, where I served as a VP operator on-set
 4) A campaign commerical for the Film Texas Initiative starring Matthew McConaughey, Woody Harrelson, Dennis Quaid, Billy Bob Thornton, and Renée Zellweger to promote in-state productions and incentives, where I served as a set production assistant and studio representative to help setup, run, and takedown the whole production.
                 </p>
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href="https://www.youtube.com/watch?v=w0GfewGYR3g"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
-                  >
-                    Watch Full Film
-                  </a>
-                  <a
-                    href="/projects"
-                    className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
-                  >
-                    All Projects
-                  </a>
-                </div>
               </div>
             </motion.div>
 
@@ -110,6 +94,21 @@ I had participated in 4 major projects in my time at Stray Vista:
                   </div>
                 </motion.article>
               ))}
+            </div>
+            <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
+              <a
+                href="/projects/cyberia-2084"
+                className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Previous
+              </a>
+              <a
+                href="/projects"
+                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+              >
+                Back to Project
+              </a>
+              <div />
             </div>
           </div>
         </section>
