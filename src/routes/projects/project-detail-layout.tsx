@@ -123,6 +123,9 @@ export function ProjectDetailLayout({
   const isLushGarden = title === "Lush Victorian Garden";
   const isShellYouBeMine = title === "Shell You Be Mine?";
   const isStuffed = title === "Stuffed";
+  const isSpecialVideoPage = isLushGarden || isShellYouBeMine || isStuffed;
+  const specialGridClass = isSpecialVideoPage ? "lg:grid-cols-[1.1fr_minmax(520px,1.4fr)]" : "lg:grid-cols-[1.3fr_0.9fr]";
+  const specialVideoClass = isSpecialVideoPage ? "w-full aspect-[16/9] min-h-[30rem] object-cover" : "w-full aspect-[16/9] object-cover";
 
   if (isLushGarden || isShellYouBeMine || isStuffed) {
     return (
@@ -137,7 +140,7 @@ export function ProjectDetailLayout({
           </div>
 
           <div className="mx-auto max-w-7xl px-6 py-16">
-            <div className="grid gap-12 lg:grid-cols-[1.3fr_0.9fr] items-start">
+            <div className={`grid gap-12 ${specialGridClass} items-start`}>
               <div className="space-y-8">
                 <div className="space-y-6 max-w-2xl">
                   <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
@@ -153,28 +156,10 @@ export function ProjectDetailLayout({
                 </div>
               </div>
 
-              {!isLushGarden ? (
-                <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                  <VideoRenderer
-                    src={videoSrc}
-                    className="w-full aspect-[16/9] object-cover"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    controls
-                  />
-                </div>
-              ) : null}
-            </div>
-          </div>
-
-          {isLushGarden ? (
-            <div className="w-full overflow-hidden px-6 pb-16">
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
                 <VideoRenderer
                   src={videoSrc}
-                  className="w-full aspect-[16/9] object-cover"
+                  className={specialVideoClass}
                   autoPlay
                   muted
                   loop
@@ -183,7 +168,7 @@ export function ProjectDetailLayout({
                 />
               </div>
             </div>
-          ) : null}
+          </div>
         </section>
 
         <section className="bg-black py-16 px-6">

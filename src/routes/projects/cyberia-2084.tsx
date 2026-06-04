@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import video4 from "../../assets/images/video4.mp4";
-import image05 from "../../assets/images/image05.png";
+import image05 from "../../assets/images/img28.png";
 
 const videoCards = [
   { title: "", subtitle: "", video: "/src/assets/images/img27.png" },
@@ -16,16 +16,16 @@ export default function Cyberia2084() {
   return (
     <PageShell>
       <section className="bg-[#05050d] text-white">
-        <div className="relative left-1/2 right-1/2 mx-[-50vw] w-screen overflow-hidden mb-10">
+        <div className="w-full overflow-hidden">
           <img
             src={image05}
-            alt="Cyberia 2084"
-            className="w-full h-auto object-cover"
+            alt="The Jab"
+            className="w-full h-[45vh] max-w-none object-cover"
           />
         </div>
 
         <div className="mx-auto max-w-7xl px-6 py-12 lg:py-20">
-          <div className="grid gap-12 lg:grid-cols-[1.4fr_minmax(440px,0.9fr)] items-center">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_minmax(540px,1.3fr)] items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}

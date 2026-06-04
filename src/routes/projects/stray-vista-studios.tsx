@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import video1 from "../../assets/images/video1.mp4";
-import image01 from "../../assets/images/image01.png";
+import image01 from "../../assets/images/img32.png";
 
 const videoCards = [
   { title: "", subtitle: "", video: "/src/assets/images/img31.png" },
@@ -16,11 +16,11 @@ export default function StrayVistaStudios() {
   return (
     <PageShell>
       <section className="bg-[#05050d] text-white">
-        <div className="relative left-1/2 right-1/2 mx-[-50vw] w-screen overflow-hidden mb-10">
+        <div className="w-full overflow-hidden">
           <img
             src={image01}
-            alt="Stray Vista Studios"
-            className="w-full h-auto object-cover"
+            alt="The Jab"
+            className="w-full h-[45vh] max-w-none object-cover"
           />
         </div>
 
