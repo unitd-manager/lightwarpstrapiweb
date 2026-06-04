@@ -84,11 +84,11 @@ export function ProjectsPanelExtraVideos() {
   return (
     <>
       {extraProjects.map((item, idx) => (
-        <section key={item.id} className="relative overflow-hidden bg-[#04050f] text-white">
+        <section key={item.id} className="relative min-h-[90svh] overflow-hidden bg-[#04050f] text-white sm:min-h-[90vh]">
           <div className="absolute inset-0 overflow-hidden">
             <VideoRenderer
               src={item.video}
-              className="absolute top-1/2 left-1/2 h-[160%] w-[160%] -translate-x-1/2 -translate-y-1/2 object-cover"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-[100%] border-0 object-cover"
               autoPlay
               loop
               muted
@@ -98,7 +98,7 @@ export function ProjectsPanelExtraVideos() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
           </div>
 
-          <div className="relative mx-auto max-w-7xl px-6 py-24 lg:py-28">
+          <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
             <div className="grid gap-16 lg:grid-cols-1 lg:justify-end lg:items-center">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -108,9 +108,9 @@ export function ProjectsPanelExtraVideos() {
                 className={`space-y-8 ${idx % 2 === 1 ? "lg:ml-auto lg:max-w-2xl lg:text-right" : "lg:max-w-2xl"}`}
               >
                 <div className="space-y-6 text-left">
-                  <h2 className="text-5xl font-semibold leading-tight sm:text-6xl text-left">{item.title}</h2>
-                  <div className="space-y-4 text-lg leading-8 text-white/75 text-left">
-                    <p className="text-left">{item.description}</p>
+                  <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">{item.title}</h2>
+                  <div className="space-y-4 text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
+                    <p>{item.description}</p>
                   </div>
                 </div>
 

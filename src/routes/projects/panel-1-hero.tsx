@@ -9,28 +9,20 @@ const slugify = (s: string) =>
 
 export function ProjectsPanelHero() {
   return (
-    <section className="relative min-h-[90vh] overflow-hidden bg-transparent text-white">
+    <section className="relative min-h-[90svh] overflow-hidden bg-transparent text-white sm:min-h-[90vh]">
       <div className="absolute inset-0 overflow-hidden">
         <iframe
           src="https://www.youtube.com/embed/pLu4iXYhI4k?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=pLu4iXYhI4k"
           title="Shell You Be Mine? Background Video"
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            width: '160%',
-            height: '110%',
-            transform: 'translate(-50%, -50%)',
-            border: 'none',
-          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-[100%] border-0 scale-[1.25] sm:scale-[1.15]"
           allow="autoplay; encrypted-media; picture-in-picture"
           allowFullScreen
         />
-        <div className="absolute" />
-        <div className="absolute" />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
       </div>
 
-     <div className="relative max-w-none w-screen left-1/2 right-1/2 -mx-[50vw] px-4 sm:px-6 py-16 sm:py-20 lg:py-28">
+     <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:py-28">
         <div className="max-w-2xl mx-auto sm:mx-0 sm:ml-6 lg:ml-12">
 
           <motion.div
