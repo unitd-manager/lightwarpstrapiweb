@@ -12,6 +12,7 @@ bun.lock
 dist/
 build/
 .next/
+dist.zip
 
 # IDE
 .vscode/
