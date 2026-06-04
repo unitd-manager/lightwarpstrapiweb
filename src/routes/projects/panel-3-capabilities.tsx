@@ -15,7 +15,7 @@ export function ProjectsPanelCapabilities() {
     <section className="relative overflow-hidden bg-transparent text-white">
       <div className="absolute inset-0 overflow-hidden">
         <video
-  src={video25}
+          src={video25}
           className="absolute top-1/2 left-1/2 h-[160%] w-[160%] -translate-x-1/2 -translate-y-1/2 object-cover"
           autoPlay
           loop

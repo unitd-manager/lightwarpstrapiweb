@@ -13,7 +13,14 @@ function getVimeoId(src: string): string | null {
 
 function embedUrl(
   src: string,
-  options: { autoplay: boolean; muted: boolean; loop: boolean; playsInline: boolean; hideControls: boolean },
+  options: {
+    autoplay: boolean;
+    muted: boolean;
+    loop: boolean;
+    playsInline: boolean;
+    hideControls: boolean;
+    cover: boolean;
+  },
 ): string {
   try {
     const url = new URL(src);
@@ -38,6 +45,9 @@ function embedUrl(
     }
 
     if (src.includes("vimeo.com")) {
+      if (options.cover) {
+        url.searchParams.set("background", "1");
+      }
       if (options.hideControls) {
         url.searchParams.set("title", "0");
         url.searchParams.set("byline", "0");
@@ -59,11 +69,13 @@ export function VideoPlayer({
   title,
   autoplay = false,
   hideControls = false,
+  cover = false,
 }: {
   src: string;
   title: string;
   autoplay?: boolean;
   hideControls?: boolean;
+  cover?: boolean;
 }) {
   const [playing, setPlaying] = useState(autoplay);
 
@@ -77,7 +89,7 @@ export function VideoPlayer({
     : null;
 
   if (playing) {
-    return (
+    const iframe = (
       <iframe
         src={embedUrl(src, {
           autoplay: true,
@@ -85,13 +97,26 @@ export function VideoPlayer({
           loop: true,
           playsInline: true,
           hideControls,
+          cover,
         })}
         title={title}
-        className="h-full w-full"
+        className={
+          cover
+            ? "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-full border-0"
+            : "h-full w-full"
+        }
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       />
+    );
+
+    if (cover) {
+      return <div className="relative h-full w-full overflow-hidden">{iframe}</div>;
+    }
+
+    return (
+      iframe
     );
   }
 

@@ -4,12 +4,12 @@ import video29 from "../../assets/images/video29.mp4";
 import image06 from "../../assets/images/image06.png";
 
 const videoCards = [
-  { title: "", subtitle: "", video: video29 },
-  { title: "", subtitle: "", video: video29 },
-  { title: "", subtitle: "", video: video29 },
-  { title: "", subtitle: "", video: video29 },
-  { title: "", subtitle: "", video: video29 },
-  { title: "", subtitle: "", video: video29 },
+  { title: "", subtitle: "", video: "/src/assets/images/img23.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img24.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img25.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img26.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img23.png" },
+  { title: "", subtitle: "", video: "/src/assets/images/img24.png" },
 ];
 
 export default function CaughtOffGuard() {
@@ -48,7 +48,7 @@ export default function CaughtOffGuard() {
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <a
-                    href={video29}
+                    href="https://www.youtube.com/watch?v=7iZBroHtizk"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
@@ -72,14 +72,12 @@ export default function CaughtOffGuard() {
               transition={{ duration: 0.8 }}
             >
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <video
-                  src={video29}
+                <iframe
+                  src="https://www.youtube.com/embed/7iZBroHtizk"
                   className="w-full aspect-[16/9] object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  controls
+                  style={{ border: "none" }}
+                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 />
               </div>
             </motion.div>
@@ -99,13 +97,10 @@ export default function CaughtOffGuard() {
                   className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
                 >
                   <div className="relative overflow-hidden">
-                    <video
+                    <img
                       src={card.video}
                       className="w-full aspect-[16/9] object-cover"
-                      muted
-                      loop
-                      playsInline
-                      autoPlay
+                     
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   </div>

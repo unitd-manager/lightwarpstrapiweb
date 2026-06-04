@@ -34,8 +34,8 @@ export function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full bg-black border-b border-white/[0.06]">
-      <div className="w-full px-4 sm:px-6 py-4">
-        <nav className="mx-auto max-w-full flex items-center justify-between">
+      <div className="w-full px-4 sm:px-6 h-[100px] flex items-center">
+        <nav className="mx-auto max-w-full w-full flex items-center justify-between">
           
           {/* Logo */}
           <Link to="/" className="z-10 flex-shrink-0">

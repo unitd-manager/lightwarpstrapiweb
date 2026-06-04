@@ -18,6 +18,26 @@ type ProjectDetailLayoutProps = {
   relatedProjects?: VideoCard[];
 };
 
+const isYouTubeEmbed = (url: string): boolean => {
+  return url.includes("youtube.com/embed");
+};
+
+const VideoRenderer = ({ src, className, ...props }: { src: string; className?: string; [key: string]: any }) => {
+  if (isYouTubeEmbed(src)) {
+    return (
+      <iframe
+        src={src}
+        className={className}
+        style={{ border: "none" }}
+        allowFullScreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        {...props}
+      />
+    );
+  }
+  return <video src={src} className={className} {...props} />;
+};
+
 const extraProjects: VideoCard[] = [
   {
     title: "Shell You Be Mine?",
@@ -69,30 +89,30 @@ export function ProjectDetailLayout({
   const relatedProjects: VideoCard[] =
     relatedProjectsProp || (title === "Shell You Be Mine?"
       ? [
-          { title: "", subtitle: "", video: "/src/assets/images/video18.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video19.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video20.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video21.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video22.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video23.mp4" },
+          { title: "", subtitle: "", video: "/src/assets/images/img1.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img2.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img3.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img4.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img5.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img6.png" },
         ]
       : title === "Lush Victorian Garden"
       ? [
-          { title: "", subtitle: "", video: "/src/assets/images/video25.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video25.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video25.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video25.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video25.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video25.mp4" },
+          { title: "", subtitle: "", video: "/src/assets/images/img7.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img8.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/image 1.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img7.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img8.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/image 1.png" },
         ]
       : title === "Stuffed"
       ? [
-          { title: "", subtitle: "", video: "/src/assets/images/video26.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video26.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video26.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video26.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video26.mp4" },
-          { title: "", subtitle: "", video: "/src/assets/images/video26.mp4" },
+          { title: "", subtitle: "", video: "/src/assets/images/img9.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img10.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img11.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img12.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img13.png" },
+          { title: "", subtitle: "", video: "/src/assets/images/img14.png" },
         ]
       : extraProjects);
   const isRightAligned = title === "Shell You Be Mine?";
@@ -147,7 +167,7 @@ export function ProjectDetailLayout({
               </div>
 
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <video
+                <VideoRenderer
                   src={videoSrc}
                   className="w-full aspect-[16/9] object-cover"
                   autoPlay
@@ -174,13 +194,10 @@ export function ProjectDetailLayout({
                   className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
                 >
                   <div className="relative overflow-hidden">
-                    <video
+                    <img
                       src={card.video}
+                      alt={card.title}
                       className="w-full aspect-[16/9] object-cover"
-                      muted
-                      loop
-                      playsInline
-                      autoPlay
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -207,6 +224,8 @@ export function ProjectDetailLayout({
               className="absolute top-1/2 left-1/2 h-[160%] w-[160%] -translate-x-1/2 -translate-y-1/2 object-cover"
               alt=""
             />
+          ) : isYouTubeEmbed(videoSrc) ? (
+            <div className="absolute top-1/2 left-1/2 h-[160%] w-[160%] -translate-x-1/2 -translate-y-1/2 bg-black" />
           ) : (
             <video
               src={videoSrc}
@@ -276,7 +295,7 @@ export function ProjectDetailLayout({
               transition={{ duration: 0.8 }}
             >
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <video
+                <VideoRenderer
                   src={videoSrc}
                   className="w-full aspect-[16/9] object-cover"
                   autoPlay
@@ -304,13 +323,10 @@ export function ProjectDetailLayout({
                 className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
               >
                 <div className="relative overflow-hidden">
-                  <video
+                  <img
                     src={card.video}
+                    alt={card.title}
                     className="w-full aspect-[16/9] object-cover"
-                    muted
-                    loop
-                    playsInline
-                    autoPlay
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
