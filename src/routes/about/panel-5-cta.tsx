@@ -20,7 +20,7 @@ export function AboutPanelCta() {
   className="
     lg:hidden
     relative
-    bg-[#D5462F]
+    bg-[#c72e17]
     min-h-[500px]
     flex flex-col
     items-center
@@ -38,7 +38,7 @@ export function AboutPanelCta() {
     className="
       absolute
       left-[-190px]
-      bottom-40
+      bottom-38
       w-[100px]
       h-[300px]
       scale-300
