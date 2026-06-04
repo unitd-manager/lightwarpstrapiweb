@@ -56,9 +56,10 @@ export function ProjectsPanelHero() {
               <div className="flex flex-wrap">
                 <Link
                   to={`/projects/${slugify("Shell You Be Mine")}`}
-                  className="inline-flex rounded-full bg-[#6B5CFF] px-8 py-4 text-sm font-semibold text-white shadow-lg transition hover:opacity-95"
+                                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition hover:opacity-95"
+
                 >
-                  Watch Now
+                  Learn More
                 </Link>
               </div>
             </div>
