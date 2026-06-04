@@ -1,15 +1,19 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import video17 from "../../assets/images/video17.mp4";
-import image07 from "../../assets/images/img20.png";
+import image01 from "../../assets/images/img19.png";
+import image02 from "../../assets/images/img20.png";
+import image03 from "../../assets/images/img21.png";
+import image04 from "../../assets/images/img22.png";
+
 
 const videoCards = [
-  { title: "", subtitle: "", video: "/src/assets/images/img19.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img20.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img21.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img22.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img19.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img20.png" },
+  { title: "", subtitle: "", video: image01 },
+  { title: "", subtitle: "", video: image02 },
+  { title: "", subtitle: "", video: image03 },
+  { title: "", subtitle: "", video: image04 },
+  { title: "", subtitle: "", video: image01 },
+  { title: "", subtitle: "", video: image02 },
 ];
 
 export default function SamsungS7Ad() {
@@ -18,7 +22,7 @@ export default function SamsungS7Ad() {
       <section className="bg-[#050517] text-white">
          <div className="w-full overflow-hidden">
           <img
-            src={image07}
+            src={image02}
             alt="The Jab"
             className="w-full h-[45vh] max-w-none object-cover"
           />

@@ -1,5 +1,22 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
+import image1 from "../../assets/images/img1.png";
+import image2 from "../../assets/images/img2.png";
+import image3 from "../../assets/images/img3.png";
+import image4 from "../../assets/images/img4.png";
+import image5 from "../../assets/images/img5.png";
+import image6 from "../../assets/images/img6.png";
+import image7 from "../../assets/images/img7.png";
+import image8 from "../../assets/images/img8.png";
+import image9 from "../../assets/images/image 1.png";
+import image10 from "../../assets/images/img9.png";
+import image11 from "../../assets/images/img10.png";
+import image12 from "../../assets/images/img11.png";
+import image13 from "../../assets/images/img12.png";
+import image14 from "../../assets/images/img13.png";
+import image15 from "../../assets/images/img14.png";
+
+
 
 type VideoCard = {
   title: string;
@@ -93,30 +110,30 @@ export function ProjectDetailLayout({
   const relatedProjects: VideoCard[] =
     relatedProjectsProp || (title === "Shell You Be Mine?"
       ? [
-          { title: "", subtitle: "", video: "/src/assets/images/img1.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img2.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img3.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img4.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img5.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img6.png" },
+          { title: "", subtitle: "", video: image1 },
+          { title: "", subtitle: "", video: image2 },
+          { title: "", subtitle: "", video: image3 },
+          { title: "", subtitle: "", video: image4 },
+          { title: "", subtitle: "", video: image5 },
+          { title: "", subtitle: "", video: image6 },
         ]
       : title === "Lush Victorian Garden"
       ? [
-          { title: "", subtitle: "", video: "/src/assets/images/img7.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img8.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/image 1.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img7.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img8.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/image 1.png" },
+          { title: "", subtitle: "", video: image7 },
+          { title: "", subtitle: "", video: image8 },
+          { title: "", subtitle: "", video: image9 },
+          { title: "", subtitle: "", video: image7},
+          { title: "", subtitle: "", video: image8 },
+          { title: "", subtitle: "", video: image9 },
         ]
       : title === "Stuffed"
       ? [
-          { title: "", subtitle: "", video: "/src/assets/images/img9.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img10.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img11.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img12.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img13.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img14.png" },
+          { title: "", subtitle: "", video: image10 },
+          { title: "", subtitle: "", video: image11 },
+          { title: "", subtitle: "", video: image12 },
+          { title: "", subtitle: "", video: image13 },
+          { title: "", subtitle: "", video: image14 },
+          { title: "", subtitle: "", video: image15 },
         ]
       : extraProjects);
   const isRightAligned = title === "Shell You Be Mine?";

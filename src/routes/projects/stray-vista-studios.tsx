@@ -2,14 +2,19 @@ import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import video1 from "../../assets/images/video1.mp4";
 import image01 from "../../assets/images/img32.png";
+import image02 from "../../assets/images/img31.png";
+import image03 from "../../assets/images/img32.png";
+import image04 from "../../assets/images/img33.png";
+import image05 from "../../assets/images/img34.png";
+
 
 const videoCards = [
-  { title: "", subtitle: "", video: "/src/assets/images/img31.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img32.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img33.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img34.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img31.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img32.png" },
+  { title: "", subtitle: "", video: image02 },
+  { title: "", subtitle: "", video: image03 },
+  { title: "", subtitle: "", video: image04 },
+  { title: "", subtitle: "", video: image05 },
+  { title: "", subtitle: "", video: image01 },
+  { title: "", subtitle: "", video: image02 },
 ];
 
 export default function StrayVistaStudios() {

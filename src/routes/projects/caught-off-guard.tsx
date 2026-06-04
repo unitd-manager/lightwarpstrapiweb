@@ -2,14 +2,18 @@ import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import video29 from "../../assets/images/video29.mp4";
 import image06 from "../../assets/images/img26.png";
+import image01 from "../../assets/images/img23.png";
+import image02 from "../../assets/images/img24.png";
+import image03 from "../../assets/images/img25.png";
+import image04 from "../../assets/images/img26.png";
 
 const videoCards = [
-  { title: "", subtitle: "", video: "/src/assets/images/img23.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img24.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img25.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img26.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img23.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img24.png" },
+  { title: "", subtitle: "", video: image01 },
+  { title: "", subtitle: "", video: image02 },
+  { title: "", subtitle: "", video: image03 },
+  { title: "", subtitle: "", video: image04 },
+  { title: "", subtitle: "", video: image01 },
+  { title: "", subtitle: "", video: image02 },
 ];
 
 export default function CaughtOffGuard() {

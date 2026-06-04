@@ -2,14 +2,19 @@ import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import video4 from "../../assets/images/video4.mp4";
 import image05 from "../../assets/images/img28.png";
+import image01 from "../../assets/images/img27.png";
+import image02 from "../../assets/images/img28.png";
+import image03 from "../../assets/images/img29.png";
+import image04 from "../../assets/images/img30.png";
+
 
 const videoCards = [
-  { title: "", subtitle: "", video: "/src/assets/images/img27.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img28.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img29.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img30.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img27.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img28.png" },
+  { title: "", subtitle: "", video: image01 },
+  { title: "", subtitle: "", video: image02 },
+  { title: "", subtitle: "", video: image03 },
+  { title: "", subtitle: "", video: image04 },
+  { title: "", subtitle: "", video: image01 },
+  { title: "", subtitle: "", video: image02 },
 ];
 
 export default function Cyberia2084() {

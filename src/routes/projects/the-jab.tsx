@@ -1,15 +1,18 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import video10 from "../../assets/images/video10.mp4";
-import image02 from "../../assets/images/img17.png";
+import image1 from "../../assets/images/img15.png";
+import image2 from "../../assets/images/img16.png";
+import image3 from "../../assets/images/img17.png";
+import image4 from "../../assets/images/img18.png";
 
 const videoCards = [
-  { title: "", subtitle: "", video: "/src/assets/images/img15.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img16.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img17.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img18.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img15.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img18.png" },
+  { title: "", subtitle: "", video: image1 },
+  { title: "", subtitle: "", video: image2 },
+  { title: "", subtitle: "", video: image3 },
+  { title: "", subtitle: "", video: image4 },
+  { title: "", subtitle: "", video: image1 },
+  { title: "", subtitle: "", video: image4 },
 ];
 
 export default function TheJab() {
@@ -18,7 +21,7 @@ export default function TheJab() {
       <section className="bg-[#050517] text-white">
         <div className="w-full overflow-hidden">
           <img
-            src={image02}
+            src={image3}
             alt="The Jab"
             className="w-full h-[45vh] max-w-none object-cover"
           />
