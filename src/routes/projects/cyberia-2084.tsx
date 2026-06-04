@@ -15,7 +15,7 @@ const videoCards = [
 export default function Cyberia2084() {
   return (
     <PageShell>
-      <section className="bg-[#05050d] text-white">
+      <section className="bg-[#050517] text-white">
         <div className="w-full overflow-hidden">
           <img
             src={image05}
@@ -69,7 +69,7 @@ export default function Cyberia2084() {
           </div>
         </div>
 
-        <section className="bg-black py-16 px-6">
+        <section className="bg-[#050517] py-16 px-6">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-8 md:grid-cols-2">
               {videoCards.map((card, index) => (

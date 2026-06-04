@@ -130,7 +130,7 @@ export function ProjectDetailLayout({
   if (isLushGarden || isShellYouBeMine || isStuffed) {
     return (
       <PageShell>
-        <section className="bg-black text-white">
+        <section className="bg-[#050517] text-white">
           <div className="w-full overflow-hidden">
             <img
               src={backgroundImage}
@@ -171,7 +171,7 @@ export function ProjectDetailLayout({
           </div>
         </section>
 
-        <section className="bg-black py-16 px-6">
+        <section className="bg-[#050517] py-16 px-6">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-8 md:grid-cols-2">
               {relatedProjects.map((card) => (
@@ -234,7 +234,7 @@ export function ProjectDetailLayout({
 
   return (
     <PageShell>
-      <section className="relative min-h-[75vh] overflow-hidden bg-[#05050d] text-white">
+      <section className="relative min-h-[75vh] overflow-hidden bg-[#050517] text-white">
         <div className="absolute inset-0 overflow-hidden">
           {backgroundImage ? (
             <img
