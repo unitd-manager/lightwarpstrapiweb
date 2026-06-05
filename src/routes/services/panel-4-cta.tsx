@@ -32,11 +32,11 @@ export function ServicesPanelCta() {
           className="absolute right-[-190px] bottom-38 w-[100px] h-[300px] scale-300 select-none pointer-events-none"
         />
 
-        <h2 className="text-[45px] font-extrabold leading-[1.05] tracking-[-2px] text-black relative z-10">
-          Ready to get<br />started?
+        <h2 className="text-[45px] font-extrabold leading-[1.05] tracking-[-2px] text-black relative z-10 px-4">
+          Ready to get started?
         </h2>
 
-        <p className="mt-8 max-w-[280px] text-[14px] leading-[1.5] text-black font-light relative z-10 tracking-[0.013em]">
+        <p className="mt-6 max-w-[260px] text-[15px] leading-[1.5] text-black font-normal relative z-10 text-center">
           Whether it's individual assets or a full animation, our team is here to help! Click the button below to get stellar content for your 3D needs
         </p>
 
