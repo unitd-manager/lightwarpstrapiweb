@@ -70,17 +70,18 @@ export function AboutPanelStory() {
       </motion.div>
 
       {/* ================= DESKTOP ================= */}
-      <motion.div
+      
+ <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
         className="
           hidden lg:flex
-          mx-auto w-full max-w-[1430px]
+          mx-auto w-full max-w-[1300px]
           items-stretch
           overflow-hidden
-          rounded-[24px]
+          rounded-[20px]
           bg-[#6250DA]
           border border-white/20
           shadow-[0_0_35px_rgba(255,255,255,0.12)]
@@ -111,7 +112,7 @@ export function AboutPanelStory() {
         <div
           className="
             w-[54.5%]
-            p-[5%]
+            p-[6%]
             flex flex-col justify-center
           "
         >
@@ -121,7 +122,8 @@ export function AboutPanelStory() {
               pb-[30px]
               text-white
               font-extrabold
-              leading-[1.1]
+              leading-[1.2]
+              [word-spacing:4px]
               tracking-[-1.4px]
             "
           >
@@ -135,6 +137,7 @@ export function AboutPanelStory() {
               font-light
               leading-[24px]
               tracking-[0.025em]
+              [word-spacing:1px]
               text-justify
             "
           >
@@ -149,7 +152,6 @@ export function AboutPanelStory() {
           </p>
         </div>
       </motion.div>
-
     </section>
   );
 }

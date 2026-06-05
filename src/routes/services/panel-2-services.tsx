@@ -101,8 +101,8 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
       style={{ borderRadius: "49px", padding: "5%", alignItems: "center", textAlign: "center" }}
     >
       <h3
-        className="text-2xl font-semibold mb-6"
-        style={{ fontFamily: '"DM Sans", sans-serif', fontWeight: 600 }}
+        className="font-semibold mb-6"
+        style={{ fontFamily: '"DM Sans", sans-serif', fontWeight: 600, fontSize: '34px', lineHeight: '1.2em' }}
       >{service.title}</h3>
 
       {/* Description with clamp */}
@@ -177,9 +177,9 @@ export function ServicesPanelServices() {
             className="services-cards-heading"
             style={{
               fontFamily: '"Sora", sans-serif',
-              fontSize: "52px",
+              fontSize: "40px",
               fontWeight: 600,
-              lineHeight: "62px",
+              lineHeight: "50px",
               letterSpacing: "-1px",
               color: "#FFFFFF",
               textAlign: "center",

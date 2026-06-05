@@ -66,6 +66,12 @@
   --pink: #ff6a00;
   --blue: #1e6bff;
   --violet: #00a3ff;
+
+  --lw-container-max: 1660px;
+  --lw-container-pad: clamp(16px, 2.5vw, 72px);
+  --lw-hero-max: 1920px;
+  --lw-section-pad-y: clamp(64px, 5vw, 96px);
+  --lw-section-pad-y-tight: clamp(40px, 4vw, 80px);
 }
 
 /* .dark intentionally inherits :root — dark-first design */
@@ -101,6 +107,39 @@
 }
 
 @layer utilities {
+  .lw-container {
+    width: 100%;
+    max-width: var(--lw-container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--lw-container-pad);
+    padding-right: var(--lw-container-pad);
+  }
+
+  .lw-hero-container {
+    width: 100%;
+    max-width: var(--lw-hero-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--lw-container-pad);
+    padding-right: var(--lw-container-pad);
+  }
+
+  .lw-section {
+    padding-top: var(--lw-section-pad-y);
+    padding-bottom: var(--lw-section-pad-y);
+  }
+
+  .lw-section-tight {
+    padding-top: var(--lw-section-pad-y-tight);
+    padding-bottom: var(--lw-section-pad-y-tight);
+  }
+
+  .lw-safe-x {
+    padding-left: var(--lw-container-pad);
+    padding-right: var(--lw-container-pad);
+  }
+
   .text-gradient {
     background: linear-gradient(135deg, var(--pink) 0%, var(--violet) 50%, var(--blue) 100%);
     -webkit-background-clip: text;
@@ -336,12 +375,13 @@
 
 /* ── Contact page — pixel-perfect match to Elementor CSS (post-33.css) ── */
 
-/* Hero section min-height responsive */
+/* Hero section min-height responsive — keep consistent so percentage
+   positions of clouds/balls stay the same on all screen sizes */
 @media (max-width: 1024px) {
-  .contact-hero-section { min-height: 340px !important; }
+  .contact-hero-section { min-height: 220px !important; }
 }
 @media (max-width: 767px) {
-  .contact-hero-section { min-height: 240px !important; }
+  .contact-hero-section { min-height: 220px !important; }
 }
 
 /*
@@ -552,16 +592,19 @@
 }
 
 /*
- * Process heading (ae06c75)
- *   Desktop: text-start; Sora 45px
- *   Mobile: text-align center
+ * Process heading & body — mobile center + smaller font
  */
 @media (max-width: 767px) {
   .services-process-heading {
     text-align: center !important;
+    font-size: 28px !important;
+    line-height: 1.2em !important;
+    letter-spacing: -0.5px !important;
   }
   .services-process-body {
     text-align: center !important;
+    font-size: 14px !important;
+    line-height: 1.6em !important;
   }
 }
 
@@ -569,8 +612,9 @@
  * Logo row (9e90257)
  *   Desktop: flex-wrap wrap; width 100%; space-evenly
  *   Tablet:  wrap; center; reduce cell padding
- *   Mobile:  wrap; center; 3-per-row (33.333% per cell); compact padding
+ *   Mobile:  1 per row; center; compact padding
  */
+
 @media (max-width: 1024px) {
   .services-logo-row {
     flex-wrap: wrap !important;
@@ -689,13 +733,13 @@
 /* "Lightwarp has you covered" heading — responsive */
 @media (max-width: 1024px) {
   .services-cards-heading {
-    font-size: 42px !important;
+    font-size: 36px !important;
     line-height: 1.1em !important;
   }
 }
 @media (max-width: 767px) {
   .services-cards-heading {
-    font-size: 30px !important;
+    font-size: 26px !important;
     line-height: 1.2em !important;
     letter-spacing: -0.5px !important;
   }

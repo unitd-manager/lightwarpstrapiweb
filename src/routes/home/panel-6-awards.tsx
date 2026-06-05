@@ -46,8 +46,8 @@ const artists = [
 
 export function HomePanelAwards() {
   return (
-    <section className="pt-10 pb-24 px-6 bg-transparent">
-      <div className="max-w-7xl mx-auto">
+    <section className="lw-section-tight bg-transparent">
+      <div className="lw-container">
         {/* Awards Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
