@@ -5,7 +5,7 @@ const crabStill =
 
 export function AboutPanelStory() {
   return (
-    <section className="mx-auto max-w-[1300px] px-6 pt-[9px] pb-12">
+    <section className="w-full px-4 pt-[20px] pb-12 sm:px-6">
 
       {/* ================= MOBILE ================= */}
       <motion.div
@@ -15,6 +15,7 @@ export function AboutPanelStory() {
         transition={{ duration: 0.7 }}
         className="
           lg:hidden
+          mx-auto w-full max-w-[1600px]
           overflow-hidden
           rounded-[24px]
           bg-[#6250DA]
@@ -76,6 +77,7 @@ export function AboutPanelStory() {
         transition={{ duration: 0.7 }}
         className="
           hidden lg:flex
+          mx-auto w-full max-w-[1430px]
           items-stretch
           overflow-hidden
           rounded-[24px]

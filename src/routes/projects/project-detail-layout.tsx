@@ -1,5 +1,22 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
+import image1 from "../../assets/images/img1.png";
+import image2 from "../../assets/images/img2.png";
+import image3 from "../../assets/images/img3.png";
+import image4 from "../../assets/images/img4.png";
+import image5 from "../../assets/images/img5.png";
+import image6 from "../../assets/images/img6.png";
+import image7 from "../../assets/images/img7.png";
+import image8 from "../../assets/images/img8.png";
+import image9 from "../../assets/images/image 1.png";
+import image10 from "../../assets/images/img9.png";
+import image11 from "../../assets/images/img10.png";
+import image12 from "../../assets/images/img11.png";
+import image13 from "../../assets/images/img12.png";
+import image14 from "../../assets/images/img13.png";
+import image15 from "../../assets/images/img14.png";
+
+
 
 type VideoCard = {
   title: string;
@@ -93,41 +110,44 @@ export function ProjectDetailLayout({
   const relatedProjects: VideoCard[] =
     relatedProjectsProp || (title === "Shell You Be Mine?"
       ? [
-          { title: "", subtitle: "", video: "/src/assets/images/img1.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img2.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img3.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img4.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img5.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img6.png" },
+          { title: "", subtitle: "", video: image1 },
+          { title: "", subtitle: "", video: image2 },
+          { title: "", subtitle: "", video: image3 },
+          { title: "", subtitle: "", video: image4 },
+          { title: "", subtitle: "", video: image5 },
+          { title: "", subtitle: "", video: image6 },
         ]
       : title === "Lush Victorian Garden"
       ? [
-          { title: "", subtitle: "", video: "/src/assets/images/img7.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img8.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/image 1.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img7.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img8.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/image 1.png" },
+          { title: "", subtitle: "", video: image7 },
+          { title: "", subtitle: "", video: image8 },
+          { title: "", subtitle: "", video: image9 },
+          { title: "", subtitle: "", video: image7},
+          { title: "", subtitle: "", video: image8 },
+          { title: "", subtitle: "", video: image9 },
         ]
       : title === "Stuffed"
       ? [
-          { title: "", subtitle: "", video: "/src/assets/images/img9.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img10.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img11.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img12.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img13.png" },
-          { title: "", subtitle: "", video: "/src/assets/images/img14.png" },
+          { title: "", subtitle: "", video: image10 },
+          { title: "", subtitle: "", video: image11 },
+          { title: "", subtitle: "", video: image12 },
+          { title: "", subtitle: "", video: image13 },
+          { title: "", subtitle: "", video: image14 },
+          { title: "", subtitle: "", video: image15 },
         ]
       : extraProjects);
   const isRightAligned = title === "Shell You Be Mine?";
   const isLushGarden = title === "Lush Victorian Garden";
   const isShellYouBeMine = title === "Shell You Be Mine?";
   const isStuffed = title === "Stuffed";
+  const isSpecialVideoPage = isLushGarden || isShellYouBeMine || isStuffed;
+  const specialGridClass = isSpecialVideoPage ? "lg:grid-cols-[1.1fr_minmax(520px,1.4fr)]" : "lg:grid-cols-[1.3fr_0.9fr]";
+  const specialVideoClass = isSpecialVideoPage ? "w-full aspect-[16/9] min-h-[30rem] object-cover" : "w-full aspect-[16/9] object-cover";
 
   if (isLushGarden || isShellYouBeMine || isStuffed) {
     return (
       <PageShell>
-        <section className="bg-black text-white">
+        <section className="bg-[#050517] text-white">
           <div className="w-full overflow-hidden">
             <img
               src={backgroundImage}
@@ -137,7 +157,7 @@ export function ProjectDetailLayout({
           </div>
 
           <div className="mx-auto max-w-7xl px-6 py-16">
-            <div className="grid gap-12 lg:grid-cols-[1.3fr_0.9fr] items-start">
+            <div className={`grid gap-12 ${specialGridClass} items-start`}>
               <div className="space-y-8">
                 <div className="space-y-6 max-w-2xl">
                   <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
@@ -153,28 +173,10 @@ export function ProjectDetailLayout({
                 </div>
               </div>
 
-              {!isLushGarden ? (
-                <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                  <VideoRenderer
-                    src={videoSrc}
-                    className="w-full aspect-[16/9] object-cover"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    controls
-                  />
-                </div>
-              ) : null}
-            </div>
-          </div>
-
-          {isLushGarden ? (
-            <div className="w-full overflow-hidden px-6 pb-16">
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
                 <VideoRenderer
                   src={videoSrc}
-                  className="w-full aspect-[16/9] object-cover"
+                  className={specialVideoClass}
                   autoPlay
                   muted
                   loop
@@ -183,10 +185,10 @@ export function ProjectDetailLayout({
                 />
               </div>
             </div>
-          ) : null}
+          </div>
         </section>
 
-        <section className="bg-black py-16 px-6">
+        <section className="bg-[#050517] py-16 px-6">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-8 md:grid-cols-2">
               {relatedProjects.map((card) => (
@@ -249,7 +251,7 @@ export function ProjectDetailLayout({
 
   return (
     <PageShell>
-      <section className="relative min-h-[75vh] overflow-hidden bg-[#05050d] text-white">
+      <section className="relative min-h-[75vh] overflow-hidden bg-[#050517] text-white">
         <div className="absolute inset-0 overflow-hidden">
           {backgroundImage ? (
             <img

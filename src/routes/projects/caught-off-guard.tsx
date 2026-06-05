@@ -1,31 +1,35 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import video29 from "../../assets/images/video29.mp4";
-import image06 from "../../assets/images/image06.png";
+import image06 from "../../assets/images/img26.png";
+import image01 from "../../assets/images/img23.png";
+import image02 from "../../assets/images/img24.png";
+import image03 from "../../assets/images/img25.png";
+import image04 from "../../assets/images/img26.png";
 
 const videoCards = [
-  { title: "", subtitle: "", video: "/src/assets/images/img23.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img24.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img25.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img26.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img23.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img24.png" },
+  { title: "", subtitle: "", video: image01 },
+  { title: "", subtitle: "", video: image02 },
+  { title: "", subtitle: "", video: image03 },
+  { title: "", subtitle: "", video: image04 },
+  { title: "", subtitle: "", video: image01 },
+  { title: "", subtitle: "", video: image02 },
 ];
 
 export default function CaughtOffGuard() {
   return (
     <PageShell>
-      <section className="bg-[#05050d] text-white">
-        <div className="relative left-1/2 right-1/2 mx-[-50vw] w-screen overflow-hidden mb-10">
+      <section className="bg-[#050517] text-white">
+       <div className="w-full overflow-hidden">
           <img
             src={image06}
-            alt="Caught Off Guard"
-            className="w-full h-auto object-cover"
+            alt="The Jab"
+            className="w-full h-[45vh] max-w-none object-cover"
           />
         </div>
 
         <div className="mx-auto max-w-7xl px-6 py-12 lg:py-20">
-          <div className="grid gap-12 lg:grid-cols-[1.4fr_minmax(440px,0.9fr)] items-center">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_minmax(540px,1.3fr)] items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -68,7 +72,7 @@ export default function CaughtOffGuard() {
           </div>
         </div>
 
-        <section className="bg-black py-16 px-6">
+        <section className="bg-[#050517] py-16 px-6">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-8 md:grid-cols-2">
               {videoCards.map((card, index) => (

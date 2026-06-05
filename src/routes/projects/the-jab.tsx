@@ -1,31 +1,34 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import video10 from "../../assets/images/video10.mp4";
-import image02 from "../../assets/images/image02.png";
+import image1 from "../../assets/images/img15.png";
+import image2 from "../../assets/images/img16.png";
+import image3 from "../../assets/images/img17.png";
+import image4 from "../../assets/images/img18.png";
 
 const videoCards = [
-  { title: "", subtitle: "", video: "/src/assets/images/img15.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img16.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img17.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img18.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img15.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img18.png" },
+  { title: "", subtitle: "", video: image1 },
+  { title: "", subtitle: "", video: image2 },
+  { title: "", subtitle: "", video: image3 },
+  { title: "", subtitle: "", video: image4 },
+  { title: "", subtitle: "", video: image1 },
+  { title: "", subtitle: "", video: image4 },
 ];
 
 export default function TheJab() {
   return (  
     <PageShell>
-      <section className="bg-[#05050d] text-white">
-        <div className="relative left-1/2 right-1/2 mx-[-50vw] w-screen overflow-hidden">
+      <section className="bg-[#050517] text-white">
+        <div className="w-full overflow-hidden">
           <img
-            src={image02}
+            src={image3}
             alt="The Jab"
-            className="w-full h-auto object-cover"
+            className="w-full h-[45vh] max-w-none object-cover"
           />
         </div>
 
         <div className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
-          <div className="grid gap-12 lg:grid-cols-[1.4fr_minmax(440px,0.9fr)] items-center">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_minmax(540px,1.3fr)] items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -75,7 +78,7 @@ export default function TheJab() {
         </div>
       </section>
 
-      <section className="bg-black py-16 px-6">
+      <section className="bg-[#050517] py-16 px-6">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 md:grid-cols-2">
             {videoCards.map((card, index) => (

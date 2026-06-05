@@ -1,31 +1,35 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import video17 from "../../assets/images/video17.mp4";
-import image07 from "../../assets/images/image07.png";
+import image01 from "../../assets/images/img19.png";
+import image02 from "../../assets/images/img20.png";
+import image03 from "../../assets/images/img21.png";
+import image04 from "../../assets/images/img22.png";
+
 
 const videoCards = [
-  { title: "", subtitle: "", video: "/src/assets/images/img19.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img20.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img21.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img22.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img19.png" },
-  { title: "", subtitle: "", video: "/src/assets/images/img20.png" },
+  { title: "", subtitle: "", video: image01 },
+  { title: "", subtitle: "", video: image02 },
+  { title: "", subtitle: "", video: image03 },
+  { title: "", subtitle: "", video: image04 },
+  { title: "", subtitle: "", video: image01 },
+  { title: "", subtitle: "", video: image02 },
 ];
 
 export default function SamsungS7Ad() {
   return (
     <PageShell>
-      <section className="bg-[#05050d] text-white">
-        <div className="relative left-1/2 right-1/2 mx-[-50vw] w-screen overflow-hidden mb-10">
+      <section className="bg-[#050517] text-white">
+         <div className="w-full overflow-hidden">
           <img
-            src={image07}
-            alt="Samsung S7 ad"
-            className="w-full h-auto object-cover"
+            src={image02}
+            alt="The Jab"
+            className="w-full h-[45vh] max-w-none object-cover"
           />
         </div>
 
         <div className="mx-auto max-w-7xl px-6 py-12 lg:py-20">
-          <div className="grid gap-12 lg:grid-cols-[1.4fr_minmax(440px,0.9fr)] items-center">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_minmax(540px,1.3fr)] items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -59,7 +63,7 @@ export default function SamsungS7Ad() {
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
                 <iframe
                   src="https://www.youtube.com/embed/4Esie0f7HVw"
-                  className="w-full aspect-[16/9] object-cover"
+                  className="w-full aspect-[16/9] min-h-[26rem] object-cover"
                   style={{ border: "none" }}
                   allowFullScreen
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -69,7 +73,7 @@ export default function SamsungS7Ad() {
           </div>
         </div>
 
-        <section className="bg-black py-16 px-6">
+        <section className="bg-[#050517] py-16 px-6">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-8 md:grid-cols-2">
               {videoCards.map((card, index) => (

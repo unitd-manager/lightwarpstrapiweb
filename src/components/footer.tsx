@@ -18,17 +18,18 @@ export function Footer() {
       {/* Main grid — 4 cols desktop / 2 cols tablet / 1 col mobile */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[340px_1fr_1fr_1fr] gap-y-[60px] gap-x-[40px] p-[32px] md:p-[60px] lg:p-[100px]">
 
-        {/* Logo + Copyright */}
+        {/* Logo — no copyright here on mobile */}
         <div className="flex flex-col items-start gap-5">
           <a href="/">
             <img
               src={lightwarpLogo}
               alt="Lightwarp"
-              className="object-contain w-full h-auto lg:h-[180px] lg:w-[320px] lg:max-w-none"
+              className="h-[65px] w-auto object-contain lg:h-[180px] lg:w-[320px] lg:max-w-none"
             />
           </a>
+          {/* Copyright visible on desktop only */}
           <p
-            className="text-white"
+            className="text-white hidden lg:block"
             style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
           >
             &copy;2026. Lightwarp LLC. All rights reserved.
@@ -74,31 +75,13 @@ export function Footer() {
             Follow
           </h6>
           <div className="flex items-center gap-3">
-            <a
-              aria-label="Instagram"
-              href="https://www.instagram.com/lightwarp3d"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-white/80 transition-colors"
-            >
+            <a aria-label="Instagram" href="https://www.instagram.com/lightwarp3d" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-colors">
               <Instagram size={20} strokeWidth={1.5} />
             </a>
-            <a
-              aria-label="TikTok"
-              href="https://www.tiktok.com/@lightwarp3d"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-white/80 transition-colors"
-            >
+            <a aria-label="TikTok" href="https://www.tiktok.com/@lightwarp3d" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-colors">
               <TikTokIcon size={20} />
             </a>
-            <a
-              aria-label="YouTube"
-              href="https://www.youtube.com/@lightwarpstudios"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-white/80 transition-colors"
-            >
+            <a aria-label="YouTube" href="https://www.youtube.com/@lightwarpstudios" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-colors">
               <Youtube size={20} strokeWidth={1.5} />
             </a>
           </div>
@@ -123,6 +106,14 @@ export function Footer() {
           </a>
         </div>
       </div>
+
+      {/* Copyright — mobile only, at the very bottom */}
+      <p
+        className="lg:hidden text-white px-[32px] pb-[32px]"
+        style={{ fontSize: '14px', fontWeight: 300, lineHeight: '24px' }}
+      >
+        &copy;2026. Lightwarp LLC. All rights reserved.
+      </p>
 
       {/* Bottom border line */}
       <div className="border-t border-white/10" />
