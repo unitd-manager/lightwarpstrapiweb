@@ -10,17 +10,25 @@ const DURATION_MS = 1800;
 const START_DEG = -40; // conic "from" offset
 const SWEEP_DEG = 150; // total rotation
 
-/** Reads the actual logo position from the DOM so the beam originates
- *  from the lighthouse lantern regardless of screen size / layout. */
+/** Reads the logo position so the beam always originates from the
+ *  lighthouse lantern — works on both mobile (centered) and desktop (left). */
 function getBeaconPos(): { x: number; y: number } {
-  const logo = document.querySelector("header img") as HTMLImageElement | null;
-  if (!logo) return { x: 74, y: 33 }; // fallback
+  const isMobile = window.innerWidth < 768;
+  const imgs = Array.from(document.querySelectorAll("header img")) as HTMLImageElement[];
+  const logo = imgs.find((img) => img.getBoundingClientRect().width > 0);
+  if (!logo) return { x: isMobile ? Math.round(window.innerWidth / 2) : 74, y: 39 };
+
   const r = logo.getBoundingClientRect();
-  // Lantern sits at ~50 % across, ~30 % down within the logo image
-  return {
-    x: Math.round(r.left + r.width * 0.5),
-    y: Math.round(r.top  + r.height * 0.3),
-  };
+  const y = Math.round(r.top + r.height * 0.3);
+
+  // Mobile: logo is absolutely centred via CSS transform — use viewport
+  // centre for x so transforms don't throw off the measurement.
+  // Desktop: logo is on the left, so use its actual measured position.
+  const x = isMobile
+    ? Math.round(window.innerWidth / 2)
+    : Math.round(r.left + r.width * 0.5);
+
+  return { x, y };
 }
 
 export function PageTransitionOverlay() {

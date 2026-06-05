@@ -116,11 +116,23 @@ export function ServicesPanels() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               className="service-card-wrapper"
             >
+
+
+
               <Link
+  to={service.href}
+  className="service-card e-con-full e-flex e-con animated-fast fadeInUp"
+  style={
+    service.bgSolid
+      ? { backgroundColor: service.bgSolid }
+      : undefined
+  }
+>
+              {/*<Link
                 to={service.href}
                 className={`service-card e-con-full e-flex e-con ${service.bgColor ? `bg-gradient-to-br ${service.bgColor}` : ""} animated-fast fadeInUp`}
                 style={service.bgSolid ? { backgroundColor: service.bgSolid } : undefined}
-              >
+              >*/}
                 {/* Title Container */}
                 <div className="e-con-full e-flex e-con service-title-container">
                   <div className="elementor-widget elementor-widget-heading">
