@@ -127,7 +127,7 @@ I had participated in 4 major projects in my time at Stray Vista:
                 ))}
               </motion.div>
 
-              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
+              <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
                 <div className="w-full aspect-[16/9]">
                   <VideoPlayer src="https://www.youtube.com/embed/w0GfewGYR3g" title="Stray Vista Studios" />
                 </div>
@@ -146,7 +146,7 @@ I had participated in 4 major projects in my time at Stray Vista:
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
+                  className="overflow-hidden rounded-none border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
                 >
                   <div className="relative overflow-hidden">
                     <img
