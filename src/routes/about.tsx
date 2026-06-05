@@ -11,28 +11,28 @@ export default function About() {
     <PageShell>
       {/* Mobile Horizontal Scroll */}
       <div className="w-full overflow-x-auto md:overflow-visible">
-        <div className="flex min-w-[520px] md:min-w-0">
+        <div className="flex min-w-[520px] md:min-w-0 overflow-visible">
           {/* Main Content */}
-          <div className="flex-1 min-w-[390px]">
+          <div className="flex-1 min-w-[390px] overflow-visible">
             <AboutPanelStory />
             <AboutPanelTeam />
             <AboutPanelCta />
           </div>
 
           {/* Blank Space + Character */}
-          <div className="relative w-80 sm:w-40 md:w-0 flex-shrink-0">
+          <div className="static w-80 sm:w-40 md:w-0 flex-shrink-0 overflow-visible">
             <img
               src={keepInTouch2}
               alt=""
               className="
-                absolute
-                bottom-[-30px]
-                left-[-20px]
+                static
                 h-[650px]
                 w-auto
+                -ml-5
+                scale-[1]
+                mt-[1875px]
                 pointer-events-none
                 select-none
-                z-50
               "
             />
           </div>

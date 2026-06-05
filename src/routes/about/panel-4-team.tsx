@@ -30,7 +30,7 @@ export function AboutPanelTeam() {
   return (
     <section
       style={{ fontFamily: '"Sora", sans-serif', overflow: 'hidden' }}
-      className="flex flex-col gap-[46px] px-[2%] pt-[3%] pb-[1%] min-h-[380px] mb-[60px]"
+      className="flex flex-col gap-[50px] px-[2%] pt-[3%] pb-[1%] min-h-[380px] mb-[60px]"
     >
       {/* ── Meet our Team heading ── */}
       <motion.h2

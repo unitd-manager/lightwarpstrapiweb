@@ -216,16 +216,25 @@ export function ProjectDetailLayout({
               ))}
             </div>
             <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
-              {previousHref ? (
-                <a
-                  href={previousHref}
-                  className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
-                >
-                  Previous
-                </a>
-              ) : (
-                <div />
-              )}
+                {previousHref ? (
+                  <a
+                    href={previousHref}
+                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+                  >
+                    Previous
+                  </a>
+                ) : isShellYouBeMine ? (
+                  <button
+                    type="button"
+                    disabled
+                    aria-disabled="true"
+                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+                  >
+                    Previous
+                  </button>
+                ) : (
+                  <div />
+                )}
               <a
                 href="/projects"
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
@@ -235,7 +244,7 @@ export function ProjectDetailLayout({
               {nextHref ? (
                 <a
                   href={nextHref}
-                  className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
                 >
                   Next
                 </a>
@@ -364,6 +373,15 @@ export function ProjectDetailLayout({
               >
                 Previous
               </a>
+            ) : isShellYouBeMine ? (
+              <button
+                type="button"
+                disabled
+                aria-disabled="true"
+                className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white opacity-40 cursor-not-allowed"
+              >
+                Previous
+              </button>
             ) : (
               <div />
             )}

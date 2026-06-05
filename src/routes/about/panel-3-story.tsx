@@ -111,7 +111,7 @@ export function AboutPanelStory() {
         <div
           className="
             w-[54.5%]
-            p-[5%]
+            p-[6%]
             flex flex-col justify-center
           "
         >
@@ -121,7 +121,8 @@ export function AboutPanelStory() {
               pb-[30px]
               text-white
               font-extrabold
-              leading-[1.1]
+              leading-[1.2]
+              [word-spacing:4px]
               tracking-[-1.4px]
             "
           >
@@ -135,6 +136,7 @@ export function AboutPanelStory() {
               font-light
               leading-[24px]
               tracking-[0.025em]
+              [word-spacing:1px]
               text-justify
             "
           >
