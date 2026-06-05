@@ -211,7 +211,7 @@ export function ProjectDetailLayout({
   const logosToRender = isLushGarden ? lushLogos : isStuffed ? stuffedLogos : logos;
   const specialGridClass = isSpecialVideoPage ? "grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(520px,1fr)]" : "lg:grid-cols-[1.3fr_0.9fr]";
   const isYouTube = isYouTubeEmbed(videoSrc);
-  const videoWrapperClass = isSpecialVideoPage ? "w-full aspect-[16/9] min-h-[30rem]" : "w-full aspect-[16/9]";
+  const videoWrapperClass =  "relative w-full aspect-video overflow-hidden bg-black";
   const videoMediaClass = "h-full w-full object-cover";
 
   if (isLushGarden || isShellYouBeMine || isStuffed) {
@@ -298,7 +298,7 @@ export function ProjectDetailLayout({
                   ))}
                 </motion.div>
 
-                <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
+                <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
                   <div className={videoWrapperClass}>
                     {isYouTube ? (
                       <VideoPlayer src={videoSrc} title={title} />
@@ -330,7 +330,7 @@ export function ProjectDetailLayout({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
+                  className="overflow-hidden rounded-none border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
                 >
                   <div className="relative overflow-hidden">
                     <img
@@ -397,11 +397,11 @@ export function ProjectDetailLayout({
           {backgroundImage ? (
             <img
               src={backgroundImage}
-              className="absolute top-1/2 left-1/2 h-[160%] w-[160%] -translate-x-1/2 -translate-y-1/2 object-cover"
+              className="absolute top-1/2 left-1/2 h-[100%] w-[100%] -translate-x-1/2 -translate-y-1/2 object-cover"
               alt=""
             />
           ) : isYouTubeEmbed(videoSrc) ? (
-            <div className="absolute top-1/2 left-1/2 h-[160%] w-[160%] -translate-x-1/2 -translate-y-1/2 bg-black" />
+            <div className="absolute top-1/2 left-1/2 h-[100%] w-[100%] -translate-x-1/2 -translate-y-1/2 bg-black" />
           ) : (
             <video
               src={videoSrc}
@@ -497,7 +497,7 @@ export function ProjectDetailLayout({
                 ))}
               </motion.div>
 
-              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
+              <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
                 <div className={videoWrapperClass}>
                   {isYouTube ? (
                     <VideoPlayer src={videoSrc} title={title} />
@@ -529,7 +529,7 @@ export function ProjectDetailLayout({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
+                className="overflow-hidden rounded-none border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
               >
                 <div className="relative overflow-hidden">
                   <img
