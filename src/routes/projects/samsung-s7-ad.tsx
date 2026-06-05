@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
-import video17 from "../../assets/images/video17.mp4";
+import { VideoPlayer } from "../../components/video-player";
 import image01 from "../../assets/images/img19.png";
 import image02 from "../../assets/images/img20.png";
 import image03 from "../../assets/images/img21.png";
@@ -115,13 +115,9 @@ export default function SamsungS7Ad() {
               </motion.div>
 
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <iframe
-                  src="https://www.youtube.com/embed/4Esie0f7HVw"
-                  className="w-full aspect-[16/9] min-h-[26rem] object-cover"
-                  style={{ border: "none" }}
-                  allowFullScreen
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                />
+                <div className="w-full aspect-[16/9] min-h-[26rem]">
+                  <VideoPlayer src="https://www.youtube.com/embed/4Esie0f7HVw" title="Samsung S7 ad" />
+                </div>
               </div>
             </motion.div>
           </div>

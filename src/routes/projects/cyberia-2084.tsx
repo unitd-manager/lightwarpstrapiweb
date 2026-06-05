@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
-import video4 from "../../assets/images/video4.mp4";
+import { VideoPlayer } from "../../components/video-player";
 import image05 from "../../assets/images/img28.png";
 import image01 from "../../assets/images/img27.png";
 import image02 from "../../assets/images/img28.png";
@@ -120,13 +120,9 @@ export default function Cyberia2084() {
               </motion.div>
 
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <iframe
-                  src="https://www.youtube.com/embed/pTmzrHqdS_4"
-                  className="w-full aspect-[16/9] object-cover"
-                  style={{ border: "none" }}
-                  allowFullScreen
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                />
+                <div className="w-full aspect-[16/9]">
+                  <VideoPlayer src="https://www.youtube.com/embed/pTmzrHqdS_4" title="Cyberia 2084" />
+                </div>
               </div>
             </motion.div>
           </div>

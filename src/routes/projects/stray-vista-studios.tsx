@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
-import video1 from "../../assets/images/video1.mp4";
+import { VideoPlayer } from "../../components/video-player";
 import image01 from "../../assets/images/img32.png";
 import image02 from "../../assets/images/img31.png";
 import image03 from "../../assets/images/img32.png";
@@ -128,13 +128,9 @@ I had participated in 4 major projects in my time at Stray Vista:
               </motion.div>
 
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <iframe
-                  src="https://www.youtube.com/embed/w0GfewGYR3g"
-                  className="w-full aspect-[16/9] object-cover"
-                  style={{ border: "none" }}
-                  allowFullScreen
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                />
+                <div className="w-full aspect-[16/9]">
+                  <VideoPlayer src="https://www.youtube.com/embed/w0GfewGYR3g" title="Stray Vista Studios" />
+                </div>
               </div>
             </motion.div>
           </div>

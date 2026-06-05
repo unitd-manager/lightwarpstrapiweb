@@ -83,7 +83,7 @@ export function VideoPlayer({
   const vimeoId = getVimeoId(src);
 
   const thumbnail = youtubeId
-    ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`
+    ? `https://i.ytimg.com/vi/${youtubeId}/sddefault.jpg`
     : vimeoId
     ? `https://vumbnail.com/${vimeoId}.jpg`
     : null;
@@ -126,15 +126,14 @@ export function VideoPlayer({
       className="group relative block h-full w-full overflow-hidden"
       aria-label={`Play ${title}`}
     >
-      {thumbnail ? (
-        <img
-          src={thumbnail}
-          alt={title}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-      ) : (
-        <div className="h-full w-full bg-white/5" />
-      )}
+      <div
+        className={
+          thumbnail
+            ? "h-full w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+            : "h-full w-full bg-white/5"
+        }
+        style={thumbnail ? { backgroundImage: `url("${thumbnail}")` } : undefined}
+      />
 
       {/* overlay */}
       <div className="absolute inset-0 bg-black/30 transition-colors duration-300 group-hover:bg-black/20" />

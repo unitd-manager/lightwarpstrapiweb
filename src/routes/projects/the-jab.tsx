@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
-import video10 from "../../assets/images/video10.mp4";
+import { VideoPlayer } from "../../components/video-player";
 import image1 from "../../assets/images/img15.png";
 import image2 from "../../assets/images/img16.png";
 import image3 from "../../assets/images/img17.png";
@@ -122,13 +122,9 @@ export default function TheJab() {
               </motion.div>
 
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <iframe
-                  src="https://www.youtube.com/embed/4d27i10x2wI"
-                  className="w-full aspect-[16/9] object-cover"
-                  style={{ border: "none" }}
-                  allowFullScreen
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                />
+                <div className="w-full aspect-[16/9]">
+                  <VideoPlayer src="https://www.youtube.com/embed/4d27i10x2wI" title="The Jab" />
+                </div>
               </div>
             </motion.div>
           </div>

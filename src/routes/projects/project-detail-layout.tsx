@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
+import { VideoPlayer } from "../../components/video-player";
 import image1 from "../../assets/images/img1.png";
 import image2 from "../../assets/images/img2.png";
 import image3 from "../../assets/images/img3.png";
@@ -209,7 +210,9 @@ export function ProjectDetailLayout({
   const isSpecialVideoPage = isLushGarden || isShellYouBeMine || isStuffed;
   const logosToRender = isLushGarden ? lushLogos : isStuffed ? stuffedLogos : logos;
   const specialGridClass = isSpecialVideoPage ? "grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(520px,1fr)]" : "lg:grid-cols-[1.3fr_0.9fr]";
-  const specialVideoClass = isSpecialVideoPage ? "w-full aspect-[16/9] min-h-[30rem] object-cover" : "w-full aspect-[16/9] object-cover";
+  const isYouTube = isYouTubeEmbed(videoSrc);
+  const videoWrapperClass = isSpecialVideoPage ? "w-full aspect-[16/9] min-h-[30rem]" : "w-full aspect-[16/9]";
+  const videoMediaClass = "h-full w-full object-cover";
 
   if (isLushGarden || isShellYouBeMine || isStuffed) {
     return (
@@ -228,7 +231,7 @@ export function ProjectDetailLayout({
               <div className="space-y-8">
                 <div className="space-y-6 max-w-2xl">
                   <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
-                  <h1 className="project-title">
+                  <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
                     {title}
                   </h1>
                   {roleLine ? (
@@ -296,15 +299,21 @@ export function ProjectDetailLayout({
                 </motion.div>
 
                 <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                  <VideoRenderer
-                    src={videoSrc}
-                    className={specialVideoClass}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    controls
-                  />
+                  <div className={videoWrapperClass}>
+                    {isYouTube ? (
+                      <VideoPlayer src={videoSrc} title={title} />
+                    ) : (
+                      <VideoRenderer
+                        src={videoSrc}
+                        className={videoMediaClass}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        controls
+                      />
+                    )}
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -424,7 +433,7 @@ export function ProjectDetailLayout({
             >
               <div className="space-y-6 max-w-3xl">
                 <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
-                <h1 className="project-title">
+                <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
                   {title}
                 </h1>
                 <p className="project-subtitle text-white/70 max-w-2xl">{overview[0]}</p>
@@ -489,15 +498,21 @@ export function ProjectDetailLayout({
               </motion.div>
 
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <VideoRenderer
-                  src={videoSrc}
-                  className="w-full aspect-[16/9] object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  controls
-                />
+                <div className={videoWrapperClass}>
+                  {isYouTube ? (
+                    <VideoPlayer src={videoSrc} title={title} />
+                  ) : (
+                    <VideoRenderer
+                      src={videoSrc}
+                      className={videoMediaClass}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      controls
+                    />
+                  )}
+                </div>
               </div>
             </motion.div>
           </div>

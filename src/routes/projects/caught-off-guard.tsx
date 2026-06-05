@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
-import video29 from "../../assets/images/video29.mp4";
+import { VideoPlayer } from "../../components/video-player";
 import image06 from "../../assets/images/img26.png";
 import image01 from "../../assets/images/img23.png";
 import image02 from "../../assets/images/img24.png";
@@ -130,13 +130,9 @@ export default function CaughtOffGuard() {
               </motion.div>
 
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <iframe
-                  src="https://www.youtube.com/embed/7iZBroHtizk"
-                  className="w-full aspect-[16/9] object-cover"
-                  style={{ border: "none" }}
-                  allowFullScreen
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                />
+                <div className="w-full aspect-[16/9]">
+                  <VideoPlayer src="https://www.youtube.com/embed/7iZBroHtizk" title="Caught Off Guard" />
+                </div>
               </div>
             </motion.div>
           </div>
