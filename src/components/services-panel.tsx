@@ -4,30 +4,32 @@ import "./services-panel.css";
 
 const services = [
   {
-    title: "3D\u00A0Commercials & Cinematics",
-    description: "Creative, Impactful 3D animation. Built to engage, convert, and perform",
+    title: "3D Commercials & Cinematics",
+    description:
+      "Creative, Impactful 3D animation. Built to engage, convert, and perform",
     href: "/services#ads",
-    bgColor: "",
-    bgSolid: "#3B3BC0",
+    bgSolid: "#3420c4",
   },
   {
-    title: "3D\u00A0Asset Services",
-    description: "Production-ready 3D assets built for games, film, and real-time worlds.",
+    title: "3D Asset Services",
+    description:
+      "Production-ready 3D assets built for games, film, and real-time worlds.",
     href: "/services#assets",
-    bgColor: "from-fuchsia-700 to-rose-800",
+    bgSolid: "#b1196fe5",
   },
   {
     title: "Original IP & Content",
-    description: "Iconic characters and immersive stories that audiences remember.",
+    description:
+      "Iconic characters and immersive stories that audiences remember.",
     href: "/services#ip",
-    bgColor: "",
-    bgSolid: "#2D8BAA",
+    bgSolid: "#1a6798",
   },
   {
     title: "Creative & Technical Consulting",
-    description: "From concept to scale—real-time production done right.",
+    description:
+      "From concept to scale—real-time production done right.",
     href: "/services#consulting",
-    bgColor: "from-violet-800 to-purple-950",
+    bgSolid: "#4f10aa",
   },
 ];
 
@@ -114,11 +116,23 @@ export function ServicesPanels() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               className="service-card-wrapper"
             >
+
+
+
               <Link
+  to={service.href}
+  className="service-card e-con-full e-flex e-con animated-fast fadeInUp"
+  style={
+    service.bgSolid
+      ? { backgroundColor: service.bgSolid }
+      : undefined
+  }
+>
+              {/*<Link
                 to={service.href}
                 className={`service-card e-con-full e-flex e-con ${service.bgColor ? `bg-gradient-to-br ${service.bgColor}` : ""} animated-fast fadeInUp`}
                 style={service.bgSolid ? { backgroundColor: service.bgSolid } : undefined}
-              >
+              >*/}
                 {/* Title Container */}
                 <div className="e-con-full e-flex e-con service-title-container">
                   <div className="elementor-widget elementor-widget-heading">

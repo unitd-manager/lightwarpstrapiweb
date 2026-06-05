@@ -10,7 +10,7 @@ export function HomePanelCta() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="overflow-hidden rounded-[2.5rem] bg-[#5b4aeb] p-5 sm:p-6 md:p-8 lg:p-10 shadow-[0_40px_80px_rgba(91,74,235,0.25)]"
+          className="overflow-hidden rounded-[2.5rem] bg-[#6b5bf7e1] p-5 sm:p-6 md:p-8 lg:p-10 shadow-[0_40px_80px_rgba(91,74,235,0.25)]"
         >
           <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 lg:gap-4 items-center">
             <div className="flex justify-center lg:justify-end">
@@ -31,7 +31,23 @@ export function HomePanelCta() {
               </p>
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center rounded-full border border-white/70 bg-white/10 px-12 py-4 text-base sm:text-lg font-semibold text-white shadow-[0_24px_40px_rgba(0,0,0,0.18)] transition duration-300 hover:bg-white/20"
+                /*className="inline-flex items-center justify-center rounded-[5xl] border border-white/70 bg-white/10 px-12 py-4 text-base sm:text-lg font-semibold text-white shadow-[0_24px_40px_rgba(0,0,0,0.18)] transition duration-300 hover:bg-white/20"*/
+              className=" inline-flex
+  items-center
+  justify-center
+  rounded-lg
+  border-2
+  border-white
+  px-4
+  py-3
+  text-[20px]
+  font-bold
+  text-white
+  shadow-[0_30px_40px_rgba(0,0,0,0.35)]
+  transition-all
+  duration-300
+  hover:bg-white
+  hover:text-[#6453FF]"
               >
                 Connect
               </Link>
