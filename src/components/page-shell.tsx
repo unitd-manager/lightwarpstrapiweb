@@ -12,7 +12,7 @@ export function PageShell({ children }: { children: ReactNode }) {
       <MouseLight />
       <Navbar />
     
-          <div className="pt-6">{children}</div>
+          <div className="pt-25">{children}</div>
           <Footer />
      
     </div>

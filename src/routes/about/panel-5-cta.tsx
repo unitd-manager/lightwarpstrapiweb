@@ -75,15 +75,15 @@ export function AboutPanelCta() {
   viewport={{ once: true }}
   transition={{ duration: 0.8 }}
   className="
-    absolute
-    right-[-190px]
-    top-1/2
-    -translate-y-1/2
-    h-[520px]
-    w-auto
-    select-none
-    pointer-events-none
-    z-0
+  static
+  h-[440px]
+  w-auto
+  -mr-[690px]
+  -mt-[250px]
+  translate-y-[50%]
+  select-none
+  pointer-events-none
+
   "
 />*/}
 
