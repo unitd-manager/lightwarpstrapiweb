@@ -1,132 +1,139 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-/*
- * Elementor: elementor-element-4296891 — bg #D5462F; overflow hidden
- *
- * Mirrors the About page "Let's Work Together" CTA approach:
- *   - Section: position relative, flex center
- *   - Characters: position absolute, left/right: 65px, top: 84px, height: 360px
- *   - Content: centered div with z-index 10
- *
- * Heading: Sora 75px/600/85px/-2px; color #000000
- * Description: Sora 16px/300/24px; color #000000
- * Button: bg #6250DA; border 2px solid white; border-radius 12px; padding 20px/44px
- */
-
 const keepInTouch1 = "https://lightwarp3d.com/wp-content/uploads/2026/01/KeepinTouch1.svg";
 const keepInTouch2 = "https://lightwarp3d.com/wp-content/uploads/2026/01/KeepInTouch2.svg";
 
 export function ServicesPanelCta() {
   return (
-    <section
-      className="relative overflow-hidden services-cta-section"
-      style={{
-        backgroundColor: "#D5462F",
-        minHeight: "533px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: '"Sora", sans-serif',
-        marginLeft: "12px",
-        marginRight: "12px",
-      }}
-    >
-      {/* ── Left character ── */}
-      <motion.img
-        src={keepInTouch1}
-        alt=""
-        aria-hidden="true"
-        initial={{ opacity: 0, x: -30 }}
-        whileInView={{ opacity: 1, x: 0 }}
+    <section className="relative overflow-hidden font-['Sora']" style={{ marginLeft: "12px", marginRight: "12px" }}>
+
+      {/* ── MOBILE (matches About page mobile CTA exactly) ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
-        className="block md:hidden lg:block absolute pointer-events-none select-none services-cta-char-left"
-        style={{
-          left: "65px",
-          top: "40px",
-          height: "360px",
-          width: "auto",
-        }}
-      />
-
-      {/* ── Center content ── */}
-      <div
-        className="relative z-10 flex flex-col items-center services-cta-inner"
-        style={{
-          textAlign: "center",
-          maxWidth: "720px",
-          padding: "50px 20px",
-        }}
+        className="lg:hidden relative bg-[#c72e17] min-h-[500px] flex flex-col items-center justify-center px-3 py-6 text-center overflow-hidden"
       >
-        <h2
-          className="services-cta-heading"
-          style={{
-            fontFamily: '"Sora", sans-serif',
-            fontSize: "75px",
-            fontWeight: 600,
-            lineHeight: "85px",
-            letterSpacing: "-2px",
-            color: "#000000",
-            marginBottom: "40px",
-          }}
-        >
-          Ready to get started?
+        {/* Left character — peeks in from left edge */}
+        <img
+          src={keepInTouch1}
+          alt=""
+          aria-hidden="true"
+          className="absolute left-[-190px] bottom-38 w-[100px] h-[300px] scale-300 select-none pointer-events-none"
+        />
+
+        {/* Right character — peeks in from right edge */}
+        <img
+          src={keepInTouch2}
+          alt=""
+          aria-hidden="true"
+          className="absolute right-[-190px] bottom-38 w-[100px] h-[300px] scale-300 select-none pointer-events-none"
+        />
+
+        <h2 className="text-[45px] font-extrabold leading-[1.05] tracking-[-2px] text-black relative z-10">
+          Ready to get<br />started?
         </h2>
 
-        <p
-          style={{
-            fontFamily: '"Sora", sans-serif',
-            fontSize: "16px",
-            fontWeight: 300,
-            lineHeight: "24px",
-            color: "#000000",
-            marginBottom: "40px",
-          }}
-        >
-          Whether it's individual assets or a full animation, our team is here to help! Click
-          the button below to get stellar content for your 3D needs
+        <p className="mt-8 max-w-[280px] text-[14px] leading-[1.5] text-black font-light relative z-10 tracking-[0.013em]">
+          Whether it's individual assets or a full animation, our team is here to help! Click the button below to get stellar content for your 3D needs
         </p>
 
         <Link
           to="/contact"
-          className="inline-flex items-center justify-center transition-colors hover:bg-white hover:text-black services-cta-btn"
-          style={{
-            fontFamily: '"Sora", sans-serif',
-            fontSize: "16px",
-            fontWeight: 400,
-            lineHeight: "20px",
-            color: "#FFFFFF",
-            backgroundColor: "#6250DA",
-            border: "2px solid #FFFFFF",
-            borderRadius: "12px",
-            paddingTop: "20px",
-            paddingBottom: "20px",
-            paddingLeft: "44px",
-            paddingRight: "44px",
-          }}
+          className="mt-10 w-[170px] h-[60px] bg-[#6250DA] border-2 border-white rounded-[8px] text-white text-[16px] font-medium flex items-center justify-center no-underline relative z-10"
         >
           Contact us
         </Link>
-      </div>
+      </motion.div>
 
-      {/* ── Right character ── */}
-      <motion.img
-        src={keepInTouch2}
-        alt=""
-        aria-hidden="true"
-        initial={{ opacity: 0, x: 30 }}
-        whileInView={{ opacity: 1, x: 0 }}
+      {/* ── DESKTOP ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
-        className="block md:hidden lg:block absolute pointer-events-none select-none services-cta-char-right"
-        style={{
-          right: "65px",
-          top: "40px",
-          height: "360px",
-          width: "auto",
-        }}
-      />
+        className="hidden lg:flex relative min-h-[533px] items-center justify-center bg-[#D5462F] overflow-hidden"
+      >
+        {/* Left character */}
+        <motion.img
+          src={keepInTouch1}
+          alt=""
+          aria-hidden="true"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="absolute pointer-events-none select-none"
+          style={{ left: "65px", top: "84px", height: "360px", width: "auto" }}
+        />
+
+        {/* Center content */}
+        <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-[720px]">
+          <h2
+            style={{
+              fontFamily: '"Sora", sans-serif',
+              fontSize: "75px",
+              fontWeight: 600,
+              lineHeight: "85px",
+              letterSpacing: "-2px",
+              color: "#000000",
+              marginBottom: "40px",
+            }}
+          >
+            Ready to get started?
+          </h2>
+
+          <p
+            style={{
+              fontFamily: '"Sora", sans-serif',
+              fontSize: "16px",
+              fontWeight: 300,
+              lineHeight: "24px",
+              color: "#000000",
+              marginBottom: "40px",
+            }}
+          >
+            Whether it's individual assets or a full animation, our team is here to help! Click
+            the button below to get stellar content for your 3D needs
+          </p>
+
+          <Link
+            to="/contact"
+            className="inline-flex items-center justify-center transition-colors hover:bg-white hover:text-black"
+            style={{
+              fontFamily: '"Sora", sans-serif',
+              fontSize: "16px",
+              fontWeight: 400,
+              color: "#FFFFFF",
+              backgroundColor: "#6250DA",
+              border: "2px solid #FFFFFF",
+              borderRadius: "12px",
+              paddingTop: "20px",
+              paddingBottom: "20px",
+              paddingLeft: "44px",
+              paddingRight: "44px",
+            }}
+          >
+            Contact us
+          </Link>
+        </div>
+
+        {/* Right character */}
+        <motion.img
+          src={keepInTouch2}
+          alt=""
+          aria-hidden="true"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="absolute pointer-events-none select-none"
+          style={{ right: "65px", top: "84px", height: "360px", width: "auto" }}
+        />
+      </motion.div>
+
     </section>
   );
 }

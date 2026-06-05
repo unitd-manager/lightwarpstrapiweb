@@ -590,11 +590,12 @@
 }
 @media (max-width: 767px) {
   .services-cta-section {
-    min-height: 520px !important;
+    min-height: 500px !important;
     margin-top: 0% !important;
     margin-bottom: 0 !important;
-    padding: 0% 6% !important;
-    align-items: flex-start !important; /* content at top like live site, chars at bottom */
+    padding: 24px 16px !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 }
 
@@ -614,8 +615,9 @@
 @media (max-width: 767px) {
   .services-cta-inner {
     min-height: auto !important;
-    padding-bottom: 50px !important;
-    gap: 0 !important; /* avoid stacking on top of margin-bottom */
+    padding: 32px 16px !important;
+    gap: 0 !important;
+    max-width: 320px !important;
   }
 }
 
@@ -632,12 +634,16 @@
 }
 @media (max-width: 767px) {
   .services-cta-heading {
-    font-size: 40px !important;
-    line-height: 1.2em !important;
-    margin-bottom: 16px !important; /* reduce from 40px inline */
+    font-size: 45px !important;
+    font-weight: 800 !important;
+    line-height: 1.05em !important;
+    letter-spacing: -2px !important;
+    margin-bottom: 24px !important;
   }
   .services-cta-inner > p {
-    margin-bottom: 24px !important; /* reduce from 40px inline */
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 32px !important;
   }
 }
 
@@ -646,19 +652,11 @@
   border: 2px solid #FFFFFF !important;
 }
 
-/* CTA character images — mobile: pin to bottom corners, smaller */
+/* CTA character images — hidden on mobile (matches about page mobile style) */
 @media (max-width: 767px) {
-  .services-cta-char-left {
-    left: 0 !important;
-    top: auto !important;
-    bottom: 0 !important;
-    height: 140px !important;
-  }
+  .services-cta-char-left,
   .services-cta-char-right {
-    right: 0 !important;
-    top: auto !important;
-    bottom: 0 !important;
-    height: 140px !important;
+    display: none !important;
   }
 }
 
