@@ -63,6 +63,11 @@
   --pink: #ff6a00;
   --blue: #1e6bff;
   --violet: #00a3ff;
+
+  --lw-container-max: 1660px;
+  --lw-container-pad: clamp(16px, 2.5vw, 72px);
+  --lw-section-pad-y: clamp(64px, 5vw, 96px);
+  --lw-section-pad-y-tight: clamp(40px, 4vw, 80px);
 }
 
 /* .dark intentionally inherits :root — dark-first design */
@@ -98,6 +103,30 @@
 }
 
 @layer utilities {
+  .lw-container {
+    width: 100%;
+    max-width: var(--lw-container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--lw-container-pad);
+    padding-right: var(--lw-container-pad);
+  }
+
+  .lw-section {
+    padding-top: var(--lw-section-pad-y);
+    padding-bottom: var(--lw-section-pad-y);
+  }
+
+  .lw-section-tight {
+    padding-top: var(--lw-section-pad-y-tight);
+    padding-bottom: var(--lw-section-pad-y-tight);
+  }
+
+  .lw-safe-x {
+    padding-left: var(--lw-container-pad);
+    padding-right: var(--lw-container-pad);
+  }
+
   .text-gradient {
     background: linear-gradient(135deg, var(--pink) 0%, var(--violet) 50%, var(--blue) 100%);
     -webkit-background-clip: text;

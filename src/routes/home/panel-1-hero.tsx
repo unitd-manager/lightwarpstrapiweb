@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export function HomePanelHero() {
   return (
-    <section className="relative w-screen max-w-none left-1/2 right-1/2 -mx-[50vw] -mt-6 min-h-[100svh] flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative w-full -mt-6 min-h-[100svh] flex flex-col items-center justify-center overflow-hidden">
       {/* Vimeo Video Background */}
       <div className="absolute inset-0 overflow-hidden">
         <iframe
@@ -27,7 +27,7 @@ export function HomePanelHero() {
       <div className="absolute inset-0 bg-black/30" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center">
+      <div className="lw-container relative z-10 flex flex-col items-center justify-center h-full text-center">
         {/* Lightwarp Horizontal Logo */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

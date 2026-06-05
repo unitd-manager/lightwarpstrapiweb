@@ -13,8 +13,8 @@ const partners = [
 
 export function HomePanelPartners() {
   return (
-    <section className="py-20 px-6 bg-transparent">
-      <div className="max-w-7xl mx-auto">
+    <section className="lw-section bg-transparent">
+      <div className="lw-container">
         {/* Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

@@ -1,14 +1,18 @@
 /* Services Panel Styling - Elementor Integration */
 
 .services-section {
-  padding: 6rem 1.5rem;
+  padding: var(--lw-section-pad-y) 0;
   background-color: #000;
   font-family: "Sora", sans-serif;
 }
 
 .services-container {
-  max-width: 104rem;
-  margin: 0 auto;
+  width: 100%;
+  max-width: var(--lw-container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--lw-container-pad);
+  padding-right: var(--lw-container-pad);
 }
 
 .services-title-wrapper {
