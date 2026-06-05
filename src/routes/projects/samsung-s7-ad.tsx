@@ -5,7 +5,9 @@ import image01 from "../../assets/images/img19.png";
 import image02 from "../../assets/images/img20.png";
 import image03 from "../../assets/images/img21.png";
 import image04 from "../../assets/images/img22.png";
-
+const logoGap =  "10px"
+const logoHeight =  "22px"
+const logoPadding = "6px 2px"
 const logos = [
   {
     src: "https://static.wixstatic.com/media/ddc236_75cb156520ae4ab99854737db24bba00~mv2.png",
@@ -15,7 +17,6 @@ const logos = [
     src: "https://static.wixstatic.com/media/ddc236_ab0eebd4077744e1ba7bbc84edd51303~mv2.png",
     alt: "Blender",
   },
-  
 ];
 
 const videoCards = [
@@ -31,46 +32,30 @@ export default function SamsungS7Ad() {
   return (
     <PageShell>
       <section className="bg-[#050517] text-white">
-         <div className="w-full overflow-hidden">
+        <div className="w-full overflow-hidden">
           <img
             src={image02}
-            alt="The Jab"
+            alt="Samsung S7 ad"
             className="w-full h-[45vh] max-w-none object-cover"
           />
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 py-12 lg:py-20">
-          <div className="grid gap-12 lg:grid-cols-[1.1fr_minmax(540px,1.3fr)] items-center">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+          <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="space-y-8"
+              className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
               <div className="space-y-6 max-w-3xl">
-                <h1 className="project-title">
-                  Samsung S7 ad
-                </h1>
+                <h1 className="project-title">Samsung S7 ad</h1>
                 <p className="project-subtitle text-white max-w-2xl">
                   Responsible for All Aspects
                 </p>
               </div>
 
-              <div className="space-y-6 max-w-2xl">
-                <p className="project-body text-white/75">
-                  This high school project marked my first dive into full 3D animation, and it remains a formative experience in my journey as an artist. Tasked with creating a commercial in Blender, I went far beyond the assignment’s requirements: modeling, surfacing, and lighting assets from scratch over the course of two months. It was here that I discovered my love for lighting, experimenting with HDRI-based product lighting, IES profiles, and camera choreography to highlight form and detail. Though created at an early stage in my career, this project laid the groundwork for my technical and artistic growth, teaching me both the discipline of a full production cycle and the excitement of storytelling through light.
-                </p>
-
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -80,11 +65,10 @@ export default function SamsungS7Ad() {
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  flexWrap: "nowrap",
+                  flexWrap: "wrap",
                   alignItems: "center",
-                  justifyContent: "flex-end",
-                  gap: "18px",
-                  marginBottom: "20px",
+                  justifyContent: "flex-start",
+                  gap: logoGap,
                   width: "100%",
                 }}
               >
@@ -96,7 +80,7 @@ export default function SamsungS7Ad() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      padding: "8px 4px",
+                      padding: logoPadding,
                     }}
                   >
                     <img
@@ -104,7 +88,7 @@ export default function SamsungS7Ad() {
                       alt={logo.alt}
                       className="services-logo-img"
                       style={{
-                        height: "30px",
+                        height: logoHeight,
                         width: "auto",
                         maxWidth: "100%",
                         objectFit: "contain",
@@ -113,13 +97,34 @@ export default function SamsungS7Ad() {
                   </div>
                 ))}
               </motion.div>
-
-              <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <div className="w-full aspect-[16/9] min-h-[26rem]">
-                  <VideoPlayer src="https://www.youtube.com/embed/4Esie0f7HVw" title="Samsung S7 ad" />
-                </div>
-              </div>
             </motion.div>
+
+            <div className="grid gap-12 lg:grid-cols-[1fr_minmax(540px,1.15fr)] lg:items-start">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="space-y-6 max-w-2xl"
+              >
+                <p className="project-body text-white/75">
+                  This high school project marked my first dive into full 3D animation, and it remains a formative experience in my journey as an artist. Tasked with creating a commercial in Blender, I went far beyond the assignment's requirements: modeling, surfacing, and lighting assets from scratch over the course of two months. It was here that I discovered my love for lighting, experimenting with HDRI-based product lighting, IES profiles, and camera choreography to highlight form and detail. Though created at an early stage in my career, this project laid the groundwork for my technical and artistic growth, teaching me both the discipline of a full production cycle and the excitement of storytelling through light.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
+                  <div className="w-full aspect-[16/9] min-h-[26rem]">
+                    <VideoPlayer src="https://www.youtube.com/embed/4Esie0f7HVw" title="Samsung S7 ad" />
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
 
@@ -138,6 +143,7 @@ export default function SamsungS7Ad() {
                   <div className="relative overflow-hidden">
                     <img
                       src={card.video}
+                      alt={card.title}
                       className="w-full aspect-[16/9] object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />

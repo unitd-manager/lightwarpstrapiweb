@@ -207,9 +207,10 @@ export function ProjectDetailLayout({
   const isLushGarden = title === "Lush Victorian Garden";
   const isShellYouBeMine = title === "Shell You Be Mine?";
   const isStuffed = title === "Stuffed";
-  const isSpecialVideoPage = isLushGarden || isShellYouBeMine || isStuffed;
   const logosToRender = isLushGarden ? lushLogos : isStuffed ? stuffedLogos : logos;
-  const specialGridClass = isSpecialVideoPage ? "grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(520px,1fr)]" : "lg:grid-cols-[1.3fr_0.9fr]";
+  const logoGap =  "10px"
+  const logoHeight =  "22px"
+  const logoPadding = "6px 2px"
   const isYouTube = isYouTubeEmbed(videoSrc);
   const videoWrapperClass =  "relative w-full aspect-video overflow-hidden bg-black";
   const videoMediaClass = "h-full w-full object-cover";
@@ -226,10 +227,16 @@ export function ProjectDetailLayout({
             />
           </div>
 
-          <div className="mx-auto max-w-7xl px-6 py-16">
-            <div className={`grid gap-12 ${specialGridClass} items-start`}>
-              <div className="space-y-8">
-                <div className="space-y-6 max-w-2xl">
+          <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+            <div className="space-y-12">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
+              >
+                <div className="space-y-6 max-w-3xl">
                   <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
                   <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
                     {title}
@@ -241,20 +248,6 @@ export function ProjectDetailLayout({
                   ) : null}
                 </div>
 
-                <div className="space-y-6 max-w-2xl">
-                  {overview.map((paragraph, idx) => (
-                    <p key={idx} className="project-body text-white/75">{paragraph}</p>
-                  ))}
-                </div>
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="space-y-6"
-              >
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -264,11 +257,10 @@ export function ProjectDetailLayout({
                   style={{
                     display: "flex",
                     flexDirection: "row",
-                    flexWrap: "nowrap",
+                    flexWrap: "wrap",
                     alignItems: "center",
-                    justifyContent: "flex-end",
-                    gap: "18px",
-                    marginBottom: "20px",
+                    justifyContent: "flex-start",
+                    gap: logoGap,
                     width: "100%",
                   }}
                 >
@@ -280,7 +272,7 @@ export function ProjectDetailLayout({
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        padding: "8px 4px",
+                        padding: logoPadding,
                       }}
                     >
                       <img
@@ -288,7 +280,7 @@ export function ProjectDetailLayout({
                         alt={logo.alt}
                         className="services-logo-img"
                         style={{
-                          height: "30px",
+                          height: logoHeight,
                           width: "auto",
                           maxWidth: "100%",
                           objectFit: "contain",
@@ -297,25 +289,40 @@ export function ProjectDetailLayout({
                     </div>
                   ))}
                 </motion.div>
-
-                <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
-                  <div className={videoWrapperClass}>
-                    {isYouTube ? (
-                      <VideoPlayer src={videoSrc} title={title} />
-                    ) : (
-                      <VideoRenderer
-                        src={videoSrc}
-                        className={videoMediaClass}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        controls
-                      />
-                    )}
-                  </div>
-                </div>
               </motion.div>
+
+              <div className="grid gap-12 lg:grid-cols-[1fr_minmax(540px,1.15fr)] lg:items-start">
+                <div className="space-y-6 max-w-2xl">
+                  {overview.map((paragraph, idx) => (
+                    <p key={idx} className="project-body text-white/75">{paragraph}</p>
+                  ))}
+                </div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
+                >
+                  <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
+                    <div className={videoWrapperClass}>
+                      {isYouTube ? (
+                        <VideoPlayer src={videoSrc} title={title} />
+                      ) : (
+                        <VideoRenderer
+                          src={videoSrc}
+                          className={videoMediaClass}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          controls
+                        />
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -422,14 +429,14 @@ export function ProjectDetailLayout({
           )}
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:py-28">
-          <div className="grid gap-12 lg:grid-cols-[1fr_minmax(440px,0.9fr)] items-center">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 lg:py-24">
+          <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="space-y-8"
+              className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
               <div className="space-y-6 max-w-3xl">
                 <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
@@ -439,21 +446,6 @@ export function ProjectDetailLayout({
                 <p className="project-subtitle text-white/70 max-w-2xl">{overview[0]}</p>
               </div>
 
-              <div className="space-y-6 max-w-2xl">
-                {overview.slice(1).map((paragraph, idx) => (
-                  <p key={idx} className="project-body text-white/75">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -463,11 +455,10 @@ export function ProjectDetailLayout({
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  flexWrap: "nowrap",
+                  flexWrap: "wrap",
                   alignItems: "center",
-                  justifyContent: "flex-end",
-                  gap: "18px",
-                  marginBottom: "20px",
+                  justifyContent: "flex-start",
+                  gap: logoGap,
                   width: "100%",
                 }}
               >
@@ -479,7 +470,7 @@ export function ProjectDetailLayout({
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      padding: "8px 4px",
+                      padding: logoPadding,
                     }}
                   >
                     <img
@@ -487,7 +478,7 @@ export function ProjectDetailLayout({
                       alt={logo.alt}
                       className="services-logo-img"
                       style={{
-                        height: "30px",
+                        height: logoHeight,
                         width: "auto",
                         maxWidth: "100%",
                         objectFit: "contain",
@@ -496,25 +487,42 @@ export function ProjectDetailLayout({
                   </div>
                 ))}
               </motion.div>
-
-              <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <div className={videoWrapperClass}>
-                  {isYouTube ? (
-                    <VideoPlayer src={videoSrc} title={title} />
-                  ) : (
-                    <VideoRenderer
-                      src={videoSrc}
-                      className={videoMediaClass}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      controls
-                    />
-                  )}
-                </div>
-              </div>
             </motion.div>
+
+            <div className="grid gap-12 lg:grid-cols-[1fr_minmax(540px,1.15fr)] lg:items-start">
+              <div className="space-y-6 max-w-2xl">
+                {overview.slice(1).map((paragraph, idx) => (
+                  <p key={idx} className="project-body text-white/75">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
+                  <div className={videoWrapperClass}>
+                    {isYouTube ? (
+                      <VideoPlayer src={videoSrc} title={title} />
+                    ) : (
+                      <VideoRenderer
+                        src={videoSrc}
+                        className={videoMediaClass}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        controls
+                      />
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>

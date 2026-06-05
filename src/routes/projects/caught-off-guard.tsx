@@ -6,7 +6,9 @@ import image01 from "../../assets/images/img23.png";
 import image02 from "../../assets/images/img24.png";
 import image03 from "../../assets/images/img25.png";
 import image04 from "../../assets/images/img26.png";
-
+const logoGap =  "10px"
+const logoHeight =  "22px"
+const logoPadding = "6px 2px"
 const logos = [
   {
     src: "https://static.wixstatic.com/media/ddc236_b3e21d7df52d4ee2999ddb9b9deeebb0~mv2.png",
@@ -55,14 +57,14 @@ export default function CaughtOffGuard() {
           />
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 py-12 lg:py-20">
-          <div className="grid gap-12 lg:grid-cols-[1.1fr_minmax(540px,1.3fr)] items-center">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+          <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="space-y-8"
+              className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
               <div className="space-y-6 max-w-3xl">
                 <h1 className="project-title">
@@ -73,19 +75,6 @@ export default function CaughtOffGuard() {
                 </h4>
               </div>
 
-              <div className="space-y-6 max-w-2xl">
-                <p className="project-body text-white/75">
-                  As project manager and pipeline lead, I directed my team in creating Caught Off Guard, a playful short film known for its dynamic lighting and stylized visuals. This was one of the first studio shorts at Texas A&M to implement the ACES color workflow, much before it became widely adopted in the industry, and I led the charge in bringing this system into production. On the artistic side, I lit and rendered sequences in RenderMan, surfaced the main serpent character and props, and explored advanced compositing techniques in Nuke including post volumetrics, motion blur, and depth of field. I also designed animated lighting driven by video playback to simulate interactive illumination from computer screens. The result was a technically ambitious and visually engaging short that gave me early experience as both a creative and technical leader.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -95,11 +84,10 @@ export default function CaughtOffGuard() {
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  flexWrap: "nowrap",
+                  flexWrap: "wrap",
                   alignItems: "center",
-                  justifyContent: "flex-end",
-                  gap: "18px",
-                  marginBottom: "20px",
+                  justifyContent: "flex-start",
+                  gap: logoGap,
                   width: "100%",
                 }}
               >
@@ -111,7 +99,7 @@ export default function CaughtOffGuard() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      padding: "8px 4px",
+                      padding: logoPadding,
                     }}
                   >
                     <img
@@ -119,7 +107,7 @@ export default function CaughtOffGuard() {
                       alt={logo.alt}
                       className="services-logo-img"
                       style={{
-                        height: "30px",
+                        height: logoHeight,
                         width: "auto",
                         maxWidth: "100%",
                         objectFit: "contain",
@@ -128,13 +116,34 @@ export default function CaughtOffGuard() {
                   </div>
                 ))}
               </motion.div>
+            </motion.div>
 
+            <div className="grid gap-12 lg:grid-cols-[1fr_minmax(540px,1.15fr)] lg:items-start">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="space-y-6 max-w-2xl"
+              >
+                <p className="project-body text-white/75">
+                  As project manager and pipeline lead, I directed my team in creating Caught Off Guard, a playful short film known for its dynamic lighting and stylized visuals. This was one of the first studio shorts at Texas A&M to implement the ACES color workflow, much before it became widely adopted in the industry, and I led the charge in bringing this system into production. On the artistic side, I lit and rendered sequences in RenderMan, surfaced the main serpent character and props, and explored advanced compositing techniques in Nuke including post volumetrics, motion blur, and depth of field. I also designed animated lighting driven by video playback to simulate interactive illumination from computer screens. The result was a technically ambitious and visually engaging short that gave me early experience as both a creative and technical leader.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
               <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
                 <div className="w-full aspect-[16/9]">
                   <VideoPlayer src="https://www.youtube.com/embed/7iZBroHtizk" title="Caught Off Guard" />
                 </div>
               </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </div>
         </div>
 

@@ -5,7 +5,9 @@ import image1 from "../../assets/images/img15.png";
 import image2 from "../../assets/images/img16.png";
 import image3 from "../../assets/images/img17.png";
 import image4 from "../../assets/images/img18.png";
-
+const logoGap =  "10px"
+const logoHeight =  "22px"
+const logoPadding = "6px 2px"
 const videoCards = [
   { title: "", subtitle: "", video: image1 },
   { title: "", subtitle: "", video: image2 },
@@ -41,16 +43,16 @@ export default function TheJab() {
           />
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
-          <div className="grid gap-12 lg:grid-cols-[1.1fr_minmax(540px,1.3fr)] items-center">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+          <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="space-y-8 text-left"
+              className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
-              <div className="space-y-6 max-w-3xl">
+              <div className="space-y-6 max-w-3xl text-left">
                 <h1 className="project-title">
                   The Jab
                 </h1>
@@ -59,25 +61,6 @@ export default function TheJab() {
                 </p>
               </div>
 
-              <div className="space-y-6 max-w-2xl text-left" style={{ textAlign: "left" }}>
-                <p className="project-body text-white/75" style={{ textAlign: "left" }}>
-                  The Jab was a group short film project and my final student short at Texas A&M before I finished my masters degree. I had rolled on to the project late as a lighting/compositing artist and with the very little time of 1 month before delivery and still majorly contributed in delivering the short and fixing many data issues and hitches that would have stalled the film from being completed on the final layout and material assembly.
-                </p>
-                <p className="project-body text-white/75" style={{ textAlign: "left" }}>
-                  The lighting design of The Jab was truly a new challenge for me, as due there being no visdev/concept art, little primary references and a singular matte painting for the whole scene, light setup was primarily designed based on what would seamlessly work with that background element as personally consulting to that team of wanted to push for a punchy, graphic, saturated look with sun dawn tones of reds, magentas and cool purple for the film to bring visual appeal.
-                </p>
-                <p className="project-body text-white/75" style={{ textAlign: "left" }}>
-                  The major creative challenge I decided to take for this project was to created animated dramatic lights that would accentuate the theatrical performance of the chameleon, primary being the blue stage light that appears at the climax of the short. This was accomplished by fully rendering all lights on in RenderMan and through light group splits, animate the lights in Nuke for flickers, eye spec light, and dramatic ramps.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -87,11 +70,10 @@ export default function TheJab() {
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  flexWrap: "nowrap",
+                  flexWrap: "wrap",
                   alignItems: "center",
-                  justifyContent: "flex-end",
-                  gap: "18px",
-                  marginBottom: "20px",
+                  justifyContent: "flex-start",
+                  gap: logoGap,
                   width: "100%",
                 }}
               >
@@ -103,7 +85,7 @@ export default function TheJab() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      padding: "8px 4px",
+                      padding: logoPadding,
                     }}
                   >
                     <img
@@ -111,7 +93,7 @@ export default function TheJab() {
                       alt={logo.alt}
                       className="services-logo-img"
                       style={{
-                        height: "30px",
+                        height: logoHeight,
                         width: "auto",
                         maxWidth: "100%",
                         objectFit: "contain",
@@ -120,13 +102,41 @@ export default function TheJab() {
                   </div>
                 ))}
               </motion.div>
-
-              <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <div className="w-full aspect-[16/9]">
-                  <VideoPlayer src="https://www.youtube.com/embed/4d27i10x2wI" title="The Jab" />
-                </div>
-              </div>
             </motion.div>
+
+            <div className="grid gap-12 lg:grid-cols-[1fr_minmax(540px,1.15fr)] lg:items-start">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="space-y-6 max-w-2xl text-left"
+                style={{ textAlign: "left" }}
+              >
+                <p className="project-body text-white/75" style={{ textAlign: "left" }}>
+                  The Jab was a group short film project and my final student short at Texas A&M before I finished my masters degree. I had rolled on to the project late as a lighting/compositing artist and with the very little time of 1 month before delivery and still majorly contributed in delivering the short and fixing many data issues and hitches that would have stalled the film from being completed on the final layout and material assembly.
+                </p>
+                <p className="project-body text-white/75" style={{ textAlign: "left" }}>
+                  The lighting design of The Jab was truly a new challenge for me, as due there being no visdev/concept art, little primary references and a singular matte painting for the whole scene, light setup was primarily designed based on what would seamlessly work with that background element as personally consulting to that team of wanted to push for a punchy, graphic, saturated look with sun dawn tones of reds, magentas and cool purple for the film to bring visual appeal.
+                </p>
+                <p className="project-body text-white/75" style={{ textAlign: "left" }}>
+                  The major creative challenge I decided to take for this project was to created animated dramatic lights that would accentuate the theatrical performance of the chameleon, primary being the blue stage light that appears at the climax of the short. This was accomplished by fully rendering all lights on in RenderMan and through light group splits, animate the lights in Nuke for flickers, eye spec light, and dramatic ramps.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
+                  <div className="w-full aspect-[16/9]">
+                    <VideoPlayer src="https://www.youtube.com/embed/4d27i10x2wI" title="The Jab" />
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
