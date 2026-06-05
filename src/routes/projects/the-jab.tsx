@@ -104,7 +104,7 @@ export default function TheJab() {
           <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
             <a
               href="/projects/stuffed"
-              className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+              className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
             >
               Previous
             </a>
@@ -116,7 +116,7 @@ export default function TheJab() {
             </a>
             <a
               href="/projects/samsung-s7-ad"
-              className="inline-flex rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white/10"
+              className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
             >
               Next
             </a>
