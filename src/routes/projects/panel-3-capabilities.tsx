@@ -10,7 +10,7 @@ const slugify = (s: string) =>
 
 export function ProjectsPanelCapabilities() {
   return (
-   <section className="relative min-h-[90svh] overflow-hidden bg-transparent text-white sm:min-h-[90vh]">
+   <section className="relative min-h-[90svh] overflow-hidden bg-transparent text-white font-display sm:min-h-[90vh]">
       <div className="absolute inset-0 overflow-hidden">
         <iframe
           src="https://www.youtube.com/embed/b-qRx-LlB1A?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=b-qRx-LlB1A"

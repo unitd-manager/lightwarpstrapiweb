@@ -84,7 +84,7 @@ export function ProjectsPanelExtraVideos() {
   return (
     <>
       {extraProjects.map((item, idx) => (
-        <section key={item.id} className="relative min-h-[90svh] overflow-hidden bg-[#04050f] text-white sm:min-h-[90vh]">
+        <section key={item.id} className="relative min-h-[90svh] overflow-hidden bg-[#04050f] text-white font-display sm:min-h-[90vh]">
           <div className="absolute inset-0 overflow-hidden">
             <VideoRenderer
               src={item.video}

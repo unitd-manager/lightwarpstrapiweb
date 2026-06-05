@@ -7,6 +7,33 @@ import image02 from "../../assets/images/img24.png";
 import image03 from "../../assets/images/img25.png";
 import image04 from "../../assets/images/img26.png";
 
+const logos = [
+  {
+    src: "https://static.wixstatic.com/media/ddc236_b3e21d7df52d4ee2999ddb9b9deeebb0~mv2.png",
+    alt: "Blender",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_e2fc4ec6be4342f7916b6acdd157c5a9~mv2.png",
+    alt: "Substance 3D",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_c96a3c58f3db467eb48714cf3af338cc~mv2.png",
+    alt: "USD",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_3d79dc80ee084230b2a96316abae79cb~mv2.png",
+    alt: "AWS",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_75cb156520ae4ab99854737db24bba00~mv2.png",
+    alt: "Perforce",
+  },
+    {
+    src: "https://static.wixstatic.com/media/ddc236_ab0eebd4077744e1ba7bbc84edd51303~mv2.png",
+    alt: "Perforce",
+  },
+];
+
 const videoCards = [
   { title: "", subtitle: "", video: image01 },
   { title: "", subtitle: "", video: image02 },
@@ -38,16 +65,16 @@ export default function CaughtOffGuard() {
               className="space-y-8"
             >
               <div className="space-y-6 max-w-3xl">
-                <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-tight tracking-[-0.03em]">
+                <h1 className="project-title">
                   Caught Off Guard
                 </h1>
-                <h4 className="text-2xl text-white max-w-2xl">
+                <h4 className="project-subtitle text-white max-w-2xl">
                   Production Manager, Lighting, Look Development, Compositing, Layout, Modelling
                 </h4>
               </div>
 
               <div className="space-y-6 max-w-2xl">
-                <p className="text-lg leading-8 text-white/75">
+                <p className="project-body text-white/75">
                   As project manager and pipeline lead, I directed my team in creating Caught Off Guard, a playful short film known for its dynamic lighting and stylized visuals. This was one of the first studio shorts at Texas A&M to implement the ACES color workflow, much before it became widely adopted in the industry, and I led the charge in bringing this system into production. On the artistic side, I lit and rendered sequences in RenderMan, surfaced the main serpent character and props, and explored advanced compositing techniques in Nuke including post volumetrics, motion blur, and depth of field. I also designed animated lighting driven by video playback to simulate interactive illumination from computer screens. The result was a technically ambitious and visually engaging short that gave me early experience as both a creative and technical leader.
                 </p>
               </div>
@@ -59,6 +86,49 @@ export default function CaughtOffGuard() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="services-logo-row"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "nowrap",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                  gap: "18px",
+                  marginBottom: "20px",
+                  width: "100%",
+                }}
+              >
+                {logos.map((logo) => (
+                  <div
+                    key={logo.alt}
+                    className="services-logo-cell"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "8px 4px",
+                    }}
+                  >
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="services-logo-img"
+                      style={{
+                        height: "30px",
+                        width: "auto",
+                        maxWidth: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </div>
+                ))}
+              </motion.div>
+
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
                 <iframe
                   src="https://www.youtube.com/embed/7iZBroHtizk"

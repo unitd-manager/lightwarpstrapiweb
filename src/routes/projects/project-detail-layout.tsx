@@ -27,6 +27,7 @@ type VideoCard = {
 type ProjectDetailLayoutProps = {
   title: string;
   subtitle: string;
+  roleLine?: string;
   overview: string[];
   videoSrc: string;
   watchHref: string;
@@ -95,9 +96,75 @@ const extraProjects: VideoCard[] = [
   },
 ];
 
+const lushLogos = [
+  {
+    src: "https://static.wixstatic.com/media/ddc236_24adb982b89f47bcb935321431de9767~mv2.png",
+    alt: "Unreal Engine",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_e2fc4ec6be4342f7916b6acdd157c5a9~mv2.png",
+    alt: "Blender",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_3d79dc80ee084230b2a96316abae79cb~mv2.png",
+    alt: "Substance 3D",
+  },
+];
+
+const stuffedLogos = [
+  {
+    src: "https://static.wixstatic.com/media/ddc236_24adb982b89f47bcb935321431de9767~mv2.png",
+    alt: "Substance 3D",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_e56fb512f1f540c7b6025875fdea7217~mv2.png",
+    alt: "Blender",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_e2fc4ec6be4342f7916b6acdd157c5a9~mv2.png",
+    alt: "USD",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_3d79dc80ee084230b2a96316abae79cb~mv2.png",
+    alt: "Unreal Engine",
+  },
+];
+
+const logos = [
+  {
+    src: "https://static.wixstatic.com/media/ddc236_e87923663ea941a08dcdcd667ae9e03b~mv2.png",
+    alt: "Unreal Engine",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_75cb156520ae4ab99854737db24bba00~mv2.png",
+    alt: "Blender",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_24adb982b89f47bcb935321431de9767~mv2.png",
+    alt: "Substance 3D",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_e56fb512f1f540c7b6025875fdea7217~mv2.png",
+    alt: "USD",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_c96a3c58f3db467eb48714cf3af338cc~mv2.png",
+    alt: "AWS",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_29f8c8953a6149f1b7c533df8a7d8de6~mv2.png",
+    alt: "Perforce",
+  },
+   {
+    src: "https://static.wixstatic.com/media/ddc236_ab0eebd4077744e1ba7bbc84edd51303~mv2.png",
+    alt: "Perforce",
+  },
+];
+
 export function ProjectDetailLayout({
   title,
   subtitle,
+  roleLine,
   overview,
   videoSrc,
   watchHref,
@@ -136,18 +203,18 @@ export function ProjectDetailLayout({
           { title: "", subtitle: "", video: image15 },
         ]
       : extraProjects);
-  const isRightAligned = title === "Shell You Be Mine?";
   const isLushGarden = title === "Lush Victorian Garden";
   const isShellYouBeMine = title === "Shell You Be Mine?";
   const isStuffed = title === "Stuffed";
   const isSpecialVideoPage = isLushGarden || isShellYouBeMine || isStuffed;
-  const specialGridClass = isSpecialVideoPage ? "lg:grid-cols-[1.1fr_minmax(520px,1.4fr)]" : "lg:grid-cols-[1.3fr_0.9fr]";
+  const logosToRender = isLushGarden ? lushLogos : isStuffed ? stuffedLogos : logos;
+  const specialGridClass = isSpecialVideoPage ? "grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(520px,1fr)]" : "lg:grid-cols-[1.3fr_0.9fr]";
   const specialVideoClass = isSpecialVideoPage ? "w-full aspect-[16/9] min-h-[30rem] object-cover" : "w-full aspect-[16/9] object-cover";
 
   if (isLushGarden || isShellYouBeMine || isStuffed) {
     return (
       <PageShell>
-        <section className="bg-[#050517] text-white">
+        <section className="bg-[#050517] text-white font-display">
           <div className="w-full overflow-hidden">
             <img
               src={backgroundImage}
@@ -161,29 +228,85 @@ export function ProjectDetailLayout({
               <div className="space-y-8">
                 <div className="space-y-6 max-w-2xl">
                   <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
-                  <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-tight tracking-[-0.03em]">
+                  <h1 className="project-title">
                     {title}
                   </h1>
+                  {roleLine ? (
+                    <p className="project-subtitle text-white max-w-2xl">
+                      {roleLine}
+                    </p>
+                  ) : null}
                 </div>
 
-                <div className="space-y-6 text-lg leading-8 text-white/75 max-w-2xl">
+                <div className="space-y-6 max-w-2xl">
                   {overview.map((paragraph, idx) => (
-                    <p key={idx}>{paragraph}</p>
+                    <p key={idx} className="project-body text-white/75">{paragraph}</p>
                   ))}
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <VideoRenderer
-                  src={videoSrc}
-                  className={specialVideoClass}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  controls
-                />
-              </div>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="space-y-6"
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="services-logo-row"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "nowrap",
+                    alignItems: "center",
+                    justifyContent: "flex-end",
+                    gap: "18px",
+                    marginBottom: "20px",
+                    width: "100%",
+                  }}
+                >
+                  {logosToRender.map((logo) => (
+                    <div
+                      key={logo.alt}
+                      className="services-logo-cell"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "8px 4px",
+                      }}
+                    >
+                      <img
+                        src={logo.src}
+                        alt={logo.alt}
+                        className="services-logo-img"
+                        style={{
+                          height: "30px",
+                          width: "auto",
+                          maxWidth: "100%",
+                          objectFit: "contain",
+                        }}
+                      />
+                    </div>
+                  ))}
+                </motion.div>
+
+                <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
+                  <VideoRenderer
+                    src={videoSrc}
+                    className={specialVideoClass}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    controls
+                  />
+                </div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -260,7 +383,7 @@ export function ProjectDetailLayout({
 
   return (
     <PageShell>
-      <section className="relative min-h-[75vh] overflow-hidden bg-[#050517] text-white">
+      <section className="relative min-h-[75vh] overflow-hidden bg-[#050517] text-white font-display">
         <div className="absolute inset-0 overflow-hidden">
           {backgroundImage ? (
             <img
@@ -301,15 +424,15 @@ export function ProjectDetailLayout({
             >
               <div className="space-y-6 max-w-3xl">
                 <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
-                <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-tight tracking-[-0.03em]">
+                <h1 className="project-title">
                   {title}
                 </h1>
-                <p className="text-xl text-white/70 max-w-2xl">{overview[0]}</p>
+                <p className="project-subtitle text-white/70 max-w-2xl">{overview[0]}</p>
               </div>
 
               <div className="space-y-6 max-w-2xl">
                 {overview.slice(1).map((paragraph, idx) => (
-                  <p key={idx} className="text-lg leading-8 text-white/75">
+                  <p key={idx} className="project-body text-white/75">
                     {paragraph}
                   </p>
                 ))}
@@ -322,6 +445,49 @@ export function ProjectDetailLayout({
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="services-logo-row"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "nowrap",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                  gap: "18px",
+                  marginBottom: "20px",
+                  width: "100%",
+                }}
+              >
+                {logos.map((logo) => (
+                  <div
+                    key={logo.alt}
+                    className="services-logo-cell"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "8px 4px",
+                    }}
+                  >
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="services-logo-img"
+                      style={{
+                        height: "30px",
+                        width: "auto",
+                        maxWidth: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </div>
+                ))}
+              </motion.div>
+
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
                 <VideoRenderer
                   src={videoSrc}

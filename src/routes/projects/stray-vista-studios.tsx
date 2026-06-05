@@ -7,6 +7,25 @@ import image03 from "../../assets/images/img32.png";
 import image04 from "../../assets/images/img33.png";
 import image05 from "../../assets/images/img34.png";
 
+const logos = [
+  {
+    src: "https://static.wixstatic.com/media/ddc236_e87923663ea941a08dcdcd667ae9e03b~mv2.png",
+    alt: "Unreal Engine",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_75cb156520ae4ab99854737db24bba00~mv2.png",
+    alt: "Blender",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_29f8c8953a6149f1b7c533df8a7d8de6~mv2.png",
+    alt: "Substance 3D",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_ab0eebd4077744e1ba7bbc84edd51303~mv2.png",
+    alt: "USD",
+  },
+
+];
 
 const videoCards = [
   { title: "", subtitle: "", video: image02 },
@@ -39,16 +58,16 @@ export default function StrayVistaStudios() {
               className="space-y-8"
             >
               <div className="space-y-6 max-w-3xl">
-                <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-tight tracking-[-0.03em]">
+                <h1 className="project-title">
                   Stray Vista Studios
                 </h1>
-                <p className="text-xl text-white/70 max-w-2xl">
+                <p className="project-subtitle text-white/70 max-w-2xl">
                   Unreal Artist/TD, Production Assistant, Lighting, Cinematography, Look Development, Compositing, VFX
                 </p>
               </div>
 
               <div className="space-y-6 max-w-2xl">
-                <p className="text-lg leading-8 text-white/75">
+                <p className="project-body text-white/75">
                   Stray Vista Studios in Dripping Springs, Texas is one of the largest active virtual production facilities in the state and a pioneer in the field. I was honored to have my first industry experience at this studio with the team as an Unreal Engine Technical Director Intern, Site Rep, and Production Assistant. Along with creating studio tools to streamline virtual production workflows in the studio for commercials, music videos, etc, I had also participated in creating and designing virtual sets, assets, and full CG-shots for the productions during my time.
 I had participated in 4 major projects in my time at Stray Vista:
 1) A music video for Breaking Benjamin's song Awaken, where I served as a Digital Imaging Technician on set, created 3 full CG shots doing cinematography, lighting, layout and design of the shots as requested by the director and line producer, and assisted with post production and VFX renders and prep for final delivery
@@ -65,6 +84,49 @@ I had participated in 4 major projects in my time at Stray Vista:
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="services-logo-row"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "nowrap",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                  gap: "18px",
+                  marginBottom: "20px",
+                  width: "100%",
+                }}
+              >
+                {logos.map((logo) => (
+                  <div
+                    key={logo.alt}
+                    className="services-logo-cell"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "8px 4px",
+                    }}
+                  >
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="services-logo-img"
+                      style={{
+                        height: "30px",
+                        width: "auto",
+                        maxWidth: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </div>
+                ))}
+              </motion.div>
+
               <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
                 <iframe
                   src="https://www.youtube.com/embed/w0GfewGYR3g"

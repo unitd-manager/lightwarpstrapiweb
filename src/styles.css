@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Gilroy:wght@400;700&display=swap");
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -35,6 +36,8 @@
   --color-violet: var(--violet);
   --font-display: "Space Grotesk", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif-display: "Playfair Display", "playfair-display-v2", serif;
+  --font-body: "Gilroy", system-ui, sans-serif;
 }
 
 :root {
@@ -104,6 +107,25 @@
     background-clip: text;
     color: transparent;
   }
+  .project-title {
+    font-family: var(--font-serif-display);
+    font-size: 60px;
+    line-height: 84px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .project-subtitle {
+    font-family: var(--font-body);
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 700;
+  }
+  .project-body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 28.8px;
+    font-weight: 400;
+  }
   .bg-gradient-brand {
     background: linear-gradient(135deg, var(--pink) 0%, var(--violet) 50%, var(--blue) 100%);
   }
@@ -118,6 +140,10 @@
   }
   .glow-blue {
     box-shadow: 0 0 40px rgba(30, 107, 255, 0.45), 0 0 80px rgba(30, 107, 255, 0.25);
+  }
+  .font-display {
+    font-family: var(--font-display);
+  }
   }
   .glow-brand {
     box-shadow: 0 0 30px rgba(255, 106, 0, 0.35), 0 0 60px rgba(30, 107, 255, 0.25);
@@ -147,7 +173,7 @@
     mix-blend-mode: overlay;
     pointer-events: none;
   }
-}
+
 
 /* Lighthouse beam */
 @keyframes beam-sweep {
