@@ -167,7 +167,7 @@ export function AboutPanelCta() {
           transition={{ duration: 0.8 }}
           className="absolute select-none pointer-events-none"
           style={{
-            left: "155px",
+            left: "100px",
             top: "84px",
             height: "360px",
             width: "auto",
@@ -236,7 +236,7 @@ export function AboutPanelCta() {
           transition={{ duration: 0.8 }}
           className="absolute select-none pointer-events-none"
           style={{
-            right: "155px",
+            right: "100px",
             top: "84px",
             height: "360px",
             width: "auto",
