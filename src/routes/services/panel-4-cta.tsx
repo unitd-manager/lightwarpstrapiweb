@@ -6,7 +6,7 @@ const keepInTouch2 = "https://lightwarp3d.com/wp-content/uploads/2026/01/KeepInT
 
 export function ServicesPanelCta() {
   return (
-    <section className="relative overflow-hidden font-['Sora']" style={{ marginLeft: "12px", marginRight: "12px" }}>
+    <section className="relative overflow-hidden font-['Sora']" style={{ marginLeft: "50px", marginRight: "50px" }}>
 
       {/* ── MOBILE (matches About page mobile CTA exactly) ── */}
       <motion.div

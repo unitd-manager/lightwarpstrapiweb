@@ -5,7 +5,7 @@ export function ServicesPanelHero() {
       style={{ backgroundColor: "#2E188D", minHeight: "180px", paddingLeft: "4%", paddingRight: "4%" }}
     >
       <div className="relative z-10 text-center">
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold text-white leading-tight tracking-[-0.02em]">
+        <h1 style={{ fontFamily: '"Sora", sans-serif', fontSize: '75px', fontWeight: 600, lineHeight: '85px', letterSpacing: '-2px', color: '#FFFFFF' }}>
           Services
         </h1>
       </div>

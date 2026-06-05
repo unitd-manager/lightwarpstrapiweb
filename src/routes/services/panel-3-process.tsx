@@ -59,6 +59,7 @@ export function ServicesPanelProcess() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
+        className="services-process-heading"
         style={{
           fontFamily: '"Sora", sans-serif',
           fontSize: "45px",
@@ -78,13 +79,13 @@ export function ServicesPanelProcess() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 }}
+        className="services-process-body"
         style={{
           fontFamily: '"Sora", sans-serif',
           fontSize: "16px",
           fontWeight: 300,
           lineHeight: "24px",
           color: "#FFFFFF",
-          // textAlign: "center",
         }}
       >
         Our cutting-edge pipeline is built with production scalability, real-time rendering,
