@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export function HomePanelHero() {
   return (
-    <section className="relative w-full -mt-6 min-h-[100svh] flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative w-full overflow-hidden">
       {/* Vimeo Video Background */}
       <div className="absolute inset-0 overflow-hidden">
         <iframe
@@ -16,7 +16,7 @@ export function HomePanelHero() {
             height: '56.25vw',
             minWidth: '100%',
             minHeight: '100%',
-            transform: 'translate(-50%, -50%)',
+            transform: 'translate(-50%, -50%) scale(1.18)',
             border: 'none',
           }}
           allow="autoplay; fullscreen; picture-in-picture"
@@ -24,21 +24,22 @@ export function HomePanelHero() {
       </div>
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/35 to-black/80" />
 
       {/* Content */}
-      <div className="lw-container relative z-10 flex flex-col items-center justify-center h-full text-center">
+      <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center text-center">
+        <div className="lw-hero-container flex min-h-[calc(100svh-75px)] flex-col items-center justify-center pt-[75px]">
         {/* Lightwarp Horizontal Logo */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="mb-6"
+          className="mb-5"
         >
           <img
             src="https://lightwarp3d.com/wp-content/uploads/2026/01/Lightwarp_Horizontal.png"
             alt="Lightwarp"
-            className="h-20 sm:h-28 md:h-32 w-auto object-contain"
+            className="h-[clamp(120px,10vw,280px)] w-auto object-contain"
           />
         </motion.div>
 
@@ -57,10 +58,12 @@ export function HomePanelHero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="max-w-3xl"
+          className="mx-auto max-w-[720px]"
         >
-          <p className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-light text-white/95 leading-relaxed">
-            A New Age Creative 3D Studio. Powered by Real-Time 3D Technology
+          <p className="text-[clamp(20px,1.15vw,22px)] font-normal text-white/85 leading-relaxed">
+            A New Age Creative 3D Studio. Powered by Real-
+            <br className="hidden sm:block" />
+            Time 3D Technology
           </p>
         </motion.div>
 
@@ -69,15 +72,16 @@ export function HomePanelHero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-12"
+          className="mt-8"
         >
           <Link
             to="/projects#latest"
-            className="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/30 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full backdrop-blur-md transition-all duration-300 font-medium text-base sm:text-lg"
+            className="inline-flex items-center justify-center rounded-sm border border-white/35 bg-white/10 px-6 py-3 text-sm font-medium text-white backdrop-blur-md transition-all duration-300 hover:bg-white/15"
           >
             Our Recent Work
           </Link>
         </motion.div>
+        </div>
       </div>
     </section>
   );
