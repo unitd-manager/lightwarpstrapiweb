@@ -42,7 +42,7 @@ export function ServicesPanelCta() {
 
         <Link
           to="/contact"
-          className="mt-10 w-[170px] h-[60px] bg-[#6250DA] border-2 border-white rounded-[8px] text-white text-[16px] font-medium flex items-center justify-center no-underline relative z-10"
+          className="mt-10 w-[170px] h-[60px] bg-[#6250DA] hover:bg-white border-2 border-white rounded-[8px] text-white hover:text-black text-[16px] font-medium flex items-center justify-center no-underline relative z-10 transition-colors duration-200"
         >
           Contact us
         </Link>
@@ -101,13 +101,11 @@ export function ServicesPanelCta() {
 
           <Link
             to="/contact"
-            className="inline-flex items-center justify-center transition-colors hover:bg-white hover:text-black"
+            className="inline-flex items-center justify-center bg-[#6250DA] hover:bg-white text-white hover:text-black transition-colors duration-200"
             style={{
               fontFamily: '"Sora", sans-serif',
               fontSize: "16px",
               fontWeight: 400,
-              color: "#FFFFFF",
-              backgroundColor: "#6250DA",
               border: "2px solid #FFFFFF",
               borderRadius: "12px",
               paddingTop: "20px",

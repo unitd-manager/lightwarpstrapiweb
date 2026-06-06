@@ -24,10 +24,26 @@ function GoogleGIcon() {
 }
 
 
+function FieldError({ msg }: { msg: string }) {
+  return (
+    <div className="flex items-center gap-1" style={{ color: '#FF4D4D', fontSize: '13px', fontWeight: 400, marginTop: '-20px' }}>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+        <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+      {msg}
+    </div>
+  );
+}
+
+function isValidEmail(raw: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(raw.trim());
+}
+
 export function ContactPanelForm() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState("");
 
   return (
     /*
@@ -304,8 +320,18 @@ export function ContactPanelForm() {
             const message = String(formData.get("message") ?? "").trim();
             const website = String(formData.get("website") ?? "").trim();
 
+            if (!email) {
+              setEmailError("Email is required.");
+              return;
+            }
+            if (!isValidEmail(email)) {
+              setEmailError("Please enter a valid email address.");
+              return;
+            }
+
             setSending(true);
             setError(null);
+            setEmailError("");
 
             try {
               const res = await fetch("/api/contact", {
@@ -365,7 +391,12 @@ export function ContactPanelForm() {
             name="email"
             type="email"
             placeholder="Email"
-            required
+            autoComplete="email"
+            inputMode="email"
+            onChange={() => {
+              setEmailError("");
+              setError(null);
+            }}
             className="w-full outline-none"
             style={{
               fontFamily: '"Sora", sans-serif',
@@ -374,7 +405,7 @@ export function ContactPanelForm() {
               lineHeight: '24px',
               color: '#58595B',
               backgroundColor: '#ffffff',
-              border: '1px solid #FFFFFF',
+              border: emailError ? '1px solid #FF4D4D' : '1px solid #FFFFFF',
               borderRadius: '4px',
               paddingTop: '10px',
               paddingBottom: '10px',
@@ -382,6 +413,7 @@ export function ContactPanelForm() {
               paddingRight: '14px',
             }}
           />
+          {emailError && <FieldError msg={emailError} />}
 
           {/* Subject dropdown */}
           <div className="relative w-full">
