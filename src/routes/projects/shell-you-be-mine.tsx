@@ -1,6 +1,5 @@
 import { ProjectDetailLayout } from "./project-detail-layout";
 import video18 from "../../assets/images/video18.mp4";
-import image03 from "../../assets/images/image03.png";
 
 export default function ShellYouBeMine() {
   return (
@@ -16,7 +15,7 @@ export default function ShellYouBeMine() {
       videoSrc="https://www.youtube.com/embed/yinRrmEpfr4"
       watchHref="https://www.youtube.com/watch?v=yinRrmEpfr4"
       watchLabel="Watch Full Film"
-      backgroundImage={image03}
+      backgroundImage="	https://static.wixstatic.com/media/ddc236_238a3691e81343cb8121614525d5d709~mv2.png"
       nextHref="/projects/our-capabilities"
     />
   );

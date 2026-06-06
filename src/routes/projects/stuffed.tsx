@@ -1,5 +1,4 @@
 import { ProjectDetailLayout } from "./project-detail-layout";
-import image04 from "../../assets/images/image04.png";
 
 export default function Stuffed() {
   return (
@@ -13,7 +12,7 @@ export default function Stuffed() {
       videoSrc="https://www.youtube.com/embed/bzCrjcqWliU?start=1"
       watchHref="https://www.youtube.com/watch?v=bzCrjcqWliU&t=1s"
       watchLabel="Watch Full Film"
-      backgroundImage={image04}
+      backgroundImage="	https://static.wixstatic.com/media/ddc236_1ca8c8fbdd694e7292a600cf02488949~mv2.png"
       previousHref="/projects/our-capabilities"
       nextHref="/projects/the-jab"
     />

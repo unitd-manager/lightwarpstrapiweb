@@ -1,20 +1,15 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
-import image1 from "../../assets/images/img15.png";
-import image2 from "../../assets/images/img16.png";
-import image3 from "../../assets/images/img17.png";
-import image4 from "../../assets/images/img18.png";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
 const videoCards = [
-  { title: "", subtitle: "", video: image1 },
-  { title: "", subtitle: "", video: image2 },
-  { title: "", subtitle: "", video: image3 },
-  { title: "", subtitle: "", video: image4 },
-  { title: "", subtitle: "", video: image1 },
-  { title: "", subtitle: "", video: image4 },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_62e1f14bb205491097f55c59e7dfbcb8~mv2.gif/v1/fit/w_655,h_368,q_90,enc_avif,quality_auto/ddc236_62e1f14bb205491097f55c59e7dfbcb8~mv2.gif" },
+  { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_37b98b9b5b0e431fb2c8147149dd3d90~mv2.jpg" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_da965203bb32437eb5e78b3b2833b16f~mv2.jpg" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_aecf95926ec640e1833228ab9700c710~mv2.jpg" },
+  { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_4ef1817e70d54eb6b29ba3128a3433ad~mv2.png" },
 ];
 const logos = [
   {
@@ -37,13 +32,13 @@ export default function TheJab() {
       <section className="bg-[#050517] text-white">
         <div className="w-full overflow-hidden">
           <img
-            src={image3}
+            src="https://static.wixstatic.com/media/ddc236_182fbce862454c15b052a6e90022b0dc~mv2.png"
             alt="The Jab"
             className="w-full h-[45vh] max-w-none object-cover"
           />
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
