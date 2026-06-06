@@ -1,14 +1,13 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
-import image01 from "../../assets/images/img32.png";
-import image02 from "../../assets/images/img31.png";
-import image03 from "../../assets/images/img32.png";
-import image04 from "../../assets/images/img33.png";
-import image05 from "../../assets/images/img34.png";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
+const isVideoUrl = (url: string): boolean => {
+  if (!url) return false;
+  return /\.(mp4|webm|ogg)(\?|$)/i.test(url) || url.includes("/video/");
+};
 const logos = [
   {
     src: "https://static.wixstatic.com/media/ddc236_e87923663ea941a08dcdcd667ae9e03b~mv2.png",
@@ -29,12 +28,16 @@ const logos = [
 ];
 
 const videoCards = [
-  { title: "", subtitle: "", video: image02 },
-  { title: "", subtitle: "", video: image03 },
-  { title: "", subtitle: "", video: image04 },
-  { title: "", subtitle: "", video: image05 },
-  { title: "", subtitle: "", video: image01 },
-  { title: "", subtitle: "", video: image02 },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_b9807b06ac9048b9bd7b21ec1782677b~mv2.gif/v1/fit/w_655,h_368,q_90,enc_avif,quality_auto/ddc236_b9807b06ac9048b9bd7b21ec1782677b~mv2.gif" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_2b06867646a845128a172bd1062be850~mv2.gif/v1/fit/w_654,h_368,q_90,enc_avif,quality_auto/ddc236_2b06867646a845128a172bd1062be850~mv2.gif" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_c7270ce0a4974e819a7e8e4cf7cfb493~mv2.gif/v1/fit/w_655,h_368,q_90,enc_avif,quality_auto/ddc236_c7270ce0a4974e819a7e8e4cf7cfb493~mv2.gif" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_a5688e8d850f4e759b091905098e1266~mv2.webp" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_0575181a13994f66a5da8b7cf37fb7e9~mv2.webp" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_4bc24968c3744117a7922037f804e93a~mv2.webp" },
+ { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_c5890e9ccd7f45a487f4d5e3fe402907~mv2.webp" },
+  { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_628308ec702d46c2b1e4fec0fb5062d7~mv2.webp" },
+  { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_89ffb15832cb4d06974348d313500ae1~mv2.png" },
+  { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_afcad6ab468b42419092bf6a8e690475~mv2.png" },
 ];
 
 export default function StrayVistaStudios() {
@@ -43,13 +46,13 @@ export default function StrayVistaStudios() {
       <section className="bg-[#050517] text-white">
         <div className="w-full overflow-hidden">
           <img
-            src={image01}
+            src="	https://static.wixstatic.com/media/ddc236_eecc3bc85d484d748fc25aeafe0c2c92~mv2.png"
             alt="Stray Vista Studios"
             className="w-full h-[45vh] max-w-none object-cover"
           />
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+          <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -130,10 +133,22 @@ export default function StrayVistaStudios() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.1 }}
               >
-                <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
-                  <div className="w-full aspect-[16/9]">
-                    <VideoPlayer src="https://www.youtube.com/embed/w0GfewGYR3g" title="Stray Vista Studios" />
+                <div className="space-y-6">
+                   <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
+                  <div className="w-full aspect-[11/5]">
+                    <VideoPlayer src="https://www.youtube.com/embed/w0GfewGYR3g" title="Stray Vista Studios" autoplay={false} hideControls={false} />
                   </div>
+                </div>
+                {/* <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
+                  <div className="w-full aspect-[11/5]">
+                    <VideoPlayer src="https://i.vimeocdn.com/video/1963145845-1f07bc368e41b4c30f3f6249294b94821374404eda7696410f0478bb227ff12c-d_960" title="Stray Vista Studios" autoplay={false} hideControls={false} />
+                  </div>
+                </div> */}
+               <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
+                  <div className="w-full aspect-[11/5]">
+                    <VideoPlayer src="https://www.youtube.com/embed/bpgrUK9EGjI" title="Stray Vista Studios" autoplay={false} hideControls={false} />
+                  </div>
+                </div>
                 </div>
               </motion.div>
             </div>
@@ -153,11 +168,21 @@ export default function StrayVistaStudios() {
                   className="overflow-hidden rounded-none border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
                 >
                   <div className="relative overflow-hidden">
-                    <img
-                      src={card.video}
-                      alt={card.title}
-                      className="w-full aspect-[16/9] object-cover"
-                    />
+                    {isVideoUrl(card.video) ? (
+                      <video
+                        src={card.video}
+                        poster={image01}
+                        preload="metadata"
+                        className="w-full aspect-[16/9] object-cover"
+                        controls
+                        playsInline
+                      />
+                    ) : (
+                      <img
+                        src={card.video}
+                        className="w-full aspect-[16/9] object-cover"
+                      />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   </div>
                 </motion.article>

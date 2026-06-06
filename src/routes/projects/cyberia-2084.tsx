@@ -1,11 +1,6 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
-import image05 from "../../assets/images/img28.png";
-import image01 from "../../assets/images/img27.png";
-import image02 from "../../assets/images/img28.png";
-import image03 from "../../assets/images/img29.png";
-import image04 from "../../assets/images/img30.png";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
@@ -23,14 +18,17 @@ const logos = [
     alt: "Substance 3D",
   },
 ];
-
+const isVideoUrl = (url: string): boolean => {
+  if (!url) return false;
+  return /\.(mp4|webm|ogg)(\?|$)/i.test(url) || url.includes("/video/");
+};
 const videoCards = [
-  { title: "", subtitle: "", video: image01 },
-  { title: "", subtitle: "", video: image02 },
-  { title: "", subtitle: "", video: image03 },
-  { title: "", subtitle: "", video: image04 },
-  { title: "", subtitle: "", video: image01 },
-  { title: "", subtitle: "", video: image02 },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_92c3939fd6fe4c3aab8c3fddc3b82008~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_f8ee184cfae04b149cc4e9757b6d625a~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_e50208eae5ff46299ac90758b9bf4619~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_958f0ec5260f45308c500a81a454040d~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_49da8b0115a54238b79e644e415fbe7e~mv2.png" },
+  { title: "", subtitle: "", video: "https://video.wixstatic.com/video/ddc236_98e150545ce940ab9b2f3ee645104aed/480p/mp4/file.mp4" },
 ];
 
 export default function Cyberia2084() {
@@ -39,13 +37,13 @@ export default function Cyberia2084() {
       <section className="bg-[#050517] text-white">
         <div className="w-full overflow-hidden">
           <img
-            src={image05}
+            src="https://static.wixstatic.com/media/ddc236_f8ee184cfae04b149cc4e9757b6d625a~mv2.png"
             alt="Cyberia 2084"
             className="w-full h-[45vh] max-w-none object-cover"
           />
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+             <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -146,11 +144,22 @@ export default function Cyberia2084() {
                   className="overflow-hidden rounded-none border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
                 >
                   <div className="relative overflow-hidden">
-                    <img
-                      src={card.video}
-                      alt={card.title}
-                      className="w-full aspect-[16/9] object-cover"
-                    />
+                     {isVideoUrl(card.video) ? (
+                      <video
+                        src={card.video}
+                        className="w-full aspect-[16/9] object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        controls
+                      />
+                    ) : (
+                      <img
+                        src={card.video}
+                        className="w-full aspect-[16/9] object-cover"
+                      />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   </div>
                 </motion.article>

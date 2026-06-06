@@ -1,24 +1,6 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
-import image1 from "../../assets/images/img1.png";
-import image2 from "../../assets/images/img2.png";
-import image3 from "../../assets/images/img3.png";
-import image4 from "../../assets/images/img4.png";
-import image5 from "../../assets/images/img5.png";
-import image6 from "../../assets/images/img6.png";
-import image7 from "../../assets/images/img7.png";
-import image8 from "../../assets/images/img8.png";
-import image9 from "../../assets/images/image 1.png";
-import image10 from "../../assets/images/img9.png";
-import image11 from "../../assets/images/img10.png";
-import image12 from "../../assets/images/img11.png";
-import image13 from "../../assets/images/img12.png";
-import image14 from "../../assets/images/img13.png";
-import image15 from "../../assets/images/img14.png";
-
-
-
 type VideoCard = {
   title: string;
   subtitle: string;
@@ -41,6 +23,11 @@ type ProjectDetailLayoutProps = {
 
 const isYouTubeEmbed = (url: string): boolean => {
   return url.includes("youtube.com/embed");
+};
+
+const isVideoUrl = (url: string): boolean => {
+  if (!url) return false;
+  return /\.(mp4|webm|ogg)(\?|$)/i.test(url) || url.includes("/video/");
 };
 
 const VideoRenderer = ({ src, className, ...props }: { src: string; className?: string; [key: string]: any }) => {
@@ -178,30 +165,30 @@ export function ProjectDetailLayout({
   const relatedProjects: VideoCard[] =
     relatedProjectsProp || (title === "Shell You Be Mine?"
       ? [
-          { title: "", subtitle: "", video: image1 },
-          { title: "", subtitle: "", video: image2 },
-          { title: "", subtitle: "", video: image3 },
-          { title: "", subtitle: "", video: image4 },
-          { title: "", subtitle: "", video: image5 },
-          { title: "", subtitle: "", video: image6 },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_2b01016e82d042d89e51d64a073c0c89~mv2.png" },
+          { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_696ba547e8e94818ade1fa24b6c24708~mv2.png" },
+          { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_061e70caf8b64b8ca14621c33a8fa548~mv2.png" },
+          { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_968451479e354a488dc7a8f70e740f7b~mv2.png" },
+          { title: "", subtitle: "", video: "https://video.wixstatic.com/video/ddc236_a5b9aa7c340245f38cb4e1b82f4bf1c3/480p/mp4/file.mp4" },
+          { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_53049068e4594ea8a4ff62d53e791a24~mv2.png" },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_62bf76f196834f329a9f57eb73f98313~mv2.png" },
         ]
       : title === "Lush Victorian Garden"
       ? [
-          { title: "", subtitle: "", video: image7 },
-          { title: "", subtitle: "", video: image8 },
-          { title: "", subtitle: "", video: image9 },
-          { title: "", subtitle: "", video: image7},
-          { title: "", subtitle: "", video: image8 },
-          { title: "", subtitle: "", video: image9 },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_24ec6c84332440a69b60fca5190dc578~mv2.png" },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_a377d11331fd427594c636cf646b5ecf~mv2.jpg" },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_24ec6c84332440a69b60fca5190dc578~mv2.png" },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_a377d11331fd427594c636cf646b5ecf~mv2.jpg"},
         ]
       : title === "Stuffed"
       ? [
-          { title: "", subtitle: "", video: image10 },
-          { title: "", subtitle: "", video: image11 },
-          { title: "", subtitle: "", video: image12 },
-          { title: "", subtitle: "", video: image13 },
-          { title: "", subtitle: "", video: image14 },
-          { title: "", subtitle: "", video: image15 },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_3014706f8f4749a2bf75d169895936f2~mv2.png" },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_f6b54443864a461fb2d328556fbe550a~mv2.png" },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_66f92fed12c24b1ab434297a3eefc941~mv2.png" },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_08a614f6d3d74520b175303da17f9d10~mv2.gif/v1/fit/w_654,h_368,q_90,enc_avif,quality_auto/ddc236_08a614f6d3d74520b175303da17f9d10~mv2.gif" },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_f8a6f19bbe2d4f65998d14b6499c9087~mv2.gif" },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_2a251d8499ab4226bc96b571420561bb~mv2.gif/v1/fit/w_600,h_301,q_90,enc_avif,quality_auto/ddc236_2a251d8499ab4226bc96b571420561bb~mv2.gif" },
+          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_ef21fbb060e6470595ca4791950a88d0~mv2.gif/v1/fit/w_654,h_368,q_90,enc_avif,quality_auto/ddc236_ef21fbb060e6470595ca4791950a88d0~mv2.gif" },
         ]
       : extraProjects);
   const isLushGarden = title === "Lush Victorian Garden";
@@ -227,7 +214,7 @@ export function ProjectDetailLayout({
             />
           </div>
 
-          <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+          <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
             <div className="space-y-12">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -340,11 +327,23 @@ export function ProjectDetailLayout({
                   className="overflow-hidden rounded-none border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
                 >
                   <div className="relative overflow-hidden">
-                    <img
-                      src={card.video}
-                      alt={card.title}
-                      className="w-full aspect-[16/9] object-cover"
-                    />
+                    {isVideoUrl(card.video) ? (
+                      <VideoRenderer
+                        src={card.video}
+                        className="w-full aspect-[16/9] object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        controls={false}
+                      />
+                    ) : (
+                      <img
+                        src={card.video}
+                        alt={card.title}
+                        className="w-full aspect-[16/9] object-cover"
+                      />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-6">
                       <p className="text-xs uppercase tracking-[0.3em] text-white/60">{card.subtitle}</p>
@@ -429,7 +428,7 @@ export function ProjectDetailLayout({
           )}
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 lg:py-24">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -540,11 +539,23 @@ export function ProjectDetailLayout({
                 className="overflow-hidden rounded-none border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
               >
                 <div className="relative overflow-hidden">
-                  <img
-                    src={card.video}
-                    alt={card.title}
-                    className="w-full aspect-[16/9] object-cover"
-                  />
+                  {isVideoUrl(card.video) ? (
+                    <VideoRenderer
+                      src={card.video}
+                      className="w-full aspect-[16/9] object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      controls={false}
+                    />
+                  ) : (
+                    <img
+                      src={card.video}
+                      alt={card.title}
+                      className="w-full aspect-[16/9] object-cover"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <p className="text-xs uppercase tracking-[0.3em] text-white/60">{card.subtitle}</p>

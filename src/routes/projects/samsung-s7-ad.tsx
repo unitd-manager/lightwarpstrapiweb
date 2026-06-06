@@ -1,10 +1,6 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
-import image01 from "../../assets/images/img19.png";
-import image02 from "../../assets/images/img20.png";
-import image03 from "../../assets/images/img21.png";
-import image04 from "../../assets/images/img22.png";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
@@ -20,12 +16,11 @@ const logos = [
 ];
 
 const videoCards = [
-  { title: "", subtitle: "", video: image01 },
-  { title: "", subtitle: "", video: image02 },
-  { title: "", subtitle: "", video: image03 },
-  { title: "", subtitle: "", video: image04 },
-  { title: "", subtitle: "", video: image01 },
-  { title: "", subtitle: "", video: image02 },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_51637ffdf1514793a5eb7683a1bf44f1~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_84dcf8993ef54a9291e1f8caf59e805e~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_447ff49650e746f8b8d221bd7dfae868~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_969f71790e4b48b8be4b03a247d08f33~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_4ca74331cb1d4e49973d819561a4c9df~mv2.gif/v1/fit/w_654,h_345,q_90,enc_avif,quality_auto/ddc236_4ca74331cb1d4e49973d819561a4c9df~mv2.gif" },
 ];
 
 export default function SamsungS7Ad() {
@@ -34,13 +29,13 @@ export default function SamsungS7Ad() {
       <section className="bg-[#050517] text-white">
         <div className="w-full overflow-hidden">
           <img
-            src={image02}
+            src="	https://static.wixstatic.com/media/ddc236_00810eb4c48041d4941a90995acca434~mv2.png"
             alt="Samsung S7 ad"
             className="w-full h-[45vh] max-w-none object-cover"
           />
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+         <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}

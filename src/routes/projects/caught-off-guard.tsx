@@ -1,14 +1,13 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
-import image06 from "../../assets/images/img26.png";
-import image01 from "../../assets/images/img23.png";
-import image02 from "../../assets/images/img24.png";
-import image03 from "../../assets/images/img25.png";
-import image04 from "../../assets/images/img26.png";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
+const isVideoUrl = (url: string): boolean => {
+  if (!url) return false;
+  return /\.(mp4|webm|ogg)(\?|$)/i.test(url) || url.includes("/video/");
+};
 const logos = [
   {
     src: "https://static.wixstatic.com/media/ddc236_b3e21d7df52d4ee2999ddb9b9deeebb0~mv2.png",
@@ -37,12 +36,12 @@ const logos = [
 ];
 
 const videoCards = [
-  { title: "", subtitle: "", video: image01 },
-  { title: "", subtitle: "", video: image02 },
-  { title: "", subtitle: "", video: image03 },
-  { title: "", subtitle: "", video: image04 },
-  { title: "", subtitle: "", video: image01 },
-  { title: "", subtitle: "", video: image02 },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_a165ac753364425e8cf30ec65df365fc~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_4b8b0a9f5b744d36807c633679020a46~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_824aaf6a5ff248569497227d1792297e~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_09a6b4ba16f447a684df51e086de4c0a~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_d283b7619bf04fc98c0b33cf02ead42ff000.jpg" },
+  { title: "", subtitle: "", video: "https://video.wixstatic.com/video/ddc236_bb23752fef66403c9399763a8e8174b6/480p/mp4/file.mp4" },
 ];
 
 export default function CaughtOffGuard() {
@@ -51,13 +50,13 @@ export default function CaughtOffGuard() {
       <section className="bg-[#050517] text-white">
        <div className="w-full overflow-hidden">
           <img
-            src={image06}
+            src="https://static.wixstatic.com/media/ddc236_23396263688047c0a08fa6de010381e9~mv2.png"
             alt="The Jab"
             className="w-full h-[45vh] max-w-none object-cover"
           />
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+            <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -160,11 +159,22 @@ export default function CaughtOffGuard() {
                   className="overflow-hidden rounded-none border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
                 >
                   <div className="relative overflow-hidden">
-                    <img
-                      src={card.video}
-                      className="w-full aspect-[16/9] object-cover"
-                     
-                    />
+                    {isVideoUrl(card.video) ? (
+                      <video
+                        src={card.video}
+                        className="w-full aspect-[16/9] object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        controls
+                      />
+                    ) : (
+                      <img
+                        src={card.video}
+                        className="w-full aspect-[16/9] object-cover"
+                      />
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   </div>
                 </motion.article>
