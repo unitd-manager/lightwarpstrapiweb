@@ -49,7 +49,7 @@ export function Footer() {
             <li>
               <a
                 href="mailto:info@lightwarp3d.com?subject=Consultation/Information Request"
-                className="text-white hover:text-white/80 transition-colors"
+                className="text-white hover:text-[#6250da] transition-colors"
                 style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
               >
                 Email: info@lightwarp3d.com
@@ -58,7 +58,7 @@ export function Footer() {
             <li>
               <a
                 href="tel:615-571-9395"
-                className="text-white hover:text-white/80 transition-colors"
+                className="text-white hover:text-[#6250da] transition-colors"
                 style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
               >
                 Phone: (615) 571-9395
@@ -76,13 +76,13 @@ export function Footer() {
             Follow
           </h6>
           <div className="flex items-center gap-3">
-            <a aria-label="Instagram" href="https://www.instagram.com/lightwarp3d" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-colors">
+            <a aria-label="Instagram" href="https://www.instagram.com/lightwarp3d" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#6250da] transition-colors">
               <Instagram size={20} strokeWidth={1.5} />
             </a>
-            <a aria-label="TikTok" href="https://www.tiktok.com/@lightwarp3d" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-colors">
+            <a aria-label="TikTok" href="https://www.tiktok.com/@lightwarp3d" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#6250da] transition-colors">
               <TikTokIcon size={20} />
             </a>
-            <a aria-label="YouTube" href="https://www.youtube.com/@lightwarpstudios" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-colors">
+            <a aria-label="YouTube" href="https://www.youtube.com/@lightwarpstudios" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#6250da] transition-colors">
               <Youtube size={20} strokeWidth={1.5} />
             </a>
           </div>
@@ -100,7 +100,7 @@ export function Footer() {
             href="https://calendar.app.google/zYHnxEYxui76S9tR6"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-white/80 transition-colors"
+            className="text-white hover:text-[#6250da] transition-colors"
             style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
           >
             Schedule a meeting

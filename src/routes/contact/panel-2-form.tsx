@@ -26,6 +26,8 @@ function GoogleGIcon() {
 
 export function ContactPanelForm() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     /*
@@ -291,10 +293,51 @@ export function ContactPanelForm() {
         </p>
 
         <form
-          onSubmit={(e) => { e.preventDefault(); (e.target as HTMLFormElement).reset(); setSent(true); }}
+          onSubmit={async (e) => {
+            e.preventDefault();
+            const form = e.currentTarget;
+            const formData = new FormData(form);
+
+            const name = String(formData.get("name") ?? "").trim();
+            const email = String(formData.get("email") ?? "").trim();
+            const subject = String(formData.get("subject") ?? "").trim();
+            const message = String(formData.get("message") ?? "").trim();
+            const website = String(formData.get("website") ?? "").trim();
+
+            setSending(true);
+            setError(null);
+
+            try {
+              const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, subject, message, website }),
+              });
+
+              if (!res.ok) {
+                const text = await res.text();
+                setError(text || "Failed to send message.");
+                return;
+              }
+
+              form.reset();
+              setSent(true);
+            } catch {
+              setError("Failed to send message.");
+            } finally {
+              setSending(false);
+            }
+          }}
           className="flex flex-col"
           style={{ gap: '32px' }}
         >
+          <input
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            className="hidden"
+          />
           {/* Name field */}
           <input
             name="name"
@@ -416,7 +459,7 @@ export function ContactPanelForm() {
           <div className="flex flex-col gap-3">
             <button
               type="submit"
-              disabled={sent}
+              disabled={sent || sending}
               className="inline-flex items-center justify-center contact-send-btn transition-colors hover:bg-white hover:text-black disabled:opacity-60"
               style={{
                 fontFamily: '"Sora", sans-serif',
@@ -433,7 +476,7 @@ export function ContactPanelForm() {
                 alignSelf: 'flex-start',
               }}
             >
-              Send
+              {sending ? "Sending..." : "Send"}
             </button>
 
             {sent && (
@@ -442,6 +485,12 @@ export function ContactPanelForm() {
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
                 Your submission was successful.
+              </div>
+            )}
+
+            {error && (
+              <div style={{ fontFamily: '"Sora", sans-serif', fontSize: '14px', fontWeight: 400, color: '#FFFFFF' }}>
+                {error}
               </div>
             )}
           </div>

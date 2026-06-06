@@ -48,7 +48,7 @@
   --padding-right: 4%;
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.75rem;
   padding: 0;
   margin: 0;
@@ -56,14 +56,14 @@
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .services-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     --e-con-grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 767px) {
   .services-grid {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(1, minmax(0, 1fr));
     --e-con-grid-template-columns: repeat(1, 1fr);
   }
 }
@@ -93,6 +93,8 @@
 /* Service Card Wrapper */
 .service-card-wrapper {
   height: 100%;
+  min-width: 0;
+  display: flex;
 }
 
 /* Service Card - Elementor Element */
@@ -111,11 +113,14 @@
   --overflow: hidden;
 
   position: relative;
+  width: 100%;
+  min-width: 0;
+  flex: 1;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  height: 16.75rem;
+  min-height: 16.75rem;
   overflow: hidden;
   border-radius: 49px;
   padding: 2.25rem;
@@ -125,6 +130,7 @@
   text-decoration: none;
   color: inherit;
   gap: 1rem;
+  box-sizing: border-box;
 }
 
 .service-card:hover {
@@ -257,9 +263,10 @@
   color: #ffffff;
   line-height: 35px;
   letter-spacing: -1px;
-  max-width: 280px;
+  max-width: min(280px, 100%);
   margin: 0 auto;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  hyphens: auto;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   font-family: "Sora", Sans-serif;
 }
@@ -269,9 +276,11 @@
   font-size: 16px;
   color: rgba(255, 255, 255, 0.95);
   line-height: 24px;
-  max-width: 320px;
+  max-width: min(320px, 100%);
   margin: 0 auto;
   font-weight: 300;
+  overflow-wrap: anywhere;
+  hyphens: auto;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   font-family: "Sora", Sans-serif;
 }

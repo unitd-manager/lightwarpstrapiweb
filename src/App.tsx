@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { useLayoutEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import Home from "./routes";
 import Portfolio from "./routes/portfolio";
@@ -40,29 +41,40 @@ function NotFound() {
   );
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <>
-    <PageTransitionOverlay />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/portfolio" element={<Portfolio /> } />
-      <Route path="/projects" element={<Projects />} />
-      <Route path="/capabilities" element={<Capabilities />} />
-      <Route path="/projects/shell-you-be-mine" element={<ShellYouBeMine />} />
-      <Route path="/projects/our-capabilities" element={<OurCapabilities />} />
-      <Route path="/projects/stuffed" element={<Stuffed />} />
-      <Route path="/projects/the-jab" element={<TheJab />} />
-      <Route path="/projects/samsung-s7-ad" element={<SamsungS7Ad />} />
-      <Route path="/projects/caught-off-guard" element={<CaughtOffGuard />} />
-      <Route path="/projects/cyberia-2084" element={<Cyberia2084 />} />
-      <Route path="/projects/stray-vista-studios" element={<StrayVistaStudios />} />
-      <Route path="/services" element={<Services />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/privacy" element={<Privacy />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+      <ScrollToTop />
+      <PageTransitionOverlay />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/capabilities" element={<Capabilities />} />
+        <Route path="/projects/shell-you-be-mine" element={<ShellYouBeMine />} />
+        <Route path="/projects/our-capabilities" element={<OurCapabilities />} />
+        <Route path="/projects/stuffed" element={<Stuffed />} />
+        <Route path="/projects/the-jab" element={<TheJab />} />
+        <Route path="/projects/samsung-s7-ad" element={<SamsungS7Ad />} />
+        <Route path="/projects/caught-off-guard" element={<CaughtOffGuard />} />
+        <Route path="/projects/cyberia-2084" element={<Cyberia2084 />} />
+        <Route path="/projects/stray-vista-studios" element={<StrayVistaStudios />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </>
   );
 }
