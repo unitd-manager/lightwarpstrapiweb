@@ -11,7 +11,7 @@ export default function PromoBar() {
         <div className="flex-shrink-0">
           <Link
             to="/contact"
-            className="inline-flex items-center gap-3 bg-black text-orange-400 px-8 py-3 rounded-full font-semibold text-base shadow-sm hover:shadow-md transition-all"
+            className="inline-flex items-center gap-3 bg-black text-orange-700 px-8 py-3 rounded-full font-semibold text-[18px] shadow-sm hover:bg-orange-500 hover:text-black hover:shadow-md transition-all"
           >
             Connect With Us
           </Link>
