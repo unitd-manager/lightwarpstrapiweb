@@ -24,8 +24,43 @@ function GoogleGIcon() {
 }
 
 
+function FieldError({ msg }: { msg: string }) {
+  return (
+    <div className="flex items-center gap-1" style={{ color: '#FF4D4D', fontSize: '13px', fontWeight: 400, marginTop: '-20px' }}>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+        <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+      {msg}
+    </div>
+  );
+}
+
 export function ContactPanelForm() {
   const [sent, setSent] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [submitError, setSubmitError] = useState(false);
+
+  function validateEmail(value: string) {
+    if (!value.trim()) return 'This field is required.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'This field is required.';
+    return '';
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+    const err = validateEmail(email);
+    if (err) {
+      setEmailError(err);
+      setSubmitError(true);
+      return;
+    }
+    setEmailError('');
+    setSubmitError(false);
+    form.reset();
+    setSent(true);
+  }
 
   return (
     /*
@@ -291,7 +326,7 @@ export function ContactPanelForm() {
         </p>
 
         <form
-          onSubmit={(e) => { e.preventDefault(); (e.target as HTMLFormElement).reset(); setSent(true); }}
+          onSubmit={handleSubmit}
           className="flex flex-col"
           style={{ gap: '32px' }}
         >
@@ -320,9 +355,9 @@ export function ContactPanelForm() {
           {/* Email field */}
           <input
             name="email"
-            type="email"
+            type="text"
             placeholder="Email"
-            required
+            onChange={() => { setEmailError(''); setSubmitError(false); }}
             className="w-full outline-none"
             style={{
               fontFamily: '"Sora", sans-serif',
@@ -331,7 +366,7 @@ export function ContactPanelForm() {
               lineHeight: '24px',
               color: '#58595B',
               backgroundColor: '#ffffff',
-              border: '1px solid #FFFFFF',
+              border: emailError ? '1px solid #FF4D4D' : '1px solid #FFFFFF',
               borderRadius: '4px',
               paddingTop: '10px',
               paddingBottom: '10px',
@@ -339,6 +374,7 @@ export function ContactPanelForm() {
               paddingRight: '14px',
             }}
           />
+          {emailError && <FieldError msg={emailError} />}
 
           {/* Subject dropdown */}
           <div className="relative w-full">
@@ -442,6 +478,15 @@ export function ContactPanelForm() {
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
                 Your submission was successful.
+              </div>
+            )}
+
+            {submitError && (
+              <div className="flex items-center gap-1" style={{ fontFamily: '"Sora", sans-serif', fontSize: '13px', fontWeight: 400, color: '#FF4D4D' }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+                Your submission failed because of an error.
               </div>
             )}
           </div>
