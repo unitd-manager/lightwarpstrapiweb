@@ -26,7 +26,7 @@ export default function About() {
               alt=""
               className="
                 static
-                h-[650px]
+                h-[710px]
                 w-auto
                 -ml-5
                 scale-[1]

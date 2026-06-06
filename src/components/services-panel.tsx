@@ -6,28 +6,28 @@ const services = [
   {
     title: "3D Commercials & Cinematics",
     description:
-      "Creative, Impactful 3D animation. Built to engage, convert, and perform",
+    "Creative, Impactful 3D animation. Built to engage, convert, and perform",
     href: "/services#ads",
     bgSolid: "#3420c4",
   },
   {
     title: "3D Asset Services",
     description:
-      "Production-ready 3D assets built for games, film, and real-time worlds.",
+    "Production-ready 3D assets built for games, film, and real-time worlds.",
     href: "/services#assets",
     bgSolid: "#b1196fe5",
   },
   {
     title: "Original IP & Content",
     description:
-      "Iconic characters and immersive stories that audiences remember.",
+    "Iconic characters and immersive stories that audiences remember.",
     href: "/services#ip",
-    bgSolid: "#1a6798",
+    bgSolid:"#1a6798",
   },
   {
     title: "Creative & Technical Consulting",
     description:
-      "From concept to scale—real-time production done right.",
+    "From concept to scale—real-time production done right.",
     href: "/services#consulting",
     bgSolid: "#4f10aa",
   },
