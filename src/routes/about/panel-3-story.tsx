@@ -78,7 +78,7 @@ export function AboutPanelStory() {
         transition={{ duration: 0.7 }}
         className="
           hidden lg:flex
-          mx-auto w-full max-w-[1300px]
+          mx-auto w-full max-w-[1250px]
           items-stretch
           overflow-hidden
           rounded-[20px]
@@ -91,7 +91,7 @@ export function AboutPanelStory() {
         {/* Left */}
         <div
           className="
-            w-[46.5%]
+            w-[45%]
             flex items-center justify-center
             py-12
           "
@@ -111,7 +111,7 @@ export function AboutPanelStory() {
         {/* Right */}
         <div
           className="
-            w-[54.5%]
+            w-[55%]
             p-[6%]
             flex flex-col justify-center
           "
@@ -123,7 +123,7 @@ export function AboutPanelStory() {
               text-white
               font-extrabold
               leading-[1.2]
-              [word-spacing:4px]
+              [word-spacing:2px]
               tracking-[-1.4px]
             "
           >
@@ -137,7 +137,7 @@ export function AboutPanelStory() {
               font-light
               leading-[24px]
               tracking-[0.025em]
-              [word-spacing:1px]
+              [word-spacing:0px]
               text-justify
             "
           >

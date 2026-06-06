@@ -176,7 +176,7 @@ export function AboutPanelCta() {
 
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-[760px]">
-          <h2
+         <h2
             className="
               text-[78px]
               font-extrabold
@@ -185,11 +185,19 @@ export function AboutPanelCta() {
               text-black
               mb-[50px]
             "
+
+              style={{
+    fontFamily: "Inter, sans-serif",
+  }}
+
           >
             Let's work
             <br />
             together!
           </h2>
+
+
+     
 
           <p
             className="
