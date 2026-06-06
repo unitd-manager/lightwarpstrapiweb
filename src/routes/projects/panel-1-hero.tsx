@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import video24 from "../../assets/images/video24.mp4";
 
 const slugify = (s: string) =>
   s
@@ -8,16 +7,29 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
+const HERO_VIDEO_ID = "pLu4iXYhI4k";
+
 export function ProjectsPanelHero() {
+  const embedSrc = `https://www.youtube.com/embed/${HERO_VIDEO_ID}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=${HERO_VIDEO_ID}`;
+  const posterSrc = `https://i.ytimg.com/vi/${HERO_VIDEO_ID}/hqdefault.jpg`;
+
   return (
-    <section className="relative h-[calc(100svh-80px)] overflow-hidden bg-transparent text-white sm:h-[calc(100vh-80px)]">
+    <section className="relative h-[calc(100svh-80px)] overflow-hidden bg-transparent text-white font-display sm:h-[calc(100vh-80px)]">
       <div className="absolute inset-0 overflow-hidden">
+        <img
+          src={posterSrc}
+          alt=""
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.75] border-0 object-cover sm:scale-[1.25] md:scale-[1.15]"
+          loading="eager"
+          decoding="async"
+        />
         <iframe
-          src="https://www.youtube.com/embed/pLu4iXYhI4k?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=pLu4iXYhI4k"
+          src={embedSrc}
           title="Shell You Be Mine? Background Video"
           className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.75] border-0 sm:scale-[1.25] md:scale-[1.15]"
           allow="autoplay; encrypted-media; picture-in-picture"
           allowFullScreen
+          loading="eager"
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />

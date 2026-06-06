@@ -1,6 +1,6 @@
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
- 
 
 const slugify = (s: string) =>
   s
@@ -8,16 +8,63 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-export function ProjectsPanelCapabilities() {
+const LUSH_VIDEO_ID = "b-qRx-LlB1A";
+
+const LazyYouTubeBackground = ({
+  videoId,
+  className,
+}: {
+  videoId: string;
+  className?: string;
+}) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { root: null, rootMargin: "600px 0px", threshold: 0.01 }
+    );
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=${videoId}`;
+  const posterSrc = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
   return (
-   <section className="relative min-h-[90svh] overflow-hidden bg-transparent text-white sm:min-h-[90vh]">
-      <div className="absolute inset-0 overflow-hidden">
+    <div ref={containerRef} className="absolute inset-0">
+      <img src={posterSrc} alt="" className={className} loading="lazy" decoding="async" />
+      {shouldLoad ? (
         <iframe
-          src="https://www.youtube.com/embed/b-qRx-LlB1A?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=b-qRx-LlB1A"
+          src={embedSrc}
           title="Lush Victorian Garden Background Video"
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-[100%] border-0"
+          className={className}
           allow="autoplay; encrypted-media; picture-in-picture"
           allowFullScreen
+          loading="lazy"
+        />
+      ) : null}
+    </div>
+  );
+};
+
+export function ProjectsPanelCapabilities() {
+  return (
+   <section className="relative min-h-[90svh] overflow-hidden bg-transparent text-white font-display sm:min-h-[90vh]">
+      <div className="absolute inset-0 overflow-hidden">
+        <LazyYouTubeBackground
+          videoId={LUSH_VIDEO_ID}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-[100%] border-0 object-cover"
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />

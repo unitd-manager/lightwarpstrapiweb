@@ -16,7 +16,8 @@ export function Footer() {
     <footer className="w-full bg-black/50 backdrop-blur-xl border-t border-white/10" style={SORA}>
 
       {/* Main grid — 4 cols desktop / 2 cols tablet / 1 col mobile */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[340px_1fr_1fr_1fr] gap-y-[60px] gap-x-[40px] p-[32px] md:p-[60px] lg:p-[100px]">
+      <div className="lw-container lw-section-tight">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[340px_1fr_1fr_1fr] gap-y-[60px] gap-x-[40px]">
 
         {/* Logo — no copyright here on mobile */}
         <div className="flex flex-col items-start gap-5">
@@ -105,11 +106,12 @@ export function Footer() {
             Schedule a meeting
           </a>
         </div>
+        </div>
       </div>
 
       {/* Copyright — mobile only, at the very bottom */}
       <p
-        className="lg:hidden text-white px-[32px] pb-[32px]"
+        className="lg:hidden text-white lw-container pb-[32px]"
         style={{ fontSize: '14px', fontWeight: 300, lineHeight: '24px' }}
       >
         &copy;2026. Lightwarp LLC. All rights reserved.

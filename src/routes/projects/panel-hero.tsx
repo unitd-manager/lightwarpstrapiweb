@@ -2,7 +2,7 @@ export function PanelHeroes() {
 
   return (
     <section
-      className="relative flex min-h-[140px] items-center justify-center overflow-hidden px-4 py-5 sm:min-h-[180px]"
+      className="relative flex min-h-[140px] items-center justify-center overflow-hidden px-4 py-5 sm:min-h-[180px] font-display"
       style={{ backgroundColor: "rgba(89, 48, 255, 0.69)" }}
     >
       <div className="relative z-10 text-center">

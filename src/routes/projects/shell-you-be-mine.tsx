@@ -7,6 +7,7 @@ export default function ShellYouBeMine() {
     <ProjectDetailLayout
       title="Shell You Be Mine?"
       subtitle=""
+      roleLine="Director, Cinematographer, VFX Supervisor, Lighting Design, Rendering, Compositing, Character Groom and Shading (Octopus), Unreal TD"
       overview={[
         "Shell You Be Mine? was one of the most rewarding and challenging projects I’ve ever taken on. Alongside Alyssa Curran, I co-directed and produced the film, bringing together 23 graduate students outside of class to make this short a reality. It was incredible to see so many artists come together, and part of my role was making sure we had both the creative vision and the technical foundation to actually pull it off.",
         "I built an entire Unreal Engine pipeline from the ground up, stress-testing it as we went, and used it to handle lighting, grooming workflows between Blender and Unreal, and advanced hair shading that really pushed the renderer. I also stepped in as VFX supervisor, problem-solving everything from FX integration to custom facial expression tools to material export scripts (my first real dive into Python scripting for Unreal!). It was a crash course in leadership and technical direction, and I loved every second of finding solutions and making the film possible.",

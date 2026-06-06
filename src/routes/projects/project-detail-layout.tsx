@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
+import { VideoPlayer } from "../../components/video-player";
 import image1 from "../../assets/images/img1.png";
 import image2 from "../../assets/images/img2.png";
 import image3 from "../../assets/images/img3.png";
@@ -27,6 +28,7 @@ type VideoCard = {
 type ProjectDetailLayoutProps = {
   title: string;
   subtitle: string;
+  roleLine?: string;
   overview: string[];
   videoSrc: string;
   watchHref: string;
@@ -95,9 +97,75 @@ const extraProjects: VideoCard[] = [
   },
 ];
 
+const lushLogos = [
+  {
+    src: "https://static.wixstatic.com/media/ddc236_24adb982b89f47bcb935321431de9767~mv2.png",
+    alt: "Unreal Engine",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_e2fc4ec6be4342f7916b6acdd157c5a9~mv2.png",
+    alt: "Blender",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_3d79dc80ee084230b2a96316abae79cb~mv2.png",
+    alt: "Substance 3D",
+  },
+];
+
+const stuffedLogos = [
+  {
+    src: "https://static.wixstatic.com/media/ddc236_24adb982b89f47bcb935321431de9767~mv2.png",
+    alt: "Substance 3D",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_e56fb512f1f540c7b6025875fdea7217~mv2.png",
+    alt: "Blender",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_e2fc4ec6be4342f7916b6acdd157c5a9~mv2.png",
+    alt: "USD",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_3d79dc80ee084230b2a96316abae79cb~mv2.png",
+    alt: "Unreal Engine",
+  },
+];
+
+const logos = [
+  {
+    src: "https://static.wixstatic.com/media/ddc236_e87923663ea941a08dcdcd667ae9e03b~mv2.png",
+    alt: "Unreal Engine",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_75cb156520ae4ab99854737db24bba00~mv2.png",
+    alt: "Blender",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_24adb982b89f47bcb935321431de9767~mv2.png",
+    alt: "Substance 3D",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_e56fb512f1f540c7b6025875fdea7217~mv2.png",
+    alt: "USD",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_c96a3c58f3db467eb48714cf3af338cc~mv2.png",
+    alt: "AWS",
+  },
+  {
+    src: "https://static.wixstatic.com/media/ddc236_29f8c8953a6149f1b7c533df8a7d8de6~mv2.png",
+    alt: "Perforce",
+  },
+   {
+    src: "https://static.wixstatic.com/media/ddc236_ab0eebd4077744e1ba7bbc84edd51303~mv2.png",
+    alt: "Perforce",
+  },
+];
+
 export function ProjectDetailLayout({
   title,
   subtitle,
+  roleLine,
   overview,
   videoSrc,
   watchHref,
@@ -136,18 +204,21 @@ export function ProjectDetailLayout({
           { title: "", subtitle: "", video: image15 },
         ]
       : extraProjects);
-  const isRightAligned = title === "Shell You Be Mine?";
   const isLushGarden = title === "Lush Victorian Garden";
   const isShellYouBeMine = title === "Shell You Be Mine?";
   const isStuffed = title === "Stuffed";
-  const isSpecialVideoPage = isLushGarden || isShellYouBeMine || isStuffed;
-  const specialGridClass = isSpecialVideoPage ? "lg:grid-cols-[1.1fr_minmax(520px,1.4fr)]" : "lg:grid-cols-[1.3fr_0.9fr]";
-  const specialVideoClass = isSpecialVideoPage ? "w-full aspect-[16/9] min-h-[30rem] object-cover" : "w-full aspect-[16/9] object-cover";
+  const logosToRender = isLushGarden ? lushLogos : isStuffed ? stuffedLogos : logos;
+  const logoGap =  "10px"
+  const logoHeight =  "22px"
+  const logoPadding = "6px 2px"
+  const isYouTube = isYouTubeEmbed(videoSrc);
+  const videoWrapperClass =  "relative w-full aspect-video overflow-hidden bg-black";
+  const videoMediaClass = "h-full w-full object-cover";
 
   if (isLushGarden || isShellYouBeMine || isStuffed) {
     return (
       <PageShell>
-        <section className="bg-[#050517] text-white">
+        <section className="bg-[#050517] text-white font-display">
           <div className="w-full overflow-hidden">
             <img
               src={backgroundImage}
@@ -156,33 +227,101 @@ export function ProjectDetailLayout({
             />
           </div>
 
-          <div className="mx-auto max-w-7xl px-6 py-16">
-            <div className={`grid gap-12 ${specialGridClass} items-start`}>
-              <div className="space-y-8">
-                <div className="space-y-6 max-w-2xl">
+          <div className="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+            <div className="space-y-12">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
+              >
+                <div className="space-y-6 max-w-3xl">
                   <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
-                  <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-tight tracking-[-0.03em]">
+                  <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
                     {title}
                   </h1>
+                  {roleLine ? (
+                    <p className="project-subtitle text-white max-w-2xl">
+                      {roleLine}
+                    </p>
+                  ) : null}
                 </div>
 
-                <div className="space-y-6 text-lg leading-8 text-white/75 max-w-2xl">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="services-logo-row"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    gap: logoGap,
+                    width: "100%",
+                  }}
+                >
+                  {logosToRender.map((logo) => (
+                    <div
+                      key={logo.alt}
+                      className="services-logo-cell"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: logoPadding,
+                      }}
+                    >
+                      <img
+                        src={logo.src}
+                        alt={logo.alt}
+                        className="services-logo-img"
+                        style={{
+                          height: logoHeight,
+                          width: "auto",
+                          maxWidth: "100%",
+                          objectFit: "contain",
+                        }}
+                      />
+                    </div>
+                  ))}
+                </motion.div>
+              </motion.div>
+
+              <div className="grid gap-12 lg:grid-cols-[1fr_minmax(540px,1.15fr)] lg:items-start">
+                <div className="space-y-6 max-w-2xl">
                   {overview.map((paragraph, idx) => (
-                    <p key={idx}>{paragraph}</p>
+                    <p key={idx} className="project-body text-white/75">{paragraph}</p>
                   ))}
                 </div>
-              </div>
 
-              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <VideoRenderer
-                  src={videoSrc}
-                  className={specialVideoClass}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  controls
-                />
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
+                >
+                  <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
+                    <div className={videoWrapperClass}>
+                      {isYouTube ? (
+                        <VideoPlayer src={videoSrc} title={title} />
+                      ) : (
+                        <VideoRenderer
+                          src={videoSrc}
+                          className={videoMediaClass}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          controls
+                        />
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -198,7 +337,7 @@ export function ProjectDetailLayout({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
+                  className="overflow-hidden rounded-none border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
                 >
                   <div className="relative overflow-hidden">
                     <img
@@ -260,16 +399,16 @@ export function ProjectDetailLayout({
 
   return (
     <PageShell>
-      <section className="relative min-h-[75vh] overflow-hidden bg-[#050517] text-white">
+      <section className="relative min-h-[75vh] overflow-hidden bg-[#050517] text-white font-display">
         <div className="absolute inset-0 overflow-hidden">
           {backgroundImage ? (
             <img
               src={backgroundImage}
-              className="absolute top-1/2 left-1/2 h-[160%] w-[160%] -translate-x-1/2 -translate-y-1/2 object-cover"
+              className="absolute top-1/2 left-1/2 h-[100%] w-[100%] -translate-x-1/2 -translate-y-1/2 object-cover"
               alt=""
             />
           ) : isYouTubeEmbed(videoSrc) ? (
-            <div className="absolute top-1/2 left-1/2 h-[160%] w-[160%] -translate-x-1/2 -translate-y-1/2 bg-black" />
+            <div className="absolute top-1/2 left-1/2 h-[100%] w-[100%] -translate-x-1/2 -translate-y-1/2 bg-black" />
           ) : (
             <video
               src={videoSrc}
@@ -290,50 +429,100 @@ export function ProjectDetailLayout({
           )}
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:py-28">
-          <div className="grid gap-12 lg:grid-cols-[1fr_minmax(440px,0.9fr)] items-center">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 lg:py-24">
+          <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="space-y-8"
+              className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
               <div className="space-y-6 max-w-3xl">
                 <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
-                <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold leading-tight tracking-[-0.03em]">
+                <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
                   {title}
                 </h1>
-                <p className="text-xl text-white/70 max-w-2xl">{overview[0]}</p>
+                <p className="project-subtitle text-white/70 max-w-2xl">{overview[0]}</p>
               </div>
 
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="services-logo-row"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                  gap: logoGap,
+                  width: "100%",
+                }}
+              >
+                {logos.map((logo) => (
+                  <div
+                    key={logo.alt}
+                    className="services-logo-cell"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: logoPadding,
+                    }}
+                  >
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="services-logo-img"
+                      style={{
+                        height: logoHeight,
+                        width: "auto",
+                        maxWidth: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </div>
+                ))}
+              </motion.div>
+            </motion.div>
+
+            <div className="grid gap-12 lg:grid-cols-[1fr_minmax(540px,1.15fr)] lg:items-start">
               <div className="space-y-6 max-w-2xl">
                 {overview.slice(1).map((paragraph, idx) => (
-                  <p key={idx} className="text-lg leading-8 text-white/75">
+                  <p key={idx} className="project-body text-white/75">
                     {paragraph}
                   </p>
                 ))}
               </div>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <VideoRenderer
-                  src={videoSrc}
-                  className="w-full aspect-[16/9] object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  controls
-                />
-              </div>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
+                  <div className={videoWrapperClass}>
+                    {isYouTube ? (
+                      <VideoPlayer src={videoSrc} title={title} />
+                    ) : (
+                      <VideoRenderer
+                        src={videoSrc}
+                        className={videoMediaClass}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        controls
+                      />
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -348,7 +537,7 @@ export function ProjectDetailLayout({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
+                className="overflow-hidden rounded-none border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
               >
                 <div className="relative overflow-hidden">
                   <img

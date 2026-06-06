@@ -22,7 +22,7 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full bg-black">
       {/* ── Fixed 100px header row ── */}
-      <div className="w-full px-4 sm:px-6 h-[75px] flex items-center">
+      <div className="lw-container h-[75px] flex items-center">
 
         {/* ── Mobile nav row: hamburger | logo | spacer ── */}
         <div className="md:hidden relative flex items-center justify-between w-full">
@@ -55,7 +55,7 @@ export function Navbar() {
         </div>
 
         {/* ── Desktop nav row: logo | links | contact ── */}
-        <nav className="hidden md:flex mx-auto max-w-full w-full items-center justify-between relative">
+        <nav className="hidden md:flex w-full items-center justify-between relative">
 
           {/* Logo */}
           <Link to="/" className="z-10 flex-shrink-0">
