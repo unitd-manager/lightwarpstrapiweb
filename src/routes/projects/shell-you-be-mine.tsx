@@ -1,5 +1,4 @@
 import { ProjectDetailLayout } from "./project-detail-layout";
-import video18 from "../../assets/images/video18.mp4";
 
 export default function ShellYouBeMine() {
   return (
