@@ -1,7 +1,283 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+type HomeHeroContent = {
+  videoSrc: string;
+  logoSrc: string;
+  subtitle: string;
+  ctaHref: string;
+  ctaLabel: string;
+};
+
+const DEFAULT_CONTENT: HomeHeroContent = {
+  videoSrc:
+    "https://player.vimeo.com/video/1177318410?autoplay=1&loop=1&muted=1&background=1",
+  logoSrc:
+    "https://lightwarp3d.com/wp-content/uploads/2026/01/Lightwarp_Horizontal.png",
+  subtitle: "A New Age Creative 3D Studio. Powered by Real-Time 3D Technology",
+  ctaHref: "/projects/#latest",
+  ctaLabel: "Our Recent Work",
+};
+
+const STRAPI_BASE_URL = import.meta.env.VITE_STRAPI_URL ?? "http://localhost:1337";
+const STRAPI_HOME_HERO_ENDPOINT = import.meta.env.VITE_STRAPI_HOME_HERO_ENDPOINT;
+const STRAPI_SECTION_KEY = import.meta.env.VITE_STRAPI_SECTION_KEY?.trim();
+const STRAPI_SECTION_SLUG = import.meta.env.VITE_STRAPI_SECTION_SLUG?.trim();
+const STRAPI_SECTION_TITLE = import.meta.env.VITE_STRAPI_SECTION_TITLE?.trim();
+
+function isAbsoluteUrl(url: string) {
+  return /^https?:\/\//i.test(url);
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function joinUrl(baseUrl: string, maybePath: string) {
+  if (!maybePath) return baseUrl;
+  if (isAbsoluteUrl(maybePath)) return maybePath;
+  if (baseUrl.endsWith("/") && maybePath.startsWith("/")) {
+    return `${baseUrl}${maybePath.slice(1)}`;
+  }
+  if (!baseUrl.endsWith("/") && !maybePath.startsWith("/")) {
+    return `${baseUrl}/${maybePath}`;
+  }
+  return `${baseUrl}${maybePath}`;
+}
+
+function pickFirstString(obj: unknown, keys: string[]): string | null {
+  if (!obj || typeof obj !== "object") return null;
+  const record = obj as Record<string, unknown>;
+  for (const key of keys) {
+    const value = record[key];
+    if (typeof value === "string" && value.trim()) return value.trim();
+  }
+  return null;
+}
+
+function resolveStrapiMediaUrl(baseUrl: string, value: unknown): string | null {
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (!trimmed) return null;
+    return joinUrl(baseUrl, trimmed);
+  }
+  if (!value || typeof value !== "object") return null;
+
+  const record = value as Record<string, unknown>;
+  const directUrl = record.url;
+  if (typeof directUrl === "string" && directUrl.trim()) {
+    return joinUrl(baseUrl, directUrl.trim());
+  }
+
+  const data = record.data;
+  if (!data || typeof data !== "object") return null;
+  const dataRecord = data as Record<string, unknown>;
+  const attributes = dataRecord.attributes;
+  if (!attributes || typeof attributes !== "object") return null;
+  const attrRecord = attributes as Record<string, unknown>;
+  const attrUrl = attrRecord.url;
+  if (typeof attrUrl === "string" && attrUrl.trim()) {
+    return joinUrl(baseUrl, attrUrl.trim());
+  }
+
+  return null;
+}
+
+function getMediaUrlFromGallery(baseUrl: string, value: unknown): string | null {
+  if (!isRecord(value)) return null;
+  const data = value.data;
+
+  if (Array.isArray(data)) {
+    for (const item of data) {
+      if (!isRecord(item)) continue;
+      const direct = resolveStrapiMediaUrl(baseUrl, item);
+      if (direct) return direct;
+      if (isRecord(item.attributes)) {
+        const nested = resolveStrapiMediaUrl(baseUrl, item.attributes);
+        if (nested) return nested;
+      }
+    }
+  }
+
+  return resolveStrapiMediaUrl(baseUrl, value);
+}
+
+function getCandidateEndpoints() {
+  const endpoints = new Set<string>();
+
+  if (STRAPI_HOME_HERO_ENDPOINT) {
+    endpoints.add(STRAPI_HOME_HERO_ENDPOINT);
+  }
+
+  const matches = [
+    STRAPI_SECTION_KEY,
+    STRAPI_SECTION_SLUG,
+    STRAPI_SECTION_TITLE,
+    "home-hero",
+    "home hero",
+    "light warp",
+  ].filter(Boolean) as string[];
+
+  for (const match of matches) {
+    const encoded = encodeURIComponent(match);
+    endpoints.add(`/api/sections?populate=*&filters[slug][$eq]=${encoded}`);
+    endpoints.add(`/api/sections?populate=*&filters[key][$eq]=${encoded}`);
+    endpoints.add(`/api/sections?populate=*&filters[identifier][$eq]=${encoded}`);
+    endpoints.add(`/api/sections?populate=*&filters[type][$eq]=${encoded}`);
+    endpoints.add(`/api/sections?populate=*&filters[location][$eq]=${encoded}`);
+    endpoints.add(`/api/sections?populate=*&filters[section_title][$eq]=${encoded}`);
+    endpoints.add(`/api/sections?populate=*&filters[name][$eq]=${encoded}`);
+    endpoints.add(`/api/sections?populate=*&filters[title][$eq]=${encoded}`);
+  }
+
+  endpoints.add("/api/sections?populate=*");
+
+  return Array.from(endpoints);
+}
+
+function getStrapiItems(payload: unknown): Record<string, unknown>[] {
+  if (!isRecord(payload)) return [];
+  const data = payload.data;
+
+  if (Array.isArray(data)) {
+    return data
+      .map((item) => {
+        if (!isRecord(item)) return null;
+        return isRecord(item.attributes) ? item.attributes : item;
+      })
+      .filter(Boolean) as Record<string, unknown>[];
+  }
+
+  if (isRecord(data)) {
+    return [isRecord(data.attributes) ? data.attributes : data];
+  }
+
+  return [];
+}
+
+function pickSectionRecord(items: Record<string, unknown>[]) {
+  if (!items.length) return null;
+
+  const desiredKeys = [
+    STRAPI_SECTION_KEY,
+    STRAPI_SECTION_SLUG,
+    STRAPI_SECTION_TITLE,
+    "home-hero",
+    "home hero",
+    "light warp",
+  ]
+    .filter(Boolean)
+    .map((value) => value!.trim().toLowerCase());
+
+  for (const item of items) {
+    const candidateValues = [
+      pickFirstString(item, ["slug", "key", "identifier", "type", "location", "name"]),
+      pickFirstString(item, ["title", "section_title"]),
+    ]
+      .filter(Boolean)
+      .map((value) => value!.trim().toLowerCase());
+
+    if (candidateValues.some((value) => desiredKeys.includes(value))) {
+      return item;
+    }
+  }
+
+  const sorted = [...items].sort((a, b) => {
+    const left = pickFirstString(a, ["updatedAt", "publishedAt", "createdAt"]) ?? "";
+    const right = pickFirstString(b, ["updatedAt", "publishedAt", "createdAt"]) ?? "";
+    return right.localeCompare(left);
+  });
+
+  return sorted[0] ?? null;
+}
 
 export function HomePanelHero() {
+  const [content, setContent] = useState<HomeHeroContent>(DEFAULT_CONTENT);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+
+    void (async () => {
+      try {
+        for (const endpoint of getCandidateEndpoints()) {
+          const urlBase = isAbsoluteUrl(endpoint) ? "" : STRAPI_BASE_URL;
+          const url = endpoint.includes("?")
+            ? joinUrl(urlBase, endpoint)
+            : `${joinUrl(urlBase, endpoint)}?populate=*`;
+          const res = await fetch(url, {
+            signal: controller.signal,
+            headers: { Accept: "application/json" },
+          });
+          if (!res.ok) continue;
+          const json: unknown = await res.json();
+          const attrs = pickSectionRecord(getStrapiItems(json));
+          if (!attrs) continue;
+
+          const next: HomeHeroContent = {
+            videoSrc:
+              pickFirstString(attrs, [
+                "videoSrc",
+                "videoUrl",
+                "backgroundVideoUrl",
+                "iframeSrc",
+              ]) ??
+              getMediaUrlFromGallery(STRAPI_BASE_URL, attrs.backgroundVideo) ??
+              resolveStrapiMediaUrl(STRAPI_BASE_URL, attrs.video) ??
+              DEFAULT_CONTENT.videoSrc,
+            logoSrc:
+              getMediaUrlFromGallery(STRAPI_BASE_URL, attrs.images) ??
+              resolveStrapiMediaUrl(STRAPI_BASE_URL, attrs.logo) ??
+              resolveStrapiMediaUrl(STRAPI_BASE_URL, attrs.logoImage) ??
+              pickFirstString(attrs, ["logoSrc", "logoUrl"]) ??
+              DEFAULT_CONTENT.logoSrc,
+            subtitle:
+              pickFirstString(attrs, ["description", "subtitle", "tagline", "section_title"]) ??
+              DEFAULT_CONTENT.subtitle,
+            ctaLabel:
+              pickFirstString(attrs, [
+                "ctaLabel",
+                "ctaText",
+                "buttonLabel",
+                "button_text",
+                "buttonText",
+              ]) ??
+              (typeof attrs.cta === "object" && attrs.cta
+                ? pickFirstString(attrs.cta, ["label", "text"])
+                : null) ??
+              DEFAULT_CONTENT.ctaLabel,
+            ctaHref:
+              pickFirstString(attrs, [
+                "ctaHref",
+                "ctaLink",
+                "buttonHref",
+                "buttonLink",
+                "internal_link",
+                "external_link",
+              ]) ??
+              (typeof attrs.cta === "object" && attrs.cta
+                ? pickFirstString(attrs.cta, ["href", "link", "url", "path"])
+                : null) ??
+              DEFAULT_CONTENT.ctaHref,
+          };
+
+          setContent(next);
+          break;
+        }
+      } catch {
+        return;
+      }
+    })();
+
+    return () => controller.abort();
+  }, []);
+
+  const subtitleLines = content.subtitle
+    .split(/\r?\n/g)
+    .map((line) => line.trim())
+    .filter(Boolean);
+
   return (
     <section className="relative w-full overflow-hidden">
       {/* Vimeo Video Background */}
@@ -27,8 +303,12 @@ export function HomePanelHero() {
           }}
         />
         <iframe
+<<<<<<< HEAD
           src="https://player.vimeo.com/video/1177318410?autoplay=1&loop=1&muted=1&background=1&dnt=1&quality=720p"
           loading="eager"
+=======
+          src={content.videoSrc}
+>>>>>>> 7d67004a4ce8c0829bea5888126773619157f607
           style={{
             position: 'absolute',
             top: '50%',
@@ -58,7 +338,7 @@ export function HomePanelHero() {
           className="mb-5"
         >
           <img
-            src="https://lightwarp3d.com/wp-content/uploads/2026/01/Lightwarp_Horizontal.png"
+            src={content.logoSrc}
             alt="Lightwarp"
             className="h-[clamp(120px,10vw,280px)] w-auto object-contain"
           />
@@ -82,9 +362,21 @@ export function HomePanelHero() {
           className="mx-auto max-w-[720px]"
         >
           <p className="text-[clamp(20px,1.15vw,22px)] font-normal text-white/85 leading-relaxed">
-            A New Age Creative 3D Studio. Powered by Real-
-            <br className="hidden sm:block" />
-            Time 3D Technology
+            {subtitleLines.length <= 1 ? (
+              content.subtitle
+            ) : (
+              subtitleLines.map((line, idx) => (
+                <span key={`${idx}-${line}`}>
+                  {line}
+                  {idx < subtitleLines.length - 1 ? (
+                    <>
+                      <br className="hidden sm:block" />
+                      <span className="sm:hidden"> </span>
+                    </>
+                  ) : null}
+                </span>
+              ))
+            )}
           </p>
         </motion.div>
 
@@ -96,10 +388,10 @@ export function HomePanelHero() {
           className="mt-8"
         >
           <Link
-            to="/projects#latest"
+            to={content.ctaHref}
             className="inline-flex items-center justify-center rounded-sm border border-white/35 bg-white/10 px-6 py-3 text-sm font-medium text-white backdrop-blur-md transition-all duration-300 hover:bg-white/15"
           >
-            Our Recent Work
+            {content.ctaLabel}
           </Link>
         </motion.div>
         </div>

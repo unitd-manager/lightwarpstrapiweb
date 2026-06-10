@@ -42,7 +42,7 @@ const LazyYouTubeBackground = ({
   const posterSrc = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
   return (
-    <div ref={containerRef} className="absolute inset-0">
+    <div ref={containerRef} className="absolute inset-0" overflow-hidden>
       <img src={posterSrc} alt="" className={className} loading="lazy" decoding="async" />
       {shouldLoad ? (
         <iframe
@@ -64,7 +64,7 @@ export function ProjectsPanelCapabilities() {
       <div className="absolute inset-0 overflow-hidden">
         <LazyYouTubeBackground
           videoId={LUSH_VIDEO_ID}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-[100%] border-0 object-cover"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[67.5vw] min-w-[213.33vh] min-h-[120%] border-0 object-cover pointer-events-none"
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
