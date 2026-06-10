@@ -134,9 +134,7 @@ export default function Capabilities() {
         </div>
       </div>
     </section>
-
     
-
       <ProjectsPanelHero />
       <ProjectsPanelCapabilities />
       <ProjectsPanelExtraVideos />
