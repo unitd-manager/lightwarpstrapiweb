@@ -303,12 +303,8 @@ export function HomePanelHero() {
           }}
         />
         <iframe
-<<<<<<< HEAD
-          src="https://player.vimeo.com/video/1177318410?autoplay=1&loop=1&muted=1&background=1&dnt=1&quality=720p"
-          loading="eager"
-=======
           src={content.videoSrc}
->>>>>>> 7d67004a4ce8c0829bea5888126773619157f607
+          loading="eager"
           style={{
             position: 'absolute',
             top: '50%',
