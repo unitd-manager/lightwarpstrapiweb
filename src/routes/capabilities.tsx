@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import { PageShell } from "../components/page-shell";
 // import { Section } from "../components/section";
@@ -53,19 +52,39 @@ const projects = [
 ];
 
 export default function Capabilities() {
-  const [showPlayer, setShowPlayer] = useState(false);
-
-  useEffect(() => {
-    setShowPlayer(true);
-  }, []);
-
   const vimeoId = "1153379831";
   const posterSrc = `https://vumbnail.com/${vimeoId}.jpg`;
-  const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0`;
+  const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&quality=720p`;
 
   return (
     <PageShell>
-       <section className="relative text-white">
+      <section className="bg-black text-white">
+        <div className="w-full bg-black">
+          <div className="w-full h-[calc(100vh-100px)] overflow-hidden">
+            <div className="relative h-full w-full overflow-hidden">
+              <img
+                src={posterSrc}
+                alt=""
+                className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-full border-0 object-cover"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+              />
+              <iframe
+                src={embedSrc}
+                title="Lightwarp Studios Capabilities Reel"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-full border-0"
+                style={{ border: "none" }}
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowFullScreen
+                loading="eager"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+     <section className="relative text-white">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-700/25 via-cyan-500/15 to-indigo-700/25" />
         <div className="absolute inset-0 bg-black/20" />
         <div className="relative mx-auto max-w-7xl px-6 py-12 lg:py-16 text-center">

@@ -88,14 +88,19 @@ const lushLogos = [
   {
     src: "https://static.wixstatic.com/media/ddc236_24adb982b89f47bcb935321431de9767~mv2.png",
     alt: "Unreal Engine",
+    blendScreen: false,
   },
   {
     src: "https://static.wixstatic.com/media/ddc236_e2fc4ec6be4342f7916b6acdd157c5a9~mv2.png",
     alt: "Blender",
+    blendScreen: false,
   },
   {
     src: "https://static.wixstatic.com/media/ddc236_3d79dc80ee084230b2a96316abae79cb~mv2.png",
     alt: "Substance 3D",
+    // Solid black circular badge baked into the source file — screen-blend so
+    // it drops out against the dark page background.
+    blendScreen: true,
   },
 ];
 
@@ -103,18 +108,24 @@ const stuffedLogos = [
   {
     src: "https://static.wixstatic.com/media/ddc236_24adb982b89f47bcb935321431de9767~mv2.png",
     alt: "Substance 3D",
+    blendScreen: false,
   },
   {
     src: "https://static.wixstatic.com/media/ddc236_e56fb512f1f540c7b6025875fdea7217~mv2.png",
     alt: "Blender",
+    blendScreen: false,
   },
   {
     src: "https://static.wixstatic.com/media/ddc236_e2fc4ec6be4342f7916b6acdd157c5a9~mv2.png",
     alt: "USD",
+    blendScreen: false,
   },
   {
     src: "https://static.wixstatic.com/media/ddc236_3d79dc80ee084230b2a96316abae79cb~mv2.png",
     alt: "Unreal Engine",
+    // Solid black circular badge baked into the source file — screen-blend so
+    // it drops out against the dark page background.
+    blendScreen: true,
   },
 ];
 
@@ -122,30 +133,39 @@ const logos = [
   {
     src: "https://static.wixstatic.com/media/ddc236_e87923663ea941a08dcdcd667ae9e03b~mv2.png",
     alt: "Unreal Engine",
+    // Solid black circular badge baked into the source file — screen-blend so
+    // it drops out against the dark page background.
+    blendScreen: true,
   },
   {
     src: "https://static.wixstatic.com/media/ddc236_75cb156520ae4ab99854737db24bba00~mv2.png",
     alt: "Blender",
+    blendScreen: false,
   },
   {
     src: "https://static.wixstatic.com/media/ddc236_24adb982b89f47bcb935321431de9767~mv2.png",
     alt: "Substance 3D",
+    blendScreen: false,
   },
   {
     src: "https://static.wixstatic.com/media/ddc236_e56fb512f1f540c7b6025875fdea7217~mv2.png",
     alt: "USD",
+    blendScreen: false,
   },
   {
     src: "https://static.wixstatic.com/media/ddc236_c96a3c58f3db467eb48714cf3af338cc~mv2.png",
     alt: "AWS",
+    blendScreen: false,
   },
   {
     src: "https://static.wixstatic.com/media/ddc236_29f8c8953a6149f1b7c533df8a7d8de6~mv2.png",
     alt: "Perforce",
+    blendScreen: false,
   },
    {
     src: "https://static.wixstatic.com/media/ddc236_ab0eebd4077744e1ba7bbc84edd51303~mv2.png",
     alt: "Perforce",
+    blendScreen: false,
   },
 ];
 
@@ -271,6 +291,7 @@ export function ProjectDetailLayout({
                           width: "auto",
                           maxWidth: "100%",
                           objectFit: "contain",
+                          mixBlendMode: logo.blendScreen ? "screen" : undefined,
                         }}
                       />
                     </div>

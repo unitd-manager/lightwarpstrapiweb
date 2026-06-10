@@ -56,6 +56,7 @@ function embedUrl(
       }
       if (options.loop) url.searchParams.set("loop", "1");
       url.searchParams.set("autopause", "0");
+      url.searchParams.set("dnt", "1");
     }
 
     return url.toString();

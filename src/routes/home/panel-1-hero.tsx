@@ -281,9 +281,30 @@ export function HomePanelHero() {
   return (
     <section className="relative w-full overflow-hidden">
       {/* Vimeo Video Background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden bg-black">
+        {/* Poster frame — shown instantly while the Vimeo player connects & buffers */}
+        <img
+          src="https://vumbnail.com/1177318410.jpg"
+          alt=""
+          aria-hidden="true"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '177.78vh',
+            height: '56.25vw',
+            minWidth: '100%',
+            minHeight: '100%',
+            transform: 'translate(-50%, -50%) scale(1.18)',
+            objectFit: 'cover',
+          }}
+        />
         <iframe
           src={content.videoSrc}
+          loading="eager"
           style={{
             position: 'absolute',
             top: '50%',
