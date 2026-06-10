@@ -58,32 +58,7 @@ export default function Capabilities() {
 
   return (
     <PageShell>
-      <section className="bg-black text-white">
-        <div className="w-full bg-black">
-          <div className="w-full h-[calc(100vh-100px)] overflow-hidden">
-            <div className="relative h-full w-full overflow-hidden">
-              <img
-                src={posterSrc}
-                alt=""
-                className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-full border-0 object-cover"
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-              />
-              <iframe
-                src={embedSrc}
-                title="Lightwarp Studios Capabilities Reel"
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-full border-0"
-                style={{ border: "none" }}
-                allow="autoplay; encrypted-media; picture-in-picture"
-                allowFullScreen
-                loading="eager"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
+      
      <section className="relative text-white">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-700/25 via-cyan-500/15 to-indigo-700/25" />
         <div className="absolute inset-0 bg-black/20" />
@@ -153,7 +128,7 @@ export default function Capabilities() {
         </div>
       </div>
     </section>
-    
+
       <ProjectsPanelHero />
       <ProjectsPanelCapabilities />
       <ProjectsPanelExtraVideos />
