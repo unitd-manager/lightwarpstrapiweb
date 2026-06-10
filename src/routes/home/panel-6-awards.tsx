@@ -37,10 +37,14 @@ const artists = [
   {
     image: "https://lightwarp3d.com/wp-content/uploads/2026/01/dwalogo.png",
     name: "DreamWorks",
+    blendScreen: false,
   },
   {
     image: "https://lightwarp3d.com/wp-content/uploads/2026/01/wdas_white.png",
     name: "Walt Disney Animation Studios",
+    // This source file has a solid black background baked in — screen-blend it
+    // so the black drops out and only the white logo mark shows on our dark bg.
+    blendScreen: true,
   },
 ];
 
@@ -110,6 +114,7 @@ export function HomePanelAwards() {
                   src={artist.image}
                   alt={artist.name}
                   className="max-h-32 md:max-h-40 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+                  style={artist.blendScreen ? { mixBlendMode: "screen" } : undefined}
                 />
               </motion.div>
             ))}

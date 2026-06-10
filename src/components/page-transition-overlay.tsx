@@ -1,17 +1,10 @@
+
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-// Slow, cinematic sweep — 1.8 s
-const DURATION_MS = 1800;
+const DURATION_MS = 1400;
 
-// The beam starts pointing upper-right (-40 ° from horizontal) and rotates
-// 150 ° clockwise, ending lower-right (110 °). This mimics a real lighthouse
-// scanning the sea from top-right to bottom-right.
-const START_DEG = -40; // conic "from" offset
-const SWEEP_DEG = 150; // total rotation
-
-/** Reads the logo position so the beam always originates from the
- *  lighthouse lantern — works on both mobile (centered) and desktop (left). */
+/** Reads the logo position so the beam always originates from the lighthouse lantern. */
 function getBeaconPos(): { x: number; y: number } {
   const isMobile = window.innerWidth < 768;
   const imgs = Array.from(document.querySelectorAll("header img")) as HTMLImageElement[];
@@ -19,15 +12,9 @@ function getBeaconPos(): { x: number; y: number } {
   if (!logo) return { x: isMobile ? Math.round(window.innerWidth / 2) : 74, y: 39 };
 
   const r = logo.getBoundingClientRect();
-  const y = Math.round(r.top + r.height * 0.3);
+  const y = Math.round(r.top + r.height * 0.5);
 
-  // Mobile: logo is absolutely centred via CSS transform — use viewport
-  // centre for x so transforms don't throw off the measurement.
-  // Desktop: logo is on the left, so use its actual measured position.
-  const x = isMobile
-    ? Math.round(window.innerWidth / 2)
-    : Math.round(r.left + r.width * 0.5);
-
+  const x = isMobile ? Math.round(window.innerWidth / 2) : Math.round(r.left + r.width * 0.5);
   return { x, y };
 }
 
@@ -43,16 +30,16 @@ export function PageTransitionOverlay() {
     const beacon = getBeaconPos();
     const id = Date.now();
     setBeams((prev) => [...prev, { id, beacon }]);
-    setTimeout(
-      () => setBeams((prev) => prev.filter((b) => b.id !== id)),
-      DURATION_MS + 400
-    );
+
+    setTimeout(() => {
+      setBeams((prev) => prev.filter((b) => b.id !== id));
+    }, DURATION_MS + 400);
   }, [pathname]);
 
   if (beams.length === 0) return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[500]" aria-hidden>
+    <div className="fixed inset-0 pointer-events-none z-[500] overflow-hidden" aria-hidden>
       {beams.map(({ id, beacon }) => (
         <BeamEffect key={id} beacon={beacon} />
       ))}
@@ -60,79 +47,32 @@ export function PageTransitionOverlay() {
   );
 }
 
+/**
+ * Client requirement:
+ *  1) Light starts at the logo, swings horizontally to the RIGHT, then returns to the logo.
+ *  2) It expands like a flash from the logo’s corner.
+ *  3) The beam swings out to the right across the page and fades.
+ */
 function BeamEffect({ beacon }: { beacon: { x: number; y: number } }) {
   const dur = `${DURATION_MS}ms`;
-  const ease = "cubic-bezier(0.4, 0, 0.2, 1)"; // slow-in, slow-out
+  const coneSize = "200vmax";
+
+  const wedgeStyle = (gradient: string, blur: string) => ({
+    position: "absolute" as const,
+    left: beacon.x,
+    top: beacon.y,
+    width: coneSize,
+    height: coneSize,
+    background: gradient,
+    filter: `blur(${blur})`,
+    mixBlendMode: "screen" as const,
+    transformOrigin: "0 0",
+    animation: `lwBeamSweep ${dur} cubic-bezier(0.45, 0, 0.3, 1) forwards`,
+  });
 
   return (
     <>
-      {/* ── Layer 1: Razor-sharp primary beam ── */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: `conic-gradient(
-            from ${START_DEG}deg at ${beacon.x}px ${beacon.y}px,
-            transparent               0deg,
-            rgba(220,210,255, 0.08)   2deg,
-            rgba(245,240,255, 0.75)   5deg,
-            rgba(255,255,255, 1.00)   6deg,
-            rgba(255,255,255, 1.00)   7deg,
-            rgba(245,240,255, 0.75)  10deg,
-            rgba(220,210,255, 0.08)  13deg,
-            transparent              15deg
-          )`,
-          transformOrigin: `${beacon.x}px ${beacon.y}px`,
-          mixBlendMode: "screen",
-          filter: "blur(0.5px)",
-          animation: `lwSweep ${dur} ${ease} forwards,
-                      lwFadeBeam ${dur} ease forwards`,
-        }}
-      />
-
-      {/* ── Layer 2: Soft luminous halo ── */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: `conic-gradient(
-            from ${START_DEG - 15}deg at ${beacon.x}px ${beacon.y}px,
-            transparent               0deg,
-            rgba(190,170,255, 0.05)  10deg,
-            rgba(215,200,255, 0.30)  22deg,
-            rgba(225,215,255, 0.20)  35deg,
-            rgba(190,170,255, 0.04)  50deg,
-            transparent              60deg
-          )`,
-          transformOrigin: `${beacon.x}px ${beacon.y}px`,
-          mixBlendMode: "screen",
-          filter: "blur(20px)",
-          animation: `lwSweep ${dur} ${ease} forwards,
-                      lwFadeHalo ${dur} ease forwards`,
-        }}
-      />
-
-      {/* ── Layer 3: Wide ambient atmosphere ── */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: `conic-gradient(
-            from ${START_DEG - 35}deg at ${beacon.x}px ${beacon.y}px,
-            transparent               0deg,
-            rgba(180,160,255, 0.07)  35deg,
-            rgba(200,185,255, 0.04)  70deg,
-            transparent              95deg
-          )`,
-          transformOrigin: `${beacon.x}px ${beacon.y}px`,
-          mixBlendMode: "screen",
-          filter: "blur(45px)",
-          animation: `lwSweep ${dur} ${ease} forwards,
-                      lwFadeAtmo ${dur} ease forwards`,
-        }}
-      />
-
-      {/* ── Layer 4: Beacon origin burst ── */}
+      {/* Step 1+2: start at logo, swing RIGHT, return, then flash/expand */}
       <div
         style={{
           position: "absolute",
@@ -142,74 +82,58 @@ function BeamEffect({ beacon }: { beacon: { x: number; y: number } }) {
           top: beacon.y - 90,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(255,253,255,1) 0%, rgba(215,200,255,0.65) 28%, rgba(185,165,255,0.25) 55%, transparent 72%)",
-          filter: "blur(14px)",
+            "radial-gradient(circle, rgba(255,253,255,1) 0%, rgba(225,215,255,0.75) 30%, rgba(190,170,255,0.30) 55%, transparent 75%)",
+          filter: "blur(8px)",
           mixBlendMode: "screen",
-          animation: `lwBeaconBurst ${dur} ease forwards`,
+          // IMPORTANT: unique keyframes name to avoid old CSS overriding
+          animation: `lwSwingFromLogoFlashRight ${dur} cubic-bezier(0.45, 0, 0.3, 1) forwards`,
         }}
       />
 
-      {/* ── Layer 5: Infinite-length streak ── */}
+      {/* Step 3: soft halo wedge */}
       <div
-        style={{
-          position: "absolute",
-          top: beacon.y,
-          left: beacon.x,
-          width: "130vw",
-          height: "3px",
-          background:
-            "linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(230,220,255,0.50) 20%, rgba(210,195,255,0.15) 55%, transparent 100%)",
-          transformOrigin: "0px 1.5px",
-          filter: "blur(1.5px)",
-          mixBlendMode: "screen",
-          animation: `lwStreak ${dur} ${ease} forwards,
-                      lwFadeBeam ${dur} ease forwards`,
-        }}
+        style={wedgeStyle(
+          `conic-gradient(from 65deg at 0% 0%,
+            transparent 0deg,
+            rgba(200,185,255,0.28) 18deg,
+            rgba(215,205,255,0.16) 45deg,
+            transparent 75deg)`,
+          "50px"
+        )}
+      />
+
+      {/* Step 3: crisp beam wedge */}
+      <div
+        style={wedgeStyle(
+          `conic-gradient(from 65deg at 0% 0%,
+            transparent 0deg,
+            rgba(255,255,255,0.95) 6deg,
+            rgba(235,228,255,0.55) 20deg,
+            rgba(210,200,255,0.15) 40deg,
+            transparent 55deg)`,
+          "4px"
+        )}
       />
 
       <style>{`
-        /* Main cone + halo + atmosphere all share the same rotation */
-        @keyframes lwSweep {
-          from { transform: rotate(0deg);            }
-          to   { transform: rotate(${SWEEP_DEG}deg); }
+        /* Step 1 (0–30%): start AT logo, swing RIGHT, return to logo.
+           Step 2 (30–70%): expand into a flash, then fade. */
+        @keyframes lwSwingFromLogoFlashRight {
+          0%   { transform: translate3d(0,0,0)      scale(0.35); opacity: 0;    }
+          8%   { opacity: 1; }
+          18%  { transform: translate3d(140px,0,0) scale(0.55); opacity: 1;    } /* RIGHT */
+          30%  { transform: translate3d(0,0,0)      scale(1.00); opacity: 1;    } /* back */
+          48%  { transform: translate3d(0,0,0)      scale(1.85); opacity: 0.65; } /* flash */
+          70%  { transform: translate3d(0,0,0)      scale(2.45); opacity: 0;    }
+          100% { opacity: 0; }
         }
 
-        /* Streak rotates to match beam — anchored at beacon */
-        @keyframes lwStreak {
-          from { transform: rotate(${START_DEG}deg)           translateY(-1.5px); }
-          to   { transform: rotate(${START_DEG + SWEEP_DEG}deg) translateY(-1.5px); }
-        }
-
-        /* Tight beam: quick fade-in, hold, quick fade-out */
-        @keyframes lwFadeBeam {
-          0%   { opacity: 0;   }
-          7%   { opacity: 1;   }
-          80%  { opacity: 1;   }
-          100% { opacity: 0;   }
-        }
-
-        /* Halo: slightly slower rise */
-        @keyframes lwFadeHalo {
-          0%   { opacity: 0;   }
-          10%  { opacity: 1;   }
-          75%  { opacity: 1;   }
-          100% { opacity: 0;   }
-        }
-
-        /* Atmosphere: rises even slower, fades earlier */
-        @keyframes lwFadeAtmo {
-          0%   { opacity: 0;    }
-          18%  { opacity: 0.85; }
-          65%  { opacity: 0.85; }
-          100% { opacity: 0;    }
-        }
-
-        /* Beacon burst at the origin — brief intense pulse */
-        @keyframes lwBeaconBurst {
-          0%   { opacity: 0;   transform: scale(0.1); }
-          10%  { opacity: 1;   transform: scale(3.5); }
-          40%  { opacity: 0.6; transform: scale(2.4); }
-          100% { opacity: 0;   transform: scale(1.0); }
+        /* Cone stays collapsed during swing/flash start, then blooms, then swings right. */
+        @keyframes lwBeamSweep {
+          0%   { transform: scale(0.015) rotate(-10deg); opacity: 0; }
+          30%  { transform: scale(0.015) rotate(-10deg); opacity: 0; } /* hold during swing */
+          48%  { transform: scale(1)     rotate(-10deg); opacity: 1; } /* bloom */
+          100% { transform: scale(1)     rotate(22deg);  opacity: 0; } /* swing right */
         }
       `}</style>
     </>

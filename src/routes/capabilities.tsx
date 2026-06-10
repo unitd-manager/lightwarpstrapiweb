@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import { PageShell } from "../components/page-shell";
 // import { Section } from "../components/section";
@@ -52,15 +51,9 @@ const projects = [
 ];
 
 export default function Capabilities() {
-  const [showPlayer, setShowPlayer] = useState(false);
-
-  useEffect(() => {
-    setShowPlayer(true);
-  }, []);
-
   const vimeoId = "1153379831";
   const posterSrc = `https://vumbnail.com/${vimeoId}.jpg`;
-  const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0`;
+  const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&quality=720p`;
 
   return (
     <PageShell>
@@ -76,17 +69,15 @@ export default function Capabilities() {
                 decoding="async"
                 fetchPriority="high"
               />
-              {showPlayer ? (
-                <iframe
-                  src={embedSrc}
-                  title="Lightwarp Studios Capabilities Reel"
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-full border-0"
-                  style={{ border: "none" }}
-                  allow="autoplay; encrypted-media; picture-in-picture"
-                  allowFullScreen
-                  loading="eager"
-                />
-              ) : null}
+              <iframe
+                src={embedSrc}
+                title="Lightwarp Studios Capabilities Reel"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-full border-0"
+                style={{ border: "none" }}
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowFullScreen
+                loading="eager"
+              />
             </div>
           </div>
         </div>
