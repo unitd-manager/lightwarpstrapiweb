@@ -2,9 +2,8 @@
 import { PageShell } from "../components/page-shell";
 // import { Section } from "../components/section";
 import { motion } from "framer-motion";
-import { ProjectsPanelHero } from "./projects/panel-1-hero";
 import { ProjectsPanelCapabilities } from "./projects/panel-3-capabilities";
-import { ProjectsPanelExtraVideos } from "./projects/panel-7-extra-videos";
+import { ProjectsPanelExtraVideosCapabilities } from "./projects/panel-7-extra-videos-capabilities";
 
 const projects = [
   {
@@ -57,7 +56,7 @@ export default function Capabilities() {
   const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&quality=720p`;
 
   return (
-    <PageShell>
+    <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">
       
      <section className="relative text-white">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-700/25 via-cyan-500/15 to-indigo-700/25" />
@@ -120,7 +119,10 @@ export default function Capabilities() {
                  Before the founding of our studio, our team members have always been creating stunning 3D renders, tools, assets, and projects.
                 </p>
                 <p>
-                 Our Capabilities Reel showcases many of these personal projects and collaborations to give even more context and confidence to our skillsets and quality of work
+                 Our Capabilities Reel showcases many of these personal projects and collaborations to give even more context and confidence to our skillsets and quality of work.
+                </p>
+                <p className="text-white/60">
+                  Good design credits: creative direction, visual development, and reel production by Lightwarp Studio.
                 </p>
               </div>
             </div>
@@ -129,9 +131,8 @@ export default function Capabilities() {
       </div>
     </section>
 
-      <ProjectsPanelHero />
       <ProjectsPanelCapabilities />
-      <ProjectsPanelExtraVideos />
+      <ProjectsPanelExtraVideosCapabilities />
 
      
     </PageShell>

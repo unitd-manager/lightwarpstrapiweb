@@ -46,7 +46,7 @@ const videoCards = [
 
 export default function CaughtOffGuard() {
   return (
-    <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">
+    <PageShell>
       <section className="bg-[#050517] text-white">
        <div className="w-full overflow-hidden">
           <img
@@ -65,25 +65,10 @@ export default function CaughtOffGuard() {
               transition={{ duration: 0.8 }}
               className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
-              
               <div className="space-y-6 max-w-3xl">
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">
-                Story & Production by Adithya Sathyanarayanan & Alyssa Curran
-
-Design and Concepts by Gus McClain, Rachel Fikir, & Alyssa Curran
-
-Character and Environment Models by Jaime Diaz, Britain Thomas, Rachel Fikir
-
-Look Development and Surfacing by Alyssa Curran, Adithya Sathyanarayanan, Rachel Fikir & Britain Thomas
-
-Animation, Storyboard, Camera and Final Layout by Gus McClain & Ethan Umanos
-
-Final Edit & Sound by Ethan Umanos
-                </p>
                 <h1 className="project-title">
                   Caught Off Guard
                 </h1>
-                <p className="text-sm text-white/60 mt-2">© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz.</p>
                 <h4 className="project-subtitle text-white max-w-2xl">
                   Production Manager, Lighting, Look Development, Compositing, Layout, Modelling
                 </h4>

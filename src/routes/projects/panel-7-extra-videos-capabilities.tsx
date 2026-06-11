@@ -64,21 +64,40 @@ const LazyYouTubeBackground = ({
 
 const extraProjects = [
   {
-    id: 17,
-    title: "Samsung S7 ad",
-    description: "This high school project marked my first dive into full 3D animation, and it remains a formative experience in my journey as an artist. Tasked with creating a commercial in Blender, I went far beyond the assignment's requirements: modeling, surfacing, and lighting assets from scratch over the course of two months. It was here that I discovered my love for lighting, experimenting with HDRI-based product lighting, IES profiles, and camera choreography to highlight form and detail. Though created at an early stage in my career, this project laid the groundwork for my technical and artistic growth, teaching me both the discipline of a full production cycle and the excitement of storytelling through light.",
-    videoId: "4Esie0f7HVw",
+    id: 29,
+    title: "Caught Off Guard",
+    description: "As project manager and pipeline lead, I directed my team in creating Caught Off Guard, a playful short film known for its dynamic lighting and stylized visuals. This was one of the first studio shorts at Texas A&M to implement the ACES color workflow, much before it became widely adopted in the industry, and I led the charge in bringing this system into production. On the artistic side, I lit and rendered sequences in RenderMan, surfaced the main serpent character and props, and explored advanced compositing techniques in Nuke including post volumetrics, motion blur, and depth of field. I also designed animated lighting driven by video playback to simulate interactive illumination from computer screens. The result was a technically ambitious and visually engaging short that gave me early experience as both a creative and technical leader.",
+    videoId: "7iZBroHtizk",
   },
   {
-    id: 4,
-    title: "Cyberia 2084",
-    description: "Cyberia 2084 is a personal passion project: a travelogue-style introduction to a sprawling cyberpunk city, built in one semester as a solo effort. Inspired by Ian Hubert's \"lazy tutorials\" and dense image-based texturing techniques, I challenged myself to see how much worldbuilding I could accomplish independently, creating a multilayered dystopia filled with atmosphere, detail, and scale. Rendered in Blender using baked lighting, irradiance caching, and optimized techniques for reflections and GI, the project became my first real-time cinematic experiment. Completing Cyberia 2084 earned me the Disney Aggie Alumni Award scholarship, presented by the head of characters at Walt Disney Animation Studios and signed by Disney alumni. Beyond the recognition, this film fueled my work ethic and strengthened my passion for building worlds that tell stories through scale and light.",
-    videoId: "pTmzrHqdS_4",
+    id: 10,
+    title: "The Jab",
+    description: "The Jab was a group short film project and my final student short at Texas A&M before I finished my masters degree. I had rolled on to the project late as a lighting/compositing artist and with the very little time of 1 month before delivery and still majorly contributed in delivering the short and fixing many data issues and hitches that would have stalled the film from being completed on the final layout and material assembly..",
+    videoId: "4d27i10x2wI",
   },
-  
+  {
+    id: 1,
+    title: "Stray Vista Studios",
+    description: "Stray Vista Studios in Dripping Springs, Texas is one of the largest active virtual production facilities in the state and a pioneer in the field. I was honored to have my first industry experience at this studio with the team as an Unreal Engine Technical Director Intern, Site Rep, and Production Assistant. Along with creating studio tools to streamline virtual production workflows in the studio for commercials, music videos, etc, I had also participated in creating and designing virtual sets, assets, and full CG-shots for the productions during my time.",
+    videoId: "w0GfewGYR3g",
+  },
+  {
+    id: 11,
+    title: "Awaken Digital Environment",
+    description: "",
+    hideLearnMore: true,
+    videoId: "",
+  },
+  {
+    id: 12,
+    title: "WW1 Trench Render",
+    description: "",
+    hideLearnMore: true,
+    videoId: "",
+  },
 ];
 
-export function ProjectsPanelExtraVideos() {
+export function ProjectsPanelExtraVideosCapabilities() {
   return (
     <>
       {extraProjects.map((item, idx) => (
@@ -107,16 +126,19 @@ export function ProjectsPanelExtraVideos() {
                   <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">{item.title}</h2>
                   <div className="space-y-4 text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
                     <p>{item.description}</p>
+                    <p className="text-sm text-white/50">Good design credit: Lightwarp Studio.</p>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-4">
-                  <Link
-                    to={`/projects/${slugify(item.title)}`}
-                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition hover:opacity-95"
-                  >
-                    Learn More
-                  </Link>
+                  {!item.hideLearnMore ? (
+                    <Link
+                      to={`/projects/${slugify(item.title)}`}
+                      className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition hover:opacity-95"
+                    >
+                      Learn More
+                    </Link>
+                  ) : null}
                 </div>
               </motion.div>
             </div>

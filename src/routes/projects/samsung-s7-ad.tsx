@@ -25,7 +25,7 @@ const videoCards = [
 
 export default function SamsungS7Ad() {
   return (
-    <PageShell>
+    <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">
       <section className="bg-[#050517] text-white">
         <div className="w-full overflow-hidden">
           <img
@@ -46,6 +46,7 @@ export default function SamsungS7Ad() {
             >
               <div className="space-y-6 max-w-3xl">
                 <h1 className="project-title">Samsung S7 ad</h1>
+                <p className="text-sm text-white/60 mt-2">© 2016 Adithya Sathyanarayanan.</p>
                 <p className="project-subtitle text-white max-w-2xl">
                   Responsible for All Aspects
                 </p>

@@ -42,7 +42,7 @@ const videoCards = [
 
 export default function StrayVistaStudios() {
   return (
-    <PageShell>
+    <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">
       <section className="bg-[#050517] text-white">
         <div className="w-full overflow-hidden">
           <img
@@ -62,7 +62,11 @@ export default function StrayVistaStudios() {
               className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
               <div className="space-y-6 max-w-3xl">
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/60">
+                Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG
+                </p>
                 <h1 className="project-title">Stray Vista Studios</h1>
+                <p className="text-sm text-white/60 mt-2">© 2024 BMG.</p>
                 <p className="project-subtitle text-white/70 max-w-2xl">
                   Unreal Artist/TD, Production Assistant, Lighting, Cinematography, Look Development, Compositing, VFX
                 </p>

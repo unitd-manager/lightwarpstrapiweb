@@ -19,6 +19,8 @@ type ProjectDetailLayoutProps = {
   relatedProjects?: VideoCard[];
   previousHref?: string;
   nextHref?: string;
+  copyrightText?: string;
+  pageCredits?: string;
 };
 
 const isYouTubeEmbed = (url: string): boolean => {
@@ -181,6 +183,8 @@ export function ProjectDetailLayout({
   relatedProjects: relatedProjectsProp,
   previousHref,
   nextHref,
+  copyrightText,
+  pageCredits,
 }: ProjectDetailLayoutProps) {
   const relatedProjects: VideoCard[] =
     relatedProjectsProp || (title === "Shell You Be Mine?"
@@ -224,7 +228,7 @@ export function ProjectDetailLayout({
 
   if (isLushGarden || isShellYouBeMine || isStuffed) {
     return (
-      <PageShell>
+      <PageShell copyrightText={copyrightText}>
         <section className="bg-[#050517] text-white font-display">
           <div className="w-full overflow-hidden">
             <img
@@ -248,6 +252,9 @@ export function ProjectDetailLayout({
                   <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
                     {title}
                   </h1>
+                  {pageCredits ? (
+                    <p className="text-sm text-white/60 mt-2">{pageCredits}</p>
+                  ) : null}
                   {roleLine ? (
                     <p className="project-subtitle text-white max-w-2xl">
                       {roleLine}
@@ -418,7 +425,7 @@ export function ProjectDetailLayout({
   }
 
   return (
-    <PageShell>
+    <PageShell copyrightText={copyrightText}>
       <section className="relative min-h-[75vh] overflow-hidden bg-[#050517] text-white font-display">
         <div className="absolute inset-0 overflow-hidden">
           {backgroundImage ? (
@@ -463,6 +470,9 @@ export function ProjectDetailLayout({
                 <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
                   {title}
                 </h1>
+                {pageCredits ? (
+                  <p className="text-sm text-white/60 mt-2">{pageCredits}</p>
+                ) : null}
                 <p className="project-subtitle text-white/70 max-w-2xl">{overview[0]}</p>
               </div>
 

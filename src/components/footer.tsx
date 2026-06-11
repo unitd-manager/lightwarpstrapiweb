@@ -11,7 +11,7 @@ function TikTokIcon({ size = 20 }: { size?: number }) {
   );
 }
 
-export function Footer() {
+export function Footer({ copyrightText }: { copyrightText?: string }) {
   return (
     <footer className="w-full bg-black/50 backdrop-blur-xl border-t border-white/10" style={SORA}>
 
@@ -33,7 +33,7 @@ export function Footer() {
             className="text-white hidden lg:block"
             style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
           >
-            &copy;2026. Lightwarp LLC. All rights reserved.
+            {copyrightText ?? "© 2025 Lightwarp LLC. All rights reserved."}
           </p>
         </div>
 
@@ -114,7 +114,7 @@ export function Footer() {
         className="lg:hidden text-white lw-container pb-[32px]"
         style={{ fontSize: '14px', fontWeight: 300, lineHeight: '24px' }}
       >
-        &copy;2026. Lightwarp LLC. All rights reserved.
+        {copyrightText ?? "© 2025 Lightwarp LLC. All rights reserved."}
       </p>
 
       {/* Bottom border line */}
