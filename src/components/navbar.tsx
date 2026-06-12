@@ -20,7 +20,7 @@ export function Navbar() {
   }, [pathname]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-black">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-black/50 backdrop-blur-xl border-b border-white/10">
       {/* ── Fixed 100px header row ── */}
       <div className="lw-container h-[75px] flex items-center">
 
@@ -102,7 +102,7 @@ export function Navbar() {
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2 }}
-          className="md:hidden w-full bg-black border-t border-white/10"
+          className="md:hidden w-full bg-black/50 backdrop-blur-xl border-t border-white/10"
         >
           <ul className="flex flex-col items-center py-4 gap-1">
             {links.map((l) => {
