@@ -4,7 +4,9 @@ export default function ShellYouBeMine() {
   return (
     <ProjectDetailLayout
       title="Shell You Be Mine?"
-      subtitle=""
+      copyrightText="© 2025 Lightwarp LLC. All rights reserved."
+        pageCredits="© 2025 Lightwarp LLC."
+        subtitle=""
       roleLine="Director, Cinematographer, VFX Supervisor, Lighting Design, Rendering, Compositing, Character Groom and Shading (Octopus), Unreal TD"
       overview={[
         "Shell You Be Mine? was one of the most rewarding and challenging projects I’ve ever taken on. Alongside Alyssa Curran, I co-directed and produced the film, bringing together 23 graduate students outside of class to make this short a reality. It was incredible to see so many artists come together, and part of my role was making sure we had both the creative vision and the technical foundation to actually pull it off.",
@@ -15,7 +17,7 @@ export default function ShellYouBeMine() {
       watchHref="https://www.youtube.com/watch?v=yinRrmEpfr4"
       watchLabel="Watch Full Film"
       backgroundImage="	https://static.wixstatic.com/media/ddc236_238a3691e81343cb8121614525d5d709~mv2.png"
-      nextHref="/projects/our-capabilities"
+      nextHref="/projects/samsung-s7-ad"
     />
   );
 }

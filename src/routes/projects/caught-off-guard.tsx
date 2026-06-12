@@ -46,7 +46,7 @@ const videoCards = [
 
 export default function CaughtOffGuard() {
   return (
-    <PageShell>
+    <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">
       <section className="bg-[#050517] text-white">
        <div className="w-full overflow-hidden">
           <img
@@ -65,10 +65,25 @@ export default function CaughtOffGuard() {
               transition={{ duration: 0.8 }}
               className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
+              
               <div className="space-y-6 max-w-3xl">
+                <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">
+                Story & Production by Adithya Sathyanarayanan & Alyssa Curran
+
+Design and Concepts by Gus McClain, Rachel Fikir, & Alyssa Curran
+
+Character and Environment Models by Jaime Diaz, Britain Thomas, Rachel Fikir
+
+Look Development and Surfacing by Alyssa Curran, Adithya Sathyanarayanan, Rachel Fikir & Britain Thomas
+
+Animation, Storyboard, Camera and Final Layout by Gus McClain & Ethan Umanos
+
+Final Edit & Sound by Ethan Umanos
+                </p>
                 <h1 className="project-title">
                   Caught Off Guard
                 </h1>
+                <p className="text-sm text-white/60 mt-2">© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz.</p>
                 <h4 className="project-subtitle text-white max-w-2xl">
                   Production Manager, Lighting, Look Development, Compositing, Layout, Modelling
                 </h4>
@@ -182,19 +197,19 @@ export default function CaughtOffGuard() {
             </div>
             <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
               <a
-                href="/projects/samsung-s7-ad"
+                href="/projects/our-capabilities"
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
                 Previous
               </a>
               <a
-                href="/projects"
+                href="/capabilities"
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
-                Back to Project
+                Back to Capabilities
               </a>
               <a
-                href="/projects/cyberia-2084"
+                href="/projects/the-jab"
               className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
                 Next

@@ -4,6 +4,7 @@ export default function Stuffed() {
   return (
     <ProjectDetailLayout
       title="Stuffed"
+      copyrightText="© 2025 Lightwarp LLC. All rights reserved."
       subtitle=""
       roleLine="Lighting, Rendering, Compositing, Pipeline and Rendering TD, Hair CFX, Surfacing Groom TD"
       overview={[

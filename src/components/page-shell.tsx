@@ -5,7 +5,13 @@ import { Navbar } from "./navbar";
 import { Footer } from "./footer";
 import { MouseLight } from "./mouse-light";
 
-export function PageShell({ children }: { children: ReactNode }) {
+export function PageShell({
+  children,
+  copyrightText,
+}: {
+  children: ReactNode;
+  copyrightText?: string;
+}) {
   const { pathname } = useLocation();
   return (
     <div className="relative min-h-screen">
@@ -13,7 +19,7 @@ export function PageShell({ children }: { children: ReactNode }) {
       <Navbar />
     
           <div className="pt-[75px]">{children}</div>
-          <Footer />
+          <Footer copyrightText={copyrightText} />
      
     </div>
   );

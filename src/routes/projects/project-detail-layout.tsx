@@ -19,6 +19,8 @@ type ProjectDetailLayoutProps = {
   relatedProjects?: VideoCard[];
   previousHref?: string;
   nextHref?: string;
+  copyrightText?: string;
+  pageCredits?: string;
 };
 
 const isYouTubeEmbed = (url: string): boolean => {
@@ -181,6 +183,8 @@ export function ProjectDetailLayout({
   relatedProjects: relatedProjectsProp,
   previousHref,
   nextHref,
+  copyrightText,
+  pageCredits,
 }: ProjectDetailLayoutProps) {
   const relatedProjects: VideoCard[] =
     relatedProjectsProp || (title === "Shell You Be Mine?"
@@ -213,6 +217,7 @@ export function ProjectDetailLayout({
       : extraProjects);
   const isLushGarden = title === "Lush Victorian Garden";
   const isShellYouBeMine = title === "Shell You Be Mine?";
+  const isTheJab = title === "The Jab";
   const isStuffed = title === "Stuffed";
   const logosToRender = isLushGarden ? lushLogos : isStuffed ? stuffedLogos : logos;
   const logoGap =  "10px"
@@ -224,7 +229,7 @@ export function ProjectDetailLayout({
 
   if (isLushGarden || isShellYouBeMine || isStuffed) {
     return (
-      <PageShell>
+      <PageShell copyrightText={copyrightText}>
         <section className="bg-[#050517] text-white font-display">
           <div className="w-full overflow-hidden">
             <img
@@ -244,10 +249,13 @@ export function ProjectDetailLayout({
                 className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
               >
                 <div className="space-y-6 max-w-3xl">
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">{subtitle}</p>
                   <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
                     {title}
                   </h1>
+                  {pageCredits ? (
+                    <p className="text-sm text-white/60 mt-2">{pageCredits}</p>
+                  ) : null}
                   {roleLine ? (
                     <p className="project-subtitle text-white max-w-2xl">
                       {roleLine}
@@ -382,7 +390,7 @@ export function ProjectDetailLayout({
                   >
                     Previous
                   </a>
-                ) : isShellYouBeMine ? (
+                ) : (isShellYouBeMine || isLushGarden) ? (
                   <button
                     type="button"
                     disabled
@@ -395,10 +403,10 @@ export function ProjectDetailLayout({
                   <div />
                 )}
               <a
-                href="/projects"
+                href={isLushGarden ? "/capabilities" : "/projects"}
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
-                Back to Project
+                {isLushGarden ? "Back to Capabilities" : "Back to Project"}
               </a>
               {nextHref ? (
                 <a
@@ -418,7 +426,7 @@ export function ProjectDetailLayout({
   }
 
   return (
-    <PageShell>
+    <PageShell copyrightText={copyrightText}>
       <section className="relative min-h-[75vh] overflow-hidden bg-[#050517] text-white font-display">
         <div className="absolute inset-0 overflow-hidden">
           {backgroundImage ? (
@@ -463,6 +471,9 @@ export function ProjectDetailLayout({
                 <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
                   {title}
                 </h1>
+                {pageCredits ? (
+                  <p className="text-sm text-white/60 mt-2">{pageCredits}</p>
+                ) : null}
                 <p className="project-subtitle text-white/70 max-w-2xl">{overview[0]}</p>
               </div>
 

@@ -25,7 +25,7 @@ const videoCards = [
 
 export default function SamsungS7Ad() {
   return (
-    <PageShell>
+    <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">
       <section className="bg-[#050517] text-white">
         <div className="w-full overflow-hidden">
           <img
@@ -46,6 +46,7 @@ export default function SamsungS7Ad() {
             >
               <div className="space-y-6 max-w-3xl">
                 <h1 className="project-title">Samsung S7 ad</h1>
+                <p className="text-sm text-white/60 mt-2">© 2016 Adithya Sathyanarayanan.</p>
                 <p className="project-subtitle text-white max-w-2xl">
                   Responsible for All Aspects
                 </p>
@@ -148,7 +149,7 @@ export default function SamsungS7Ad() {
             </div>
             <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
               <a
-                href="/projects/the-jab"
+                href="/projects/shell-you-be-mine"
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
                 Previous
@@ -160,7 +161,7 @@ export default function SamsungS7Ad() {
                 Back to Project
               </a>
               <a
-                href="/projects/caught-off-guard"
+                href="/projects/cyberia-2084"
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
                 Next

@@ -33,7 +33,7 @@ const videoCards = [
 
 export default function Cyberia2084() {
   return (
-    <PageShell>
+    <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">
       <section className="bg-[#050517] text-white">
         <div className="w-full overflow-hidden">
           <img
@@ -54,6 +54,7 @@ export default function Cyberia2084() {
             >
               <div className="space-y-6 max-w-3xl">
                 <h1 className="project-title">Cyberia 2084</h1>
+                <p className="text-sm text-white/60 mt-2">© 2022 Adithya Sathyanarayanan.</p>
                 <p className="project-subtitle text-white/70 max-w-2xl">
                   Responsible for All Aspects (except greebles, train cables and flying cars)
                 </p>
@@ -167,7 +168,7 @@ export default function Cyberia2084() {
             </div>
             <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
               <a
-                href="/projects/caught-off-guard"
+                href="/projects/samsung-s7-ad"
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
                 Previous
@@ -178,12 +179,12 @@ export default function Cyberia2084() {
               >
                 Back to Project
               </a>
-              <a
-                href="/projects/stray-vista-studios"
+              <button
+              disabled
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
                 Next
-              </a>
+              </button>
             </div>
           </div>
         </section>

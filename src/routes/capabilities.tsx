@@ -2,10 +2,8 @@
 import { PageShell } from "../components/page-shell";
 // import { Section } from "../components/section";
 import { motion } from "framer-motion";
-import { LazyVimeoBackground } from "../components/lazy-vimeo-background";
-import { ProjectsPanelHero } from "./projects/panel-1-hero";
 import { ProjectsPanelCapabilities } from "./projects/panel-3-capabilities";
-import { ProjectsPanelExtraVideos } from "./projects/panel-7-extra-videos";
+import { ProjectsPanelExtraVideosCapabilities } from "./projects/panel-7-extra-videos-capabilities";
 
 const projects = [
   {
@@ -58,48 +56,18 @@ export default function Capabilities() {
   const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&quality=720p`;
 
   return (
-    <PageShell>
-      <section className="bg-black text-white">
-        <div className="w-full bg-black">
-          <div className="w-full h-[calc(100vh-100px)] overflow-hidden">
-            <div className="relative h-full w-full overflow-hidden">
-              <img
-                src={posterSrc}
-                alt=""
-                className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-full border-0 object-cover"
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-              />
-              <iframe
-                src={embedSrc}
-                title="Lightwarp Studios Capabilities Reel"
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-w-[177.78vh] min-h-full border-0"
-                style={{ border: "none" }}
-                allow="autoplay; encrypted-media; picture-in-picture"
-                allowFullScreen
-                loading="eager"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
+    <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">
+      
      <section className="relative text-white">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-700/25 via-cyan-500/15 to-indigo-700/25" />
         <div className="absolute inset-0 bg-black/20" />
         <div className="relative mx-auto max-w-7xl px-6 py-12 lg:py-16 text-center">
           <div className="inline-flex items-center justify-center gap-3">
-            <div className="h-px w-10 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-            <span className="text-xs uppercase tracking-[0.35em] text-white/70">
-              Overview
-            </span>
-            <div className="h-px w-10 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
           </div>
           <h1 className="mt-4 text-4xl font-semibold tracking-[-0.03em] sm:text-5xl text-white bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/60 [text-shadow:0_1px_0_rgba(255,255,255,0.18),0_-1px_0_rgba(0,0,0,0.7),0_14px_30px_rgba(0,0,0,0.55)]">
             OUR CAPABILITIES
           </h1>
-          <div className="mx-auto mt-5 h-px w-full max-w-3xl bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+          
         </div>
       </section>
        <section className="relative h-[calc(100svh-80px)] overflow-hidden bg-transparent text-white font-display sm:h-[calc(100vh-80px)]">
@@ -125,10 +93,11 @@ export default function Capabilities() {
           >
             <div className="space-y-6 sm:space-y-8">
               <div className="space-y-4">
-                <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">
-                  Our Capabilities
+                <h5 className="text-xl font-semibold leading-tight sm:text-2xl md:text-2xl">
+                  Watch our capabilities reel a quick <br/>
+                  look at what we deliver
             
-                </h2>
+                </h5>
                 
               </div>
 
@@ -137,7 +106,10 @@ export default function Capabilities() {
                  Before the founding of our studio, our team members have always been creating stunning 3D renders, tools, assets, and projects.
                 </p>
                 <p>
-                 Our Capabilities Reel showcases many of these personal projects and collaborations to give even more context and confidence to our skillsets and quality of work
+                 Our Capabilities Reel showcases many of these personal projects and collaborations to give even more context and confidence to our skillsets and quality of work.
+                </p>
+                <p className="text-white/60">
+                  Good design credits: creative direction, visual development, and reel production by Lightwarp Studio.
                 </p>
               </div>
             </div>
@@ -146,11 +118,8 @@ export default function Capabilities() {
       </div>
     </section>
 
-    
-
-      <ProjectsPanelHero />
       <ProjectsPanelCapabilities />
-      <ProjectsPanelExtraVideos />
+      <ProjectsPanelExtraVideosCapabilities />
 
      
     </PageShell>
