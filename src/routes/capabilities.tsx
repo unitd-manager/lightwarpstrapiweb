@@ -2,6 +2,7 @@
 import { PageShell } from "../components/page-shell";
 // import { Section } from "../components/section";
 import { motion } from "framer-motion";
+import { LazyVimeoBackground } from "../components/lazy-vimeo-background";
 import { ProjectsPanelHero } from "./projects/panel-1-hero";
 import { ProjectsPanelCapabilities } from "./projects/panel-3-capabilities";
 import { ProjectsPanelExtraVideos } from "./projects/panel-7-extra-videos";
@@ -103,20 +104,11 @@ export default function Capabilities() {
       </section>
        <section className="relative h-[calc(100svh-80px)] overflow-hidden bg-transparent text-white font-display sm:h-[calc(100vh-80px)]">
       <div className="absolute inset-0 overflow-hidden">
-        <img
-          src={posterSrc}
-          alt=""
-          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.75] border-0 object-cover sm:scale-[1.25] md:scale-[1.15]"
-          loading="eager"
-          decoding="async"
-        />
-        <iframe
-          src={embedSrc}
+        <LazyVimeoBackground
+          embedSrc={embedSrc}
+          posterSrc={posterSrc}
           title="Shell You Be Mine? Background Video"
-          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.75] border-0 sm:scale-[1.25] md:scale-[1.15]"
-          allow="autoplay; encrypted-media; picture-in-picture"
-          allowFullScreen
-          loading="eager"
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.75] border-0 object-cover sm:scale-[1.25] md:scale-[1.15]"
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
