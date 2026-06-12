@@ -43,7 +43,7 @@ const projects = [
     path: "/projects/cyberia-2084",
   },
   {
-    title: "Stray Vista Studios",
+    title: "Awaken Digital Environment",
     description:
       "Virtual production and Unreal tools work from one of Texas’s leading virtual production facilities, with a focus on studio workflow and asset design.",
     path: "/projects/stray-vista-studios",
@@ -64,7 +64,7 @@ export default function Capabilities() {
         <div className="relative mx-auto max-w-7xl px-6 py-12 lg:py-16 text-center">
           <div className="inline-flex items-center justify-center gap-3">
           </div>
-          <h1 className="mt-4 text-4xl font-semibold tracking-[-0.03em] sm:text-5xl text-white bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/60 [text-shadow:0_1px_0_rgba(255,255,255,0.18),0_-1px_0_rgba(0,0,0,0.7),0_14px_30px_rgba(0,0,0,0.55)]">
+          <h1 className="text-4xl font-semibold tracking-[-0.03em] sm:text-5xl text-white bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/60 [text-shadow:0_1px_0_rgba(255,255,255,0.18),0_-1px_0_rgba(0,0,0,0.7),0_14px_30px_rgba(0,0,0,0.55)]">
             OUR CAPABILITIES
           </h1>
           
@@ -102,7 +102,7 @@ export default function Capabilities() {
           >
             <div className="space-y-6 sm:space-y-8">
               <div className="space-y-4">
-                <h5 className="text-xl font-semibold leading-tight sm:text-2xl md:text-2xl">
+                <h5 className="text-2xl font-semibold leading-tight sm:text-4xl md:text-4xl">
                   Watch our capabilities reel a quick <br/>
                   look at what we deliver
             

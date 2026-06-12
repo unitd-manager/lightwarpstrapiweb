@@ -38,7 +38,7 @@ export default function TheJab() {
           />
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
+        <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-2">
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -48,30 +48,24 @@ export default function TheJab() {
               className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
               <div className="space-y-6 max-w-3xl text-left">
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">
-               Story, Production and Set Dressing by Cooper Heathcock
-
-3D Animation, Layout and Character by Theron Smith
-
-Character Model by Corain Marnweck
-
-Character Rig by Spencer Bryant
-
-2D Matte and Set Painting by Steve Leal
-
-Visual Effects by Saif Chowdhury
-
-Character Surfacing by Emma Peace
-
-2D Animation and Final Credits by Liz Mars & Maleah Miller
-                </p>
-                <h1 className="project-title">
+                 <h1 className="project-title">
                   The Jab
                 </h1>
-                <p className="text-sm text-white/60 mt-2">© 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller.</p>
                 <p className="project-subtitle text-white max-w-2xl">
                   Lighting, Rendering, Compositing, Final Layout
                 </p>
+                <div className="text-sm text-white/60 mt-2">
+                  <p>Story, Production and Set Dressing by Cooper Heathcock
+                  3D Animation, Layout and Character by Theron Smith
+                  Character Model by Corain Marnweck
+                  Character Rig by Spencer Bryant
+                  2D Matte and Set Painting by Steve Leal
+                  Visual Effects by Saif Chowdhury
+                  Character Surfacing by Emma Peace
+                  2D Animation and Final Credits by Liz Mars & Maleah Miller</p>
+                </div>
+                <p className="text-sm text-white/60 mt-2">© 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller.</p>
+
               </div>
 
               <motion.div

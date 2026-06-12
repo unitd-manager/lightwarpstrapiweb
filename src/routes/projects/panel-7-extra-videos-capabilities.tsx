@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import image from "../../assets/images/WW2_Trench Scene.png";
+
+// Import the local video and image files from your assets folder
 import video from "../../assets/images/lego-fluid-dance-720p (1).mp4";
+import image from "../../assets/images/WW2_Trench Scene.png";
 
 const slugify = (s: string) =>
   s
@@ -10,7 +12,8 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-const LazyYouTubeBackground = ({
+// This component will render a background from a YouTube ID, a video file, or an image file.
+const LazyMediaBackground = ({
   videoId,
   className,
   priority,
@@ -43,41 +46,32 @@ const LazyYouTubeBackground = ({
     return () => observer.disconnect();
   }, [priority]);
 
-  const isLocalVideo = /\.(mp4|webm|ogg|mov)$/i.test(videoId);
-  const isLocalImage = /\.(avif|webp|jpe?g|png|gif|svg)$/i.test(videoId);
+  // This logic now correctly checks for the imported local files or a YouTube ID.
+  const isVideo = videoId === video || /\.(mp4|webm|ogg|mov)$/i.test(videoId);
+  const isImage = videoId === image || /\.(avif|webp|jpe?g|png|gif|svg)$/i.test(videoId);
+  const isYouTube = !isVideo && !isImage;
+
   const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=${videoId}${start ? `&start=${start}` : ""}`;
-  const posterSrc = isLocalVideo ? undefined : `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  const posterSrc = isYouTube ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : undefined;
 
   return (
     <div ref={containerRef} className="absolute inset-0" overflow-hidden>
-      {(!shouldLoad && isLocalImage) ? (
+      {/* This section shows a low-quality poster image while waiting for the media to load */}
+      {(!shouldLoad && isImage) ? (
         <img src={videoId} alt="" className={className} loading={priority ? "eager" : "lazy"} decoding="async" />
       ) : (!shouldLoad && posterSrc ? (
         <img src={posterSrc} alt="" className={className} loading={priority ? "eager" : "lazy"} decoding="async" />
       ) : null)}
+
+      {/* Once visible, this section loads the correct media type */}
       {shouldLoad ? (
-        isLocalVideo ? (
-          <video
-            src={videoId}
-            className={className}
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-        ) : isLocalImage ? (
+        isVideo ? (
+          <video src={videoId} className={className} autoPlay muted loop playsInline />
+        ) : isImage ? (
           <img src={videoId} alt="" className={className} />
-        ) : (
-          <iframe
-            src={embedSrc}
-            title="Project Background Video"
-            className={className}
-            style={{ border: "none" }}
-            allowFullScreen
-            allow="autoplay; encrypted-media; picture-in-picture"
-            loading={priority ? "eager" : "lazy"}
-          />
-        )
+        ) : isYouTube ? (
+          <iframe src={embedSrc} title="Project Background Video" className={className} style={{ border: "none" }} allowFullScreen allow="autoplay; encrypted-media; picture-in-picture" loading={priority ? "eager" : "lazy"} />
+        ) : null
       ) : null}
     </div>
   );
@@ -99,7 +93,7 @@ const extraProjects = [
   {
     id: 1,
     title: "Stray Vista Studios",
-    description: "Stray Vista Studios in Dripping Springs, Texas is one of the largest active virtual production facilities in the state and a pioneer in the field. I was honored to have my first industry experience at this studio with the team as an Unreal Engine Technical Director Intern, Site Rep, and Production Assistant. Along with creating studio tools to streamline virtual production workflows in the studio for commercials, music videos, etc, I had also participated in creating and designing virtual sets, assets, and full CG-shots for the productions during my time.",
+    description: "Stray Vista Studios in Dripping Springs, Texas is one of the largest active virtual production facilities in the state and a pioneer in the field. I am honored to have had my first industry experience at this studio with the team as an Unreal Engine Technical Director Intern, Site Rep, and Production Assistant. Along with creating studio tools to streamline virtual production workflows in the studio for commercials, music videos, etc, I had also participated in creating and designing virtual sets, assets, and full CG-shots for the productions during my time.",
     videoId: "w0GfewGYR3g",
   },
   {
@@ -124,7 +118,7 @@ export function ProjectsPanelExtraVideosCapabilities() {
       {extraProjects.map((item, idx) => (
         <section key={item.id} className="relative min-h-[90svh] overflow-hidden bg-[#04050f] text-white font-display sm:min-h-[90vh]">
           <div className="absolute inset-0 overflow-hidden">
-            <LazyYouTubeBackground
+            <LazyMediaBackground
               videoId={item.videoId}
               start={item.start}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[67.5vw] min-w-[213.33vh] min-h-[120%] border-0 object-cover pointer-events-none"
@@ -145,9 +139,34 @@ export function ProjectsPanelExtraVideosCapabilities() {
               >
                 <div className="space-y-6 text-left">
                   <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">{item.title}</h2>
+                  {item.title === "Caught Off Guard" && (
+                    <div className="text-sm text-white/60 mt-2">
+                      <p>Story & Production by Adithya Sathyanarayanan & Alyssa Curran
+                      Design and Concepts by Gus McClain, Rachel Fikir, & Alyssa Curran
+                      Character and Environment Models by Jaime Diaz, Britain Thomas, Rachel Fikir
+                      Look Development and Surfacing by Alyssa Curran, Adithya Sathyanarayanan, Rachel Fikir & Britain Thomas
+                      Animation, Storyboard, Camera and Final Layout by Gus McClain & Ethan Umanos</p>
+                    </div>
+                  )}
+                  {item.title === "The Jab" && (
+                    <div className="text-sm text-white/60 mt-2">
+                      Story, Production and Set Dressing by Cooper Heathcock
+                      3D Animation, Layout and Character by Theron Smith
+                      Character Model by Corain Marnweck
+                      Character Rig by Spencer Bryant
+                      2D Matte and Set Painting by Steve Leal
+                      Visual Effects by Saif Chowdhury
+                      Character Surfacing by Emma Peace
+                      2D Animation and Final Credits by Liz Mars & Maleah Miller
+                    </div>
+                  )}
+                  {item.title === "Stray Vista Studios" && (
+                    <div className="text-sm text-white/60 mt-2">
+                      <p>Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG</p>
+                    </div>
+                  )}
                   <div className="space-y-4 text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
                     <p>{item.description}</p>
-                    {/* <p className="text-sm text-white/50">Good design credit: Lightwarp Studio.</p> */}
                   </div>
                 </div>
 

@@ -80,7 +80,7 @@ const extraProjects: VideoCard[] = [
     video: "/src/assets/images/video4.mp4",
   },
   {
-    title: "Stray Vista Studios",
+    title: "Awaken Digital Environment",
     subtitle: "",
     video: "/src/assets/images/video1.mp4",
   },
@@ -239,7 +239,7 @@ export function ProjectDetailLayout({
             />
           </div>
 
-          <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
+          <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-2">
             <div className="space-y-12">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -249,17 +249,22 @@ export function ProjectDetailLayout({
                 className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
               >
                 <div className="space-y-6 max-w-3xl">
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">{subtitle}</p>
+                  {/* <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">{subtitle}</p> */}
                   <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
                     {title}
                   </h1>
-                  {pageCredits ? (
-                    <p className="text-sm text-white/60 mt-2">{pageCredits}</p>
-                  ) : null}
                   {roleLine ? (
                     <p className="project-subtitle text-white max-w-2xl">
                       {roleLine}
                     </p>
+                  ) : null}
+                  {isLushGarden && (
+                    <div className="text-sm text-white/60 mt-2">
+                      Look Development, Set Dressing, Layout, and Procedural Assets by Alyssa Curran. Bridge Model by Nimi Parmar.
+                    </div>
+                  )}
+                  {pageCredits ? (
+                    <p className="text-sm text-white/60 mt-2">{pageCredits}</p>
                   ) : null}
                 </div>
 
@@ -395,7 +400,7 @@ export function ProjectDetailLayout({
                     type="button"
                     disabled
                     aria-disabled="true"
-                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95 disabled:opacity-50"
                   >
                     Previous
                   </button>
@@ -457,7 +462,7 @@ export function ProjectDetailLayout({
           )}
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-2">
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}

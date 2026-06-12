@@ -82,6 +82,10 @@ export function ProjectsPanelCapabilities() {
               <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">
                 Lush Victorian Garden
               </h2>
+              <div className="text-sm text-white/60 mt-2">
+                <p>Look Development, Set Dressing, Layout, and Procedural Assets by Alyssa Curran</p>
+                <p>Bridge Model by Nimi Parmar</p>
+              </div>
             </div>
             <p className="max-w-2xl text-left text-base leading-7 text-white/60 sm:text-lg sm:leading-8">
               Created in collaboration with my friend Alyssa Curran, this project gave me the opportunity to light a lush, naturalistic exterior environment while leaning into a whimsical, storybook vibe. The challenge was to balance a sense of wonder with grounded realism, ensuring the foliage, atmosphere, and composition all felt believable while still transporting viewers into a dreamlike space. Using RenderMan’s ML denoiser when it first released publically and finishing touches in Nuke, I layered in bloom, god rays, chromatic aberration, vignette, and subtle lighting fixes to enhance depth and magic. The final piece not only captured the intended charm but also deepened my passion for lighting as I grew my craft through experimentation and collaboration.

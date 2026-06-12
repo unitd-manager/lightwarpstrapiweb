@@ -47,12 +47,12 @@ export default function StrayVistaStudios() {
         <div className="w-full overflow-hidden">
           <img
             src="	https://static.wixstatic.com/media/ddc236_eecc3bc85d484d748fc25aeafe0c2c92~mv2.png"
-            alt="Stray Vista Studios"
+            alt="Awaken Digital Environment"
             className="w-full h-[45vh] max-w-none object-cover"
           />
         </div>
 
-          <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
+          <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-2">
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -62,14 +62,12 @@ export default function StrayVistaStudios() {
               className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
               <div className="space-y-6 max-w-3xl">
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">
-                Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG
-                </p>
-                <h1 className="project-title">Stray Vista Studios</h1>
-                <p className="text-sm text-white/60 mt-2">© 2024 BMG.</p>
+                <h1 className="project-title">Awaken Digital Environment</h1>
                 <p className="project-subtitle text-white/70 max-w-2xl">
                   Unreal Artist/TD, Production Assistant, Lighting, Cinematography, Look Development, Compositing, VFX
                 </p>
+                <p className="text-sm text-white/60 mt-2">Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG</p>
+                <p className="text-sm text-white/60 mt-2">© 2024 BMG.</p>
               </div>
 
               <motion.div
@@ -140,7 +138,7 @@ export default function StrayVistaStudios() {
                 <div className="space-y-6">
                    <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
                   <div className="w-full aspect-[11/5]">
-                    <VideoPlayer src="https://www.youtube.com/embed/w0GfewGYR3g" title="Stray Vista Studios" autoplay={false} hideControls={false} />
+                    <VideoPlayer src="https://www.youtube.com/embed/w0GfewGYR3g" title="Awaken Digital Environment" autoplay={false} hideControls={false} />
                   </div>
                 </div>
                 {/* <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
@@ -150,7 +148,7 @@ export default function StrayVistaStudios() {
                 </div> */}
                <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
                   <div className="w-full aspect-[11/5]">
-                    <VideoPlayer src="https://www.youtube.com/embed/bpgrUK9EGjI" title="Stray Vista Studios" autoplay={false} hideControls={false} />
+                    <VideoPlayer src="https://www.youtube.com/embed/bpgrUK9EGjI" title="Awaken Digital Environment" autoplay={false} hideControls={false} />
                   </div>
                 </div>
                 </div>
@@ -207,7 +205,7 @@ export default function StrayVistaStudios() {
               </a>
               <button
                 disabled
-                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95 disabled:opacity-50"
               >
                 Next
               </button>

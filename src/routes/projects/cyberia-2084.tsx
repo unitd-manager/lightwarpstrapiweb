@@ -43,7 +43,7 @@ export default function Cyberia2084() {
           />
         </div>
 
-             <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
+             <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-2">
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -181,7 +181,7 @@ export default function Cyberia2084() {
               </a>
               <button
               disabled
-                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95 disabled:opacity-50"
               >
                 Next
               </button>

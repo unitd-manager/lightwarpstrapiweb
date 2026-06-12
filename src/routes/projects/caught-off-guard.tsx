@@ -56,7 +56,7 @@ export default function CaughtOffGuard() {
           />
         </div>
 
-            <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-24">
+            <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-2">
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -67,26 +67,24 @@ export default function CaughtOffGuard() {
             >
               
               <div className="space-y-6 max-w-3xl">
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">
-                Story & Production by Adithya Sathyanarayanan & Alyssa Curran
-
-Design and Concepts by Gus McClain, Rachel Fikir, & Alyssa Curran
-
-Character and Environment Models by Jaime Diaz, Britain Thomas, Rachel Fikir
-
-Look Development and Surfacing by Alyssa Curran, Adithya Sathyanarayanan, Rachel Fikir & Britain Thomas
-
-Animation, Storyboard, Camera and Final Layout by Gus McClain & Ethan Umanos
-
-Final Edit & Sound by Ethan Umanos
-                </p>
+                {/* <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">
+                  LIGHTWARP
+                </p> */}
                 <h1 className="project-title">
                   Caught Off Guard
                 </h1>
-                <p className="text-sm text-white/60 mt-2">© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz.</p>
                 <h4 className="project-subtitle text-white max-w-2xl">
                   Production Manager, Lighting, Look Development, Compositing, Layout, Modelling
                 </h4>
+                <div className="text-sm text-white/60 mt-2">
+                  <p>Story & Production by Adithya Sathyanarayanan & Alyssa Curran</p>
+                  <p>Design and Concepts by Gus McClain, Rachel Fikir, & Alyssa Curran</p>
+                  <p>Character and Environment Models by Jaime Diaz, Britain Thomas, Rachel Fikir</p>
+                  <p>Look Development and Surfacing by Alyssa Curran, Adithya Sathyanarayanan, Rachel Fikir & Britain Thomas</p>
+                  <p>Animation, Storyboard, Camera and Final Layout by Gus McClain & Ethan Umanos</p>
+                  <p>Final Edit & Sound by Ethan Umanos</p>
+                </div>
+                <p className="text-sm text-white/60 mt-2">© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz.</p>
               </div>
 
               <motion.div
