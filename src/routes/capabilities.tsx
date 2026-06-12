@@ -2,6 +2,7 @@
 import { PageShell } from "../components/page-shell";
 // import { Section } from "../components/section";
 import { motion } from "framer-motion";
+import { LazyVimeoBackground } from "../components/lazy-vimeo-background";
 import { ProjectsPanelCapabilities } from "./projects/panel-3-capabilities";
 import { ProjectsPanelExtraVideosCapabilities } from "./projects/panel-7-extra-videos-capabilities";
 
