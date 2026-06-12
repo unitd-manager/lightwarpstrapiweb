@@ -67,7 +67,7 @@ export default function CaughtOffGuard() {
             >
               
               <div className="space-y-6 max-w-3xl">
-                <p className="text-sm uppercase tracking-[0.3em] text-white/60">
+                <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">
                 Story & Production by Adithya Sathyanarayanan & Alyssa Curran
 
 Design and Concepts by Gus McClain, Rachel Fikir, & Alyssa Curran
@@ -197,19 +197,19 @@ Final Edit & Sound by Ethan Umanos
             </div>
             <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
               <a
-                href="/projects/samsung-s7-ad"
+                href="/projects/our-capabilities"
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
                 Previous
               </a>
               <a
-                href="/projects"
+                href="/capabilities"
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
-                Back to Project
+                Back to Capabilities
               </a>
               <a
-                href="/projects/cyberia-2084"
+                href="/projects/the-jab"
               className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
                 Next

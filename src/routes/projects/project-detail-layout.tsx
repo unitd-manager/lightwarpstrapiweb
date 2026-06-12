@@ -217,6 +217,7 @@ export function ProjectDetailLayout({
       : extraProjects);
   const isLushGarden = title === "Lush Victorian Garden";
   const isShellYouBeMine = title === "Shell You Be Mine?";
+  const isTheJab = title === "The Jab";
   const isStuffed = title === "Stuffed";
   const logosToRender = isLushGarden ? lushLogos : isStuffed ? stuffedLogos : logos;
   const logoGap =  "10px"
@@ -248,7 +249,7 @@ export function ProjectDetailLayout({
                 className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
               >
                 <div className="space-y-6 max-w-3xl">
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">{subtitle}</p>
                   <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
                     {title}
                   </h1>
@@ -389,7 +390,7 @@ export function ProjectDetailLayout({
                   >
                     Previous
                   </a>
-                ) : isShellYouBeMine ? (
+                ) : (isShellYouBeMine || isLushGarden) ? (
                   <button
                     type="button"
                     disabled
@@ -402,10 +403,10 @@ export function ProjectDetailLayout({
                   <div />
                 )}
               <a
-                href="/projects"
+                href={isLushGarden ? "/capabilities" : "/projects"}
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
-                Back to Project
+                {isLushGarden ? "Back to Capabilities" : "Back to Project"}
               </a>
               {nextHref ? (
                 <a

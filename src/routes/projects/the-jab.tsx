@@ -48,7 +48,7 @@ export default function TheJab() {
               className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
               <div className="space-y-6 max-w-3xl text-left">
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/60">
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">
                Story, Production and Set Dressing by Cooper Heathcock
 
 3D Animation, Layout and Character by Theron Smith
@@ -179,19 +179,19 @@ Character Surfacing by Emma Peace
           </div>
           <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
             <a
-              href="/projects/stuffed"
+              href="/projects/caught-off-guard"
               className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
             >
               Previous
             </a>
             <a
-              href="/projects"
+              href="/capabilities"
               className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
             >
-              Back to Project
+              Back to Capabilities
             </a>
             <a
-              href="/projects/samsung-s7-ad"
+              href="/projects/stray-vista-studios"
               className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
             >
               Next

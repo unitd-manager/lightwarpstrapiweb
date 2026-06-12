@@ -17,7 +17,7 @@ export default function ShellYouBeMine() {
       watchHref="https://www.youtube.com/watch?v=yinRrmEpfr4"
       watchLabel="Watch Full Film"
       backgroundImage="	https://static.wixstatic.com/media/ddc236_238a3691e81343cb8121614525d5d709~mv2.png"
-      nextHref="/projects/our-capabilities"
+      nextHref="/projects/samsung-s7-ad"
     />
   );
 }

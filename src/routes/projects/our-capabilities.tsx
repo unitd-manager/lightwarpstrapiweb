@@ -15,8 +15,8 @@ export default function OurCapabilities() {
       watchHref="https://www.youtube.com/watch?v=b-qRx-LlB1A&t=2s"
       watchLabel="Watch Full Reel"
       backgroundImage="	https://static.wixstatic.com/media/ddc236_9799e1fa8a134a27b50523940d8b4f98~mv2.png"
-      previousHref="/projects/shell-you-be-mine"
-      nextHref="/projects/stuffed"
+      // previousHref="/projects/shell-you-be-mine"
+      nextHref="/projects/caught-off-guard"
     />
   );
 }

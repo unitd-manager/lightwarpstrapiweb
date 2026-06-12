@@ -86,9 +86,9 @@ export function ProjectsPanelCapabilities() {
             <p className="max-w-2xl text-left text-base leading-7 text-white/60 sm:text-lg sm:leading-8">
               Created in collaboration with my friend Alyssa Curran, this project gave me the opportunity to light a lush, naturalistic exterior environment while leaning into a whimsical, storybook vibe. The challenge was to balance a sense of wonder with grounded realism, ensuring the foliage, atmosphere, and composition all felt believable while still transporting viewers into a dreamlike space. Using RenderMan’s ML denoiser when it first released publically and finishing touches in Nuke, I layered in bloom, god rays, chromatic aberration, vignette, and subtle lighting fixes to enhance depth and magic. The final piece not only captured the intended charm but also deepened my passion for lighting as I grew my craft through experimentation and collaboration.
             </p>
-            <p className="max-w-2xl text-left text-sm leading-7 text-white/50 sm:text-base sm:leading-8">
+            {/* <p className="max-w-2xl text-left text-sm leading-7 text-white/50 sm:text-base sm:leading-8">
               Good design credit: Lightwarp Studio.
-            </p>
+            </p> */}
              <div className="flex flex-wrap gap-4">
                 <Link
                   to={`/projects/${slugify("Our Capabilities")}`}

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import image from "../../assets/images/WW2_Trench Scene.png";
+import video from "../../assets/images/lego-fluid-dance-720p (1).mp4";
 
 const slugify = (s: string) =>
   s
@@ -41,22 +43,41 @@ const LazyYouTubeBackground = ({
     return () => observer.disconnect();
   }, [priority]);
 
+  const isLocalVideo = /\.(mp4|webm|ogg|mov)$/i.test(videoId);
+  const isLocalImage = /\.(avif|webp|jpe?g|png|gif|svg)$/i.test(videoId);
   const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=${videoId}${start ? `&start=${start}` : ""}`;
-  const posterSrc = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  const posterSrc = isLocalVideo ? undefined : `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
   return (
     <div ref={containerRef} className="absolute inset-0" overflow-hidden>
-      <img src={posterSrc} alt="" className={className} loading={priority ? "eager" : "lazy"} decoding="async" />
+      {(!shouldLoad && isLocalImage) ? (
+        <img src={videoId} alt="" className={className} loading={priority ? "eager" : "lazy"} decoding="async" />
+      ) : (!shouldLoad && posterSrc ? (
+        <img src={posterSrc} alt="" className={className} loading={priority ? "eager" : "lazy"} decoding="async" />
+      ) : null)}
       {shouldLoad ? (
-        <iframe
-          src={embedSrc}
-          title="Project Background Video"
-          className={className}
-          style={{ border: "none" }}
-          allowFullScreen
-          allow="autoplay; encrypted-media; picture-in-picture"
-          loading={priority ? "eager" : "lazy"}
-        />
+        isLocalVideo ? (
+          <video
+            src={videoId}
+            className={className}
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        ) : isLocalImage ? (
+          <img src={videoId} alt="" className={className} />
+        ) : (
+          <iframe
+            src={embedSrc}
+            title="Project Background Video"
+            className={className}
+            style={{ border: "none" }}
+            allowFullScreen
+            allow="autoplay; encrypted-media; picture-in-picture"
+            loading={priority ? "eager" : "lazy"}
+          />
+        )
       ) : null}
     </div>
   );
@@ -83,17 +104,17 @@ const extraProjects = [
   },
   {
     id: 11,
-    title: "Awaken Digital Environment",
-    description: "",
+    title: "Lego Fluid Dance",
+    description: "This digital simulation project accomplished through a mix of Houdini-based FLIP fluids and voxel-based quantization and instancing showcases a fun animated character who gushes with happiness, joy, and lego-style bricks as it dances! Rendered fully in Karma XPU and composed through USD and Solaris as a showcase project, Lightwarp Studios can handle the creation of intricate, complex motion design and effects for your creative needs.",
     hideLearnMore: true,
-    videoId: "",
+    videoId: video,
   },
   {
     id: 12,
     title: "WW1 Trench Render",
-    description: "",
+    description: "This still environment scene of a filmic WW1 scene created in Blender 3D depicting trench warfare and the use of helmet decoys was conceptualized, modelled, textured and surfaced by Lightwarp artist Magnus Haarseth, camera composes, layout, and set-dressed by artist Anantha Sathyanarayanan, and lit, rendered and composited to simulate filmed footage by artist Adithya Sathyanarayanan. The team achieved the goal of portraying the dramatic tragedy and death of war simply through a single, well composed frame that could have been a part of films like Saving Private Ryan or Dunkirk, ensuring that a picture can convey immense meaning and feeling.",
     hideLearnMore: true,
-    videoId: "",
+    videoId: image,
   },
 ];
 
@@ -126,7 +147,7 @@ export function ProjectsPanelExtraVideosCapabilities() {
                   <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">{item.title}</h2>
                   <div className="space-y-4 text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
                     <p>{item.description}</p>
-                    <p className="text-sm text-white/50">Good design credit: Lightwarp Studio.</p>
+                    {/* <p className="text-sm text-white/50">Good design credit: Lightwarp Studio.</p> */}
                   </div>
                 </div>
 

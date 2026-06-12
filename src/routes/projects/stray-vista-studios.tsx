@@ -62,7 +62,7 @@ export default function StrayVistaStudios() {
               className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
               <div className="space-y-6 max-w-3xl">
-                  <p className="text-sm uppercase tracking-[0.3em] text-white/60">
+                  <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">
                 Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG
                 </p>
                 <h1 className="project-title">Stray Vista Studios</h1>
@@ -194,16 +194,16 @@ export default function StrayVistaStudios() {
             </div>
             <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
               <a
-                href="/projects/cyberia-2084"
+                href="/projects/the-jab"
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
                 Previous
               </a>
               <a
-                href="/projects"
+                href="/capabilities"
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
-                Back to Project
+                Back to capabilities
               </a>
               <button
                 disabled

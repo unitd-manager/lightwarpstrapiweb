@@ -63,16 +63,11 @@ export default function Capabilities() {
         <div className="absolute inset-0 bg-black/20" />
         <div className="relative mx-auto max-w-7xl px-6 py-12 lg:py-16 text-center">
           <div className="inline-flex items-center justify-center gap-3">
-            <div className="h-px w-10 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-            <span className="text-xs uppercase tracking-[0.35em] text-white/70">
-              Overview
-            </span>
-            <div className="h-px w-10 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
           </div>
           <h1 className="mt-4 text-4xl font-semibold tracking-[-0.03em] sm:text-5xl text-white bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/60 [text-shadow:0_1px_0_rgba(255,255,255,0.18),0_-1px_0_rgba(0,0,0,0.7),0_14px_30px_rgba(0,0,0,0.55)]">
             OUR CAPABILITIES
           </h1>
-          <div className="mx-auto mt-5 h-px w-full max-w-3xl bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+          
         </div>
       </section>
        <section className="relative h-[calc(100svh-80px)] overflow-hidden bg-transparent text-white font-display sm:h-[calc(100vh-80px)]">
@@ -107,10 +102,11 @@ export default function Capabilities() {
           >
             <div className="space-y-6 sm:space-y-8">
               <div className="space-y-4">
-                <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">
-                  Our Capabilities
+                <h5 className="text-xl font-semibold leading-tight sm:text-2xl md:text-2xl">
+                  Watch our capabilities reel a quick <br/>
+                  look at what we deliver
             
-                </h2>
+                </h5>
                 
               </div>
 

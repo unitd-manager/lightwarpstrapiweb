@@ -101,7 +101,7 @@ export function ProjectsPanelExtraVideos() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: idx * 0.05 }}
-                className={`space-y-8 ${idx % 2 === 1 ? "lg:ml-auto lg:max-w-2xl lg:text-right" : "lg:max-w-2xl"} w-full max-w-[640px] rounded-[3rem] bg-transparent p-6 backdrop-blur-xl shadow-[0_40px_120px_rgba(0,0,0,0.45)]`}
+                className={`space-y-8 ${item.title === "Samsung S7 ad" ? "lg:ml-auto lg:max-w-2xl lg:text-right" : "lg:max-w-2xl"} w-full max-w-[640px] rounded-[3rem] bg-transparent p-6 backdrop-blur-xl shadow-[0_40px_120px_rgba(0,0,0,0.45)]`}
               >
                 <div className="space-y-6 text-left">
                   <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">{item.title}</h2>
@@ -110,7 +110,7 @@ export function ProjectsPanelExtraVideos() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap gap-4 justify-end">
                   <Link
                     to={`/projects/${slugify(item.title)}`}
                     className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition hover:opacity-95"
