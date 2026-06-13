@@ -84,7 +84,8 @@ export function ProjectsPanelCapabilities() {
               </h2>
               <div className="text-sm text-white/60 mt-2">
                 <p>Look Development, Set Dressing, Layout, and Procedural Assets by Alyssa Curran</p>
-                <p>Bridge Model by Nimi Parmar</p>
+                <p>Bridge Model by Nimi Parmar</p><br/>
+                <p>© 2025 Alyssa Curran, Adithya Sathyanarayanan, Nimi Parmar</p>
               </div>
             </div>
             <p className="max-w-2xl text-left text-base leading-7 text-white/60 sm:text-lg sm:leading-8">

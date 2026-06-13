@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
+import CreditsSection from "../../components/CreditsSection";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
@@ -66,7 +67,7 @@ export default function StrayVistaStudios() {
                 <p className="project-subtitle text-white/70 max-w-2xl">
                   Unreal Artist/TD, Production Assistant, Lighting, Cinematography, Look Development, Compositing, VFX
                 </p>
-                <p className="text-sm text-white/60 mt-2">Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG</p>
+
                 <p className="text-sm text-white/60 mt-2">© 2024 BMG.</p>
               </div>
 
@@ -210,8 +211,12 @@ export default function StrayVistaStudios() {
                 Next
               </button>
             </div>
+              <CreditsSection credits={[
+          { role: 'Produced and Shot at Stray Vista Studios for BMG', names: 'Stray Vista Studios for BMG' },
+        ]} />
           </div>
         </section>
+      
       </section>
     </PageShell>
   );

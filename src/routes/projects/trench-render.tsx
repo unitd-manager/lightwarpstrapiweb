@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
+import CreditsSection from "../../components/CreditsSection";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
@@ -26,7 +27,7 @@ const logos = [
   },
   
 ];
-export default function TheJab() {
+export default function TrenchRender() {
   return (  
     <PageShell>
       <section className="bg-[#050517] text-white">
@@ -48,12 +49,8 @@ export default function TheJab() {
               className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
               <div className="space-y-6 max-w-3xl text-left">
-                <h1 className="project-title">
-                  The Jab
-                </h1>
-                <p className="project-subtitle text-white max-w-2xl">
-                  Lighting, Rendering, Compositing, Final Layout
-                </p>
+                <h1 className="project-title">Trench Render</h1>
+                
               </div>
 
               <motion.div
@@ -109,13 +106,7 @@ export default function TheJab() {
                 style={{ textAlign: "left" }}
               >
                 <p className="project-body text-white/75" style={{ textAlign: "left" }}>
-                  The Jab was a group short film project and my final student short at Texas A&M before I finished my masters degree. I had rolled on to the project late as a lighting/compositing artist and with the very little time of 1 month before delivery and still majorly contributed in delivering the short and fixing many data issues and hitches that would have stalled the film from being completed on the final layout and material assembly.
-                </p>
-                <p className="project-body text-white/75" style={{ textAlign: "left" }}>
-                  The lighting design of The Jab was truly a new challenge for me, as due there being no visdev/concept art, little primary references and a singular matte painting for the whole scene, light setup was primarily designed based on what would seamlessly work with that background element as personally consulting to that team of wanted to push for a punchy, graphic, saturated look with sun dawn tones of reds, magentas and cool purple for the film to bring visual appeal.
-                </p>
-                <p className="project-body text-white/75" style={{ textAlign: "left" }}>
-                  The major creative challenge I decided to take for this project was to created animated dramatic lights that would accentuate the theatrical performance of the chameleon, primary being the blue stage light that appears at the climax of the short. This was accomplished by fully rendering all lights on in RenderMan and through light group splits, animate the lights in Nuke for flickers, eye spec light, and dramatic ramps.
+                  This project was a personal exploration of creating a cinematic Star Wars-inspired scene in Unreal Engine 5. I was responsible for all aspects of the production, from modeling and texturing the trench and ship assets to lighting the scene and rendering the final animation. The goal was to capture the iconic aesthetic of the original trilogy while leveraging the power of modern real-time rendering techniques.
                 </p>
               </motion.div>
 
@@ -181,6 +172,7 @@ export default function TheJab() {
           </div>
         </div>
       </section>
+        <CreditsSection credits={[{ role: 'Responsible for All Aspects', names: [] }]} />
     </PageShell>
   );
 }

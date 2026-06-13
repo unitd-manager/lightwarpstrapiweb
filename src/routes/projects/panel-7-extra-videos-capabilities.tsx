@@ -145,7 +145,9 @@ export function ProjectsPanelExtraVideosCapabilities() {
                       Design and Concepts by Gus McClain, Rachel Fikir, & Alyssa Curran
                       Character and Environment Models by Jaime Diaz, Britain Thomas, Rachel Fikir
                       Look Development and Surfacing by Alyssa Curran, Adithya Sathyanarayanan, Rachel Fikir & Britain Thomas
-                      Animation, Storyboard, Camera and Final Layout by Gus McClain & Ethan Umanos</p>
+                      Animation, Storyboard, Camera and Final Layout by Gus McClain & Ethan Umanos</p><br/>
+                      <p>© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz.</p>
+  
                     </div>
                   )}
                   {item.title === "The Jab" && (
@@ -157,12 +159,14 @@ export function ProjectsPanelExtraVideosCapabilities() {
                       2D Matte and Set Painting by Steve Leal
                       Visual Effects by Saif Chowdhury
                       Character Surfacing by Emma Peace
-                      2D Animation and Final Credits by Liz Mars & Maleah Miller
+                      2D Animation and Final Credits by Liz Mars & Maleah Millerc<br/><br/>
+                    <p>© 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller</p>
                     </div>
                   )}
                   {item.title === "Stray Vista Studios" && (
                     <div className="text-sm text-white/60 mt-2">
-                      <p>Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG</p>
+                      <p>Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG</p><br/>
+                      <p>© 2024 BMG</p>
                     </div>
                   )}
                   <div className="space-y-4 text-base leading-7 text-white/75 sm:text-lg sm:leading-8">

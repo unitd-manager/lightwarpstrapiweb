@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
+import CreditsSection from "../../components/CreditsSection";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
@@ -54,16 +55,7 @@ export default function TheJab() {
                 <p className="project-subtitle text-white max-w-2xl">
                   Lighting, Rendering, Compositing, Final Layout
                 </p>
-                <div className="text-sm text-white/60 mt-2">
-                  <p>Story, Production and Set Dressing by Cooper Heathcock
-                  3D Animation, Layout and Character by Theron Smith
-                  Character Model by Corain Marnweck
-                  Character Rig by Spencer Bryant
-                  2D Matte and Set Painting by Steve Leal
-                  Visual Effects by Saif Chowdhury
-                  Character Surfacing by Emma Peace
-                  2D Animation and Final Credits by Liz Mars & Maleah Miller</p>
-                </div>
+
                 <p className="text-sm text-white/60 mt-2">© 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller.</p>
 
               </div>
@@ -191,8 +183,19 @@ export default function TheJab() {
               Next
             </a>
           </div>
+            <CreditsSection credits={[
+          { role: 'Story, Production and Set Dressing by', names: 'Cooper Heathcock' },
+          { role: '3D Animation, Layout and Character by', names: 'Theron Smith' },
+          { role: 'Character Model by', names: 'Corain Marnweck' },
+          { role: 'Character Rig by', names: 'Spencer Bryant' },
+          { role: '2D Matte and Set Painting by', names: 'Steve Leal' },
+          { role: 'Visual Effects by', names: 'Saif Chowdhury' },
+          { role: 'Character Surfacing by', names: 'Emma Peace' },
+          { role: '2D Animation and Final Credits by', names: ['Liz Mars', 'Maleah Miller'] },
+        ]} />
         </div>
       </section>
+      
     </PageShell>
   );
 }

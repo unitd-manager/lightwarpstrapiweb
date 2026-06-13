@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
+import CreditsSection from "../../components/CreditsSection";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
+
+type CreditItem = {
+  role: string;
+  names: string;
+};
+
 type VideoCard = {
   title: string;
   subtitle: string;
@@ -21,6 +28,7 @@ type ProjectDetailLayoutProps = {
   nextHref?: string;
   copyrightText?: string;
   pageCredits?: string;
+  credits?: CreditItem[];
 };
 
 const isYouTubeEmbed = (url: string): boolean => {
@@ -32,7 +40,15 @@ const isVideoUrl = (url: string): boolean => {
   return /\.(mp4|webm|ogg)(\?|$)/i.test(url) || url.includes("/video/");
 };
 
-const VideoRenderer = ({ src, className, ...props }: { src: string; className?: string; [key: string]: any }) => {
+const VideoRenderer = ({
+  src,
+  className,
+  ...props
+}: {
+  src: string;
+  className?: string;
+  [key: string]: any;
+}) => {
   if (isYouTubeEmbed(src)) {
     return (
       <iframe
@@ -164,7 +180,7 @@ const logos = [
     alt: "Perforce",
     blendScreen: false,
   },
-   {
+  {
     src: "https://static.wixstatic.com/media/ddc236_ab0eebd4077744e1ba7bbc84edd51303~mv2.png",
     alt: "Perforce",
     blendScreen: false,
@@ -185,46 +201,138 @@ export function ProjectDetailLayout({
   nextHref,
   copyrightText,
   pageCredits,
+  credits,
 }: ProjectDetailLayoutProps) {
   const relatedProjects: VideoCard[] =
-    relatedProjectsProp || (title === "Shell You Be Mine?"
+    relatedProjectsProp ||
+    (title === "Shell You Be Mine?"
       ? [
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_2b01016e82d042d89e51d64a073c0c89~mv2.png" },
-          { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_696ba547e8e94818ade1fa24b6c24708~mv2.png" },
-          { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_061e70caf8b64b8ca14621c33a8fa548~mv2.png" },
-          { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_968451479e354a488dc7a8f70e740f7b~mv2.png" },
-          { title: "", subtitle: "", video: "https://video.wixstatic.com/video/ddc236_a5b9aa7c340245f38cb4e1b82f4bf1c3/480p/mp4/file.mp4" },
-          { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_53049068e4594ea8a4ff62d53e791a24~mv2.png" },
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_62bf76f196834f329a9f57eb73f98313~mv2.png" },
+          {
+            title: "",
+            subtitle: "",
+            video:
+              "https://static.wixstatic.com/media/ddc236_2b01016e82d042d89e51d64a073c0c89~mv2.png",
+          },
+          {
+            title: "",
+            subtitle: "",
+            video:
+              "	https://static.wixstatic.com/media/ddc236_696ba547e8e94818ade1fa24b6c24708~mv2.png",
+          },
+          {
+            title: "",
+            subtitle: "",
+            video:
+              "	https://static.wixstatic.com/media/ddc236_061e70caf8b64b8ca14621c33a8fa548~mv2.png",
+          },
+          {
+            title: "",
+            subtitle: "",
+            video:
+              "	https://static.wixstatic.com/media/ddc236_968451479e354a488dc7a8f70e740f7b~mv2.png",
+          },
+          {
+            title: "",
+            subtitle: "",
+            video:
+              "https://video.wixstatic.com/video/ddc236_a5b9aa7c340245f38cb4e1b82f4bf1c3/480p/mp4/file.mp4",
+          },
+          {
+            title: "",
+            subtitle: "",
+            video:
+              "	https://static.wixstatic.com/media/ddc236_53049068e4594ea8a4ff62d53e791a24~mv2.png",
+          },
+          {
+            title: "",
+            subtitle: "",
+            video:
+              "https://static.wixstatic.com/media/ddc236_62bf76f196834f329a9f57eb73f98313~mv2.png",
+          },
         ]
       : title === "Lush Victorian Garden"
-      ? [
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_24ec6c84332440a69b60fca5190dc578~mv2.png" },
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_a377d11331fd427594c636cf646b5ecf~mv2.jpg" },
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_24ec6c84332440a69b60fca5190dc578~mv2.png" },
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_a377d11331fd427594c636cf646b5ecf~mv2.jpg"},
-        ]
-      : title === "Stuffed"
-      ? [
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_3014706f8f4749a2bf75d169895936f2~mv2.png" },
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_f6b54443864a461fb2d328556fbe550a~mv2.png" },
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_66f92fed12c24b1ab434297a3eefc941~mv2.png" },
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_08a614f6d3d74520b175303da17f9d10~mv2.gif/v1/fit/w_654,h_368,q_90,enc_avif,quality_auto/ddc236_08a614f6d3d74520b175303da17f9d10~mv2.gif" },
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_f8a6f19bbe2d4f65998d14b6499c9087~mv2.gif" },
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_2a251d8499ab4226bc96b571420561bb~mv2.gif/v1/fit/w_600,h_301,q_90,enc_avif,quality_auto/ddc236_2a251d8499ab4226bc96b571420561bb~mv2.gif" },
-          { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_ef21fbb060e6470595ca4791950a88d0~mv2.gif/v1/fit/w_654,h_368,q_90,enc_avif,quality_auto/ddc236_ef21fbb060e6470595ca4791950a88d0~mv2.gif" },
-        ]
-      : extraProjects);
+        ? [
+            {
+              title: "",
+              subtitle: "",
+              video:
+                "https://static.wixstatic.com/media/ddc236_24ec6c84332440a69b60fca5190dc578~mv2.png",
+            },
+            {
+              title: "",
+              subtitle: "",
+              video:
+                "https://static.wixstatic.com/media/ddc236_a377d11331fd427594c636cf646b5ecf~mv2.jpg",
+            },
+            {
+              title: "",
+              subtitle: "",
+              video:
+                "https://static.wixstatic.com/media/ddc236_24ec6c84332440a69b60fca5190dc578~mv2.png",
+            },
+            {
+              title: "",
+              subtitle: "",
+              video:
+                "https://static.wixstatic.com/media/ddc236_a377d11331fd427594c636cf646b5ecf~mv2.jpg",
+            },
+          ]
+        : title === "Stuffed"
+          ? [
+              {
+                title: "",
+                subtitle: "",
+                video:
+                  "https://static.wixstatic.com/media/ddc236_3014706f8f4749a2bf75d169895936f2~mv2.png",
+              },
+              {
+                title: "",
+                subtitle: "",
+                video:
+                  "https://static.wixstatic.com/media/ddc236_f6b54443864a461fb2d328556fbe550a~mv2.png",
+              },
+              {
+                title: "",
+                subtitle: "",
+                video:
+                  "https://static.wixstatic.com/media/ddc236_66f92fed12c24b1ab434297a3eefc941~mv2.png",
+              },
+              {
+                title: "",
+                subtitle: "",
+                video:
+                  "https://static.wixstatic.com/media/ddc236_08a614f6d3d74520b175303da17f9d10~mv2.gif/v1/fit/w_654,h_368,q_90,enc_avif,quality_auto/ddc236_08a614f6d3d74520b175303da17f9d10~mv2.gif",
+              },
+              {
+                title: "",
+                subtitle: "",
+                video:
+                  "https://static.wixstatic.com/media/ddc236_f8a6f19bbe2d4f65998d14b6499c9087~mv2.gif",
+              },
+              {
+                title: "",
+                subtitle: "",
+                video:
+                  "https://static.wixstatic.com/media/ddc236_2a251d8499ab4226bc96b571420561bb~mv2.gif/v1/fit/w_600,h_301,q_90,enc_avif,quality_auto/ddc236_2a251d8499ab4226bc96b571420561bb~mv2.gif",
+              },
+              {
+                title: "",
+                subtitle: "",
+                video:
+                  "https://static.wixstatic.com/media/ddc236_ef21fbb060e6470595ca4791950a88d0~mv2.gif/v1/fit/w_654,h_368,q_90,enc_avif,quality_auto/ddc236_ef21fbb060e6470595ca4791950a88d0~mv2.gif",
+              },
+            ]
+          : extraProjects);
   const isLushGarden = title === "Lush Victorian Garden";
   const isShellYouBeMine = title === "Shell You Be Mine?";
   const isTheJab = title === "The Jab";
   const isStuffed = title === "Stuffed";
   const logosToRender = isLushGarden ? lushLogos : isStuffed ? stuffedLogos : logos;
-  const logoGap =  "10px"
-  const logoHeight =  "22px"
-  const logoPadding = "6px 2px"
+  const logoGap = "10px";
+  const logoHeight = "22px";
+  const logoPadding = "6px 2px";
   const isYouTube = isYouTubeEmbed(videoSrc);
-  const videoWrapperClass =  "relative w-full aspect-video overflow-hidden bg-black";
+  const videoWrapperClass = "relative w-full aspect-video overflow-hidden bg-black";
   const videoMediaClass = "h-full w-full object-cover";
 
   if (isLushGarden || isShellYouBeMine || isStuffed) {
@@ -250,22 +358,16 @@ export function ProjectDetailLayout({
               >
                 <div className="space-y-6 max-w-3xl">
                   {/* <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">{subtitle}</p> */}
-                  <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
+                  <h1
+                    className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}
+                  >
                     {title}
                   </h1>
                   {roleLine ? (
-                    <p className="project-subtitle text-white max-w-2xl">
-                      {roleLine}
-                    </p>
+                    <p className="project-subtitle text-white max-w-2xl">{roleLine}</p>
                   ) : null}
-                  {isLushGarden && (
-                    <div className="text-sm text-white/60 mt-2">
-                      Look Development, Set Dressing, Layout, and Procedural Assets by Alyssa Curran. Bridge Model by Nimi Parmar.
-                    </div>
-                  )}
-                  {pageCredits ? (
-                    <p className="text-sm text-white/60 mt-2">{pageCredits}</p>
-                  ) : null}
+                  {pageCredits ? <p className="text-sm text-white/60 mt-2">{pageCredits}</p> : null}
+                
                 </div>
 
                 <motion.div
@@ -315,7 +417,9 @@ export function ProjectDetailLayout({
               <div className="grid gap-12 lg:grid-cols-[1fr_minmax(540px,1.15fr)] lg:items-start">
                 <div className="space-y-6 max-w-2xl">
                   {overview.map((paragraph, idx) => (
-                    <p key={idx} className="project-body text-white/75">{paragraph}</p>
+                    <p key={idx} className="project-body text-white/75">
+                      {paragraph}
+                    </p>
                   ))}
                 </div>
 
@@ -348,65 +452,28 @@ export function ProjectDetailLayout({
           </div>
         </section>
 
-        <section className="bg-[#050517] py-16 px-6">
+<section className="bg-[#050517] py-16 px-6">
           <div className="mx-auto max-w-7xl">
-            <div className="grid gap-8 md:grid-cols-2">
-              {relatedProjects.map((card) => (
-                <motion.article
-                  key={card.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="overflow-hidden rounded-none border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
-                >
-                  <div className="relative overflow-hidden">
-                    {isVideoUrl(card.video) ? (
-                      <VideoRenderer
-                        src={card.video}
-                        className="w-full aspect-[16/9] object-cover"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        controls={false}
-                      />
-                    ) : (
-                      <img
-                        src={card.video}
-                        alt={card.title}
-                        className="w-full aspect-[16/9] object-cover"
-                      />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <p className="text-xs uppercase tracking-[0.3em] text-white/60">{card.subtitle}</p>
-                      <h3 className="mt-2 text-2xl font-semibold text-white">{card.title}</h3>
-                    </div>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
             <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
-                {previousHref ? (
-                  <a
-                    href={previousHref}
-                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
-                  >
-                    Previous
-                  </a>
-                ) : (isShellYouBeMine || isLushGarden) ? (
-                  <button
-                    type="button"
-                    disabled
-                    aria-disabled="true"
-                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95 disabled:opacity-50"
-                  >
-                    Previous
-                  </button>
-                ) : (
-                  <div />
-                )}
+              {previousHref ? (
+                <a
+                  href={previousHref}
+                  className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+                >
+                  Previous
+                </a>
+              ) : isShellYouBeMine || isLushGarden ? (
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95 disabled:opacity-50"
+                >
+                  Previous
+                </button>
+              ) : (
+                <div />
+              )}
               <a
                 href={isLushGarden ? "/capabilities" : "/projects"}
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
@@ -416,7 +483,7 @@ export function ProjectDetailLayout({
               {nextHref ? (
                 <a
                   href={nextHref}
-                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+                  className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
                 >
                   Next
                 </a>
@@ -424,6 +491,7 @@ export function ProjectDetailLayout({
                 <div />
               )}
             </div>
+            <CreditsSection credits={credits} />
           </div>
         </section>
       </PageShell>
@@ -473,13 +541,13 @@ export function ProjectDetailLayout({
             >
               <div className="space-y-6 max-w-3xl">
                 <p className="text-sm uppercase tracking-[0.3em] text-white/60">{subtitle}</p>
-                <h1 className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}>
+                <h1
+                  className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}
+                >
                   {title}
                 </h1>
-                {pageCredits ? (
-                  <p className="text-sm text-white/60 mt-2">{pageCredits}</p>
-                ) : null}
                 <p className="project-subtitle text-white/70 max-w-2xl">{overview[0]}</p>
+                {pageCredits ? <p className="text-sm text-white/60 mt-2">{pageCredits}</p> : null}
               </div>
 
               <motion.div
@@ -595,7 +663,9 @@ export function ProjectDetailLayout({
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <p className="text-xs uppercase tracking-[0.3em] text-white/60">{card.subtitle}</p>
+                    <p className="text-xs uppercase tracking-[0.3em] text-white/60">
+                      {card.subtitle}
+                    </p>
                     <h3 className="mt-2 text-2xl font-semibold text-white">{card.title}</h3>
                   </div>
                 </div>

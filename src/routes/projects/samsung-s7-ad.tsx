@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
+import CreditsSection from "../../components/CreditsSection";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
@@ -47,9 +48,7 @@ export default function SamsungS7Ad() {
               <div className="space-y-6 max-w-3xl">
                 <h1 className="project-title">Samsung S7 ad</h1>
                 <p className="text-sm text-white/60 mt-2">© 2016 Adithya Sathyanarayanan.</p>
-                <p className="project-subtitle text-white max-w-2xl">
-                  Responsible for All Aspects
-                </p>
+
               </div>
 
               <motion.div
@@ -169,6 +168,7 @@ export default function SamsungS7Ad() {
             </div>
           </div>
         </section>
+        <CreditsSection credits={[{ role: 'Responsible for All Aspects', names: [] }]} />
       </section>
     </PageShell>
   );

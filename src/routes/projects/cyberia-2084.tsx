@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
+import CreditsSection from "../../components/CreditsSection";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
@@ -55,9 +56,7 @@ export default function Cyberia2084() {
               <div className="space-y-6 max-w-3xl">
                 <h1 className="project-title">Cyberia 2084</h1>
                 <p className="text-sm text-white/60 mt-2">© 2022 Adithya Sathyanarayanan.</p>
-                <p className="project-subtitle text-white/70 max-w-2xl">
-                  Responsible for All Aspects (except greebles, train cables and flying cars)
-                </p>
+
               </div>
 
               <motion.div
@@ -188,6 +187,9 @@ export default function Cyberia2084() {
             </div>
           </div>
         </section>
+        <CreditsSection credits={[
+          { role: 'Responsible for All Aspects', names: ['(except greebles, train cables and flying cars)'] },
+        ]} />
       </section>
     </PageShell>
   );

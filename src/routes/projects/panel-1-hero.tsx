@@ -54,6 +54,7 @@ export function ProjectsPanelHero() {
                 <p className="text-base sm:text-xl font-semibold text-white/80">
                   24 artists. 15 weeks. A Novel Realtime Pipeline.
                 </p>
+                <p>© 2025 Lightwarp LLC</p>
               </div>
 
               <div className="space-y-4 text-sm sm:text-lg leading-7 sm:leading-8 text-white/75">

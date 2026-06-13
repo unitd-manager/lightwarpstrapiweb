@@ -16,6 +16,20 @@ export default function Stuffed() {
       backgroundImage="	https://static.wixstatic.com/media/ddc236_1ca8c8fbdd694e7292a600cf02488949~mv2.png"
       previousHref="/projects/our-capabilities"
       nextHref="/projects/the-jab"
+      credits={[
+          { role: 'Directed and Produced by', names: ['Adithya Sathyanarayanan', 'Alyssa Curran'] },
+          { role: 'Storyboards and 2D art by', names: ['Sonia Wong', 'Melanie Riojas'] },
+          { role: 'Visual Development by', names: ['Dominic Nguyen', 'Maleah Miller', 'Sonia Wong', 'Melanie Riojas'] },
+          { role: 'Character Models by', names: 'Nimi Parmar' },
+          { role: 'Environment Models and Look Dev by', names: ['Bria Peters', 'Kaylyn Luna', 'Magnus Haarseth', 'Sergio Alonzo Macias'] },
+          { role: 'Character Look Development by', names: ['Alyssa Curran', 'Adithya Sathyanarayanan'] },
+          { role: 'Rigging by', names: ['Alec Cromer', 'Saif Chowdhury'] },
+          { role: 'FX & Technical Art by', names: ['Madhu Ratnakar', 'Carlos Carillo', 'Jais George'] },
+          { role: 'Animation by', names: ['Zaria Steele', 'Ethan Umanos', 'Spencer Bryant', 'Soha Aftab', 'Saif Chowdhury'] },
+          { role: 'Lighting & Layout by', names: ['Sina Alidoust Salimi', 'Adithya Sathyanarayananan'] },
+          { role: 'Marisa Jacques as the Voice of Shelly and Jay Figueroa as the Voice of Shelldon', names: [] },
+          { role: 'Sound and Final Edit by', names: ['Alec Cromer', 'Marisa Jacques'] },
+        ]}
     />
   );
 }

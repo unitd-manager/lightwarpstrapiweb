@@ -45,7 +45,7 @@ const LazyYouTubeBackground = ({
   const posterSrc = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
   return (
-    <div ref={containerRef} className="absolute inset-0" overflow-hidden>
+    <div ref={containerRef} className="absolute inset-0 overflow-hidden">
       <img src={posterSrc} alt="" className={className} loading={priority ? "eager" : "lazy"} decoding="async" />
       {shouldLoad ? (
         <iframe
@@ -66,12 +66,14 @@ const extraProjects = [
   {
     id: 17,
     title: "Samsung S7 ad",
+    copyright: "© 2016 Adithya Sathyanarayanan",
     description: "This high school project marked my first dive into full 3D animation, and it remains a formative experience in my journey as an artist. Tasked with creating a commercial in Blender, I went far beyond the assignment's requirements: modeling, surfacing, and lighting assets from scratch over the course of two months. It was here that I discovered my love for lighting, experimenting with HDRI-based product lighting, IES profiles, and camera choreography to highlight form and detail. Though created at an early stage in my career, this project laid the groundwork for my technical and artistic growth, teaching me both the discipline of a full production cycle and the excitement of storytelling through light.",
     videoId: "4Esie0f7HVw",
   },
   {
     id: 4,
     title: "Cyberia 2084",
+    copyright: "© 2016 Adithya Sathyanarayanan",
     description: "Cyberia 2084 is a personal passion project: a travelogue-style introduction to a sprawling cyberpunk city, built in one semester as a solo effort. Inspired by Ian Hubert's \"lazy tutorials\" and dense image-based texturing techniques, I challenged myself to see how much worldbuilding I could accomplish independently, creating a multilayered dystopia filled with atmosphere, detail, and scale. Rendered in Blender using baked lighting, irradiance caching, and optimized techniques for reflections and GI, the project became my first real-time cinematic experiment. Completing Cyberia 2084 earned me the Disney Aggie Alumni Award scholarship, presented by the head of characters at Walt Disney Animation Studios and signed by Disney alumni. Beyond the recognition, this film fueled my work ethic and strengthened my passion for building worlds that tell stories through scale and light.",
     videoId: "pTmzrHqdS_4",
   },
@@ -105,6 +107,9 @@ export function ProjectsPanelExtraVideos() {
               >
                 <div className="space-y-6 text-left">
                   <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">{item.title}</h2>
+                    <div className="text-sm text-white/60 mt-2">
+                      {item.copyright}
+                    </div>
                   <div className="space-y-4 text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
                     <p>{item.description}</p>
                   </div>
