@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
-import CreditsSection from "../../components/CreditsSection";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
@@ -168,7 +167,6 @@ export default function SamsungS7Ad() {
             </div>
           </div>
         </section>
-        {/* <CreditsSection credits={[]} /> */}
       </section>
     </PageShell>
   );

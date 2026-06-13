@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import CreditsSection from "../../components/CreditsSection";
+import CreditsSlider from "../../components/CreditsSlider";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
 
@@ -365,10 +365,12 @@ export function ProjectDetailLayout({
                   >
                     {title}
                   </h1>
+                  {pageCredits ? (
+                    <p className="text-sm text-white/50">{pageCredits}</p>
+                  ) : null}
                   {roleLine ? (
                     <p className="project-subtitle text-white max-w-2xl">{roleLine}</p>
                   ) : null}
-                  <CreditsSection credits={credits} copyright={pageCredits} />
                 </div>
 
                 <motion.div
@@ -442,13 +444,14 @@ export function ProjectDetailLayout({
                           muted
                           loop
                           playsInline
-                          controls
                         />
                       )}
                     </div>
                   </div>
                 </motion.div>
               </div>
+
+              <CreditsSlider credits={credits} />
             </div>
           </div>
         </section>
@@ -474,7 +477,6 @@ export function ProjectDetailLayout({
                         muted
                         loop
                         playsInline
-                        controls
                       />
                     ) : (
                       <img
@@ -657,7 +659,6 @@ export function ProjectDetailLayout({
                         muted
                         loop
                         playsInline
-                        controls
                       />
                     )}
                   </div>

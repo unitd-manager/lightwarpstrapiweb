@@ -54,7 +54,7 @@ const projects = [
 export default function Capabilities() {
   const vimeoId = "1153379831";
   const posterSrc = `https://vumbnail.com/${vimeoId}.jpg`;
-  const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&quality=720p`;
+  const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&keyboard=0&quality=720p`;
 
   return (
     <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">

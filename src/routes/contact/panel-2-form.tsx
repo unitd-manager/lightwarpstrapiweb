@@ -44,6 +44,7 @@ export function ContactPanelForm() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState("");
+  const [messageError, setMessageError] = useState("");
 
   return (
     /*
@@ -320,18 +321,27 @@ export function ContactPanelForm() {
             const message = String(formData.get("message") ?? "").trim();
             const website = String(formData.get("website") ?? "").trim();
 
+            let hasError = false;
+
             if (!email) {
               setEmailError("Email is required.");
-              return;
-            }
-            if (!isValidEmail(email)) {
+              hasError = true;
+            } else if (!isValidEmail(email)) {
               setEmailError("Please enter a valid email address.");
-              return;
+              hasError = true;
             }
+
+            if (!message) {
+              setMessageError("Message is required.");
+              hasError = true;
+            }
+
+            if (hasError) return;
 
             setSending(true);
             setError(null);
             setEmailError("");
+            setMessageError("");
 
             try {
               const res = await fetch("/api/contact", {
@@ -342,7 +352,14 @@ export function ContactPanelForm() {
 
               if (!res.ok) {
                 const text = await res.text();
-                setError(text || "Failed to send message.");
+                let friendly = "Failed to send message.";
+                try {
+                  const data = JSON.parse(text);
+                  if (data?.error) friendly = data.error;
+                } catch {
+                  if (text) friendly = text;
+                }
+                setError(friendly);
                 return;
               }
 
@@ -454,6 +471,10 @@ export function ContactPanelForm() {
             name="message"
             rows={5}
             placeholder="Message"
+            onChange={() => {
+              setMessageError("");
+              setError(null);
+            }}
             className="w-full outline-none resize-none"
             style={{
               fontFamily: '"Sora", sans-serif',
@@ -462,7 +483,7 @@ export function ContactPanelForm() {
               lineHeight: '24px',
               color: '#58595B',
               backgroundColor: '#ffffff',
-              border: '1px solid #FFFFFF',
+              border: messageError ? '1px solid #FF4D4D' : '1px solid #FFFFFF',
               borderRadius: '4px',
               paddingTop: '10px',
               paddingBottom: '10px',
@@ -470,6 +491,7 @@ export function ContactPanelForm() {
               paddingRight: '14px',
             }}
           />
+          {messageError && <FieldError msg={messageError} />}
 
           {/*
            * Send button — elementor-element-58dc0fdf

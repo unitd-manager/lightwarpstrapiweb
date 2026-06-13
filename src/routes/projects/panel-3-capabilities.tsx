@@ -39,7 +39,7 @@ const LazyYouTubeBackground = ({
     return () => observer.disconnect();
   }, []);
 
-  const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=${videoId}`;
+  const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&iv_load_policy=3&playlist=${videoId}`;
   const posterSrc = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
   return (

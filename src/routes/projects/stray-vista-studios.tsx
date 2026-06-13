@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
-import CreditsSection from "../../components/CreditsSection";
+import CreditsSlider from "../../components/CreditsSlider";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
@@ -64,16 +64,10 @@ export default function StrayVistaStudios() {
             >
               <div className="space-y-6 max-w-3xl">
                 <h1 className="project-title">Awaken Digital Environment</h1>
+                <p className="text-sm text-white/50">© 2024 BMG.</p>
                 <p className="project-subtitle text-white/70 max-w-2xl">
                   Unreal Artist/TD, Production Assistant, Lighting, Cinematography, Look Development, Compositing, VFX
                 </p>
-
-                <CreditsSection
-                  credits={[
-                    { role: 'Produced and Shot at Stray Vista Studios for BMG', names: 'Stray Vista Studios for BMG' },
-                  ]}
-                  copyright="© 2024 BMG."
-                />
               </div>
 
               <motion.div
@@ -160,6 +154,12 @@ export default function StrayVistaStudios() {
                 </div>
               </motion.div>
             </div>
+
+            <CreditsSlider
+              credits={[
+                { role: 'Produced and Shot at Stray Vista Studios for BMG', names: 'Stray Vista Studios for BMG' },
+              ]}
+            />
           </div>
         </div>
 

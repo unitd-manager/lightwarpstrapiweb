@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
-import CreditsSection from "../../components/CreditsSection";
+import CreditsSlider from "../../components/CreditsSlider";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
@@ -74,21 +74,12 @@ export default function CaughtOffGuard() {
                 <h1 className="project-title">
                   Caught Off Guard
                 </h1>
+                <p className="text-sm text-white/50">
+                  © 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz.
+                </p>
                 <h4 className="project-subtitle text-white max-w-2xl">
                   Production Manager, Lighting, Look Development, Compositing, Layout, Modelling
                 </h4>
-
-                <CreditsSection
-                  credits={[
-                    { role: 'Story & Production by', names: ['Adithya Sathyanarayanan', 'Alyssa Curran'] },
-                    { role: 'Design and Concepts by', names: ['Gus McClain', 'Rachel Fikir', 'Alyssa Curran'] },
-                    { role: 'Character and Environment Models by', names: ['Jaime Diaz', 'Britain Thomas', 'Rachel Fikir'] },
-                    { role: 'Look Development and Surfacing by', names: ['Alyssa Curran', 'Adithya Sathyanarayanan', 'Rachel Fikir', 'Britain Thomas'] },
-                    { role: 'Animation, Storyboard, Camera and Final Layout by', names: ['Gus McClain', 'Ethan Umanos'] },
-                    { role: 'Final Edit & Sound by', names: 'Ethan Umanos' },
-                  ]}
-                  copyright="© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz."
-                />
               </div>
 
               <motion.div
@@ -160,6 +151,17 @@ export default function CaughtOffGuard() {
               </div>
               </motion.div>
             </div>
+
+            <CreditsSlider
+              credits={[
+                { role: 'Story & Production by', names: ['Adithya Sathyanarayanan', 'Alyssa Curran'] },
+                { role: 'Design and Concepts by', names: ['Gus McClain', 'Rachel Fikir', 'Alyssa Curran'] },
+                { role: 'Character and Environment Models by', names: ['Jaime Diaz', 'Britain Thomas', 'Rachel Fikir'] },
+                { role: 'Look Development and Surfacing by', names: ['Alyssa Curran', 'Adithya Sathyanarayanan', 'Rachel Fikir', 'Britain Thomas'] },
+                { role: 'Animation, Storyboard, Camera and Final Layout by', names: ['Gus McClain', 'Ethan Umanos'] },
+                { role: 'Final Edit & Sound by', names: 'Ethan Umanos' },
+              ]}
+            />
           </div>
         </div>
 
@@ -184,7 +186,6 @@ export default function CaughtOffGuard() {
                         muted
                         loop
                         playsInline
-                        controls
                       />
                     ) : (
                       <img

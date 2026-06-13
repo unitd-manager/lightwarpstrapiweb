@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
-import CreditsSection from "../../components/CreditsSection";
+import CreditsSlider from "../../components/CreditsSlider";
 const logoGap =  "10px"
 const logoHeight =  "22px"
 const logoPadding = "6px 2px"
@@ -52,23 +52,12 @@ export default function TheJab() {
                  <h1 className="project-title">
                   The Jab
                 </h1>
+                <p className="text-sm text-white/50">
+                  © 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller.
+                </p>
                 <p className="project-subtitle text-white max-w-2xl">
                   Lighting, Rendering, Compositing, Final Layout
                 </p>
-
-                <CreditsSection
-                  credits={[
-                    { role: 'Story, Production and Set Dressing by', names: 'Cooper Heathcock' },
-                    { role: '3D Animation, Layout and Character by', names: 'Theron Smith' },
-                    { role: 'Character Model by', names: 'Corain Marnweck' },
-                    { role: 'Character Rig by', names: 'Spencer Bryant' },
-                    { role: '2D Matte and Set Painting by', names: 'Steve Leal' },
-                    { role: 'Visual Effects by', names: 'Saif Chowdhury' },
-                    { role: 'Character Surfacing by', names: 'Emma Peace' },
-                    { role: '2D Animation and Final Credits by', names: ['Liz Mars', 'Maleah Miller'] },
-                  ]}
-                  copyright="© 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller."
-                />
               </div>
 
               <motion.div
@@ -147,6 +136,19 @@ export default function TheJab() {
                 </div>
               </motion.div>
             </div>
+
+            <CreditsSlider
+              credits={[
+                { role: 'Story, Production and Set Dressing by', names: 'Cooper Heathcock' },
+                { role: '3D Animation, Layout and Character by', names: 'Theron Smith' },
+                { role: 'Character Model by', names: 'Corain Marnweck' },
+                { role: 'Character Rig by', names: 'Spencer Bryant' },
+                { role: '2D Matte and Set Painting by', names: 'Steve Leal' },
+                { role: 'Visual Effects by', names: 'Saif Chowdhury' },
+                { role: 'Character Surfacing by', names: 'Emma Peace' },
+                { role: '2D Animation and Final Credits by', names: ['Liz Mars', 'Maleah Miller'] },
+              ]}
+            />
           </div>
         </div>
       </section>

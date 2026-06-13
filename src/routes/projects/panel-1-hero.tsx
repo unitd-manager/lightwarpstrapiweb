@@ -10,11 +10,11 @@ const slugify = (s: string) =>
 const HERO_VIDEO_ID = "pLu4iXYhI4k";
 
 export function ProjectsPanelHero() {
-  const embedSrc = `https://www.youtube.com/embed/${HERO_VIDEO_ID}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&playlist=${HERO_VIDEO_ID}`;
+  const embedSrc = `https://www.youtube.com/embed/${HERO_VIDEO_ID}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&iv_load_policy=3&playlist=${HERO_VIDEO_ID}`;
   const posterSrc = `https://i.ytimg.com/vi/${HERO_VIDEO_ID}/hqdefault.jpg`;
 
   return (
-    <section className="relative h-[calc(100svh-80px)] overflow-hidden bg-transparent text-white font-display sm:h-[calc(100vh-80px)]">
+    <section className="relative min-h-[calc(100svh-80px)] bg-transparent text-white font-display sm:min-h-[calc(100vh-80px)]">
       <div className="absolute inset-0 overflow-hidden">
         <img
           src={posterSrc}
@@ -35,7 +35,7 @@ export function ProjectsPanelHero() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
       </div>
 
-     <div className="relative flex h-full w-full items-center px-4 sm:px-6 lg:px-10">
+     <div className="relative flex w-full items-center px-4 py-6 sm:px-6 lg:px-10">
         <div className="w-full">
 
           <motion.div
@@ -48,8 +48,8 @@ export function ProjectsPanelHero() {
               <div className="space-y-4">
                 <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">
                   Featured Project:
-                  <br />
-                  Shell You Be Mine?
+                  <br className="hidden sm:block" />
+                  <span className="block pt-2 sm:pt-3">Shell You Be Mine?</span>
                 </h2>
                 <p className="text-base sm:text-xl font-semibold text-white/80">
                   24 artists. 15 weeks. A Novel Realtime Pipeline.
@@ -66,11 +66,10 @@ export function ProjectsPanelHero() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap">
+              <div className="flex flex-wrap pt-2">
                 <Link
                   to={`/projects/${slugify("Shell You Be Mine")}`}
-                                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition hover:opacity-95"
-
+                  className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition hover:opacity-95"
                 >
                   Learn More
                 </Link>
