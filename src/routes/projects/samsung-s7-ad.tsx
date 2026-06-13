@@ -168,7 +168,7 @@ export default function SamsungS7Ad() {
             </div>
           </div>
         </section>
-        <CreditsSection credits={[{ role: 'Responsible for All Aspects', names: [] }]} />
+        {/* <CreditsSection credits={[]} /> */}
       </section>
     </PageShell>
   );

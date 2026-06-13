@@ -187,9 +187,7 @@ export default function Cyberia2084() {
             </div>
           </div>
         </section>
-        <CreditsSection credits={[
-          { role: 'Responsible for All Aspects', names: ['(except greebles, train cables and flying cars)'] },
-        ]} />
+        {/* <CreditsSection credits={[ ]} /> */}
       </section>
     </PageShell>
   );

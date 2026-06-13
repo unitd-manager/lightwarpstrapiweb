@@ -18,9 +18,7 @@ export default function ShellYouBeMine() {
       watchLabel="Watch Full Film"
       backgroundImage="	https://static.wixstatic.com/media/ddc236_238a3691e81343cb8121614525d5d709~mv2.png"
       nextHref="/projects/samsung-s7-ad"
-      credits={[
-        
-      ]}
+      // credits={[// ]}
     />
   );
 }
