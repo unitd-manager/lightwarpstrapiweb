@@ -56,8 +56,19 @@ export default function TheJab() {
                   Lighting, Rendering, Compositing, Final Layout
                 </p>
 
-                <p className="text-sm text-white/60 mt-2">© 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller.</p>
-
+                <CreditsSection
+                  credits={[
+                    { role: 'Story, Production and Set Dressing by', names: 'Cooper Heathcock' },
+                    { role: '3D Animation, Layout and Character by', names: 'Theron Smith' },
+                    { role: 'Character Model by', names: 'Corain Marnweck' },
+                    { role: 'Character Rig by', names: 'Spencer Bryant' },
+                    { role: '2D Matte and Set Painting by', names: 'Steve Leal' },
+                    { role: 'Visual Effects by', names: 'Saif Chowdhury' },
+                    { role: 'Character Surfacing by', names: 'Emma Peace' },
+                    { role: '2D Animation and Final Credits by', names: ['Liz Mars', 'Maleah Miller'] },
+                  ]}
+                  copyright="© 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller."
+                />
               </div>
 
               <motion.div
@@ -183,16 +194,6 @@ export default function TheJab() {
               Next
             </a>
           </div>
-            <CreditsSection credits={[
-          { role: 'Story, Production and Set Dressing by', names: 'Cooper Heathcock' },
-          { role: '3D Animation, Layout and Character by', names: 'Theron Smith' },
-          { role: 'Character Model by', names: 'Corain Marnweck' },
-          { role: 'Character Rig by', names: 'Spencer Bryant' },
-          { role: '2D Matte and Set Painting by', names: 'Steve Leal' },
-          { role: 'Visual Effects by', names: 'Saif Chowdhury' },
-          { role: 'Character Surfacing by', names: 'Emma Peace' },
-          { role: '2D Animation and Final Credits by', names: ['Liz Mars', 'Maleah Miller'] },
-        ]} />
         </div>
       </section>
       

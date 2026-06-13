@@ -78,7 +78,17 @@ export default function CaughtOffGuard() {
                   Production Manager, Lighting, Look Development, Compositing, Layout, Modelling
                 </h4>
 
-                <p className="text-sm text-white/60 mt-2">© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz.</p>
+                <CreditsSection
+                  credits={[
+                    { role: 'Story & Production by', names: ['Adithya Sathyanarayanan', 'Alyssa Curran'] },
+                    { role: 'Design and Concepts by', names: ['Gus McClain', 'Rachel Fikir', 'Alyssa Curran'] },
+                    { role: 'Character and Environment Models by', names: ['Jaime Diaz', 'Britain Thomas', 'Rachel Fikir'] },
+                    { role: 'Look Development and Surfacing by', names: ['Alyssa Curran', 'Adithya Sathyanarayanan', 'Rachel Fikir', 'Britain Thomas'] },
+                    { role: 'Animation, Storyboard, Camera and Final Layout by', names: ['Gus McClain', 'Ethan Umanos'] },
+                    { role: 'Final Edit & Sound by', names: 'Ethan Umanos' },
+                  ]}
+                  copyright="© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz."
+                />
               </div>
 
               <motion.div
@@ -207,14 +217,6 @@ export default function CaughtOffGuard() {
                 Next
               </a>
             </div>
-            <CreditsSection credits={[
-          { role: 'Story & Production by', names: ['Adithya Sathyanarayanan', 'Alyssa Curran'] },
-          { role: 'Design and Concepts by', names: ['Gus McClain', 'Rachel Fikir', 'Alyssa Curran'] },
-          { role: 'Character and Environment Models by', names: ['Jaime Diaz', 'Britain Thomas', 'Rachel Fikir'] },
-          { role: 'Look Development and Surfacing by', names: ['Alyssa Curran', 'Adithya Sathyanarayanan', 'Rachel Fikir', 'Britain Thomas'] },
-          { role: 'Animation, Storyboard, Camera and Final Layout by', names: ['Gus McClain', 'Ethan Umanos'] },
-          { role: 'Final Edit & Sound by', names: 'Ethan Umanos' },
-        ]} />
           </div>
         </section>
         

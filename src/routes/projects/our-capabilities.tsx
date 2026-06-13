@@ -21,6 +21,10 @@ export default function OurCapabilities() {
         { role: 'Look Development, Set Dressing, Layout, and Procedural Assets by', names: ['Adithya Sathyanarayanan', 'Alyssa Curran'] },
         { role: 'Bridge Model by', names: ['Nimi Parmar'] },
       ]}
+      extraImages={[
+        "https://static.wixstatic.com/media/ddc236_24ec6c84332440a69b60fca5190dc578~mv2.png",
+        "https://static.wixstatic.com/media/ddc236_a377d11331fd427594c636cf646b5ecf~mv2.jpg",
+      ]}
     />
   );
 }

@@ -29,6 +29,7 @@ type ProjectDetailLayoutProps = {
   copyrightText?: string;
   pageCredits?: string;
   credits?: CreditItem[];
+  extraImages?: string[];
 };
 
 const isYouTubeEmbed = (url: string): boolean => {
@@ -202,6 +203,7 @@ export function ProjectDetailLayout({
   copyrightText,
   pageCredits,
   credits,
+  extraImages,
 }: ProjectDetailLayoutProps) {
   const relatedProjects: VideoCard[] =
     relatedProjectsProp ||
@@ -366,8 +368,7 @@ export function ProjectDetailLayout({
                   {roleLine ? (
                     <p className="project-subtitle text-white max-w-2xl">{roleLine}</p>
                   ) : null}
-                  {pageCredits ? <p className="text-sm text-white/60 mt-2">{pageCredits}</p> : null}
-                
+                  <CreditsSection credits={credits} copyright={pageCredits} />
                 </div>
 
                 <motion.div
@@ -452,6 +453,43 @@ export function ProjectDetailLayout({
           </div>
         </section>
 
+        {extraImages?.length ? (
+          <section className="bg-[#050517] py-16 px-6">
+            <div className="mx-auto max-w-7xl">
+              <div className="grid gap-8 md:grid-cols-2">
+                {extraImages.map((src, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="overflow-hidden rounded-none border border-white/10 bg-white/5 shadow-2xl shadow-black/20"
+                  >
+                    {/\.(mp4|webm|ogg|mov)$/i.test(src) ? (
+                      <video
+                        src={src}
+                        className="w-full aspect-[16/9] object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        controls
+                      />
+                    ) : (
+                      <img
+                        src={src}
+                        alt={`${title} still ${index + 1}`}
+                        className="w-full aspect-[16/9] object-cover"
+                      />
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
 <section className="bg-[#050517] py-16 px-6">
           <div className="mx-auto max-w-7xl">
             <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
@@ -491,7 +529,6 @@ export function ProjectDetailLayout({
                 <div />
               )}
             </div>
-            <CreditsSection credits={credits} />
           </div>
         </section>
       </PageShell>

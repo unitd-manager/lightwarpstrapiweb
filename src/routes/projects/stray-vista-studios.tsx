@@ -68,7 +68,12 @@ export default function StrayVistaStudios() {
                   Unreal Artist/TD, Production Assistant, Lighting, Cinematography, Look Development, Compositing, VFX
                 </p>
 
-                <p className="text-sm text-white/60 mt-2">© 2024 BMG.</p>
+                <CreditsSection
+                  credits={[
+                    { role: 'Produced and Shot at Stray Vista Studios for BMG', names: 'Stray Vista Studios for BMG' },
+                  ]}
+                  copyright="© 2024 BMG."
+                />
               </div>
 
               <motion.div
@@ -211,9 +216,6 @@ export default function StrayVistaStudios() {
                 Next
               </button>
             </div>
-              <CreditsSection credits={[
-          { role: 'Produced and Shot at Stray Vista Studios for BMG', names: 'Stray Vista Studios for BMG' },
-        ]} />
           </div>
         </section>
       

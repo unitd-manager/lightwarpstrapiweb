@@ -18,7 +18,15 @@ export default function ShellYouBeMine() {
       watchLabel="Watch Full Film"
       backgroundImage="	https://static.wixstatic.com/media/ddc236_238a3691e81343cb8121614525d5d709~mv2.png"
       nextHref="/projects/samsung-s7-ad"
-      // credits={[// ]}
+      extraImages={[
+        "https://static.wixstatic.com/media/ddc236_2b01016e82d042d89e51d64a073c0c89~mv2.png",
+        "https://static.wixstatic.com/media/ddc236_696ba547e8e94818ade1fa24b6c24708~mv2.png",
+        "https://static.wixstatic.com/media/ddc236_061e70caf8b64b8ca14621c33a8fa548~mv2.png",
+        "https://static.wixstatic.com/media/ddc236_968451479e354a488dc7a8f70e740f7b~mv2.png",
+        "https://static.wixstatic.com/media/ddc236_53049068e4594ea8a4ff62d53e791a24~mv2.png",
+        "https://video.wixstatic.com/video/ddc236_a5b9aa7c340245f38cb4e1b82f4bf1c3/480p/mp4/file.mp4",
+        "https://static.wixstatic.com/media/ddc236_62bf76f196834f329a9f57eb73f98313~mv2.png",
+      ]}
     />
   );
 }

@@ -6,28 +6,56 @@ type Credit = {
   names: string | string[];
 };
 
-export default function CreditsSection({ credits = [] }: { credits?: Credit[] }) {
+export default function CreditsSection({
+  credits = [],
+  copyright,
+}: {
+  credits?: Credit[];
+  copyright?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
+  if (!credits.length && !copyright) return null;
+
+  if (!credits.length) {
+    return (
+      <div ref={ref} className="mt-4 max-w-2xl text-sm text-white/60">
+        {copyright}
+      </div>
+    );
+  }
+
   return (
-    <div ref={ref} className="mt-12 border-t border-white/10 pt-12">
+    <div ref={ref} className="mt-4">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3"
+        className="max-w-2xl rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5"
       >
-        {credits.map(({ role, names }) => (
-          <div key={role}>
-            <h3 className="text-sm font-semibold">{role}</h3>
-            <div className="mt-1 text-sm text-muted-foreground">
-              {(Array.isArray(names) ? names : [names]).map((name) => (
-                <div key={name}>{name}</div>
-              ))}
+        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">
+          Credits
+        </p>
+        <dl className="mt-3 grid gap-3 sm:grid-cols-2">
+          {credits.map(({ role, names }) => (
+            <div key={role}>
+              <dt className="text-[11px] font-semibold uppercase tracking-wide text-white/40">
+                {role}
+              </dt>
+              <dd className="mt-0.5 text-sm text-white/75">
+                {(Array.isArray(names) ? names : [names]).map((name) => (
+                  <div key={name}>{name}</div>
+                ))}
+              </dd>
             </div>
-          </div>
-        ))}
+          ))}
+        </dl>
+        {copyright ? (
+          <p className="mt-4 border-t border-white/10 pt-3 text-xs text-white/40">
+            {copyright}
+          </p>
+        ) : null}
       </motion.div>
     </div>
   );

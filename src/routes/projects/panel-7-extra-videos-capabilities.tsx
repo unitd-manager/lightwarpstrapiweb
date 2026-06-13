@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { ProjectCredits } from "../../components/ProjectCredits";
 
 // Import the local video and image files from your assets folder
 import video from "../../assets/images/lego-fluid-dance-720p (1).mp4";
@@ -140,34 +141,55 @@ export function ProjectsPanelExtraVideosCapabilities() {
                 <div className="space-y-6 text-left">
                   <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">{item.title}</h2>
                   {item.title === "Caught Off Guard" && (
-                    <div className="text-sm text-white/60 mt-2">
-                      <p>Story & Production by Adithya Sathyanarayanan & Alyssa Curran
-                      Design and Concepts by Gus McClain, Rachel Fikir, & Alyssa Curran
-                      Character and Environment Models by Jaime Diaz, Britain Thomas, Rachel Fikir
-                      Look Development and Surfacing by Alyssa Curran, Adithya Sathyanarayanan, Rachel Fikir & Britain Thomas
-                      Animation, Storyboard, Camera and Final Layout by Gus McClain & Ethan Umanos</p><br/>
-                      <p>© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz.</p>
-  
-                    </div>
+                    <ProjectCredits
+                      entries={[
+                        { role: "Story & Production by", names: "Adithya Sathyanarayanan & Alyssa Curran" },
+                        { role: "Design and Concepts by", names: "Gus McClain, Rachel Fikir, & Alyssa Curran" },
+                        { role: "Character and Environment Models by", names: "Jaime Diaz, Britain Thomas, Rachel Fikir" },
+                        { role: "Look Development and Surfacing by", names: "Alyssa Curran, Adithya Sathyanarayanan, Rachel Fikir & Britain Thomas" },
+                        { role: "Animation, Storyboard, Camera and Final Layout by", names: "Gus McClain & Ethan Umanos" },
+                      ]}
+                      copyright="© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz."
+                    />
                   )}
                   {item.title === "The Jab" && (
-                    <div className="text-sm text-white/60 mt-2">
-                      Story, Production and Set Dressing by Cooper Heathcock
-                      3D Animation, Layout and Character by Theron Smith
-                      Character Model by Corain Marnweck
-                      Character Rig by Spencer Bryant
-                      2D Matte and Set Painting by Steve Leal
-                      Visual Effects by Saif Chowdhury
-                      Character Surfacing by Emma Peace
-                      2D Animation and Final Credits by Liz Mars & Maleah Millerc<br/><br/>
-                    <p>© 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller</p>
-                    </div>
+                    <ProjectCredits
+                      entries={[
+                        { role: "Story, Production and Set Dressing by", names: "Cooper Heathcock" },
+                        { role: "3D Animation, Layout and Character by", names: "Theron Smith" },
+                        { role: "Character Model by", names: "Corain Marnweck" },
+                        { role: "Character Rig by", names: "Spencer Bryant" },
+                        { role: "2D Matte and Set Painting by", names: "Steve Leal" },
+                        { role: "Visual Effects by", names: "Saif Chowdhury" },
+                        { role: "Character Surfacing by", names: "Emma Peace" },
+                        { role: "2D Animation and Final Credits by", names: "Liz Mars & Maleah Miller" },
+                      ]}
+                      copyright="© 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller"
+                    />
                   )}
                   {item.title === "Stray Vista Studios" && (
-                    <div className="text-sm text-white/60 mt-2">
-                      <p>Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG</p><br/>
-                      <p>© 2024 BMG</p>
-                    </div>
+                    <ProjectCredits
+                      entries={[
+                        { role: "Role", names: "Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG" },
+                      ]}
+                      copyright="© 2024 BMG"
+                    />
+                  )}
+                  {item.title === "Lego Fluid Dance" && (
+                    <ProjectCredits
+                      entries={[
+                        { role: "Background Stage provided by", names: "Ben House and Texas A&M Visualization" },
+                      ]}
+                    />
+                  )}
+                  {item.title === "WW1 Trench Render" && (
+                    <ProjectCredits
+                      entries={[
+                        { role: "Look Development and Texturing by", names: "Magnus Haarseth" },
+                        { role: "Cinematography and Layout by", names: "Anantha Sathyanarayanan" },
+                      ]}
+                      copyright="© 2026 Magnus Haarseth, Anantha Sathyanarayanan, Adithya Sathyanarayanan"
+                    />
                   )}
                   <div className="space-y-4 text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
                     <p>{item.description}</p>
