@@ -18,7 +18,7 @@ export function PageShell({
       <MouseLight />
       <Navbar />
     
-          <div className="pt-[75px]">{children}</div>
+          <div className="pt-[75px]" style={{ animation: "lwPageIn 0.6s ease-out forwards" }}>{children}</div>
           <Footer copyrightText={copyrightText} />
      
     </div>

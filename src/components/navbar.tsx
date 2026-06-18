@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import lightwarpLogo from "../assets/images/lightwarp_transparent.png";
+import { TransitionLink } from "./page-transition-overlay";
 
 const links = [
   { to: "/", label: "Home" },
@@ -40,15 +41,16 @@ export function Navbar() {
           </button>
 
           {/* Logo – CENTER */}
-          <Link to="/" className="absolute left-1/2 -translate-x-1/2">
+          <TransitionLink to="/" className="absolute left-1/2 -translate-x-1/2">
             <img
+              data-logo-beacon
               src={lightwarpLogo}
               alt="Lightwarp"
               className="h-14 w-auto object-contain"
               decoding="async"
               draggable={false}
             />
-          </Link>
+          </TransitionLink>
 
           {/* Right spacer – same width as hamburger to keep logo centered */}
           <div className="w-9 h-9 flex-shrink-0" />
@@ -58,13 +60,14 @@ export function Navbar() {
         <nav className="hidden md:flex w-full items-center justify-between relative">
 
           {/* Logo */}
-          <Link to="/" className="z-10 flex-shrink-0">
+          <TransitionLink to="/" className="z-10 flex-shrink-0">
             <img
+              data-logo-beacon
               src={lightwarpLogo}
               alt="Lightwarp"
               className="h-12 sm:h-14 w-auto object-contain"
             />
-          </Link>
+          </TransitionLink>
 
           {/* Center nav links */}
           <ul className="flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
@@ -72,26 +75,26 @@ export function Navbar() {
               const active = pathname === l.to;
               return (
                 <li key={l.to}>
-                  <Link
+                  <TransitionLink
                     to={l.to}
                     className={`text-[18px] font-semibold tracking-[-0.2px] transition-all underline-offset-8 decoration-[#6250DA] hover:underline hover:text-[#6250DA] ${
                       active ? "text-white" : "text-white/70"
                     }`}
                   >
                     {l.label}
-                  </Link>
+                  </TransitionLink>
                 </li>
               );
             })}
           </ul>
 
           {/* Contact button */}
-          <Link
+          <TransitionLink
             to="/contact"
             className="inline-flex items-center gap-2 rounded-full bg-[#6250DA] px-6 py-2.5 text-base font-semibold text-white hover:bg-[#7361e8] transition-all duration-300"
           >
             Contact Now
-          </Link>
+          </TransitionLink>
         </nav>
 
       </div>
@@ -109,25 +112,25 @@ export function Navbar() {
               const active = pathname === l.to;
               return (
                 <li key={l.to} className="w-full text-center">
-                  <Link
+                  <TransitionLink
                     to={l.to}
                     className={`block py-3 text-lg font-semibold transition-colors ${
                       active ? "text-white" : "text-white/70 hover:text-white"
                     }`}
                   >
                     {l.label}
-                  </Link>
+                  </TransitionLink>
                 </li>
               );
             })}
           </ul>
           <div className="px-6 pb-6">
-            <Link
+            <TransitionLink
               to="/contact"
               className="block w-full text-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 text-base font-semibold text-white hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
             >
               Contact Now
-            </Link>
+            </TransitionLink>
           </div>
         </motion.div>
       )}

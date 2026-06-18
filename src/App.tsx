@@ -16,7 +16,7 @@ import Cyberia2084 from "./routes/projects/cyberia-2084";
 import StrayVistaStudios from "./routes/projects/stray-vista-studios";
 import Services from "./routes/services";
 import Privacy from "./routes/privacy";
-import { PageTransitionOverlay } from "./components/page-transition-overlay";
+import { TransitionProvider } from "./components/page-transition-overlay";
 
 function NotFound() {
   return (
@@ -52,9 +52,8 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <>
+    <TransitionProvider>
       <ScrollToTop />
-      <PageTransitionOverlay />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
@@ -73,6 +72,6 @@ export default function App() {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
+    </TransitionProvider>
   );
 }

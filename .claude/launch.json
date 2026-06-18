@@ -5,6 +5,7 @@
       "name": "lightwarp-dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
+      "cwd": "D:\\project\\light\\lightwarpAct",
       "port": 5173
     }
   ]
