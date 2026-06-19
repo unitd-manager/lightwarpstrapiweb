@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ProjectCredits } from "../../components/ProjectCredits";
 
-// Import the local video and image files from your assets folder
 import video from "../../assets/images/lego-fluid-dance-720p (1).mp4";
 import image from "../../assets/images/WW2_Trench Scene.png";
 
@@ -13,7 +12,6 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-// This component will render a background from a YouTube ID, a video file, or an image file.
 const LazyMediaBackground = ({
   videoId,
   className,
@@ -31,23 +29,16 @@ const LazyMediaBackground = ({
   useEffect(() => {
     if (priority) return;
     if (!containerRef.current) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0];
-        if (entry?.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
+        if (entries[0]?.isIntersecting) { setShouldLoad(true); observer.disconnect(); }
       },
       { root: null, rootMargin: "600px 0px", threshold: 0.01 }
     );
-
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, [priority]);
 
-  // This logic now correctly checks for the imported local files or a YouTube ID.
   const isVideo = videoId === video || /\.(mp4|webm|ogg|mov)$/i.test(videoId);
   const isImage = videoId === image || /\.(avif|webp|jpe?g|png|gif|svg)$/i.test(videoId);
   const isYouTube = !isVideo && !isImage;
@@ -56,50 +47,61 @@ const LazyMediaBackground = ({
   const posterSrc = isYouTube ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : undefined;
 
   return (
-    <div ref={containerRef} className="absolute inset-0" overflow-hidden>
-      {/* This section shows a low-quality poster image while waiting for the media to load */}
-      {(!shouldLoad && isImage) ? (
+    <div ref={containerRef} className="absolute inset-0 overflow-hidden">
+      {!shouldLoad && isImage ? (
         <img src={videoId} alt="" className={className} loading={priority ? "eager" : "lazy"} decoding="async" />
-      ) : (!shouldLoad && posterSrc ? (
+      ) : !shouldLoad && posterSrc ? (
         <img src={posterSrc} alt="" className={className} loading={priority ? "eager" : "lazy"} decoding="async" />
-      ) : null)}
-
-      {/* Once visible, this section loads the correct media type */}
+      ) : null}
       {shouldLoad ? (
         isVideo ? (
           <video src={videoId} className={className} autoPlay muted loop playsInline />
         ) : isImage ? (
           <img src={videoId} alt="" className={className} />
-        ) : isYouTube ? (
-          <iframe src={embedSrc} title="Project Background Video" className={className} style={{ border: "none" }} allowFullScreen allow="autoplay; encrypted-media; picture-in-picture" loading={priority ? "eager" : "lazy"} />
-        ) : null
+        ) : (
+          <iframe src={embedSrc} title="Project Background" className={className} style={{ border: "none" }} allowFullScreen allow="autoplay; encrypted-media; picture-in-picture" loading={priority ? "eager" : "lazy"} />
+        )
       ) : null}
     </div>
   );
 };
 
-const extraProjects = [
+type Project = {
+  id: number;
+  title: string;
+  contributions: string;
+  description: string;
+  videoId: string;
+  hideLearnMore?: boolean;
+  start?: number;
+};
+
+const extraProjects: Project[] = [
   {
     id: 29,
     title: "Caught Off Guard",
-    description: "As project manager and pipeline lead, I directed my team in creating Caught Off Guard, a playful short film known for its dynamic lighting and stylized visuals. This was one of the first studio shorts at Texas A&M to implement the ACES color workflow, much before it became widely adopted in the industry, and I led the charge in bringing this system into production. On the artistic side, I lit and rendered sequences in RenderMan, surfaced the main serpent character and props, and explored advanced compositing techniques in Nuke including post volumetrics, motion blur, and depth of field. I also designed animated lighting driven by video playback to simulate interactive illumination from computer screens. The result was a technically ambitious and visually engaging short that gave me early experience as both a creative and technical leader.",
+    contributions: "Project Management • Pipeline Development • Lighting • Rendering • Surfacing • Compositing • ACES Workflow",
+    description: "Caught Off Guard is a playful student short film produced at Texas A&M, distinguished by its dynamic lighting design and stylized visual language. Lightwarp led production management and pipeline development on the project, overseeing the team across all stages of the short. Notably, this was one of the first studio productions at Texas A&M to implement the ACES color workflow — well ahead of its widespread adoption across the industry — with Lightwarp driving its integration into the live pipeline.",
     videoId: "7iZBroHtizk",
   },
   {
     id: 10,
     title: "The Jab",
-    description: "The Jab was a group short film project and my final student short at Texas A&M before I finished my masters degree. I had rolled on to the project late as a lighting/compositing artist and with the very little time of 1 month before delivery and still majorly contributed in delivering the short and fixing many data issues and hitches that would have stalled the film from being completed on the final layout and material assembly..",
+    contributions: "Lighting • Compositing • Data Management • Scene Assembly • Final Delivery",
+    description:"The Jab was a collaborative student short film and the capstone production completed prior to graduating with a master's degree from Texas A&M. Lightwarp joined the project late in the pipeline as lighting and compositing artists, and within a single month delivered a fully polished short — resolving critical data pipeline issues, reconstructing final layout, and driving material assembly across the board to carry the film across the finish line.",
     videoId: "4d27i10x2wI",
   },
   {
     id: 1,
     title: "Stray Vista Studios",
-    description: "Stray Vista Studios in Dripping Springs, Texas is one of the largest active virtual production facilities in the state and a pioneer in the field. I am honored to have had my first industry experience at this studio with the team as an Unreal Engine Technical Director Intern, Site Rep, and Production Assistant. Along with creating studio tools to streamline virtual production workflows in the studio for commercials, music videos, etc, I had also participated in creating and designing virtual sets, assets, and full CG-shots for the productions during my time.",
+    contributions: "Virtual Production • Unreal Engine • Tool Development • Environment Creation • CG Shot Production",
+    description:"Stray Vista Studios in Dripping Springs, Texas stands as one of the largest active virtual production facilities in the state and a genuine pioneer in the field. Lightwarp's first industry engagement took place here, embedded with the studio team as an Unreal Engine Technical Director, on-site representative, and Production Assistant — contributing across both pipeline development and live production support. During this time, Lightwarp built proprietary studio tools designed to streamline virtual production workflows across commercials, music videos, and broadcast projects, while also designing and authoring virtual sets, assets, and full CG shots for active productions on the floor.",
     videoId: "w0GfewGYR3g",
   },
   {
     id: 11,
     title: "Lego Fluid Dance",
+    contributions: "Houdini FX • FLIP Fluids • USD / Solaris • Karma XPU • Motion Design",
     description: "This digital simulation project accomplished through a mix of Houdini-based FLIP fluids and voxel-based quantization and instancing showcases a fun animated character who gushes with happiness, joy, and lego-style bricks as it dances! Rendered fully in Karma XPU and composed through USD and Solaris as a showcase project, Lightwarp Studios can handle the creation of intricate, complex motion design and effects for your creative needs.",
     hideLearnMore: true,
     videoId: video,
@@ -107,7 +109,8 @@ const extraProjects = [
   {
     id: 12,
     title: "WW1 Trench Render",
-    description: "This still environment scene of a filmic WW1 scene created in Blender 3D depicting trench warfare and the use of helmet decoys was conceptualized, modelled, textured and surfaced by Lightwarp artist Magnus Haarseth, camera composes, layout, and set-dressed by artist Anantha Sathyanarayanan, and lit, rendered and composited to simulate filmed footage by artist Adithya Sathyanarayanan. The team achieved the goal of portraying the dramatic tragedy and death of war simply through a single, well composed frame that could have been a part of films like Saving Private Ryan or Dunkirk, ensuring that a picture can convey immense meaning and feeling.",
+    contributions: "Lighting • Rendering • Compositing • Cinematography • Layout",
+    description: "This still environment scene of a filmic WW1 scene created in Blender 3D depicting trench warfare and the use of helmet decoys was conceptualized, modelled, textured and surfaced by Lightwarp artist Magnus Haarseth, camera composition, layout, and set-dressed by artist Anantha Sathyanarayanan, and lit, rendered and composited to simulate filmed footage by artist Adithya Sathyanarayanan. The team achieved the goal of portraying the dramatic tragedy and death of war simply through a single, well composed frame that could have been a part of films like Saving Private Ryan or Dunkirk, ensuring that a picture can convey immense meaning and feeling.",
     hideLearnMore: true,
     videoId: image,
   },
@@ -117,7 +120,10 @@ export function ProjectsPanelExtraVideosCapabilities() {
   return (
     <>
       {extraProjects.map((item, idx) => (
-        <section key={item.id} className="relative min-h-[90svh] overflow-hidden bg-[#04050f] text-white font-display sm:min-h-[90vh]">
+        <section
+          key={item.id}
+          className="relative min-h-[90svh] overflow-hidden bg-[#04050f] text-white font-display sm:min-h-[90vh]"
+        >
           <div className="absolute inset-0 overflow-hidden">
             <LazyMediaBackground
               videoId={item.videoId}
@@ -125,86 +131,154 @@ export function ProjectsPanelExtraVideosCapabilities() {
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[67.5vw] min-w-[213.33vh] min-h-[120%] border-0 object-cover pointer-events-none"
               priority={idx === 0}
             />
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-black/20" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
           </div>
 
           <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
-            <div className="grid gap-16 lg:grid-cols-1 lg:justify-end lg:items-center">
+            <div className={`flex ${idx % 2 === 1 ? "justify-end" : "justify-start"}`}>
               <motion.div
-                initial={{ opacity: 0, x: -30 }}
+                initial={{ opacity: 0, x: idx % 2 === 1 ? 30 : -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: idx * 0.05 }}
-                className={`space-y-8 ${idx % 2 === 1 ? "lg:ml-auto lg:max-w-2xl lg:text-right" : "lg:max-w-2xl"} w-full max-w-[640px] rounded-[3rem] bg-transparent p-6 backdrop-blur-xl shadow-[0_40px_120px_rgba(0,0,0,0.45)]`}
+                className="w-full max-w-[50vw] p-6 border border-white/40 rounded-2xl"
               >
-                <div className="space-y-6 text-left">
-                  <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">{item.title}</h2>
+                <div className="space-y-6">
+
+                  {/* Title */}
+                  <h2 className="inline text-5xl sm:text-6xl font-bold leading-tight text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-2 py-1">
+                    {item.title}
+                  </h2>
+
+                  {/* LightWarp Contributions */}
+                  {/*{item.contributions && (
+                    <div className="space-y-4">
+                      <h3 className="inline text-xl font-semibold mr-2 mb-2 text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-3 py-3">
+                        LightWarp Contributions
+                      </h3>
+                      <div className="flex flex-wrap gap-3">
+                        {item.contributions.split("•").map((c) => (
+                          <span
+                            key={c.trim()}
+                            className="rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white"
+                          >
+                            {c.trim()}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}*/}
+{item.contributions && (
+  <div className="space-y-4">
+    <h3 className="inline text-xl font-semibold mr-2 mb-2 text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-3 py-3">
+      LightWarp Contributions
+    </h3>
+    <div className="flex flex-wrap gap-3 mt-4">
+      {item.contributions.split("•").map((c) => (
+        <span
+          key={c.trim()}
+          className="rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white"
+        >
+          {c.trim()}
+        </span>
+      ))}
+    </div>
+  </div>
+)}
+
+                  {/* Credits */}
                   {item.title === "Caught Off Guard" && (
-                    <ProjectCredits
-                      entries={[
-                        { role: "Story & Production by", names: "Adithya Sathyanarayanan & Alyssa Curran" },
-                        { role: "Design and Concepts by", names: "Gus McClain, Rachel Fikir, & Alyssa Curran" },
-                        { role: "Character and Environment Models by", names: "Jaime Diaz, Britain Thomas, Rachel Fikir" },
-                        { role: "Look Development and Surfacing by", names: "Alyssa Curran, Adithya Sathyanarayanan, Rachel Fikir & Britain Thomas" },
-                        { role: "Animation, Storyboard, Camera and Final Layout by", names: "Gus McClain & Ethan Umanos" },
-                      ]}
-                      copyright="© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz."
-                    />
+                    <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
+                      <div className="text-white [&_*]:text-white">
+                        <ProjectCredits
+                          entries={[
+                            { role: "Story & Production by", names: "Adithya Sathyanarayanan & Alyssa Curran" },
+                            { role: "Design and Concepts by", names: "Gus McClain, Rachel Fikir, & Alyssa Curran" },
+                            { role: "Character and Environment Models by", names: "Jaime Diaz, Britain Thomas, Rachel Fikir" },
+                            { role: "Look Development and Surfacing by", names: "Alyssa Curran, Adithya Sathyanarayanan, Rachel Fikir & Britain Thomas" },
+                            { role: "Animation, Storyboard, Camera and Final Layout by", names: "Gus McClain & Ethan Umanos" },
+                          ]}
+                          copyright="© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz."
+                        />
+                      </div>
+                    </div>
                   )}
                   {item.title === "The Jab" && (
-                    <ProjectCredits
-                      entries={[
-                        { role: "Story, Production and Set Dressing by", names: "Cooper Heathcock" },
-                        { role: "3D Animation, Layout and Character by", names: "Theron Smith" },
-                        { role: "Character Model by", names: "Corain Marnweck" },
-                        { role: "Character Rig by", names: "Spencer Bryant" },
-                        { role: "2D Matte and Set Painting by", names: "Steve Leal" },
-                        { role: "Visual Effects by", names: "Saif Chowdhury" },
-                        { role: "Character Surfacing by", names: "Emma Peace" },
-                        { role: "2D Animation and Final Credits by", names: "Liz Mars & Maleah Miller" },
-                      ]}
-                      copyright="© 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller"
-                    />
+                    <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
+                      <div className="text-white [&_*]:text-white">
+                        <ProjectCredits
+                          entries={[
+                            { role: "Story, Production and Set Dressing by", names: "Cooper Heathcock" },
+                            { role: "3D Animation, Layout and Character by", names: "Theron Smith" },
+                            { role: "Character Model by", names: "Corain Marnweck" },
+                            { role: "Character Rig by", names: "Spencer Bryant" },
+                            { role: "2D Matte and Set Painting by", names: "Steve Leal" },
+                            { role: "Visual Effects by", names: "Saif Chowdhury" },
+                            { role: "Character Surfacing by", names: "Emma Peace" },
+                            { role: "2D Animation and Final Credits by", names: "Liz Mars & Maleah Miller" },
+                          ]}
+                          copyright="© 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller"
+                        />
+                      </div>
+                    </div>
                   )}
                   {item.title === "Stray Vista Studios" && (
-                    <ProjectCredits
-                      entries={[
-                        { role: "Role", names: "Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG" },
-                      ]}
-                      copyright="© 2024 BMG"
-                    />
+                    <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
+                      <div className="text-white [&_*]:text-white">
+                        <ProjectCredits
+                          entries={[
+                            { role: "Role", names: "Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG" },
+                          ]}
+                          copyright="© 2024 BMG"
+                        />
+                      </div>
+                    </div>
                   )}
                   {item.title === "Lego Fluid Dance" && (
-                    <ProjectCredits
-                      entries={[
-                        { role: "Background Stage provided by", names: "Ben House and Texas A&M Visualization" },
-                      ]}
-                    />
+                    <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
+                      <div className="text-white [&_*]:text-white">
+                        <ProjectCredits
+                          entries={[
+                            { role: "Background Stage provided by", names: "Ben House and Texas A&M Visualization" },
+                          ]}
+                        />
+                      </div>
+                    </div>
                   )}
                   {item.title === "WW1 Trench Render" && (
-                    <ProjectCredits
-                      entries={[
-                        { role: "Look Development and Texturing by", names: "Magnus Haarseth" },
-                        { role: "Cinematography and Layout by", names: "Anantha Sathyanarayanan" },
-                      ]}
-                      copyright="© 2026 Magnus Haarseth, Anantha Sathyanarayanan, Adithya Sathyanarayanan"
-                    />
+                    <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
+                      <div className="text-white [&_*]:text-white">
+                        <ProjectCredits
+                          entries={[
+                            { role: "Look Development and Texturing by", names: "Magnus Haarseth" },
+                            { role: "Cinematography and Layout by", names: "Anantha Sathyanarayanan" },
+                          ]}
+                          copyright="© 2026 Magnus Haarseth, Anantha Sathyanarayanan, Adithya Sathyanarayanan"
+                        />
+                      </div>
+                    </div>
                   )}
-                  <div className="space-y-4 text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
-                    <p>{item.description}</p>
-                  </div>
-                </div>
 
-                <div className="flex flex-wrap gap-4">
-                  {!item.hideLearnMore ? (
-                    <Link
-                      to={`/projects/${slugify(item.title)}`}
-                      className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition hover:opacity-95"
-                    >
-                      Learn More
-                    </Link>
-                  ) : null}
+                  {/* Description */}
+                  <div className="rounded-xl bg-black/25 backdrop-blur-[4px] px-3 py-2">
+                    <p className="text-[18px] leading-8 text-white font-light">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  {/* Button */}
+                  {!item.hideLearnMore && (
+                    <div className="flex flex-wrap gap-4">
+                      <Link
+                        to={`/projects/${slugify(item.title)}`}
+                        className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
+                      >
+                        Learn More
+                      </Link>
+                    </div>
+                  )}
+
                 </div>
               </motion.div>
             </div>

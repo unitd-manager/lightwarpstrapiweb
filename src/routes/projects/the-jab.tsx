@@ -2,16 +2,19 @@ import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
 import CreditsSlider from "../../components/CreditsSlider";
-const logoGap =  "10px"
-const logoHeight =  "22px"
-const logoPadding = "6px 2px"
+
+const logoGap = "10px";
+const logoHeight = "22px";
+const logoPadding = "6px 2px";
+
 const videoCards = [
   { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_62e1f14bb205491097f55c59e7dfbcb8~mv2.gif/v1/fit/w_655,h_368,q_90,enc_avif,quality_auto/ddc236_62e1f14bb205491097f55c59e7dfbcb8~mv2.gif" },
-  { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_37b98b9b5b0e431fb2c8147149dd3d90~mv2.jpg" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_37b98b9b5b0e431fb2c8147149dd3d90~mv2.jpg" },
   { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_da965203bb32437eb5e78b3b2833b16f~mv2.jpg" },
   { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_aecf95926ec640e1833228ab9700c710~mv2.jpg" },
-  { title: "", subtitle: "", video: "	https://static.wixstatic.com/media/ddc236_4ef1817e70d54eb6b29ba3128a3433ad~mv2.png" },
+  { title: "", subtitle: "", video: "https://static.wixstatic.com/media/ddc236_4ef1817e70d54eb6b29ba3128a3433ad~mv2.png" },
 ];
+
 const logos = [
   {
     src: "https://static.wixstatic.com/media/ddc236_24adb982b89f47bcb935321431de9767~mv2.png",
@@ -25,10 +28,10 @@ const logos = [
     src: "https://static.wixstatic.com/media/ddc236_3d79dc80ee084230b2a96316abae79cb~mv2.png",
     alt: "Substance 3D",
   },
-  
 ];
+
 export default function TheJab() {
-  return (  
+  return (
     <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">
       <section className="bg-[#050517] text-white">
         <div className="w-full overflow-hidden">
@@ -49,9 +52,7 @@ export default function TheJab() {
               className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
               <div className="space-y-6 max-w-3xl text-left">
-                 <h1 className="project-title">
-                  The Jab
-                </h1>
+                <h1 className="project-title">The Jab</h1>
                 <p className="text-sm text-white/50">
                   © 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller.
                 </p>
@@ -113,13 +114,13 @@ export default function TheJab() {
                 style={{ textAlign: "left" }}
               >
                 <p className="project-body text-white/75" style={{ textAlign: "left" }}>
-                  The Jab was a group short film project and my final student short at Texas A&M before I finished my masters degree. I had rolled on to the project late as a lighting/compositing artist and with the very little time of 1 month before delivery and still majorly contributed in delivering the short and fixing many data issues and hitches that would have stalled the film from being completed on the final layout and material assembly.
+                  The Jab was a collaborative student short film and the capstone production completed prior to graduating with a master's degree from Texas A&M. Lightwarp joined the project late in the pipeline as lighting and compositing artists, and within a single month delivered a fully polished short — resolving critical data pipeline issues, reconstructing final layout, and driving material assembly across the board to carry the film across the finish line.
                 </p>
                 <p className="project-body text-white/75" style={{ textAlign: "left" }}>
-                  The lighting design of The Jab was truly a new challenge for me, as due there being no visdev/concept art, little primary references and a singular matte painting for the whole scene, light setup was primarily designed based on what would seamlessly work with that background element as personally consulting to that team of wanted to push for a punchy, graphic, saturated look with sun dawn tones of reds, magentas and cool purple for the film to bring visual appeal.
+                  With no visual development artwork, minimal primary references, and a single matte painting anchoring the entire environment, the lighting design for The Jab was built entirely from the ground up through creative intuition and close collaboration. The approach centered on seamlessly integrating practical light with the background matte while pushing toward a punchy, graphic aesthetic — rich reds and magentas at dawn bleeding into cool purples — giving the film a saturated, theatrical energy that elevated its overall visual identity.
                 </p>
                 <p className="project-body text-white/75" style={{ textAlign: "left" }}>
-                  The major creative challenge I decided to take for this project was to created animated dramatic lights that would accentuate the theatrical performance of the chameleon, primary being the blue stage light that appears at the climax of the short. This was accomplished by fully rendering all lights on in RenderMan and through light group splits, animate the lights in Nuke for flickers, eye spec light, and dramatic ramps.
+                  The defining creative challenge of the project was designing animated dramatic lighting that amplified the chameleon character's theatrical performance. The standout moment — a sweeping blue stage light crashing in at the film's climax — was achieved by rendering all light groups simultaneously in RenderMan, then compositing and animating each layer independently in Nuke. This approach allowed precise control over flicker timing, eye spec highlights, and dramatic light ramps without ever returning to render, keeping the production moving under a tight deadline.
                 </p>
               </motion.div>
 
@@ -198,7 +199,6 @@ export default function TheJab() {
           </div>
         </div>
       </section>
-      
     </PageShell>
   );
 }

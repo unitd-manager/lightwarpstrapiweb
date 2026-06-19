@@ -67,24 +67,28 @@ const extraProjects = [
     id: 17,
     title: "Samsung S7 ad",
     copyright: "© 2016 Adithya Sathyanarayanan",
-    description: "This high school project marked my first dive into full 3D animation, and it remains a formative experience in my journey as an artist. Tasked with creating a commercial in Blender, I went far beyond the assignment's requirements: modeling, surfacing, and lighting assets from scratch over the course of two months. It was here that I discovered my love for lighting, experimenting with HDRI-based product lighting, IES profiles, and camera choreography to highlight form and detail. Though created at an early stage in my career, this project laid the groundwork for my technical and artistic growth, teaching me both the discipline of a full production cycle and the excitement of storytelling through light.",
+    description: "This early production marks Lightwarp's first foray into full 3D animation — a high school commercial project executed entirely in Blender that went well beyond the scope of the original assignment. Over the course of two months, every asset was built from the ground up, encompassing modeling, surfacing, and lighting entirely from scratch. The project served as the foundation for Lightwarp's lighting philosophy, exploring HDRI-based product lighting, IES profiles, and deliberate camera choreography to draw out form, material detail, and visual storytelling. Though produced at an early stage, the discipline of running a complete production cycle and the creative possibilities unlocked through light established the core sensibilities that continue to define Lightwarp's work today.",
     videoId: "4Esie0f7HVw",
+    align: "right",
   },
   {
     id: 4,
     title: "Cyberia 2084",
     copyright: "© 2016 Adithya Sathyanarayanan",
-    description: "Cyberia 2084 is a personal passion project: a travelogue-style introduction to a sprawling cyberpunk city, built in one semester as a solo effort. Inspired by Ian Hubert's \"lazy tutorials\" and dense image-based texturing techniques, I challenged myself to see how much worldbuilding I could accomplish independently, creating a multilayered dystopia filled with atmosphere, detail, and scale. Rendered in Blender using baked lighting, irradiance caching, and optimized techniques for reflections and GI, the project became my first real-time cinematic experiment. Completing Cyberia 2084 earned me the Disney Aggie Alumni Award scholarship, presented by the head of characters at Walt Disney Animation Studios and signed by Disney alumni. Beyond the recognition, this film fueled my work ethic and strengthened my passion for building worlds that tell stories through scale and light.",
+    description: "Cyberia 2084 is a solo worldbuilding project conceived and executed in a single semester — a travelogue-style introduction to a sprawling, multilayered cyberpunk city built entirely from the ground up. Drawing inspiration from Ian Hubert's dense image-based texturing techniques, the project pushed how much atmospheric depth and narrative scale could be achieved independently. Rendered in Blender using baked lighting, irradiance caching, and optimized approaches to reflections and global illumination, it stands as Lightwarp's first real-time cinematic experiment. Cyberia 2084 earned the Disney Aggie Alumni Award scholarship, presented by the head of characters at Walt Disney Animation Studios and signed by Disney alumni — recognition that cemented the studio's commitment to building worlds that tell stories through scale, atmosphere, and light.",
     videoId: "pTmzrHqdS_4",
+    align: "left",
   },
-  
 ];
 
 export function ProjectsPanelExtraVideos() {
   return (
     <>
       {extraProjects.map((item, idx) => (
-        <section key={item.id} className="relative min-h-[90svh] overflow-hidden bg-[#04050f] text-white font-display sm:min-h-[90vh]">
+        <section
+          key={item.id}
+          className="relative min-h-[90svh] overflow-hidden bg-[#04050f] text-white font-display sm:min-h-[90vh]"
+        >
           <div className="absolute inset-0 overflow-hidden">
             <LazyYouTubeBackground
               videoId={item.videoId}
@@ -92,36 +96,47 @@ export function ProjectsPanelExtraVideos() {
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[67.5vw] min-w-[213.33vh] min-h-[120%] border-0 object-cover pointer-events-none"
               priority={idx === 0}
             />
-            <div className="absolute inset-0 bg-black/40" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
           </div>
 
           <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
-            <div className="grid gap-16 lg:grid-cols-1 lg:justify-end lg:items-center">
+            <div className={`flex ${item.align === "right" ? "justify-end" : "justify-start"}`}>
               <motion.div
-                initial={{ opacity: 0, x: -30 }}
+                initial={{ opacity: 0, x: item.align === "right" ? 30 : -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: idx * 0.05 }}
-                className={`space-y-8 ${item.title === "Samsung S7 ad" ? "lg:ml-auto lg:max-w-2xl lg:text-right" : "lg:max-w-2xl"} w-full max-w-[640px] rounded-[3rem] bg-transparent p-6 backdrop-blur-xl shadow-[0_40px_120px_rgba(0,0,0,0.45)]`}
+                className="w-full max-w-[50vw] p-6 border border-white/40 rounded-2xl"
               >
-                <div className="space-y-6 text-left">
-                  <h2 className="text-3xl font-semibold leading-tight sm:text-5xl md:text-6xl">{item.title}</h2>
-                    <div className="text-sm text-white/60 mt-2">
-                      {item.copyright}
-                    </div>
-                  <div className="space-y-4 text-base leading-7 text-white/75 sm:text-lg sm:leading-8">
-                    <p>{item.description}</p>
-                  </div>
-                </div>
+                <div className="space-y-6">
 
-                <div className="flex flex-wrap gap-4 justify-end">
-                  <Link
-                    to={`/projects/${slugify(item.title)}`}
-                    className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition hover:opacity-95"
-                  >
-                    Learn More
-                  </Link>
+                  {/* Title */}
+                  <h2 className="inline text-5xl sm:text-6xl font-bold leading-tight text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-2 py-1">
+                    {item.title}
+                  </h2>
+
+                  {/* Copyright */}
+                  <div className="text-sm text-white/100">
+                    {item.copyright}
+                  </div>
+
+                  {/* Description */}
+                  <div className="rounded-xl bg-black/25 backdrop-blur-[4px] px-3 py-2">
+                    <p className="text-[18px] leading-8 text-white font-light">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  {/* Button */}
+                  <div className="flex flex-wrap gap-4">
+                    <Link
+                      to={`/projects/${slugify(item.title)}`}
+                      className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
+                    >
+                      Learn More
+                    </Link>
+                  </div>
+
                 </div>
               </motion.div>
             </div>

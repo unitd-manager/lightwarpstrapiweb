@@ -2,13 +2,16 @@ import { motion } from "framer-motion";
 import { PageShell } from "../../components/page-shell";
 import { VideoPlayer } from "../../components/video-player";
 import CreditsSlider from "../../components/CreditsSlider";
-const logoGap =  "10px"
-const logoHeight =  "22px"
-const logoPadding = "6px 2px"
+
+const logoGap = "10px";
+const logoHeight = "22px";
+const logoPadding = "6px 2px";
+
 const isVideoUrl = (url: string): boolean => {
   if (!url) return false;
   return /\.(mp4|webm|ogg)(\?|$)/i.test(url) || url.includes("/video/");
 };
+
 const logos = [
   {
     src: "https://static.wixstatic.com/media/ddc236_b3e21d7df52d4ee2999ddb9b9deeebb0~mv2.png",
@@ -30,7 +33,7 @@ const logos = [
     src: "https://static.wixstatic.com/media/ddc236_75cb156520ae4ab99854737db24bba00~mv2.png",
     alt: "Perforce",
   },
-    {
+  {
     src: "https://static.wixstatic.com/media/ddc236_ab0eebd4077744e1ba7bbc84edd51303~mv2.png",
     alt: "Perforce",
   },
@@ -49,7 +52,7 @@ export default function CaughtOffGuard() {
   return (
     <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">
       <section className="bg-[#050517] text-white">
-       <div className="w-full overflow-hidden">
+        <div className="w-full overflow-hidden">
           <img
             src="https://static.wixstatic.com/media/ddc236_23396263688047c0a08fa6de010381e9~mv2.png"
             alt="The Jab"
@@ -57,7 +60,7 @@ export default function CaughtOffGuard() {
           />
         </div>
 
-            <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-2">
+        <div className="mx-auto max-w-7xl px-6 pt-0 pb-16 lg:pb-2">
           <div className="space-y-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -66,14 +69,8 @@ export default function CaughtOffGuard() {
               transition={{ duration: 0.8 }}
               className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
             >
-              
               <div className="space-y-6 max-w-3xl">
-                {/* <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">
-                  LIGHTWARP
-                </p> */}
-                <h1 className="project-title">
-                  Caught Off Guard
-                </h1>
+                <h1 className="project-title">Caught Off Guard</h1>
                 <p className="text-sm text-white/50">
                   © 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz.
                 </p>
@@ -134,7 +131,10 @@ export default function CaughtOffGuard() {
                 className="space-y-6 max-w-2xl"
               >
                 <p className="project-body text-white/75">
-                  As project manager and pipeline lead, I directed my team in creating Caught Off Guard, a playful short film known for its dynamic lighting and stylized visuals. This was one of the first studio shorts at Texas A&M to implement the ACES color workflow, much before it became widely adopted in the industry, and I led the charge in bringing this system into production. On the artistic side, I lit and rendered sequences in RenderMan, surfaced the main serpent character and props, and explored advanced compositing techniques in Nuke including post volumetrics, motion blur, and depth of field. I also designed animated lighting driven by video playback to simulate interactive illumination from computer screens. The result was a technically ambitious and visually engaging short that gave me early experience as both a creative and technical leader.
+                  Caught Off Guard is a playful student short film produced at Texas A&M, distinguished by its dynamic lighting design and stylized visual language. Lightwarp led production management and pipeline development on the project, overseeing the team across all stages of the short. Notably, this was one of the first studio productions at Texas A&M to implement the ACES color workflow — well ahead of its widespread adoption across the industry — with Lightwarp driving its integration into the live pipeline.
+                </p>
+                <p className="project-body text-white/75">
+                  On the creative side, lighting and rendering was executed in RenderMan across multiple sequences, with surfacing handled for the main serpent character and key props throughout the environment. Compositing in Nuke pushed beyond standard techniques to incorporate post volumetrics, motion blur, and depth of field, giving each shot a polished, cinematic finish. A particular highlight was the development of animated lighting driven by video playback, simulating interactive illumination from computer screens — a technique that brought an added layer of realism and energy to the film's interior sequences.
                 </p>
               </motion.div>
 
@@ -144,11 +144,11 @@ export default function CaughtOffGuard() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.1 }}
               >
-              <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
-                <div className="w-full aspect-[16/9]">
-                  <VideoPlayer src="https://www.youtube.com/embed/7iZBroHtizk" title="Caught Off Guard" />
+                <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
+                  <div className="w-full aspect-[16/9]">
+                    <VideoPlayer src="https://www.youtube.com/embed/7iZBroHtizk" title="Caught Off Guard" />
+                  </div>
                 </div>
-              </div>
               </motion.div>
             </div>
 
@@ -213,14 +213,13 @@ export default function CaughtOffGuard() {
               </a>
               <a
                 href="/projects/the-jab"
-              className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
+                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
                 Next
               </a>
             </div>
           </div>
         </section>
-        
       </section>
     </PageShell>
   );

@@ -102,8 +102,7 @@ export default function SamsungS7Ad() {
                 className="space-y-6 max-w-2xl"
               >
                 <p className="project-body text-white/75">
-                  This high school project marked my first dive into full 3D animation, and it remains a formative experience in my journey as an artist. Tasked with creating a commercial in Blender, I went far beyond the assignment's requirements: modeling, surfacing, and lighting assets from scratch over the course of two months. It was here that I discovered my love for lighting, experimenting with HDRI-based product lighting, IES profiles, and camera choreography to highlight form and detail. Though created at an early stage in my career, this project laid the groundwork for my technical and artistic growth, teaching me both the discipline of a full production cycle and the excitement of storytelling through light.
-                </p>
+This early production marks Lightwarp's first foray into full 3D animation — a high school commercial project executed entirely in Blender that went well beyond the scope of the original assignment. Over the course of two months, every asset was built from the ground up, encompassing modeling, surfacing, and lighting entirely from scratch. The project served as the foundation for Lightwarp's lighting philosophy, exploring HDRI-based product lighting, IES profiles, and deliberate camera choreography to draw out form, material detail, and visual storytelling. Though produced at an early stage, the discipline of running a complete production cycle and the creative possibilities unlocked through light established the core sensibilities that continue to define Lightwarp's work today.</p>
               </motion.div>
 
               <motion.div
