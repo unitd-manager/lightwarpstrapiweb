@@ -68,9 +68,27 @@ export default function StrayVistaStudios() {
               <div className="space-y-6 max-w-3xl">
                 <h1 className="project-title">Awaken Digital Environment</h1>
                 <p className="text-sm text-white/50">© 2024 BMG.</p>
-                <p className="project-subtitle text-white/70 max-w-2xl">
+                {/*<p className="project-subtitle text-white/70 max-w-2xl">
                   Unreal Artist/TD, Production Assistant, Lighting, Cinematography, Look Development, Compositing, VFX
-                </p>
+                </p>*/}
+
+
+
+<div className="flex flex-wrap gap-2">
+  {["Lighting", "Cinematography", "Look Development", "Compositing", "VFX"].map((role) => (
+    <span key={role} className="rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-white/90">
+      {role}
+    </span>
+  ))}
+</div>
+
+
+
+
+
+
+
+
               </div>
 
               <motion.div

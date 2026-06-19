@@ -74,9 +74,22 @@ export default function CaughtOffGuard() {
                 <p className="text-sm text-white/50">
                   © 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz.
                 </p>
-                <h4 className="project-subtitle text-white max-w-2xl">
+                {/*<h4 className="project-subtitle text-white max-w-2xl">
                   Production Manager, Lighting, Look Development, Compositing, Layout, Modelling
-                </h4>
+                </h4>*/}
+
+
+
+<div className="flex flex-wrap gap-2">
+  {["Lighting","Compositing","Rough layout","Pipeline","R&D","Production Management","Look Development"]
+  .map((role) => (
+    <span key={role} className="rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-white/90">
+      {role}
+    </span>
+  ))}
+</div>
+
+
               </div>
 
               <motion.div
