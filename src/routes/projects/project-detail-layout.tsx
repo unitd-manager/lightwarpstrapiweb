@@ -18,6 +18,7 @@ type ProjectDetailLayoutProps = {
   title: string;
   subtitle: string;
   roleLine?: string;
+  roles?: string[];
   overview: string[];
   videoSrc: string;
   watchHref: string;
@@ -117,8 +118,6 @@ const lushLogos = [
   {
     src: "https://static.wixstatic.com/media/ddc236_3d79dc80ee084230b2a96316abae79cb~mv2.png",
     alt: "Substance 3D",
-    // Solid black circular badge baked into the source file — screen-blend so
-    // it drops out against the dark page background.
     blendScreen: true,
   },
 ];
@@ -142,8 +141,6 @@ const stuffedLogos = [
   {
     src: "https://static.wixstatic.com/media/ddc236_3d79dc80ee084230b2a96316abae79cb~mv2.png",
     alt: "Unreal Engine",
-    // Solid black circular badge baked into the source file — screen-blend so
-    // it drops out against the dark page background.
     blendScreen: true,
   },
 ];
@@ -152,8 +149,6 @@ const logos = [
   {
     src: "https://static.wixstatic.com/media/ddc236_e87923663ea941a08dcdcd667ae9e03b~mv2.png",
     alt: "Unreal Engine",
-    // Solid black circular badge baked into the source file — screen-blend so
-    // it drops out against the dark page background.
     blendScreen: true,
   },
   {
@@ -192,6 +187,7 @@ export function ProjectDetailLayout({
   title,
   subtitle,
   roleLine,
+  roles,
   overview,
   videoSrc,
   watchHref,
@@ -212,44 +208,37 @@ export function ProjectDetailLayout({
           {
             title: "",
             subtitle: "",
-            video:
-              "https://static.wixstatic.com/media/ddc236_2b01016e82d042d89e51d64a073c0c89~mv2.png",
+            video: "https://static.wixstatic.com/media/ddc236_2b01016e82d042d89e51d64a073c0c89~mv2.png",
           },
           {
             title: "",
             subtitle: "",
-            video:
-              "	https://static.wixstatic.com/media/ddc236_696ba547e8e94818ade1fa24b6c24708~mv2.png",
+            video: "https://static.wixstatic.com/media/ddc236_696ba547e8e94818ade1fa24b6c24708~mv2.png",
           },
           {
             title: "",
             subtitle: "",
-            video:
-              "	https://static.wixstatic.com/media/ddc236_061e70caf8b64b8ca14621c33a8fa548~mv2.png",
+            video: "https://static.wixstatic.com/media/ddc236_061e70caf8b64b8ca14621c33a8fa548~mv2.png",
           },
           {
             title: "",
             subtitle: "",
-            video:
-              "	https://static.wixstatic.com/media/ddc236_968451479e354a488dc7a8f70e740f7b~mv2.png",
+            video: "https://static.wixstatic.com/media/ddc236_968451479e354a488dc7a8f70e740f7b~mv2.png",
           },
           {
             title: "",
             subtitle: "",
-            video:
-              "https://video.wixstatic.com/video/ddc236_a5b9aa7c340245f38cb4e1b82f4bf1c3/480p/mp4/file.mp4",
+            video: "https://video.wixstatic.com/video/ddc236_a5b9aa7c340245f38cb4e1b82f4bf1c3/480p/mp4/file.mp4",
           },
           {
             title: "",
             subtitle: "",
-            video:
-              "	https://static.wixstatic.com/media/ddc236_53049068e4594ea8a4ff62d53e791a24~mv2.png",
+            video: "https://static.wixstatic.com/media/ddc236_53049068e4594ea8a4ff62d53e791a24~mv2.png",
           },
           {
             title: "",
             subtitle: "",
-            video:
-              "https://static.wixstatic.com/media/ddc236_62bf76f196834f329a9f57eb73f98313~mv2.png",
+            video: "https://static.wixstatic.com/media/ddc236_62bf76f196834f329a9f57eb73f98313~mv2.png",
           },
         ]
       : title === "Lush Victorian Garden"
@@ -257,26 +246,22 @@ export function ProjectDetailLayout({
             {
               title: "",
               subtitle: "",
-              video:
-                "https://static.wixstatic.com/media/ddc236_24ec6c84332440a69b60fca5190dc578~mv2.png",
+              video: "https://static.wixstatic.com/media/ddc236_24ec6c84332440a69b60fca5190dc578~mv2.png",
             },
             {
               title: "",
               subtitle: "",
-              video:
-                "https://static.wixstatic.com/media/ddc236_a377d11331fd427594c636cf646b5ecf~mv2.jpg",
+              video: "https://static.wixstatic.com/media/ddc236_a377d11331fd427594c636cf646b5ecf~mv2.jpg",
             },
             {
               title: "",
               subtitle: "",
-              video:
-                "https://static.wixstatic.com/media/ddc236_24ec6c84332440a69b60fca5190dc578~mv2.png",
+              video: "https://static.wixstatic.com/media/ddc236_24ec6c84332440a69b60fca5190dc578~mv2.png",
             },
             {
               title: "",
               subtitle: "",
-              video:
-                "https://static.wixstatic.com/media/ddc236_a377d11331fd427594c636cf646b5ecf~mv2.jpg",
+              video: "https://static.wixstatic.com/media/ddc236_a377d11331fd427594c636cf646b5ecf~mv2.jpg",
             },
           ]
         : title === "Stuffed"
@@ -284,47 +269,41 @@ export function ProjectDetailLayout({
               {
                 title: "",
                 subtitle: "",
-                video:
-                  "https://static.wixstatic.com/media/ddc236_3014706f8f4749a2bf75d169895936f2~mv2.png",
+                video: "https://static.wixstatic.com/media/ddc236_3014706f8f4749a2bf75d169895936f2~mv2.png",
               },
               {
                 title: "",
                 subtitle: "",
-                video:
-                  "https://static.wixstatic.com/media/ddc236_f6b54443864a461fb2d328556fbe550a~mv2.png",
+                video: "https://static.wixstatic.com/media/ddc236_f6b54443864a461fb2d328556fbe550a~mv2.png",
               },
               {
                 title: "",
                 subtitle: "",
-                video:
-                  "https://static.wixstatic.com/media/ddc236_66f92fed12c24b1ab434297a3eefc941~mv2.png",
+                video: "https://static.wixstatic.com/media/ddc236_66f92fed12c24b1ab434297a3eefc941~mv2.png",
               },
               {
                 title: "",
                 subtitle: "",
-                video:
-                  "https://static.wixstatic.com/media/ddc236_08a614f6d3d74520b175303da17f9d10~mv2.gif/v1/fit/w_654,h_368,q_90,enc_avif,quality_auto/ddc236_08a614f6d3d74520b175303da17f9d10~mv2.gif",
+                video: "https://static.wixstatic.com/media/ddc236_08a614f6d3d74520b175303da17f9d10~mv2.gif/v1/fit/w_654,h_368,q_90,enc_avif,quality_auto/ddc236_08a614f6d3d74520b175303da17f9d10~mv2.gif",
               },
               {
                 title: "",
                 subtitle: "",
-                video:
-                  "https://static.wixstatic.com/media/ddc236_f8a6f19bbe2d4f65998d14b6499c9087~mv2.gif",
+                video: "https://static.wixstatic.com/media/ddc236_f8a6f19bbe2d4f65998d14b6499c9087~mv2.gif",
               },
               {
                 title: "",
                 subtitle: "",
-                video:
-                  "https://static.wixstatic.com/media/ddc236_2a251d8499ab4226bc96b571420561bb~mv2.gif/v1/fit/w_600,h_301,q_90,enc_avif,quality_auto/ddc236_2a251d8499ab4226bc96b571420561bb~mv2.gif",
+                video: "https://static.wixstatic.com/media/ddc236_2a251d8499ab4226bc96b571420561bb~mv2.gif/v1/fit/w_600,h_301,q_90,enc_avif,quality_auto/ddc236_2a251d8499ab4226bc96b571420561bb~mv2.gif",
               },
               {
                 title: "",
                 subtitle: "",
-                video:
-                  "https://static.wixstatic.com/media/ddc236_ef21fbb060e6470595ca4791950a88d0~mv2.gif/v1/fit/w_654,h_368,q_90,enc_avif,quality_auto/ddc236_ef21fbb060e6470595ca4791950a88d0~mv2.gif",
+                video: "https://static.wixstatic.com/media/ddc236_ef21fbb060e6470595ca4791950a88d0~mv2.gif/v1/fit/w_654,h_368,q_90,enc_avif,quality_auto/ddc236_ef21fbb060e6470595ca4791950a88d0~mv2.gif",
               },
             ]
           : extraProjects);
+
   const isLushGarden = title === "Lush Victorian Garden";
   const isShellYouBeMine = title === "Shell You Be Mine?";
   const isTheJab = title === "The Jab";
@@ -359,7 +338,6 @@ export function ProjectDetailLayout({
                 className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
               >
                 <div className="space-y-6 max-w-3xl">
-                  {/* <p className="text-sm uppercase tracking-[0.3em] text-white/60 mt-8">{subtitle}</p> */}
                   <h1
                     className={`project-title ${isLushGarden ? "whitespace-nowrap text-[clamp(2.75rem,4.5vw,3.75rem)] leading-[1.05]" : ""}`}
                   >
@@ -368,7 +346,18 @@ export function ProjectDetailLayout({
                   {pageCredits ? (
                     <p className="text-sm text-white/50">{pageCredits}</p>
                   ) : null}
-                  {roleLine ? (
+                  {roles && roles.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                      {roles.map((role) => (
+                        <span
+                          key={role}
+                          className="rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-white/90"
+                        >
+                          {role}
+                        </span>
+                      ))}
+                    </div>
+                  ) : roleLine ? (
                     <p className="project-subtitle text-white max-w-2xl">{roleLine}</p>
                   ) : null}
                 </div>
@@ -492,7 +481,7 @@ export function ProjectDetailLayout({
           </section>
         ) : null}
 
-<section className="bg-[#050517] py-16 px-6">
+        <section className="bg-[#050517] py-16 px-6">
           <div className="mx-auto max-w-7xl">
             <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
               {previousHref ? (
