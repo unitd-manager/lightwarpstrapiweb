@@ -33,7 +33,7 @@ const LazyMediaBackground = ({
       (entries) => {
         if (entries[0]?.isIntersecting) { setShouldLoad(true); observer.disconnect(); }
       },
-      { root: null, rootMargin: "600px 0px", threshold: 0.01 }
+      { root: null, rootMargin: "1500px 0px", threshold: 0.01 }
     );
     observer.observe(containerRef.current);
     return () => observer.disconnect();
@@ -55,7 +55,7 @@ const LazyMediaBackground = ({
       ) : null}
       {shouldLoad ? (
         isVideo ? (
-          <video src={videoId} className={className} autoPlay muted loop playsInline />
+          <video src={videoId} className={className} autoPlay muted loop playsInline preload="auto" />
         ) : isImage ? (
           <img src={videoId} alt="" className={className} />
         ) : (
@@ -97,6 +97,7 @@ const extraProjects: Project[] = [
     contributions: ["Lighting", "Cinematography", "Look Development", "Compositing", "VFX"],
     description: "Stray Vista Studios in Dripping Springs, Texas stands as one of the largest active virtual production facilities in the state and a genuine pioneer in the field. Lightwarp's first industry engagement took place here, embedded with the studio team as an Unreal Engine Technical Director, on-site representative, and Production Assistant — contributing across both pipeline development and live production support. During this time, Lightwarp built proprietary studio tools designed to streamline virtual production workflows across commercials, music videos, and broadcast projects, while also designing and authoring virtual sets, assets, and full CG shots for active productions on the floor.",
     videoId: "w0GfewGYR3g",
+    start: 5,
   },
   {
     id: 11,
