@@ -151,13 +151,13 @@ export function ProjectsPanelExtraVideosCapabilities() {
                     {item.title}
                   </h2>
 
-                  {/* Lightwarp Contributions */}
+                  {/* Lightwarp Contributions — same container style as Credits */}
                   {item.contributions && item.contributions.length > 0 && (
-                    <div className="space-y-4">
-                      <h3 className="inline text-lg font-semibold mr-2 mb-2 text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-3 py-1">
+                    <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
+                      <p className="text-xs font-bold text-white/50 uppercase tracking-widest mb-3">
                         Lightwarp Contributions
-                      </h3>
-                      <div className="flex flex-wrap gap-3 mt-4">
+                      </p>
+                      <div className="flex flex-wrap gap-3">
                         {item.contributions.map((c) => (
                           <span
                             key={c}

@@ -732,7 +732,7 @@ export function ProjectDetailLayout({
               >
                 Next
               </a>
-            ) : (
+            ) :(
               <div />
             )}
           </div>
