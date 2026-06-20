@@ -23,7 +23,6 @@ const LazyYouTubeBackground = ({
 
   useEffect(() => {
     if (!containerRef.current) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
@@ -34,7 +33,6 @@ const LazyYouTubeBackground = ({
       },
       { root: null, rootMargin: "600px 0px", threshold: 0.01 }
     );
-
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, []);
@@ -89,11 +87,11 @@ export function ProjectsPanelCapabilities() {
 
               {/* LightWarp Contributions */}
               <div className="space-y-4">
-                <h3 className="inline text-xl font-semibold mr-2 mb-2 text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-3 py-1">
-                  LightWarp Contributions
+                <h3 className="inline text-lg font-semibold mr-2 mb-2 text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-3 py-1">
+                  Lightwarp Contributions
                 </h3>
                 <div className="flex flex-wrap gap-3 mt-4">
-                  {["Lighting", "Rendering", "Compositing", "RenderMan ML Denoising", "Nuke Post-Production"].map((tag) => (
+                  {["Lighting", "Compositing", "Camera"].map((tag) => (
                     <span
                       key={tag}
                       className="rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white"
@@ -103,7 +101,6 @@ export function ProjectsPanelCapabilities() {
                   ))}
                 </div>
               </div>
-
 
               {/* Credits */}
               <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
@@ -121,7 +118,7 @@ export function ProjectsPanelCapabilities() {
               {/* Description */}
               <div className="rounded-xl bg-black/30 backdrop-blur-[4px] px-3 py-2">
                 <p className="text-[18px] leading-8 text-white font-light">
-                  Lush Victorian Garden is a collaborative exterior lighting study that merges naturalistic detail with a whimsical, storybook aesthetic. The environment balances imaginative wonder with grounded realism — every element of foliage, atmosphere, and composition crafted to feel believable while transporting the viewer into a dreamlike space. Lit and rendered using RenderMan's ML denoiser at its public release, with final compositing in Nuke layering in bloom, god rays, chromatic aberration, vignette, and precise lighting refinements, the piece demonstrates LightWarp Studios' command of cinematic exterior lighting and photorealistic environmental rendering.
+                  Lush Victorian Garden is a collaborative exterior lighting study that merges naturalistic detail with a whimsical, storybook aesthetic. The environment balances imaginative wonder with grounded realism — every element of foliage, atmosphere, and composition crafted to feel believable while transporting the viewer into a dreamlike space. Lit and rendered using RenderMan's ML denoiser at its public release, with final compositing in Nuke layering in bloom, god rays, chromatic aberration, vignette, and precise lighting refinements, the piece demonstrates Lightwarp's command of cinematic exterior lighting and photorealistic environmental rendering.
                 </p>
               </div>
 

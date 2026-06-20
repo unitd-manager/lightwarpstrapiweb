@@ -7,14 +7,14 @@ export default function OurCapabilities() {
       copyrightText="© 2025 Lightwarp LLC. All rights reserved."
       pageCredits="© 2025 Alyssa Curran, Adithya Sathyanarayanan, Nimi Parmar."
       subtitle=""
-      roleLine="Lighting, Compositing, Cinematography"
+      roles={["Lighting", "Compositing", "Cinematography"]}
       overview={[
-"Lush Victorian Garden is a collaborative exterior lighting study that merges naturalistic detail with a whimsical, storybook aesthetic. The environment balances imaginative wonder with grounded realism — every element of foliage, atmosphere, and composition crafted to feel believable while transporting the viewer into a dreamlike space. Lit and rendered using RenderMan's ML denoiser at its public release, with final compositing in Nuke layering in bloom, god rays, chromatic aberration, vignette, and precise lighting refinements, the piece demonstrates LightWarp Studios' command of cinematic exterior lighting and photorealistic environmental rendering."      ]}
+        "Lush Victorian Garden is a collaborative exterior lighting study that merges naturalistic detail with a whimsical, storybook aesthetic. The environment balances imaginative wonder with grounded realism — every element of foliage, atmosphere, and composition crafted to feel believable while transporting the viewer into a dreamlike space. Lit and rendered using RenderMan's ML denoiser at its public release, with final compositing in Nuke layering in bloom, god rays, chromatic aberration, vignette, and precise lighting refinements, the piece demonstrates LightWarp Studios' command of cinematic exterior lighting and photorealistic environmental rendering."
+      ]}
       videoSrc="https://www.youtube.com/embed/b-qRx-LlB1A?start=2"
       watchHref="https://www.youtube.com/watch?v=b-qRx-LlB1A&t=2s"
       watchLabel="Watch Full Reel"
-      backgroundImage="	https://static.wixstatic.com/media/ddc236_9799e1fa8a134a27b50523940d8b4f98~mv2.png"
-      // previousHref="/projects/shell-you-be-mine"
+      backgroundImage="https://static.wixstatic.com/media/ddc236_9799e1fa8a134a27b50523940d8b4f98~mv2.png"
       nextHref="/projects/caught-off-guard"
       credits={[
         { role: 'Look Development, Set Dressing, Layout, and Procedural Assets by', names: ['Adithya Sathyanarayanan', 'Alyssa Curran'] },

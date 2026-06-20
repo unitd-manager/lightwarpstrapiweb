@@ -69,7 +69,7 @@ const LazyMediaBackground = ({
 type Project = {
   id: number;
   title: string;
-  contributions: string;
+  contributions: string[];
   description: string;
   videoId: string;
   hideLearnMore?: boolean;
@@ -80,38 +80,38 @@ const extraProjects: Project[] = [
   {
     id: 29,
     title: "Caught Off Guard",
-    contributions: "Project Management • Pipeline Development • Lighting • Rendering • Surfacing • Compositing • ACES Workflow",
+    contributions: ["Lighting", "Compositing", "Rough Layout", "Pipeline", "R&D", "Production Management", "Look Development"],
     description: "Caught Off Guard is a playful student short film produced at Texas A&M, distinguished by its dynamic lighting design and stylized visual language. Lightwarp led production management and pipeline development on the project, overseeing the team across all stages of the short. Notably, this was one of the first studio productions at Texas A&M to implement the ACES color workflow — well ahead of its widespread adoption across the industry — with Lightwarp driving its integration into the live pipeline.",
     videoId: "7iZBroHtizk",
   },
   {
     id: 10,
     title: "The Jab",
-    contributions: "Lighting • Compositing • Data Management • Scene Assembly • Final Delivery",
-    description:"The Jab was a collaborative student short film and the capstone production completed prior to graduating with a master's degree from Texas A&M. Lightwarp joined the project late in the pipeline as lighting and compositing artists, and within a single month delivered a fully polished short — resolving critical data pipeline issues, reconstructing final layout, and driving material assembly across the board to carry the film across the finish line.",
+    contributions: ["Lighting", "Compositing", "Final Layout", "Shading"],
+    description: "The Jab was a collaborative student short film and the capstone production completed prior to graduating with a master's degree from Texas A&M. Lightwarp joined the project late in the pipeline as lighting and compositing artists, and within a single month delivered a fully polished short — resolving critical data pipeline issues, reconstructing final layout, and driving material assembly across the board to carry the film across the finish line.",
     videoId: "4d27i10x2wI",
   },
   {
     id: 1,
     title: "Stray Vista Studios",
-    contributions: "Virtual Production • Unreal Engine • Tool Development • Environment Creation • CG Shot Production",
-    description:"Stray Vista Studios in Dripping Springs, Texas stands as one of the largest active virtual production facilities in the state and a genuine pioneer in the field. Lightwarp's first industry engagement took place here, embedded with the studio team as an Unreal Engine Technical Director, on-site representative, and Production Assistant — contributing across both pipeline development and live production support. During this time, Lightwarp built proprietary studio tools designed to streamline virtual production workflows across commercials, music videos, and broadcast projects, while also designing and authoring virtual sets, assets, and full CG shots for active productions on the floor.",
+    contributions: ["Lighting", "Cinematography", "Look Development", "Compositing", "VFX"],
+    description: "Stray Vista Studios in Dripping Springs, Texas stands as one of the largest active virtual production facilities in the state and a genuine pioneer in the field. Lightwarp's first industry engagement took place here, embedded with the studio team as an Unreal Engine Technical Director, on-site representative, and Production Assistant — contributing across both pipeline development and live production support. During this time, Lightwarp built proprietary studio tools designed to streamline virtual production workflows across commercials, music videos, and broadcast projects, while also designing and authoring virtual sets, assets, and full CG shots for active productions on the floor.",
     videoId: "w0GfewGYR3g",
     start: 5,
   },
   {
     id: 11,
     title: "Lego Fluid Dance",
-    contributions: "Houdini FX • FLIP Fluids • USD / Solaris • Karma XPU • Motion Design",
-    description: "This digital simulation project accomplished through a mix of Houdini-based FLIP fluids and voxel-based quantization and instancing showcases a fun animated character who gushes with happiness, joy, and lego-style bricks as it dances! Rendered fully in Karma XPU and composed through USD and Solaris as a showcase project, Lightwarp Studios can handle the creation of intricate, complex motion design and effects for your creative needs.",
+    contributions: ["Founder Created"],
+    description: "This digital simulation project accomplished through a mix of Houdini-based FLIP fluids and voxel-based quantization and instancing showcases a fun animated character who gushes with happiness, joy, and lego-style bricks as it dances! Rendered fully in Karma XPU and composed through USD and Solaris as a showcase project, Lightwarp can handle the creation of intricate, complex motion design and effects for your creative needs.",
     hideLearnMore: true,
     videoId: video,
   },
   {
     id: 12,
     title: "WW1 Trench Render",
-    contributions: "Lighting • Rendering • Compositing • Cinematography • Layout",
-    description: "This still environment scene of a filmic WW1 scene created in Blender 3D depicting trench warfare and the use of helmet decoys was conceptualized, modelled, textured and surfaced by Lightwarp artist Magnus Haarseth, camera composition, layout, and set-dressed by artist Anantha Sathyanarayanan, and lit, rendered and composited to simulate filmed footage by artist Adithya Sathyanarayanan. The team achieved the goal of portraying the dramatic tragedy and death of war simply through a single, well composed frame that could have been a part of films like Saving Private Ryan or Dunkirk, ensuring that a picture can convey immense meaning and feeling.",
+    contributions: ["Lighting", "Compositing", "Final Layout", "Shading"],
+    description: "This still environment scene of a filmic WW1 scene created in Blender 3D depicting trench warfare and the use of helmet decoys was conceptualized, modelled, textured and surfaced by Lightwarp artist Magnus Haarseth, camera composition, layout, and set-dressing by artist Anantha Sathyanarayanan, and lit, rendered and composited to simulate filmed footage by artist Adithya Sathyanarayanan. The team achieved the goal of portraying the dramatic tragedy and death of war simply through a single, well composed frame that could have been a part of films like Saving Private Ryan or Dunkirk, ensuring that a picture can convey immense meaning and feeling.",
     hideLearnMore: true,
     videoId: image,
   },
@@ -152,41 +152,24 @@ export function ProjectsPanelExtraVideosCapabilities() {
                     {item.title}
                   </h2>
 
-                  {/* LightWarp Contributions */}
-                  {/*{item.contributions && (
+                  {/* Lightwarp Contributions */}
+                  {item.contributions && item.contributions.length > 0 && (
                     <div className="space-y-4">
-                      <h3 className="inline text-xl font-semibold mr-2 mb-2 text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-3 py-3">
-                        LightWarp Contributions
+                      <h3 className="inline text-lg font-semibold mr-2 mb-2 text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-3 py-1">
+                        Lightwarp Contributions
                       </h3>
-                      <div className="flex flex-wrap gap-3">
-                        {item.contributions.split("•").map((c) => (
+                      <div className="flex flex-wrap gap-3 mt-4">
+                        {item.contributions.map((c) => (
                           <span
-                            key={c.trim()}
+                            key={c}
                             className="rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white"
                           >
-                            {c.trim()}
+                            {c}
                           </span>
                         ))}
                       </div>
                     </div>
-                  )}*/}
-{item.contributions && (
-  <div className="space-y-4">
-    <h3 className="inline text-xl font-semibold mr-2 mb-2 text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-3 py-3">
-      LightWarp Contributions
-    </h3>
-    <div className="flex flex-wrap gap-3 mt-4">
-      {item.contributions.split("•").map((c) => (
-        <span
-          key={c.trim()}
-          className="rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white"
-        >
-          {c.trim()}
-        </span>
-      ))}
-    </div>
-  </div>
-)}
+                  )}
 
                   {/* Credits */}
                   {item.title === "Caught Off Guard" && (

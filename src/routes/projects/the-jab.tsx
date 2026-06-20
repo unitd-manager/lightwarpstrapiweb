@@ -56,9 +56,21 @@ export default function TheJab() {
                 <p className="text-sm text-white/50">
                   © 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller.
                 </p>
-                <p className="project-subtitle text-white max-w-2xl">
+                {/*<p className="project-subtitle text-white max-w-2xl">
                   Lighting, Rendering, Compositing, Final Layout
-                </p>
+                </p>*/}
+
+
+
+<div className="flex flex-wrap gap-2">
+  {["Lighting", "Compositing", "Final Layout","Shading"].map((role) => (
+    <span key={role} className="rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-white/90">
+      {role}
+    </span>
+  ))}
+</div>
+
+
               </div>
 
               <motion.div
