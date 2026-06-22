@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ProjectCredits } from "../../components/ProjectCredits";
 
 import video from "../../assets/images/lego-fluid-dance-720p (1).mp4";
-import image from "../../assets/images/WW2_Trench Scene.png";
+import image from "../../assets/images/WW2_Trench_Scene.jpg";
 
 const slugify = (s: string) =>
   s

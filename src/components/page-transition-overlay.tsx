@@ -9,7 +9,7 @@ import {
 } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const DURATION_MS  = 2400;   // longer so the circular expand is clearly visible
+const DURATION_MS  = 1250;   // circular expand stays visible but transition feels brisk
 const NAV_FRACTION = 0.44;   // navigate when glare peaks (fully covers screen)
 const FADE_OUT_MS  = 450;
 
@@ -132,7 +132,7 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
   const T   = `calc(${by}px - 150vmax)`;
   const dur = `${DURATION_MS}ms`;
 
-  const ring = (bg: string, blur: string, delay = "0ms") => ({
+  const ring = (bg: string, blur: string) => ({
     position: "absolute" as const,
     width: S,
     height: S,
@@ -144,7 +144,6 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
     mixBlendMode: "screen" as const,
     // linear overall — per-keyframe timing functions control each phase
     animation: `lwGlare ${dur} linear forwards`,
-    animationDelay: delay,
     willChange: "transform, opacity" as const,
   });
 
@@ -159,13 +158,13 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
       {/* Layer 2 – main amber ring */}
       <div style={ring(
         "radial-gradient(circle, rgba(255,220,80,0.85) 0%, rgba(255,160,20,0.62) 16%, rgba(255,100,0,0.26) 38%, transparent 58%)",
-        "22px", "15ms",
+        "22px",
       )} />
 
       {/* Layer 3 – sharp inner brilliance */}
       <div style={ring(
         "radial-gradient(circle, rgba(255,255,210,1) 0%, rgba(255,230,100,0.95) 5%, rgba(255,180,30,0.80) 13%, rgba(255,120,0,0.32) 27%, transparent 46%)",
-        "5px", "30ms",
+        "5px",
       )} />
 
       {/* Layer 4 – white-hot pinpoint core */}
@@ -185,9 +184,9 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
 
       <style>{`
         /*
-         * 0–3%   : fade in as a visible glowing circle at the logo
-         * 3–10%  : HOLD at logo size — eye clearly registers "it starts here"
-         * 10–44% : expand outward to fill screen (ease-out, decelerates)
+         * 0–6%   : gentle ignite — eases in as a visible glowing circle at the logo
+         * 6–12%  : HOLD at logo size — eye clearly registers "it starts here"
+         * 12–44% : expand outward to fill screen (ease-out, decelerates)
          * 44–58% : hold at full brightness
          * 58–92% : contract back to logo (ease-in, accelerates toward logo)
          * 92–100%: shrink back to logo dot and fade out
@@ -196,15 +195,16 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
           0%  {
             transform: scale(0.028);
             opacity: 0;
-            animation-timing-function: linear;
+            /* gentle ignite — eases in rather than snapping to full brightness */
+            animation-timing-function: ease-out;
           }
-          3%  {
+          6%  {
             transform: scale(0.028);
             opacity: 1;
             /* hold at logo — makes origin unmistakably visible */
             animation-timing-function: linear;
           }
-          10% {
+          12% {
             transform: scale(0.028);
             opacity: 1;
             /* now expand: fast initial burst, decelerates as it fills screen */
@@ -230,10 +230,10 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
         }
 
         @keyframes lwGlareCore {
-          0%  { transform: scale(0.025); opacity: 0; animation-timing-function: linear; }
-          3%  { transform: scale(0.025); opacity: 1; animation-timing-function: linear; }
-          10% { transform: scale(0.025); opacity: 1; animation-timing-function: cubic-bezier(0.1, 0.8, 0.2, 1); }
-          42% { transform: scale(1);     opacity: 1; animation-timing-function: linear; }
+          0%  { transform: scale(0.025); opacity: 0; animation-timing-function: ease-out; }
+          6%  { transform: scale(0.025); opacity: 1; animation-timing-function: linear; }
+          12% { transform: scale(0.025); opacity: 1; animation-timing-function: cubic-bezier(0.1, 0.8, 0.2, 1); }
+          44% { transform: scale(1);     opacity: 1; animation-timing-function: linear; }
           58% { transform: scale(1);     opacity: 1; animation-timing-function: cubic-bezier(0.8, 0.05, 0.95, 0.3); }
           92% { transform: scale(0.025); opacity: 1; animation-timing-function: linear; }
           100%{ transform: scale(0.025); opacity: 0; }
