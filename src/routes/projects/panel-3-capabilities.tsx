@@ -74,13 +74,13 @@ export function ProjectsPanelCapabilities() {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
-        <div className="flex justify-end">
+        <div className="flex justify-center sm:justify-end">
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 0 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="w-full max-w-[50vw] p-6 border border-white/40 rounded-2xl"
+            className="w-[95vw] mx-auto sm:mx-0 sm:w-full sm:max-w-[50vw] p-6 border border-white/40 rounded-2xl"
           >
             <div className="space-y-6">
 

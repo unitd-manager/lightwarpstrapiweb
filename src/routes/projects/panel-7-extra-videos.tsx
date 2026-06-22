@@ -106,7 +106,7 @@ export function ProjectsPanelExtraVideos() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: idx * 0.05 }}
-                className="w-full max-w-[50vw] p-6 border border-white/40 rounded-2xl"
+                className="w-[95vw] sm:w-full sm:max-w-[50vw] p-6 border border-white/40 rounded-2xl"
               >
                 <div className="space-y-6">
 
