@@ -13,30 +13,12 @@ const isVideoUrl = (url: string): boolean => {
 };
 
 const logos = [
-  {
-    src: "https://static.wixstatic.com/media/ddc236_b3e21d7df52d4ee2999ddb9b9deeebb0~mv2.png",
-    alt: "Blender",
-  },
-  {
-    src: "https://static.wixstatic.com/media/ddc236_e2fc4ec6be4342f7916b6acdd157c5a9~mv2.png",
-    alt: "Substance 3D",
-  },
-  {
-    src: "https://static.wixstatic.com/media/ddc236_c96a3c58f3db467eb48714cf3af338cc~mv2.png",
-    alt: "USD",
-  },
-  {
-    src: "https://static.wixstatic.com/media/ddc236_3d79dc80ee084230b2a96316abae79cb~mv2.png",
-    alt: "AWS",
-  },
-  {
-    src: "https://static.wixstatic.com/media/ddc236_75cb156520ae4ab99854737db24bba00~mv2.png",
-    alt: "Perforce",
-  },
-  {
-    src: "https://static.wixstatic.com/media/ddc236_ab0eebd4077744e1ba7bbc84edd51303~mv2.png",
-    alt: "Perforce",
-  },
+  { src: "https://static.wixstatic.com/media/ddc236_b3e21d7df52d4ee2999ddb9b9deeebb0~mv2.png", alt: "Blender" },
+  { src: "https://static.wixstatic.com/media/ddc236_e2fc4ec6be4342f7916b6acdd157c5a9~mv2.png", alt: "Substance 3D" },
+  { src: "https://static.wixstatic.com/media/ddc236_c96a3c58f3db467eb48714cf3af338cc~mv2.png", alt: "USD" },
+  { src: "https://static.wixstatic.com/media/ddc236_3d79dc80ee084230b2a96316abae79cb~mv2.png", alt: "AWS" },
+  { src: "https://static.wixstatic.com/media/ddc236_75cb156520ae4ab99854737db24bba00~mv2.png", alt: "Perforce" },
+  { src: "https://static.wixstatic.com/media/ddc236_ab0eebd4077744e1ba7bbc84edd51303~mv2.png", alt: "Perforce" },
 ];
 
 const videoCards = [
@@ -74,22 +56,23 @@ export default function CaughtOffGuard() {
                 <p className="text-sm text-white/50">
                   © 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz.
                 </p>
-                {/*<h4 className="project-subtitle text-white max-w-2xl">
-                  Production Manager, Lighting, Look Development, Compositing, Layout, Modelling
-                </h4>*/}
 
-
-
-<div className="flex flex-wrap gap-2">
-  {["Lighting","Compositing","Rough layout","Pipeline","R&D","Production Management","Look Development"]
-  .map((role) => (
-    <span key={role} className="rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-white/90">
-      {role}
-    </span>
-  ))}
-</div>
-
-
+                {/* Lightwarp Contributions */}
+                <div className="rounded-2xl border border-white/20 bg-white/5 backdrop-blur-sm p-4">
+                  <p className="text-xs font-bold text-white/50 uppercase tracking-widest mb-3">
+                    Lightwarp Contributions
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Lighting", "Compositing", "Rough Layout", "Pipeline", "R&D", "Production Management", "Look Development"].map((role) => (
+                      <span
+                        key={role}
+                        className="rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-white/90"
+                      >
+                        {role}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               <motion.div
@@ -112,23 +95,13 @@ export default function CaughtOffGuard() {
                   <div
                     key={logo.alt}
                     className="services-logo-cell"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      padding: logoPadding,
-                    }}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: logoPadding }}
                   >
                     <img
                       src={logo.src}
                       alt={logo.alt}
                       className="services-logo-img"
-                      style={{
-                        height: logoHeight,
-                        width: "auto",
-                        maxWidth: "100%",
-                        objectFit: "contain",
-                      }}
+                      style={{ height: logoHeight, width: "auto", maxWidth: "100%", objectFit: "contain" }}
                     />
                   </div>
                 ))}
@@ -192,19 +165,9 @@ export default function CaughtOffGuard() {
                 >
                   <div className="relative overflow-hidden">
                     {isVideoUrl(card.video) ? (
-                      <video
-                        src={card.video}
-                        className="w-full aspect-[16/9] object-cover"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                      />
+                      <video src={card.video} className="w-full aspect-[16/9] object-cover" autoPlay muted loop playsInline />
                     ) : (
-                      <img
-                        src={card.video}
-                        className="w-full aspect-[16/9] object-cover"
-                      />
+                      <img src={card.video} className="w-full aspect-[16/9] object-cover" />
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   </div>
@@ -212,24 +175,9 @@ export default function CaughtOffGuard() {
               ))}
             </div>
             <div className="mt-10 flex flex-col items-center justify-between gap-3 sm:flex-row">
-              <a
-                href="/projects/our-capabilities"
-                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
-              >
-                Previous
-              </a>
-              <a
-                href="/capabilities"
-                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
-              >
-                Back to Capabilities
-              </a>
-              <a
-                href="/projects/the-jab"
-                className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
-              >
-                Next
-              </a>
+              <a href="/projects/our-capabilities" className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95">Previous</a>
+              <a href="/capabilities" className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95">Back to Capabilities</a>
+              <a href="/projects/the-jab" className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95">Next</a>
             </div>
           </div>
         </section>
