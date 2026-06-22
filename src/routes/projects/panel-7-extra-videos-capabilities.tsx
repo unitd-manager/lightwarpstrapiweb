@@ -12,6 +12,10 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
+/*const watchBtnClass =
+  "inline-flex items-center rounded-full border border-white/60 bg-white/10 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-white/20 hover:scale-105";*/
+const watchBtnClass =
+  "inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105";
 const LazyMediaBackground = ({
   videoId,
   className,
@@ -31,7 +35,10 @@ const LazyMediaBackground = ({
     if (!containerRef.current) return;
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0]?.isIntersecting) { setShouldLoad(true); observer.disconnect(); }
+        if (entries[0]?.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
       },
       { root: null, rootMargin: "1500px 0px", threshold: 0.01 }
     );
@@ -43,8 +50,16 @@ const LazyMediaBackground = ({
   const isImage = videoId === image || /\.(avif|webp|jpe?g|png|gif|svg)$/i.test(videoId);
   const isYouTube = !isVideo && !isImage;
 
-  const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&iv_load_policy=3&playlist=${videoId}${start ? `&start=${start}` : ""}`;
-  const posterSrc = isYouTube ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : undefined;
+  const embedSrc =
+    "https://www.youtube.com/embed/" +
+    videoId +
+    "?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&iv_load_policy=3&playlist=" +
+    videoId +
+    (start ? "&start=" + start : "");
+
+  const posterSrc = isYouTube
+    ? "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg"
+    : undefined;
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden">
@@ -59,7 +74,15 @@ const LazyMediaBackground = ({
         ) : isImage ? (
           <img src={videoId} alt="" className={className} />
         ) : (
-          <iframe src={embedSrc} title="Project Background" className={className} style={{ border: "none" }} allowFullScreen allow="autoplay; encrypted-media; picture-in-picture" loading={priority ? "eager" : "lazy"} />
+          <iframe
+            src={embedSrc}
+            title="Project Background"
+            className={className}
+            style={{ border: "none" }}
+            allowFullScreen
+            allow="autoplay; encrypted-media; picture-in-picture"
+            loading={priority ? "eager" : "lazy"}
+          />
         )
       ) : null}
     </div>
@@ -143,19 +166,17 @@ export function ProjectsPanelExtraVideosCapabilities() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: idx * 0.05 }}
-                className="w-full max-w-[50vw] p-6 border border-white/40 rounded-2xl"
+                className="w-full max-w-[95vw] sm:max-w-[50vw] p-6 border border-white/40 rounded-2xl"
               >
                 <div className="space-y-6">
 
-                  {/* Title */}
                   <h2 className="inline text-5xl sm:text-6xl font-bold leading-tight text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-2 py-1">
                     {item.title}
                   </h2>
 
-                  {/* Lightwarp Contributions — same container style as Credits */}
                   {item.contributions && item.contributions.length > 0 && (
                     <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
-                      <p className="text-xs font-bold text-white/50 uppercase tracking-widest mb-3">
+                      <p className="text-xs font-bold text-white/100 uppercase tracking-widest mb-3">
                         Lightwarp Contributions
                       </p>
                       <div className="flex flex-wrap gap-3">
@@ -171,7 +192,6 @@ export function ProjectsPanelExtraVideosCapabilities() {
                     </div>
                   )}
 
-                  {/* Credits */}
                   {item.title === "Caught Off Guard" && (
                     <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
                       <div className="text-white [&_*]:text-white">
@@ -188,6 +208,7 @@ export function ProjectsPanelExtraVideosCapabilities() {
                       </div>
                     </div>
                   )}
+
                   {item.title === "The Jab" && (
                     <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
                       <div className="text-white [&_*]:text-white">
@@ -207,6 +228,7 @@ export function ProjectsPanelExtraVideosCapabilities() {
                       </div>
                     </div>
                   )}
+
                   {item.title === "Stray Vista Studios" && (
                     <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
                       <div className="text-white [&_*]:text-white">
@@ -219,6 +241,7 @@ export function ProjectsPanelExtraVideosCapabilities() {
                       </div>
                     </div>
                   )}
+
                   {item.title === "Lego Fluid Dance" && (
                     <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
                       <div className="text-white [&_*]:text-white">
@@ -230,6 +253,7 @@ export function ProjectsPanelExtraVideosCapabilities() {
                       </div>
                     </div>
                   )}
+
                   {item.title === "WW1 Trench Render" && (
                     <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
                       <div className="text-white [&_*]:text-white">
@@ -244,22 +268,28 @@ export function ProjectsPanelExtraVideosCapabilities() {
                     </div>
                   )}
 
-                  {/* Description */}
                   <div className="rounded-xl bg-black/25 backdrop-blur-[4px] px-3 py-2">
                     <p className="text-[18px] leading-8 text-white font-light">
                       {item.description}
                     </p>
                   </div>
 
-                  {/* Button */}
                   {!item.hideLearnMore && (
                     <div className="flex flex-wrap gap-4">
                       <Link
-                        to={`/projects/${slugify(item.title)}`}
+                        to={"/projects/" + slugify(item.title)}
                         className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
                       >
                         Learn More
                       </Link>
+                      <a
+                        href={"https://www.youtube.com/watch?v=" + item.videoId}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={watchBtnClass}
+                      >
+                        Watch Now
+                      </a>
                     </div>
                   )}
 

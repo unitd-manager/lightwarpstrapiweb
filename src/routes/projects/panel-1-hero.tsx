@@ -34,13 +34,13 @@ export function ProjectsPanelHero() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
       </div>
 
-      <div className="relative flex w-full items-center px-4 py-6 sm:px-6 lg:px-10">
+      <div className="relative flex w-full items-center px-1 py-3 sm:px-3 lg:px-8">
         <div className="w-full">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="w-full max-w-[50vw] p-6 border border-white/40 rounded-2xl"
+            className="w-[95vw] sm:w-full sm:max-w-[50vw] p-6 border border-white/40 rounded-2xl"
           >
             <div className="space-y-6">
 

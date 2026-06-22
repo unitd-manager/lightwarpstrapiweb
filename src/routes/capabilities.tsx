@@ -42,7 +42,7 @@ export default function Capabilities() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="w-full max-w-[50vw] p-6 border border-white/40 rounded-2xl"
+            className="w-[95vw] sm:w-full sm:max-w-[50vw] p-6 border border-white/40 rounded-2xl"
           >
             <div className="space-y-6">
 
@@ -53,8 +53,7 @@ export default function Capabilities() {
 
               {/* Description */}
               <div className="rounded-xl bg-black/30 backdrop-blur-[4px] mt-[10px] px-3 py-3 space-y-3">
-                <p className="text-[
-                16px] leading-7 text-white font-light">
+                <p className="text-[16px] leading-7 text-white font-light">
                   Before the founding of our studio, our team members have always been creating stunning 3D renders, tools, assets, and projects.
                 </p>
                 <p className="text-[16px] leading-7 text-white font-light">

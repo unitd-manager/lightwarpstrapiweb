@@ -60,16 +60,18 @@ export default function TheJab() {
                   Lighting, Rendering, Compositing, Final Layout
                 </p>*/}
 
-
-
-<div className="flex flex-wrap gap-2">
-  {["Lighting", "Compositing", "Final Layout","Shading"].map((role) => (
-    <span key={role} className="rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-white/90">
-      {role}
-    </span>
-  ))}
-</div>
-
+                <div className="rounded-xl border border-white/10 bg-white/5 px-6 py-5 max-w-xl">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-white/50 mb-3">
+                    Lightwarp Contributions
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Lighting", "Compositing", "Final Layout", "Shading"].map((role) => (
+                      <span key={role} className="rounded-full border border-white/20 bg-white/5 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-white/90">
+                        {role}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
               </div>
 

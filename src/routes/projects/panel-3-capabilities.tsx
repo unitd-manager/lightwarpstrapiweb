@@ -37,8 +37,12 @@ const LazyYouTubeBackground = ({
     return () => observer.disconnect();
   }, []);
 
-  const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&iv_load_policy=3&playlist=${videoId}`;
-  const posterSrc = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  const embedSrc =
+    "https://www.youtube.com/embed/" +
+    videoId +
+    "?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&iv_load_policy=3&playlist=" +
+    videoId;
+  const posterSrc = "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg";
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden">
@@ -70,13 +74,13 @@ export function ProjectsPanelCapabilities() {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
-        <div className="flex justify-end">
+        <div className="flex justify-center sm:justify-end">
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 0 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="w-full max-w-[50vw] p-6 border border-white/40 rounded-2xl"
+            className="w-[95vw] mx-auto sm:mx-0 sm:w-full sm:max-w-[50vw] p-6 border border-white/40 rounded-2xl"
           >
             <div className="space-y-6">
 
@@ -87,7 +91,7 @@ export function ProjectsPanelCapabilities() {
 
               {/* Lightwarp Contributions — matches credits container */}
               <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
-                <p className="text-xs font-bold text-white/50 uppercase tracking-widest mb-3">
+                <p className="text-xs font-bold text-white/100 uppercase tracking-widest mb-3">
                   Lightwarp Contributions
                 </p>
                 <div className="flex flex-wrap gap-3">
@@ -122,14 +126,22 @@ export function ProjectsPanelCapabilities() {
                 </p>
               </div>
 
-              {/* Button */}
+              {/* Buttons */}
               <div className="flex flex-wrap gap-4">
                 <Link
-                  to={`/projects/${slugify("Our Capabilities")}`}
+                  to={"/projects/" + slugify("Our Capabilities")}
                   className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
                 >
                   Learn More
                 </Link>
+                <a
+                  href={"https://www.youtube.com/watch?v=" + LUSH_VIDEO_ID}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
+                >
+                  Watch Now
+                </a>
               </div>
 
             </div>
