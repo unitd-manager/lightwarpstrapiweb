@@ -9,8 +9,8 @@ import {
 } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const DURATION_MS  = 1250;   // circular expand stays visible but transition feels brisk
-const NAV_FRACTION = 0.44;   // navigate when glare peaks (fully covers screen)
+const DURATION_MS  = 950;    // circular expand stays visible but transition feels brisk
+const NAV_FRACTION = 0.4;    // navigate when glare peaks (fully covers screen)
 const FADE_OUT_MS  = 450;
 
 function getBeaconPos(): { x: number; y: number } {
@@ -81,6 +81,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
   return (
     <TransitionCtx.Provider value={{ go }}>
       {children}
+      <GlareKeyframes />
       <div
         className="fixed inset-0 pointer-events-none z-[9999] overflow-hidden"
         style={{
@@ -149,21 +150,21 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
 
   return (
     <>
-      {/* Layer 1 – wide diffuse amber warmth */}
+      {/* Layer 1 – wide diffuse warmth */}
       <div style={ring(
-        "radial-gradient(circle, rgba(255,180,30,0.55) 0%, rgba(255,120,0,0.30) 28%, rgba(200,60,0,0.10) 55%, transparent 72%)",
+        "radial-gradient(circle, rgba(255,235,205,0.55) 0%, rgba(255,200,140,0.30) 28%, rgba(255,160,90,0.10) 55%, transparent 72%)",
         "72px",
       )} />
 
-      {/* Layer 2 – main amber ring */}
+      {/* Layer 2 – main ring */}
       <div style={ring(
-        "radial-gradient(circle, rgba(255,220,80,0.85) 0%, rgba(255,160,20,0.62) 16%, rgba(255,100,0,0.26) 38%, transparent 58%)",
+        "radial-gradient(circle, rgba(255,250,235,0.9) 0%, rgba(255,210,150,0.65) 16%, rgba(255,170,100,0.28) 38%, transparent 58%)",
         "22px",
       )} />
 
       {/* Layer 3 – sharp inner brilliance */}
       <div style={ring(
-        "radial-gradient(circle, rgba(255,255,210,1) 0%, rgba(255,230,100,0.95) 5%, rgba(255,180,30,0.80) 13%, rgba(255,120,0,0.32) 27%, transparent 46%)",
+        "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,225,0.95) 5%, rgba(255,220,165,0.80) 13%, rgba(255,180,100,0.32) 27%, transparent 46%)",
         "5px",
       )} />
 
@@ -175,70 +176,76 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
         left: L,
         top: T,
         borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(255,255,245,1) 0%, rgba(255,240,160,0.95) 2%, rgba(255,200,60,0.45) 7%, transparent 14%)",
+        background: "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,225,0.95) 2%, rgba(255,220,150,0.45) 7%, transparent 14%)",
         filter: "blur(1px)",
         mixBlendMode: "screen" as const,
         animation: `lwGlareCore ${dur} linear forwards`,
         willChange: "transform, opacity" as const,
       }} />
-
-      <style>{`
-        /*
-         * 0–6%   : gentle ignite — eases in as a visible glowing circle at the logo
-         * 6–12%  : HOLD at logo size — eye clearly registers "it starts here"
-         * 12–44% : expand outward to fill screen (ease-out, decelerates)
-         * 44–58% : hold at full brightness
-         * 58–92% : contract back to logo (ease-in, accelerates toward logo)
-         * 92–100%: shrink back to logo dot and fade out
-         */
-        @keyframes lwGlare {
-          0%  {
-            transform: scale(0.028);
-            opacity: 0;
-            /* gentle ignite — eases in rather than snapping to full brightness */
-            animation-timing-function: ease-out;
-          }
-          6%  {
-            transform: scale(0.028);
-            opacity: 1;
-            /* hold at logo — makes origin unmistakably visible */
-            animation-timing-function: linear;
-          }
-          12% {
-            transform: scale(0.028);
-            opacity: 1;
-            /* now expand: fast initial burst, decelerates as it fills screen */
-            animation-timing-function: cubic-bezier(0.1, 0.8, 0.2, 1);
-          }
-          44% {
-            transform: scale(1);
-            opacity: 1;
-            animation-timing-function: linear;
-          }
-          58% {
-            transform: scale(1);
-            opacity: 0.95;
-            /* contract back: slow leaving full, accelerates toward logo */
-            animation-timing-function: cubic-bezier(0.8, 0.05, 0.95, 0.3);
-          }
-          92% {
-            transform: scale(0.028);
-            opacity: 1;
-            animation-timing-function: linear;
-          }
-          100% { transform: scale(0.028); opacity: 0; }
-        }
-
-        @keyframes lwGlareCore {
-          0%  { transform: scale(0.025); opacity: 0; animation-timing-function: ease-out; }
-          6%  { transform: scale(0.025); opacity: 1; animation-timing-function: linear; }
-          12% { transform: scale(0.025); opacity: 1; animation-timing-function: cubic-bezier(0.1, 0.8, 0.2, 1); }
-          44% { transform: scale(1);     opacity: 1; animation-timing-function: linear; }
-          58% { transform: scale(1);     opacity: 1; animation-timing-function: cubic-bezier(0.8, 0.05, 0.95, 0.3); }
-          92% { transform: scale(0.025); opacity: 1; animation-timing-function: linear; }
-          100%{ transform: scale(0.025); opacity: 0; }
-        }
-      `}</style>
     </>
+  );
+}
+
+// Mounted once with the provider — never recreated per-navigation, so a
+// transition's first frame doesn't pay for re-parsing/re-injecting CSS.
+function GlareKeyframes() {
+  return (
+    <style>{`
+      /*
+       * 0–6%   : gentle ignite — eases in as a visible glowing circle at the logo
+       * 6–12%  : HOLD at logo size — eye clearly registers "it starts here"
+       * 12–44% : expand outward to fill screen (ease-out, decelerates)
+       * 44–58% : hold at full brightness
+       * 58–92% : contract back to logo (ease-in, accelerates toward logo)
+       * 92–100%: shrink back to logo dot and fade out
+       */
+      @keyframes lwGlare {
+        0%  {
+          transform: scale(0.028);
+          opacity: 0;
+          /* gentle ignite — eases in rather than snapping to full brightness */
+          animation-timing-function: ease-out;
+        }
+        6%  {
+          transform: scale(0.028);
+          opacity: 1;
+          /* hold at logo — makes origin unmistakably visible */
+          animation-timing-function: linear;
+        }
+        12% {
+          transform: scale(0.028);
+          opacity: 1;
+          /* now expand: fast initial burst, decelerates as it fills screen */
+          animation-timing-function: cubic-bezier(0.1, 0.8, 0.2, 1);
+        }
+        44% {
+          transform: scale(1);
+          opacity: 1;
+          animation-timing-function: linear;
+        }
+        58% {
+          transform: scale(1);
+          opacity: 0.95;
+          /* contract back: slow leaving full, accelerates toward logo */
+          animation-timing-function: cubic-bezier(0.8, 0.05, 0.95, 0.3);
+        }
+        92% {
+          transform: scale(0.028);
+          opacity: 1;
+          animation-timing-function: linear;
+        }
+        100% { transform: scale(0.028); opacity: 0; }
+      }
+
+      @keyframes lwGlareCore {
+        0%  { transform: scale(0.025); opacity: 0; animation-timing-function: ease-out; }
+        6%  { transform: scale(0.025); opacity: 1; animation-timing-function: linear; }
+        12% { transform: scale(0.025); opacity: 1; animation-timing-function: cubic-bezier(0.1, 0.8, 0.2, 1); }
+        44% { transform: scale(1);     opacity: 1; animation-timing-function: linear; }
+        58% { transform: scale(1);     opacity: 1; animation-timing-function: cubic-bezier(0.8, 0.05, 0.95, 0.3); }
+        92% { transform: scale(0.025); opacity: 1; animation-timing-function: linear; }
+        100%{ transform: scale(0.025); opacity: 0; }
+      }
+    `}</style>
   );
 }

@@ -1,4 +1,7 @@
 import { motion } from "framer-motion";
+import austinLaurel from "../../assets/images/austin-laurel-cropped.png";
+import shortShortsLaurel from "../../assets/images/shortshorts-laurel.png";
+import wdasTransparent from "../../assets/images/wdas-white-transparent.png";
 
 const AWARDS_HEADING_STYLE: React.CSSProperties = {
   fontFamily: '"DM Sans", sans-serif',
@@ -24,12 +27,19 @@ const AWARDS_HEADING_STYLESS: React.CSSProperties = {
 
 const awards = [
   {
-    image: "https://lightwarp3d.com/wp-content/uploads/2026/01/AUTS_2025_WinnerLaurels13.png",
+    // Original source had a 1080x1080 canvas with the laurel artwork only
+    // filling ~60% of the height — cropped locally to its real content
+    // bounds so it renders at the same visual size as the other laurel.
+    image: austinLaurel,
     title: "Austin Under the Stars",
+    blendScreen: false,
   },
   {
-    image: "https://lightwarp3d.com/wp-content/uploads/2026/01/shortshortslaurel.webp",
+    // Original source had a solid black background baked in with no alpha —
+    // re-exported locally with the black chroma-keyed to real transparency.
+    image: shortShortsLaurel,
     title: "ShortShorts Film Festival",
+    blendScreen: false,
   },
 ];
 
@@ -40,11 +50,11 @@ const artists = [
     blendScreen: false,
   },
   {
-    image: "https://lightwarp3d.com/wp-content/uploads/2026/01/wdas_white.png",
+    // Original source had a fully opaque black background — re-exported
+    // locally with the black chroma-keyed to real transparency.
+    image: wdasTransparent,
     name: "Walt Disney Animation Studios",
-    // This source file has a solid black background baked in — screen-blend it
-    // so the black drops out and only the white logo mark shows on our dark bg.
-    blendScreen: true,
+    blendScreen: false,
   },
 ];
 
@@ -74,12 +84,13 @@ export function HomePanelAwards() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="flex items-center justify-center h-48 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md hover:bg-white/10 transition-all duration-300"
+                className="flex items-center justify-center h-48"
               >
                 <img
                   src={award.image}
                   alt={award.title}
                   className="max-h-40 md:max-h-48 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+                  style={award.blendScreen ? { mixBlendMode: "screen" } : undefined}
                 />
               </motion.div>
             ))}

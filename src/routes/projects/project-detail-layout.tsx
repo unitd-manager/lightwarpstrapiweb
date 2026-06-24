@@ -619,6 +619,7 @@ export function ProjectDetailLayout({
                         width: "auto",
                         maxWidth: "100%",
                         objectFit: "contain",
+                        mixBlendMode: logo.blendScreen ? "screen" : undefined,
                       }}
                     />
                   </div>
