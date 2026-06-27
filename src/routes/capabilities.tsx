@@ -5,7 +5,7 @@ import { ProjectsPanelCapabilities } from "./projects/panel-3-capabilities";
 import { ProjectsPanelExtraVideosCapabilities } from "./projects/panel-7-extra-videos-capabilities";
 
 export default function Capabilities() {
-  const vimeoId = "1153379831";
+  const vimeoId = "1204856098";
   const posterSrc = `https://vumbnail.com/${vimeoId}.jpg`;
   const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&keyboard=0&quality=720p`;
   const vimeoPageUrl = `https://vimeo.com/${vimeoId}`;
@@ -31,7 +31,7 @@ export default function Capabilities() {
             embedSrc={embedSrc}
             posterSrc={posterSrc}
             title="Capabilities Reel Background Video"
-            className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.75] border-0 object-cover sm:scale-[1.25] md:scale-[1.15]"
+            className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.15] border-0 object-cover sm:scale-[1.05] md:scale-100"
           />
           <div className="absolute inset-0 bg-black/20" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
@@ -59,8 +59,8 @@ export default function Capabilities() {
                 <p className="text-[16px] leading-7 text-white font-light">
                   Our Capabilities Reel showcases many of these personal projects and collaborations to give even more context and confidence to our skillsets and quality of work.
                 </p>
-                <p className="text-[16px] leading-7 text-white/70 font-light">
-                  Creative direction, visual development, and reel production by Lightwarp Studio.
+                <p className="text-[16px] leading-7 text-white font-light">
+                  Legal Note: The works featured in the Capabilities Reel are owned in whole or in part by their respective rights holders, including artists affiliated and unaffiliated with Lightwarp 3D, and are presented solely for showcase and demonstration purposes. Lightwarp 3D does not claim ownership of all featured works and asserts ownership only over projects explicitly identified on the Projects page as created by the studio. Please see project credits for copyright details and attribution.
                 </p>
               </div>
 

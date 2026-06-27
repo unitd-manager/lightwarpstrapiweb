@@ -126,13 +126,13 @@ const extraProjects: Project[] = [
     id: 11,
     title: "Lego Fluid Dance",
     contributions: ["Founder Created"],
-    description: "This digital simulation project accomplished through a mix of Houdini-based FLIP fluids and voxel-based quantization and instancing showcases a fun animated character who gushes with happiness, joy, and lego-style bricks as it dances! Rendered fully in Karma XPU and composed through USD and Solaris as a showcase project, Lightwarp can handle the creation of intricate, complex motion design and effects for your creative needs.",
+    description: "This digital simulation project accomplished through a mix of Houdini-based FLIP fluids and voxel-based quantization and instancing showcases a fun animated character who gushes with happiness, joy, and lego-style bricks as it dances! Rendered fully in Karma XPU and composed through USD and Solaris as a showcase project, Lightwarp Studios can handle the creation of intricate, complex motion design and effects for your creative needs.",
     hideLearnMore: true,
     videoId: video,
   },
   {
     id: 12,
-    title: "WW1 Trench Render",
+    title: "Trench Render",
     contributions: ["Lighting", "Compositing", "Final Layout", "Shading"],
     description: "This still environment scene of a filmic WW1 scene created in Blender 3D depicting trench warfare and the use of helmet decoys was conceptualized, modelled, textured and surfaced by Lightwarp artist Magnus Haarseth, camera composition, layout, and set-dressing by artist Anantha Sathyanarayanan, and lit, rendered and composited to simulate filmed footage by artist Adithya Sathyanarayanan. The team achieved the goal of portraying the dramatic tragedy and death of war simply through a single, well composed frame that could have been a part of films like Saving Private Ryan or Dunkirk, ensuring that a picture can convey immense meaning and feeling.",
     hideLearnMore: true,
@@ -254,7 +254,7 @@ export function ProjectsPanelExtraVideosCapabilities() {
                     </div>
                   )}
 
-                  {item.title === "WW1 Trench Render" && (
+                  {item.title === "Trench Render" && (
                     <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
                       <div className="text-white [&_*]:text-white">
                         <ProjectCredits

@@ -15,12 +15,12 @@ const services = [
       </>
     ),
     subItems: [
-      "TV & Social Media Ads",
-      "Game Cinematics",
-      "3D Previs/Animatics",
-      "Storyboards",
-      "Product Visualizations",
+      "CG Commercials & TV Ads",
+      "Short Form/Social Media Ads",
+      "Game Cinematics & 3D Animatics",
       "Brand Films",
+      "Product Rendering & Motion Graphics",
+      "Visual Effects, Lighting & Delivery",
     ],
   },
   {
@@ -36,11 +36,11 @@ const services = [
       </>
     ),
     subItems: [
-      "Environment & World Building",
-      "Prop Creation & Asset Development",
-      "In-World Asset Production",
-      "Hero Asset Creation",
-      "3D Modeling Services",
+      "3D Modelling",
+      "Character Creation",
+      "Hero Assets & Props",
+      "3D Virtual Environments & Art Department",
+      "Optimized Game Assets",
       "Look Development & Texturing",
     ],
   },
@@ -57,12 +57,12 @@ const services = [
       </>
     ),
     subItems: [
-      "Character Creation & Development",
-      "Backstory & World Building",
-      "IP Development",
-      "Narrative & Storyline Design",
-      "Transmedia Content Creation",
-      "Campaign & Creative Concepts",
+      "IP & Concept Development",
+      "Narratives and Stories",
+      "Storyboard and Scripts",
+      "Campaigns",
+      "Creative Concepts",
+      "Visual Development",
     ],
   },
   {

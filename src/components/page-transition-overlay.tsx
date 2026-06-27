@@ -152,23 +152,23 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
     <>
       {/* Layer 1 – wide diffuse warmth */}
       <div style={ring(
-        "radial-gradient(circle, rgba(255,235,205,0.55) 0%, rgba(255,200,140,0.30) 28%, rgba(255,160,90,0.10) 55%, transparent 72%)",
+        "radial-gradient(circle, rgba(255,170,90,0.42) 0%, rgba(255,130,55,0.24) 28%, rgba(220,90,25,0.08) 55%, transparent 72%)",
         "72px",
       )} />
 
       {/* Layer 2 – main ring */}
       <div style={ring(
-        "radial-gradient(circle, rgba(255,250,235,0.9) 0%, rgba(255,210,150,0.65) 16%, rgba(255,170,100,0.28) 38%, transparent 58%)",
+        "radial-gradient(circle, rgba(255,205,145,0.75) 0%, rgba(255,150,75,0.52) 16%, rgba(255,110,40,0.22) 38%, transparent 58%)",
         "22px",
       )} />
 
       {/* Layer 3 – sharp inner brilliance */}
       <div style={ring(
-        "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,225,0.95) 5%, rgba(255,220,165,0.80) 13%, rgba(255,180,100,0.32) 27%, transparent 46%)",
+        "radial-gradient(circle, rgba(255,235,205,0.92) 0%, rgba(255,190,130,0.85) 5%, rgba(255,150,75,0.62) 13%, rgba(255,120,45,0.26) 27%, transparent 46%)",
         "5px",
       )} />
 
-      {/* Layer 4 – white-hot pinpoint core */}
+      {/* Layer 4 – warm orange pinpoint core */}
       <div style={{
         position: "absolute",
         width: S,
@@ -176,7 +176,7 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
         left: L,
         top: T,
         borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,250,225,0.95) 2%, rgba(255,220,150,0.45) 7%, transparent 14%)",
+        background: "radial-gradient(circle, rgba(255,225,190,0.85) 0%, rgba(255,185,125,0.75) 2%, rgba(255,150,70,0.35) 7%, transparent 14%)",
         filter: "blur(1px)",
         mixBlendMode: "screen" as const,
         animation: `lwGlareCore ${dur} linear forwards`,

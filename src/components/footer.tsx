@@ -1,5 +1,5 @@
 import { Instagram, Youtube } from "lucide-react";
-import lightwarpLogo from "../assets/images/lightwarp_transparent.png";
+import lightwarpLogo from "../assets/images/lightwarp_transparent_fixed3.png";
 
 const SORA: React.CSSProperties = { fontFamily: '"Sora", sans-serif' };
 

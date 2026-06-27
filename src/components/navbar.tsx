@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import lightwarpLogo from "../assets/images/lightwarp_transparent.png";
+import lightwarpLogo from "../assets/images/lightwarp_transparent_fixed3.png";
 import { TransitionLink } from "./page-transition-overlay";
 
 const links = [
