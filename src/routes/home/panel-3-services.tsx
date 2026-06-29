@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { TransitionLink } from "../../components/page-transition-overlay";
 
 const services = [
   {
@@ -55,7 +55,7 @@ export function HomePanelServices() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
             >
-              <Link
+              <TransitionLink
                 to={service.href}
                 className={`group relative flex flex-col justify-center items-center text-center h-full overflow-hidden rounded-[56px] px-10 py-12 transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br ${service.bgColor} min-h-[380px]`}
               >
@@ -79,7 +79,7 @@ export function HomePanelServices() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7m0 0l-7 7m7-7H5" />
                   </svg>
                 </div>
-              </Link>
+              </TransitionLink>
             </motion.div>
           ))}
         </div>

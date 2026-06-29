@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
 
 const keepInTouch1 =
@@ -120,7 +120,7 @@ export function AboutPanelCta() {
     of your 3D visualization needs!
   </p>
 
-  <Link
+  <TransitionLink
     to="/contact"
     className="
       mt-10
@@ -138,7 +138,7 @@ export function AboutPanelCta() {
     "
   >
     Contact us
-  </Link>
+  </TransitionLink>
 </motion.div>
 
       {/* ================= DESKTOP ================= */}
@@ -214,7 +214,7 @@ export function AboutPanelCta() {
             of your 3D visualization needs!
           </p>
 
-          <Link
+          <TransitionLink
             to="/contact"
             className="
               w-[180px]
@@ -231,7 +231,7 @@ export function AboutPanelCta() {
             "
           >
             Contact us
-          </Link>
+          </TransitionLink>
         </div>
 
         {/* Right Character */}

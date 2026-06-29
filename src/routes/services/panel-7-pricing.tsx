@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { TransitionLink } from "../../components/page-transition-overlay";
 import { Section } from "../../components/section";
 
 const plans = [
@@ -125,7 +125,7 @@ export function ServicesPanelPricing() {
                 </li>
               ))}
             </ul>
-            <Link
+            <TransitionLink
               to="/contact"
               className={`mt-8 block rounded-xl py-3 text-center text-sm font-semibold transition-all ${
                 plan.highlight
@@ -134,15 +134,15 @@ export function ServicesPanelPricing() {
               }`}
             >
               {plan.cta}
-            </Link>
+            </TransitionLink>
           </motion.div>
         ))}
       </div>
       <p className="mt-8 text-center text-sm text-muted-foreground">
         All projects include a complimentary creative brief session.{" "}
-        <Link to="/contact" className="text-pink hover:underline">
+        <TransitionLink to="/contact" className="text-pink hover:underline">
           Contact us
-        </Link>{" "}
+        </TransitionLink>{" "}
         for volume discounts and retainer arrangements.
       </p>
     </Section>

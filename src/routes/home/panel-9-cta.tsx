@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
 
 export function HomePanelCta() {
@@ -29,7 +29,7 @@ export function HomePanelCta() {
               <p className="mx-auto max-w-3xl text-base sm:text-lg text-white/90 leading-relaxed mb-10">
                 Get started with your 3D animated vision today! Click on the Connect button for inquiries, questions, or needs! We will get back to you quickly and help you get started!
               </p>
-              <Link
+              <TransitionLink
                 to="/contact"
                 /*className="inline-flex items-center justify-center rounded-[5xl] border border-white/70 bg-white/10 px-12 py-4 text-base sm:text-lg font-semibold text-white shadow-[0_24px_40px_rgba(0,0,0,0.18)] transition duration-300 hover:bg-white/20"*/
               className=" inline-flex
@@ -50,7 +50,7 @@ export function HomePanelCta() {
   hover:text-[#6453FF]"
               >
                 Connect
-              </Link>
+              </TransitionLink>
             </div>
           </div>
         </motion.div>

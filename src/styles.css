@@ -214,6 +214,16 @@
   }
 
 
+/* Fades new page content in after the transition overlay reveals it —
+   referenced by page-shell.tsx. Without this, content snaps to opacity:1
+   instantly on mount instead of easing in, which on some GPU/driver
+   combinations causes a visible blink as heavy content (iframes/video)
+   pops in before the overlay's repaint catches up. */
+@keyframes lwPageIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 /* Lighthouse beam */
 @keyframes beam-sweep {
   0%   { transform: rotate(-35deg); opacity: 0.65; }

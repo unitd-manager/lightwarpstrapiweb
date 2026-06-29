@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { TransitionLink } from "../../components/page-transition-overlay";
 import { ProjectCredits } from "../../components/ProjectCredits";
 
 const slugify = (s: string) =>
@@ -128,12 +128,12 @@ export function ProjectsPanelCapabilities() {
 
               {/* Buttons */}
               <div className="flex flex-wrap gap-4">
-                <Link
+                <TransitionLink
                   to={"/projects/" + slugify("Our Capabilities")}
                   className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
                 >
                   Learn More
-                </Link>
+                </TransitionLink>
                 <a
                   href={"https://www.youtube.com/watch?v=" + LUSH_VIDEO_ID}
                   target="_blank"

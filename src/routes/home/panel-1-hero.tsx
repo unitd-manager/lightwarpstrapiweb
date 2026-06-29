@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -383,12 +383,12 @@ export function HomePanelHero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-8"
         >
-          <Link
+          <TransitionLink
             to={content.ctaHref}
             className="inline-flex items-center justify-center rounded-sm border border-white/35 bg-white/10 px-6 py-3 text-sm font-medium text-white backdrop-blur-md transition-all duration-300 hover:bg-white/15"
           >
             {content.ctaLabel}
-          </Link>
+          </TransitionLink>
         </motion.div>
         </div>
       </div>

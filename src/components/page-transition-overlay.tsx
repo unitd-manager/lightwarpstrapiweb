@@ -5,6 +5,7 @@ import {
   useEffect,
   useRef,
   useState,
+  type CSSProperties,
   type ReactNode,
 } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -88,7 +89,8 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
           opacity:    visible ? 1 : 0,
           transition: visible ? "none" : `opacity ${FADE_OUT_MS}ms ease-in-out`,
           transform:  "translateZ(0)",
-          willChange: "opacity",
+          willChange: "opacity, transform",
+          contain:    "strict",
         }}
         aria-hidden
       >
@@ -101,11 +103,13 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
 export function TransitionLink({
   to,
   className,
+  style,
   children,
   onClick,
 }: {
   to: string;
   className?: string;
+  style?: CSSProperties;
   children: ReactNode;
   onClick?: () => void;
 }) {
@@ -114,6 +118,7 @@ export function TransitionLink({
     <a
       href={to}
       className={className}
+      style={style}
       onClick={(e) => {
         e.preventDefault();
         onClick?.();
@@ -150,22 +155,46 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
 
   return (
     <>
-      {/* Layer 1 – wide diffuse warmth */}
+      {/* Veil – the colorful glow rings fade to transparent well before
+          reaching screen corners (their gradients end ~2070px from center,
+          while a 1920x1080 screen's far corner from a top-anchored beacon is
+          ~2120px away). Without this, the new page is fully visible through
+          the corners the entire time the glow is "covering" the screen —
+          this is the actual full-opacity layer that hides it, synced to the
+          same timeline so it darkens/lightens in lockstep with the glow
+          rather than competing with it. */}
+      <div style={{
+        position: "fixed",
+        inset: 0,
+        background: "#0c0805",
+        mixBlendMode: "normal" as const,
+        animation: `lwVeil ${dur} linear forwards`,
+        willChange: "opacity, transform" as const,
+        transform: "translateZ(0)",
+      }} />
+
+      {/* Layer 1 – wide diffuse warmth.
+          Blur radius kept small relative to the layer's huge (300vmax) box —
+          Chrome rasterizes `filter: blur()` over the element's full unclipped
+          bounds every frame, so a large blur on a multi-thousand-px layer is
+          a heavy per-frame cost that shows up as flicker/jank on Chrome's
+          compositor even though the same CSS is cheap in Edge. The gradient
+          stops already feather the edge, so blur here is just a touch-up. */}
       <div style={ring(
         "radial-gradient(circle, rgba(255,170,90,0.42) 0%, rgba(255,130,55,0.24) 28%, rgba(220,90,25,0.08) 55%, transparent 72%)",
-        "72px",
+        "18px",
       )} />
 
       {/* Layer 2 – main ring */}
       <div style={ring(
         "radial-gradient(circle, rgba(255,205,145,0.75) 0%, rgba(255,150,75,0.52) 16%, rgba(255,110,40,0.22) 38%, transparent 58%)",
-        "22px",
+        "8px",
       )} />
 
       {/* Layer 3 – sharp inner brilliance */}
       <div style={ring(
         "radial-gradient(circle, rgba(255,235,205,0.92) 0%, rgba(255,190,130,0.85) 5%, rgba(255,150,75,0.62) 13%, rgba(255,120,45,0.26) 27%, transparent 46%)",
-        "5px",
+        "2px",
       )} />
 
       {/* Layer 4 – warm orange pinpoint core */}
@@ -227,7 +256,7 @@ function GlareKeyframes() {
           transform: scale(1);
           opacity: 0.95;
           /* contract back: slow leaving full, accelerates toward logo */
-          animation-timing-function: cubic-bezier(0.8, 0.05, 0.95, 0.3);
+          animation-timing-function: ease-in-out;
         }
         92% {
           transform: scale(0.028);
@@ -242,9 +271,22 @@ function GlareKeyframes() {
         6%  { transform: scale(0.025); opacity: 1; animation-timing-function: linear; }
         12% { transform: scale(0.025); opacity: 1; animation-timing-function: cubic-bezier(0.1, 0.8, 0.2, 1); }
         44% { transform: scale(1);     opacity: 1; animation-timing-function: linear; }
-        58% { transform: scale(1);     opacity: 1; animation-timing-function: cubic-bezier(0.8, 0.05, 0.95, 0.3); }
+        58% { transform: scale(1);     opacity: 1; animation-timing-function: ease-in-out; }
         92% { transform: scale(0.025); opacity: 1; animation-timing-function: linear; }
         100%{ transform: scale(0.025); opacity: 0; }
+      }
+
+      /* Opacity-only — ramps up in lockstep with the glow's own expansion
+       * (0–44%) so it reads as part of the same effect rather than a
+       * separate flash, holds alongside the glow's full-coverage window
+       * (44–58%), then recedes in lockstep with the contraction (58–100%). */
+      @keyframes lwVeil {
+        0%   { opacity: 0; }
+        12%  { opacity: 0.15; }
+        44%  { opacity: 0.92; }
+        58%  { opacity: 0.92; }
+        92%  { opacity: 0.15; }
+        100% { opacity: 0; }
       }
     `}</style>
   );

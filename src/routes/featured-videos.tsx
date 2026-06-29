@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { TransitionLink } from "../components/page-transition-overlay";
 import { motion } from "framer-motion";
 import { PageShell } from "../components/page-shell";
 import { Section } from "../components/section";
@@ -144,12 +144,12 @@ export default function FeaturedVideos() {
             <p className="mx-auto mt-5 max-w-xl text-muted-foreground">
               Ready to bring your vision to life with stunning visuals? Let's talk.
             </p>
-            <Link
+            <TransitionLink
               to="/contact"
               className="mt-10 inline-flex items-center gap-2 rounded-full bg-gradient-brand px-8 py-4 text-sm font-medium text-white glow-brand pulse-glow transition-transform hover:scale-105"
             >
               Start Your Project →
-            </Link>
+            </TransitionLink>
           </div>
         </div>
       </Section>

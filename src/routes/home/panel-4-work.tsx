@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { TransitionLink } from "../../components/page-transition-overlay";
 import { Section } from "../../components/section";
 import { VideoPlayer } from "../../components/video-player";
 
@@ -58,20 +58,20 @@ export function HomePanelWork() {
 
       {/* CTA buttons */}
       <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
-        <Link
+        <TransitionLink
           to="/projects"
           className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-brand px-8 py-4 text-sm font-medium text-white glow-brand transition-transform hover:scale-[1.03]"
         >
           <span className="relative z-10">See All Projects</span>
           <span className="relative z-10">→</span>
           <span className="absolute inset-0 -translate-x-full bg-white/20 transition-transform duration-500 group-hover:translate-x-full" />
-        </Link>
-        <Link
+        </TransitionLink>
+        <TransitionLink
           to="/contact"
           className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-8 py-4 text-sm font-medium backdrop-blur transition-colors hover:bg-white/[0.08]"
         >
           Start A Project →
-        </Link>
+        </TransitionLink>
       </div>
     </Section>
   );

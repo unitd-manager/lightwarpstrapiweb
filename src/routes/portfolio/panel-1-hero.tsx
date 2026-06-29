@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -73,7 +73,7 @@ export default function PortfolioHero() {
         {/* Buttons */}
         <div className="mt-10 flex flex-wrap gap-4">
 
-          {/*<Link
+          {/*<TransitionLink
             to="/projects"
             className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-brand px-7 py-3.5 text-sm font-medium text-white glow-brand transition-transform hover:scale-[1.03]"
           >
@@ -84,9 +84,9 @@ export default function PortfolioHero() {
             <span className="relative z-10">→</span>
 
             <span className="absolute inset-0 -translate-x-full bg-white/20 transition-transform duration-500 group-hover:translate-x-full" />
-          </Link>
+          </TransitionLink>
 
-          <Link
+          <TransitionLink
             to="/contact"
             className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-7 py-3.5 text-sm font-medium backdrop-blur transition-colors hover:bg-white/[0.08]"
           >
@@ -95,7 +95,7 @@ export default function PortfolioHero() {
             <span className="transition-transform group-hover:translate-x-1">
               →
             </span>
-          </Link>*/}
+          </TransitionLink>*/}
 
         </div>
       </motion.div>

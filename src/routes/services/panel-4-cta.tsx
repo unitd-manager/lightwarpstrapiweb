@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
 
 const keepInTouch1 = "https://lightwarp3d.com/wp-content/uploads/2026/01/KeepinTouch1.svg";
@@ -40,12 +40,12 @@ export function ServicesPanelCta() {
           Whether it's individual assets or a full animation, our team is here to help! Click the button below to get stellar content for your 3D needs
         </p>
 
-        <Link
+        <TransitionLink
           to="/contact"
           className="mt-10 w-[170px] h-[60px] bg-[#6250DA] hover:bg-white border-2 border-white rounded-[8px] text-white hover:text-black text-[16px] font-medium flex items-center justify-center no-underline relative z-10 transition-colors duration-200"
         >
           Contact us
-        </Link>
+        </TransitionLink>
       </motion.div>
 
       {/* ── DESKTOP ── */}
@@ -99,7 +99,7 @@ export function ServicesPanelCta() {
             the button below to get stellar content for your 3D needs
           </p>
 
-          <Link
+          <TransitionLink
             to="/contact"
             className="inline-flex items-center justify-center bg-[#6250DA] hover:bg-white text-white hover:text-black transition-colors duration-200"
             style={{
@@ -115,7 +115,7 @@ export function ServicesPanelCta() {
             }}
           >
             Contact us
-          </Link>
+          </TransitionLink>
         </div>
 
         {/* Right character */}

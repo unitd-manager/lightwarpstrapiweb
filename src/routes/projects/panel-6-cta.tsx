@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { TransitionLink } from "../../components/page-transition-overlay";
 import { LighthouseBeam } from "../../components/lighthouse-beam";
 
 export function ProjectsPanelCta() {
@@ -26,18 +26,18 @@ export function ProjectsPanelCta() {
             collaboration begins with a single conversation.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Link
+            <TransitionLink
               to="/contact"
               className="rounded-full bg-gradient-brand px-8 py-3.5 text-sm font-semibold text-white shadow-lg glow-brand transition-opacity hover:opacity-90"
             >
               Start A Project
-            </Link>
-            <Link
+            </TransitionLink>
+            <TransitionLink
               to="/services"
               className="rounded-full border border-white/10 bg-white/5 px-8 py-3.5 text-sm font-semibold text-foreground backdrop-blur-md transition-colors hover:bg-white/10"
             >
               Explore Services
-            </Link>
+            </TransitionLink>
           </div>
         </motion.div>
       </div>

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { TransitionLink } from "./page-transition-overlay";
 import "./services-panel.css";
 
 const services = [
@@ -119,7 +119,7 @@ export function ServicesPanels() {
 
 
 
-              <Link
+              <TransitionLink
   to={service.href}
   className="service-card e-con-full e-flex e-con animated-fast fadeInUp"
   style={
@@ -128,7 +128,7 @@ export function ServicesPanels() {
       : undefined
   }
 >
-              {/*<Link
+              {/*<TransitionLink
                 to={service.href}
                 className={`service-card e-con-full e-flex e-con ${service.bgColor ? `bg-gradient-to-br ${service.bgColor}` : ""} animated-fast fadeInUp`}
                 style={service.bgSolid ? { backgroundColor: service.bgSolid } : undefined}
@@ -169,7 +169,7 @@ export function ServicesPanels() {
                     </div>
                   </div>
                 </div>
-              </Link>
+              </TransitionLink>
             </motion.div>
           ))}
         </div>
