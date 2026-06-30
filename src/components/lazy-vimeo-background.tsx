@@ -38,10 +38,19 @@ export function LazyVimeoBackground({
           clearTimeout(unloadTimer);
           setShouldLoad(true);
         } else {
-          // Small grace period so a quick scroll past the edge doesn't
-          // thrash mount/unmount — only frees memory once genuinely
-          // scrolled away for a moment.
-          unloadTimer = setTimeout(() => setShouldLoad(false), 2000);
+          // iOS Safari's address bar dynamically resizes as you scroll,
+          // which can fire a spurious "not intersecting" event mid-scroll
+          // even though the element never actually left the screen. A
+          // timer-only grace period still unloads (and freezes/blacks out
+          // a playing video) if that single bad event sneaks through, so
+          // re-verify with the element's real position before acting.
+          unloadTimer = setTimeout(() => {
+            const el = containerRef.current;
+            if (!el) return;
+            const r = el.getBoundingClientRect();
+            const stillNear = r.bottom > -600 && r.top < window.innerHeight + 600;
+            if (!stillNear) setShouldLoad(false);
+          }, 3000);
         }
       },
       { root: null, rootMargin: "400px 0px", threshold: 0.01 }

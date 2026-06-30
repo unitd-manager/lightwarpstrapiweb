@@ -12,13 +12,14 @@ type HomeHeroContent = {
 };
 
 const DEFAULT_CONTENT: HomeHeroContent = {
-  // quality=540p caps the requested bitrate — without it Vimeo serves its
-  // default/adaptive (often much higher bitrate) stream, which takes
-  // noticeably longer to start buffering on mobile/cellular connections.
-  // This is a background loop behind a dark overlay, so the lower quality
-  // isn't visible — only the faster start time is.
+  // Note: a `quality=540p` param was tried here to speed up mobile start
+  // time, but `quality` isn't an officially supported URL parameter for
+  // Vimeo's standard embed player — on iPhone it caused the player to fail
+  // to initialize entirely (video never plays) rather than just being
+  // ignored. Reverted; Vimeo's own adaptive bitrate selection already
+  // serves a lower-bitrate stream automatically on slower connections.
   videoSrc:
-    "https://player.vimeo.com/video/1177318410?autoplay=1&loop=1&muted=1&background=1&quality=540p",
+    "https://player.vimeo.com/video/1177318410?autoplay=1&loop=1&muted=1&background=1",
   logoSrc: lightwarpHorizontalLogo,
   subtitle: "A New Age Creative 3D Studio. Powered by Real-Time 3D Technology",
   ctaHref: "/projects/#latest",

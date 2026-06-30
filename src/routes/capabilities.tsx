@@ -7,9 +7,11 @@ import { ProjectsPanelExtraVideosCapabilities } from "./projects/panel-7-extra-v
 export default function Capabilities() {
   const vimeoId = "1204856098";
   const posterSrc = `https://vumbnail.com/${vimeoId}.jpg`;
-  // quality=540p (down from 720p) — faster start on mobile/cellular, with no
-  // visible difference behind the dark overlay this plays under.
-  const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&keyboard=0&quality=540p`;
+  // Note: a `quality=540p` param was tried here for faster mobile start,
+  // but `quality` isn't officially supported by Vimeo's standard embed
+  // player — on iPhone it caused the player to fail to initialize entirely
+  // instead of just being ignored. Reverted to the working URL.
+  const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&keyboard=0`;
   const vimeoPageUrl = `https://vimeo.com/${vimeoId}`;
 
   return (
@@ -61,7 +63,7 @@ export default function Capabilities() {
                 <p className="text-[16px] leading-7 text-white font-light">
                   Our Capabilities Reel showcases many of these personal projects and collaborations to give even more context and confidence to our skillsets and quality of work.
                 </p>
-                <p className="text-[16px] leading-7 text-white font-light">
+                <p className="text-[13px] leading-7 text-white font-light">
                   Legal Note: The works featured in the Capabilities Reel are owned in whole or in part by their respective rights holders, including artists affiliated and unaffiliated with Lightwarp 3D, and are presented solely for showcase and demonstration purposes. Lightwarp 3D does not claim ownership of all featured works and asserts ownership only over projects explicitly identified on the Projects page as created by the studio. Please see project credits for copyright details and attribution.
                 </p>
               </div>

@@ -35,7 +35,18 @@ const LazyYouTubeBackground = ({
           clearTimeout(unloadTimer);
           setShouldLoad(true);
         } else {
-          unloadTimer = setTimeout(() => setShouldLoad(false), 2000);
+          // iOS Safari's address bar dynamically resizes as you scroll,
+          // which can fire a spurious "not intersecting" event mid-scroll
+          // even though the element never actually left the screen —
+          // re-verify the real position before unloading (and freezing) a
+          // playing video over a single bad observer event.
+          unloadTimer = setTimeout(() => {
+            const el = containerRef.current;
+            if (!el) return;
+            const r = el.getBoundingClientRect();
+            const stillNear = r.bottom > -600 && r.top < window.innerHeight + 600;
+            if (!stillNear) setShouldLoad(false);
+          }, 3000);
         }
       },
       { root: null, rootMargin: "400px 0px", threshold: 0.01 }
