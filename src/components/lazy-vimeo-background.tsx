@@ -1,10 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Lazily mounts a Vimeo background iframe only once the section is about to
- * scroll into view. A poster image is shown immediately so there's no blank
- * gap, and the (heavy) Vimeo player + video stream don't compete for
- * bandwidth/connections with other reels on the page until needed.
+ * Lazily mounts a Vimeo background iframe only while the section is near the
+ * viewport, and unmounts it again once scrolled well away. A poster image
+ * covers the gap either way.
+ *
+ * The unmount-when-offscreen half matters a lot on iOS Safari: it caps how
+ * many concurrent decoded <video>/autoplay <iframe> elements a page can keep
+ * alive, and silently kills + reloads the page ("A problem repeatedly
+ * occurred") once that's exceeded. A page with several video sections that
+ * each mount-once-and-never-unmount will blow past that limit as soon as the
+ * user scrolls through all of them.
  */
 export function LazyVimeoBackground({
   embedSrc,
@@ -23,19 +29,29 @@ export function LazyVimeoBackground({
   useEffect(() => {
     if (!containerRef.current) return;
 
+    let unloadTimer: ReturnType<typeof setTimeout> | undefined;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry?.isIntersecting) {
+          clearTimeout(unloadTimer);
           setShouldLoad(true);
-          observer.disconnect();
+        } else {
+          // Small grace period so a quick scroll past the edge doesn't
+          // thrash mount/unmount — only frees memory once genuinely
+          // scrolled away for a moment.
+          unloadTimer = setTimeout(() => setShouldLoad(false), 2000);
         }
       },
-      { root: null, rootMargin: "600px 0px", threshold: 0.01 }
+      { root: null, rootMargin: "400px 0px", threshold: 0.01 }
     );
 
     observer.observe(containerRef.current);
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(unloadTimer);
+      observer.disconnect();
+    };
   }, []);
 
   return (

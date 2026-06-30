@@ -20,7 +20,7 @@ const services = [
       "Game Cinematics & 3D Animatics",
       "Brand Films",
       "Product Rendering & Motion Graphics",
-      "Visual Effects, Lighting & Delivery",
+      "Visual Effects",
     ],
   },
   {
@@ -39,7 +39,7 @@ const services = [
       "3D Modelling",
       "Character Creation",
       "Hero Assets & Props",
-      "3D Virtual Environments & Art Department",
+      "3D Virtual Environments and VAD",
       "Optimized Game Assets",
       "Look Development & Texturing",
     ],

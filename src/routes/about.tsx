@@ -2,9 +2,7 @@ import { PageShell } from "../components/page-shell";
 import { AboutPanelStory } from "./about/panel-3-story";
 import { AboutPanelTeam } from "./about/panel-4-team";
 import { AboutPanelCta } from "./about/panel-5-cta";
-
-const keepInTouch2 =
-  "https://lightwarp3d.com/wp-content/uploads/2026/01/KeepInTouch2.svg";
+import keepInTouch2 from "../assets/images/cms/KeepInTouch2.svg";
 
 export default function About() {
   return (

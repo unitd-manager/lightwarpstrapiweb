@@ -1,12 +1,14 @@
 import { motion } from "framer-motion";
+import strayerPicturesLogo from "../../assets/images/cms/StrayerPicturesLogoWhiteTransparentDROPSHADOW2-scaled.png";
+import tamLogo from "../../assets/images/cms/TAM-Stacked-AllWhite.png";
 
 const partners = [
   {
-    image: "https://lightwarp3d.com/wp-content/uploads/2026/01/StrayerPicturesLogoWhiteTransparentDROPSHADOW2-scaled.png",
+    image: strayerPicturesLogo,
     name: "Strayer Pictures",
   },
   {
-    image: "https://lightwarp3d.com/wp-content/uploads/2026/01/TAM-Stacked-AllWhite.png",
+    image: tamLogo,
     name: "TAM",
   },
 ];

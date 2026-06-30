@@ -23,18 +23,28 @@ const LazyYouTubeBackground = ({
 
   useEffect(() => {
     if (!containerRef.current) return;
+    // Mounts only while near the viewport and unmounts again once scrolled
+    // well away — iOS Safari caps concurrent video/iframe elements and
+    // kills + reloads the page once exceeded, so pages with several video
+    // sections must free each one as the user scrolls past it.
+    let unloadTimer: ReturnType<typeof setTimeout> | undefined;
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry?.isIntersecting) {
+          clearTimeout(unloadTimer);
           setShouldLoad(true);
-          observer.disconnect();
+        } else {
+          unloadTimer = setTimeout(() => setShouldLoad(false), 2000);
         }
       },
-      { root: null, rootMargin: "600px 0px", threshold: 0.01 }
+      { root: null, rootMargin: "400px 0px", threshold: 0.01 }
     );
     observer.observe(containerRef.current);
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(unloadTimer);
+      observer.disconnect();
+    };
   }, []);
 
   const embedSrc =

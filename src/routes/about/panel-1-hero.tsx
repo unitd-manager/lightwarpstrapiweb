@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-
-const crabStill = "https://lightwarp3d.com/wp-content/uploads/2026/01/CrabStill.png";
+import crabStill from "../../assets/images/cms/CrabStill.webp";
 
 export function AboutPanelHero() {
   return (

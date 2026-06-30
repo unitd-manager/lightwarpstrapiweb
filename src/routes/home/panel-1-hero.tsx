@@ -1,6 +1,7 @@
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import lightwarpHorizontalLogo from "../../assets/images/cms/Lightwarp_Horizontal.png";
 
 type HomeHeroContent = {
   videoSrc: string;
@@ -11,10 +12,14 @@ type HomeHeroContent = {
 };
 
 const DEFAULT_CONTENT: HomeHeroContent = {
+  // quality=540p caps the requested bitrate — without it Vimeo serves its
+  // default/adaptive (often much higher bitrate) stream, which takes
+  // noticeably longer to start buffering on mobile/cellular connections.
+  // This is a background loop behind a dark overlay, so the lower quality
+  // isn't visible — only the faster start time is.
   videoSrc:
-    "https://player.vimeo.com/video/1177318410?autoplay=1&loop=1&muted=1&background=1",
-  logoSrc:
-    "https://lightwarp3d.com/wp-content/uploads/2026/01/Lightwarp_Horizontal.png",
+    "https://player.vimeo.com/video/1177318410?autoplay=1&loop=1&muted=1&background=1&quality=540p",
+  logoSrc: lightwarpHorizontalLogo,
   subtitle: "A New Age Creative 3D Studio. Powered by Real-Time 3D Technology",
   ctaHref: "/projects/#latest",
   ctaLabel: "Our Recent Work",

@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { ProjectCredits } from "../../components/ProjectCredits";
 
-import video from "../../assets/images/lego-fluid-dance-720p (1).mp4";
+import video from "../../assets/images/lego-fluid-dance.mp4";
+import videoPoster from "../../assets/images/lego-fluid-dance-poster.jpg";
 import image from "../../assets/images/WW2_Trench_Scene.jpg";
 
 const slugify = (s: string) =>
@@ -33,17 +34,29 @@ const LazyMediaBackground = ({
   useEffect(() => {
     if (priority) return;
     if (!containerRef.current) return;
+    // Mounts only while near the viewport and unmounts again once scrolled
+    // well away. This page stacks several autoplay video/iframe sections —
+    // iOS Safari caps how many can stay decoded concurrently and kills +
+    // reloads the page ("A problem repeatedly occurred") once exceeded, so
+    // each section must free its video as the user scrolls past it rather
+    // than leaving every one mounted and playing forever.
+    let unloadTimer: ReturnType<typeof setTimeout> | undefined;
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
+          clearTimeout(unloadTimer);
           setShouldLoad(true);
-          observer.disconnect();
+        } else {
+          unloadTimer = setTimeout(() => setShouldLoad(false), 2000);
         }
       },
-      { root: null, rootMargin: "1500px 0px", threshold: 0.01 }
+      { root: null, rootMargin: "400px 0px", threshold: 0.01 }
     );
     observer.observe(containerRef.current);
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(unloadTimer);
+      observer.disconnect();
+    };
   }, [priority]);
 
   const isVideo = videoId === video || /\.(mp4|webm|ogg|mov)$/i.test(videoId);
@@ -59,7 +72,9 @@ const LazyMediaBackground = ({
 
   const posterSrc = isYouTube
     ? "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg"
-    : undefined;
+    : isVideo
+      ? videoPoster
+      : undefined;
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden">

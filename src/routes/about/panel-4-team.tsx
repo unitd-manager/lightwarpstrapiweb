@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-
-const founderPhoto = "https://lightwarp3d.com/wp-content/uploads/2026/01/HeadShot.jpg";
+import founderPhoto from "../../assets/images/cms/HeadShot.jpg";
 
 // Rows of 3 — matching original Elementor row grouping exactly
 const associateRows = [

@@ -1,4 +1,10 @@
 import { motion } from "framer-motion";
+import unrealEngineLogo from "../../assets/images/cms/Unreal_Engine-Logo.png";
+import blenderLogo from "../../assets/images/cms/blender.png";
+import substanceLogo from "../../assets/images/cms/Substance.png";
+import usdLogo from "../../assets/images/cms/USDLogoLrgWithAlpha.png";
+import awsLogo from "../../assets/images/cms/amazon-web-services.png";
+import perforceLogo from "../../assets/images/cms/logo-perforce-vert-rev.svg";
 
 /*
  * Elementor: elementor-element-4cd58e03
@@ -20,27 +26,27 @@ import { motion } from "framer-motion";
 
 const logos = [
   {
-    src: "https://lightwarp3d.com/wp-content/uploads/2026/01/Unreal_Engine-Logo.png",
+    src: unrealEngineLogo,
     alt: "Unreal Engine",
   },
   {
-    src: "https://lightwarp3d.com/wp-content/uploads/2026/01/blender.png",
+    src: blenderLogo,
     alt: "Blender",
   },
   {
-    src: "https://lightwarp3d.com/wp-content/uploads/2026/01/Substance.png",
+    src: substanceLogo,
     alt: "Substance 3D",
   },
   {
-    src: "https://lightwarp3d.com/wp-content/uploads/2026/01/USDLogoLrgWithAlpha.png",
+    src: usdLogo,
     alt: "USD",
   },
   {
-    src: "https://lightwarp3d.com/wp-content/uploads/2026/01/amazon-web-services.png",
+    src: awsLogo,
     alt: "AWS",
   },
   {
-    src: "https://lightwarp3d.com/wp-content/uploads/2026/01/logo-perforce-vert-rev.svg",
+    src: perforceLogo,
     alt: "Perforce",
   },
 ];

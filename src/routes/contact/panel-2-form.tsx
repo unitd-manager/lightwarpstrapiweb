@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-
-const locationIcon = "https://lightwarp3d.com/wp-content/uploads/2026/01/location_info.svg";
-const contactIcon  = "https://lightwarp3d.com/wp-content/uploads/2026/01/contact_info.svg";
+import locationIcon from "../../assets/images/cms/location_info.svg";
+import contactIcon from "../../assets/images/cms/contact_info.svg";
 
 const subjects = [
   "General Inquiry",

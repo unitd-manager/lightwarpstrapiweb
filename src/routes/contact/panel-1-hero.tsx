@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-
-const cloud1 = "https://lightwarp3d.com/wp-content/uploads/2026/01/coffe2go-clound-num8.svg";
-const cloud2 = "https://lightwarp3d.com/wp-content/uploads/2026/01/cloud-img-2-1.svg";
-const cloud3 = "https://lightwarp3d.com/wp-content/uploads/2026/01/cloud-img-3.svg";
+import cloud1 from "../../assets/images/cms/coffe2go-clound-num8.svg";
+import cloud2 from "../../assets/images/cms/cloud-img-2-1.svg";
+import cloud3 from "../../assets/images/cms/cloud-img-3.svg";
 
 function Ball({ size, color }: { size: number; color: string }) {
   return (

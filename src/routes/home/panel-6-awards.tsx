@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import austinLaurel from "../../assets/images/austin-laurel-cropped.png";
 import shortShortsLaurel from "../../assets/images/shortshorts-laurel.png";
 import wdasTransparent from "../../assets/images/wdas-white-transparent.png";
+import dreamWorksLogo from "../../assets/images/cms/dwalogo.png";
 
 const AWARDS_HEADING_STYLE: React.CSSProperties = {
   fontFamily: '"DM Sans", sans-serif',
@@ -45,7 +46,7 @@ const awards = [
 
 const artists = [
   {
-    image: "https://lightwarp3d.com/wp-content/uploads/2026/01/dwalogo.png",
+    image: dreamWorksLogo,
     name: "DreamWorks",
     blendScreen: false,
   },

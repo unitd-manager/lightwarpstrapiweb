@@ -7,7 +7,9 @@ import { ProjectsPanelExtraVideosCapabilities } from "./projects/panel-7-extra-v
 export default function Capabilities() {
   const vimeoId = "1204856098";
   const posterSrc = `https://vumbnail.com/${vimeoId}.jpg`;
-  const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&keyboard=0&quality=720p`;
+  // quality=540p (down from 720p) — faster start on mobile/cellular, with no
+  // visible difference behind the dark overlay this plays under.
+  const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&keyboard=0&quality=540p`;
   const vimeoPageUrl = `https://vimeo.com/${vimeoId}`;
 
   return (

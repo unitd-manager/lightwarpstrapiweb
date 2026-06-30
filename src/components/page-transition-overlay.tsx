@@ -133,12 +133,23 @@ export function TransitionLink({
 function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
   const bx  = beacon.x;
   const by  = beacon.y;
-  const S   = "300vmax";
-  const L   = `calc(${bx}px - 150vmax)`;
-  const T   = `calc(${by}px - 150vmax)`;
+  // 200vmax (down from 300vmax) — still comfortably larger than any screen
+  // diagonal once combined with the veil's genuine full-coverage opacity, but
+  // a much smaller box for the browser to rasterize every animation frame.
+  const S   = "200vmax";
+  const L   = `calc(${bx}px - 100vmax)`;
+  const T   = `calc(${by}px - 100vmax)`;
   const dur = `${DURATION_MS}ms`;
 
-  const ring = (bg: string, blur: string) => ({
+  // No `filter: blur()` here at all — it used to be the expensive part:
+  // rasterizing a blur over a multi-thousand-px box every frame is heavy on
+  // any GPU, and on iOS Safari specifically, stacking several such layers
+  // simultaneously (4 blurred + blended layers, every navigation, recreated
+  // fresh on every click after TransitionLink was wired up site-wide) was a
+  // very plausible contributor to "A problem repeatedly occurred" crashes.
+  // The gradient color stops already feather their own edges, so the visual
+  // softness barely changes — only the per-frame compositing cost does.
+  const ring = (bg: string) => ({
     position: "absolute" as const,
     width: S,
     height: S,
@@ -146,7 +157,6 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
     top: T,
     borderRadius: "50%",
     background: bg,
-    filter: `blur(${blur})`,
     mixBlendMode: "screen" as const,
     // linear overall — per-keyframe timing functions control each phase
     animation: `lwGlare ${dur} linear forwards`,
@@ -156,61 +166,28 @@ function GlareEffect({ beacon }: { beacon: { x: number; y: number } }) {
   return (
     <>
       {/* Veil – the colorful glow rings fade to transparent well before
-          reaching screen corners (their gradients end ~2070px from center,
-          while a 1920x1080 screen's far corner from a top-anchored beacon is
-          ~2120px away). Without this, the new page is fully visible through
-          the corners the entire time the glow is "covering" the screen —
-          this is the actual full-opacity layer that hides it, synced to the
-          same timeline so it darkens/lightens in lockstep with the glow
-          rather than competing with it. */}
+          reaching screen corners, so this plain (no blend, no blur) full-
+          opacity layer is what actually guarantees full-screen coverage,
+          synced to the same timeline so it darkens/lightens in lockstep
+          with the glow rather than competing with it. */}
       <div style={{
         position: "fixed",
         inset: 0,
         background: "#0c0805",
         mixBlendMode: "normal" as const,
         animation: `lwVeil ${dur} linear forwards`,
-        willChange: "opacity, transform" as const,
-        transform: "translateZ(0)",
+        willChange: "opacity" as const,
       }} />
 
-      {/* Layer 1 – wide diffuse warmth.
-          Blur radius kept small relative to the layer's huge (300vmax) box —
-          Chrome rasterizes `filter: blur()` over the element's full unclipped
-          bounds every frame, so a large blur on a multi-thousand-px layer is
-          a heavy per-frame cost that shows up as flicker/jank on Chrome's
-          compositor even though the same CSS is cheap in Edge. The gradient
-          stops already feather the edge, so blur here is just a touch-up. */}
+      {/* Layer 1 – wide diffuse warmth + main ring, merged into one layer */}
       <div style={ring(
-        "radial-gradient(circle, rgba(255,170,90,0.42) 0%, rgba(255,130,55,0.24) 28%, rgba(220,90,25,0.08) 55%, transparent 72%)",
-        "18px",
+        "radial-gradient(circle, rgba(255,205,145,0.78) 0%, rgba(255,160,85,0.45) 18%, rgba(255,120,45,0.2) 38%, rgba(220,90,25,0.08) 55%, transparent 72%)",
       )} />
 
-      {/* Layer 2 – main ring */}
+      {/* Layer 2 – sharp inner brilliance + pinpoint core, merged into one layer */}
       <div style={ring(
-        "radial-gradient(circle, rgba(255,205,145,0.75) 0%, rgba(255,150,75,0.52) 16%, rgba(255,110,40,0.22) 38%, transparent 58%)",
-        "8px",
+        "radial-gradient(circle, rgba(255,235,205,0.92) 0%, rgba(255,200,140,0.85) 4%, rgba(255,160,85,0.6) 12%, rgba(255,120,45,0.26) 24%, transparent 42%)",
       )} />
-
-      {/* Layer 3 – sharp inner brilliance */}
-      <div style={ring(
-        "radial-gradient(circle, rgba(255,235,205,0.92) 0%, rgba(255,190,130,0.85) 5%, rgba(255,150,75,0.62) 13%, rgba(255,120,45,0.26) 27%, transparent 46%)",
-        "2px",
-      )} />
-
-      {/* Layer 4 – warm orange pinpoint core */}
-      <div style={{
-        position: "absolute",
-        width: S,
-        height: S,
-        left: L,
-        top: T,
-        borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(255,225,190,0.85) 0%, rgba(255,185,125,0.75) 2%, rgba(255,150,70,0.35) 7%, transparent 14%)",
-        filter: "blur(1px)",
-        mixBlendMode: "screen" as const,
-        animation: `lwGlareCore ${dur} linear forwards`,
-        willChange: "transform, opacity" as const,
-      }} />
     </>
   );
 }
@@ -264,16 +241,6 @@ function GlareKeyframes() {
           animation-timing-function: linear;
         }
         100% { transform: scale(0.028); opacity: 0; }
-      }
-
-      @keyframes lwGlareCore {
-        0%  { transform: scale(0.025); opacity: 0; animation-timing-function: ease-out; }
-        6%  { transform: scale(0.025); opacity: 1; animation-timing-function: linear; }
-        12% { transform: scale(0.025); opacity: 1; animation-timing-function: cubic-bezier(0.1, 0.8, 0.2, 1); }
-        44% { transform: scale(1);     opacity: 1; animation-timing-function: linear; }
-        58% { transform: scale(1);     opacity: 1; animation-timing-function: ease-in-out; }
-        92% { transform: scale(0.025); opacity: 1; animation-timing-function: linear; }
-        100%{ transform: scale(0.025); opacity: 0; }
       }
 
       /* Opacity-only — ramps up in lockstep with the glow's own expansion

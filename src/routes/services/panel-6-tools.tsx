@@ -1,8 +1,14 @@
 import { Section } from "../../components/section";
+import unrealEngineLogo from "../../assets/images/cms/Unreal_Engine-Logo.png";
+import blenderLogo from "../../assets/images/cms/blender.png";
+import substanceLogo from "../../assets/images/cms/Substance.png";
+import usdLogo from "../../assets/images/cms/USDLogoLrgWithAlpha.png";
+import awsLogo from "../../assets/images/cms/amazon-web-services.png";
+import perforceLogo from "../../assets/images/cms/logo-perforce-vert-rev.svg";
 
 const logos = [
   {
-    src: "https://lightwarp3d.com/wp-content/uploads/2026/01/Unreal_Engine-Logo.png",
+    src: unrealEngineLogo,
     alt: "Unreal Engine",
     // The source file has a solid black circular badge baked in — screen-blend
     // it so the black drops out and it sits flush in the card instead of
@@ -10,27 +16,27 @@ const logos = [
     blendScreen: true,
   },
   {
-    src: "https://lightwarp3d.com/wp-content/uploads/2026/01/blender.png",
+    src: blenderLogo,
     alt: "Blender",
     blendScreen: false,
   },
   {
-    src: "https://lightwarp3d.com/wp-content/uploads/2026/01/Substance.png",
+    src: substanceLogo,
     alt: "Substance 3D",
     blendScreen: false,
   },
   {
-    src: "https://lightwarp3d.com/wp-content/uploads/2026/01/USDLogoLrgWithAlpha.png",
+    src: usdLogo,
     alt: "USD",
     blendScreen: false,
   },
   {
-    src: "https://lightwarp3d.com/wp-content/uploads/2026/01/amazon-web-services.png",
+    src: awsLogo,
     alt: "AWS",
     blendScreen: false,
   },
   {
-    src: "https://lightwarp3d.com/wp-content/uploads/2026/01/logo-perforce-vert-rev.svg",
+    src: perforceLogo,
     alt: "Perforce",
     blendScreen: false,
   },

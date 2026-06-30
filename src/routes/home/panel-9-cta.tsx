@@ -1,5 +1,6 @@
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
+import shellyPose from "../../assets/images/cms/ShellyPose1.png";
 
 export function HomePanelCta() {
   return (
@@ -15,7 +16,7 @@ export function HomePanelCta() {
           <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 lg:gap-4 items-center">
             <div className="flex justify-center lg:justify-end">
               <img
-                src="https://lightwarp3d.com/wp-content/uploads/2026/01/ShellyPose1.png"
+                src={shellyPose}
                 alt="Shelly Character"
                 className="w-full max-w-[320px] md:max-w-[380px] lg:max-w-[360px] object-contain"
               />

@@ -1,11 +1,7 @@
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
-
-const keepInTouch1 =
-  "https://lightwarp3d.com/wp-content/uploads/2026/01/KeepinTouch1.svg";
-
-const keepInTouch2 =
-  "https://lightwarp3d.com/wp-content/uploads/2026/01/KeepInTouch2.svg";
+import keepInTouch1 from "../../assets/images/cms/KeepinTouch1.svg";
+import keepInTouch2 from "../../assets/images/cms/KeepInTouch2.svg";
 
 export function AboutPanelCta() {
   return (
