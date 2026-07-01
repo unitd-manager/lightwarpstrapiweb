@@ -24,7 +24,7 @@ export function AboutPanelHero() {
         <div className="w-full lg:w-[58%] px-8 lg:px-12 py-12">
           <h4 className="text-[22px] font-bold text-white mb-4">Our Story</h4>
           <p className="text-white/90 text-[14px] leading-relaxed">
-            Started qqqqqqqqqby an alum of Texas A&amp;M University, Lightwarp 3D Studio was built on a
+            Started by an alum of Texas A&amp;M University, Lightwarp 3D Studio was built on a
             vision of using real-time rendering with tools like Unreal Engine and Blender to
             create high-quality 3D stories and visuals at blazing fast speed. With our
             proprietary real-time pipeline and workflows, we create, iterate, and deliver results
