@@ -1,7 +1,9 @@
+// src/pages/about/AboutPanelCta.tsx
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
 import keepInTouch1 from "../../assets/images/cms/KeepinTouch1.svg";
 import keepInTouch2 from "../../assets/images/cms/KeepInTouch2.svg";
+import { getStrapiMedia } from "../../lib/strapi";
 
 const STATIC_CTA = {
   title: "Let's work\ntogether!",
@@ -17,6 +19,9 @@ export function AboutPanelCta({ data }: { data?: any }) {
   const buttonLabel = data?.cta_button?.label || STATIC_CTA.buttonLabel;
   const buttonUrl = data?.cta_button?.url || STATIC_CTA.buttonUrl;
 
+  const image1 = getStrapiMedia(data?.image) || keepInTouch1;
+  const image2 = getStrapiMedia(data?.image1) || keepInTouch2;
+
   const [line1, line2] = title.split("\n");
 
   return (
@@ -29,7 +34,7 @@ export function AboutPanelCta({ data }: { data?: any }) {
         transition={{ duration: 0.7 }}
         className="lg:hidden relative bg-[#c72e17] min-h-[500px] flex flex-col items-center justify-center px-3 py-6 text-center overflow-hidden"
       >
-        <img src={keepInTouch1} alt="" className="absolute left-[-190px] bottom-38 w-[100px] h-[300px] scale-300 select-none pointer-events-none" />
+        <img src={image1} alt="" className="absolute left-[-190px] bottom-38 w-[100px] h-[300px] scale-300 select-none pointer-events-none" />
         <h2 className="text-[45px] font-extrabold leading-[1.05] tracking-[-2px] text-black relative z-10">
           {line1}
           {line2 && <><br />{line2}</>}
@@ -54,7 +59,7 @@ export function AboutPanelCta({ data }: { data?: any }) {
         className="hidden lg:flex relative min-h-[620px] items-center justify-center bg-[#D5462F]"
       >
         <motion.img
-          src={keepInTouch1}
+          src={image1}
           alt=""
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -79,7 +84,7 @@ export function AboutPanelCta({ data }: { data?: any }) {
           </TransitionLink>
         </div>
         <motion.img
-          src={keepInTouch2}
+          src={image2}
           alt=""
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}

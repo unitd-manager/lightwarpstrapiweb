@@ -1,4 +1,6 @@
-export function PanelHeroes() {
+// src/pages/projects/PanelHeroes.tsx
+export function PanelHeroes({ data }: { data?: any }) {
+  const title = data?.main_title || "Projects";
 
   return (
     <section
@@ -7,12 +9,9 @@ export function PanelHeroes() {
     >
       <div className="relative z-10 text-center">
         <h1 className="text-3xl font-semibold leading-tight tracking-[-0.02em] text-white sm:text-5xl md:text-7xl">
-          Projects
+          {title}
         </h1>
       </div>
     </section>
   );
 }
-
-
-

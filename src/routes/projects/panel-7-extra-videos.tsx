@@ -1,3 +1,4 @@
+// src/pages/projects/ProjectsPanelExtraVideos.tsx
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { TransitionLink } from "../../components/page-transition-overlay";
@@ -7,6 +8,25 @@ const slugify = (s: string) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+
+function getYouTubeId(url?: string) {
+  if (!url) return null;
+  const match = url.match(/(?:v=|\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
+  return match ? match[1] : null;
+}
+
+function RichDescription({ text }: { text: string }) {
+  const isHtml = /<[a-z][\s\S]*>/i.test(text);
+  if (isHtml) {
+    return (
+      <div
+        className="text-[18px] leading-8 text-white font-light [&_p]:mb-4"
+        dangerouslySetInnerHTML={{ __html: text }}
+      />
+    );
+  }
+  return <p className="text-[18px] leading-8 text-white font-light">{text}</p>;
+}
 
 const LazyYouTubeBackground = ({
   videoId,
@@ -25,10 +45,6 @@ const LazyYouTubeBackground = ({
   useEffect(() => {
     if (priority) return;
     if (!containerRef.current) return;
-    // Mounts only while near the viewport and unmounts again once scrolled
-    // well away — iOS Safari caps concurrent video/iframe elements and
-    // kills + reloads the page once exceeded, so pages stacking several
-    // video sections must free each one as the user scrolls past it.
     let unloadTimer: ReturnType<typeof setTimeout> | undefined;
     const observer = new IntersectionObserver(
       (entries) => {
@@ -37,11 +53,6 @@ const LazyYouTubeBackground = ({
           clearTimeout(unloadTimer);
           setShouldLoad(true);
         } else {
-          // iOS Safari's address bar dynamically resizes as you scroll,
-          // which can fire a spurious "not intersecting" event mid-scroll
-          // even though the element never actually left the screen —
-          // re-verify the real position before unloading (and freezing) a
-          // playing video over a single bad observer event.
           unloadTimer = setTimeout(() => {
             const el = containerRef.current;
             if (!el) return;
@@ -82,87 +93,101 @@ const LazyYouTubeBackground = ({
   );
 };
 
-const extraProjects = [
+const STATIC_EXTRA_PROJECTS = [
   {
     id: 17,
     title: "Samsung S7 ad",
-    copyright: "© 2016 Adithya Sathyanarayanan",
-    description: "This early production marks Lightwarp's first foray into full 3D animation — a high school commercial project executed entirely in Blender that went well beyond the scope of the original assignment. Over the course of two months, every asset was built from the ground up, encompassing modeling, surfacing, and lighting entirely from scratch. The project served as the foundation for Lightwarp's lighting philosophy, exploring HDRI-based product lighting, IES profiles, and deliberate camera choreography to draw out form, material detail, and visual storytelling. Though produced at an early stage, the discipline of running a complete production cycle and the creative possibilities unlocked through light established the core sensibilities that continue to define Lightwarp's work today.",
-    videoId: "4Esie0f7HVw",
-    align: "right",
+    copyrightText: "© 2016 Adithya Sathyanarayanan",
+    description:
+      "This early production marks Lightwarp's first foray into full 3D animation — a high school commercial project executed entirely in Blender that went well beyond the scope of the original assignment. Over the course of two months, every asset was built from the ground up, encompassing modeling, surfacing, and lighting entirely from scratch. The project served as the foundation for Lightwarp's lighting philosophy, exploring HDRI-based product lighting, IES profiles, and deliberate camera choreography to draw out form, material detail, and visual storytelling. Though produced at an early stage, the discipline of running a complete production cycle and the creative possibilities unlocked through light established the core sensibilities that continue to define Lightwarp's work today.",
+    video_url: "https://www.youtube.com/watch?v=4Esie0f7HVw",
+    ctaLabel: "Learn More",
+    ctaLink: `/projects/${slugify("Samsung S7 ad")}`,
+    align: "right" as const,
   },
   {
     id: 4,
     title: "Cyberia 2084",
-    copyright: "© 2016 Adithya Sathyanarayanan",
-    description: "Cyberia 2084 is a solo worldbuilding project conceived and executed in a single semester — a travelogue-style introduction to a sprawling, multilayered cyberpunk city built entirely from the ground up. Drawing inspiration from Ian Hubert's dense image-based texturing techniques, the project pushed how much atmospheric depth and narrative scale could be achieved independently. Rendered in Blender using baked lighting, irradiance caching, and optimized approaches to reflections and global illumination, it stands as Lightwarp's first real-time cinematic experiment. Cyberia 2084 earned the Disney Aggie Alumni Award scholarship, presented by the head of characters at Walt Disney Animation Studios and signed by Disney alumni — recognition that cemented the studio's commitment to building worlds that tell stories through scale, atmosphere, and light.",
-    videoId: "pTmzrHqdS_4",
-    align: "left",
+    copyrightText: "© 2016 Adithya Sathyanarayanan",
+    description:
+      "Cyberia 2084 is a solo worldbuilding project conceived and executed in a single semester — a travelogue-style introduction to a sprawling, multilayered cyberpunk city built entirely from the ground up. Drawing inspiration from Ian Hubert's dense image-based texturing techniques, the project pushed how much atmospheric depth and narrative scale could be achieved independently. Rendered in Blender using baked lighting, irradiance caching, and optimized approaches to reflections and global illumination, it stands as Lightwarp's first real-time cinematic experiment. Cyberia 2084 earned the Disney Aggie Alumni Award scholarship, presented by the head of characters at Walt Disney Animation Studios and signed by Disney alumni — recognition that cemented the studio's commitment to building worlds that tell stories through scale, atmosphere, and light.",
+    video_url: "https://www.youtube.com/watch?v=pTmzrHqdS_4",
+    ctaLabel: "Learn More",
+    ctaLink: `/projects/${slugify("Cyberia 2084")}`,
+    align: "left" as const,
   },
 ];
 
-export function ProjectsPanelExtraVideos() {
+export function ProjectsPanelExtraVideos({ data }: { data?: any[] }) {
+  const items =
+    data && data.length > 0
+      ? data.map((item, idx) => ({
+          id: item.id ?? idx,
+          title: item.title,
+          copyrightText: item.copyrightText,
+          description: item.description,
+          video_url: item.video_url,
+          ctaLabel: item.ctaLabel || "Learn More",
+          ctaLink: item.ctaLink || `/projects/${slugify(item.title)}`,
+          align: idx % 2 === 0 ? ("right" as const) : ("left" as const),
+        }))
+      : STATIC_EXTRA_PROJECTS;
+
   return (
     <>
-      {extraProjects.map((item, idx) => (
-        <section
-          key={item.id}
-          className="relative min-h-[90svh] overflow-hidden bg-[#04050f] text-white font-display sm:min-h-[90vh]"
-        >
-          <div className="absolute inset-0 overflow-hidden">
-            <LazyYouTubeBackground
-              videoId={item.videoId}
-              start={item.start}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[67.5vw] min-w-[213.33vh] min-h-[120%] border-0 object-cover pointer-events-none"
-              priority={idx === 0}
-            />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
-          </div>
-
-          <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
-            <div className={`flex ${item.align === "right" ? "justify-end" : "justify-start"}`}>
-              <motion.div
-                initial={{ opacity: 0, x: item.align === "right" ? 30 : -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: idx * 0.05 }}
-                className="w-[95vw] sm:w-full sm:max-w-[50vw] p-6 border border-white/40 rounded-2xl"
-              >
-                <div className="space-y-6">
-
-                  {/* Title */}
-                  <h2 className="inline text-5xl sm:text-6xl font-bold leading-tight text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-2 py-1">
-                    {item.title}
-                  </h2>
-
-                  {/* Copyright */}
-                  <div className="text-sm text-white/100">
-                    {item.copyright}
-                  </div>
-
-                  {/* Description */}
-                  <div className="rounded-xl bg-black/25 backdrop-blur-[4px] px-3 py-2">
-                    <p className="text-[18px] leading-8 text-white font-light">
-                      {item.description}
-                    </p>
-                  </div>
-
-                  {/* Button */}
-                  <div className="flex flex-wrap gap-4">
-                    <TransitionLink
-                      to={`/projects/${slugify(item.title)}`}
-                      className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
-                    >
-                      Learn More
-                    </TransitionLink>
-                  </div>
-
-                </div>
-              </motion.div>
+      {items.map((item, idx) => {
+        const videoId = getYouTubeId(item.video_url) || "";
+        return (
+          <section
+            key={item.id}
+            className="relative min-h-[90svh] overflow-hidden bg-[#04050f] text-white font-display sm:min-h-[90vh]"
+          >
+            <div className="absolute inset-0 overflow-hidden">
+              {videoId && (
+                <LazyYouTubeBackground
+                  videoId={videoId}
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[67.5vw] min-w-[213.33vh] min-h-[120%] border-0 object-cover pointer-events-none"
+                  priority={idx === 0}
+                />
+              )}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
             </div>
-          </div>
-        </section>
-      ))}
+
+            <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
+              <div className={`flex ${item.align === "right" ? "justify-end" : "justify-start"}`}>
+                <motion.div
+                  initial={{ opacity: 0, x: item.align === "right" ? 30 : -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: idx * 0.05 }}
+                  className="w-[95vw] sm:w-full sm:max-w-[50vw] p-6 border border-white/40 rounded-2xl"
+                >
+                  <div className="space-y-6">
+                    <h2 className="inline text-5xl sm:text-6xl font-bold leading-tight text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-2 py-1">
+                      {item.title}
+                    </h2>
+
+                    <div className="text-sm text-white/100">{item.copyrightText}</div>
+
+                    <div className="rounded-xl bg-black/25 backdrop-blur-[4px] px-3 py-2">
+                      <RichDescription text={item.description} />
+                    </div>
+
+                    <div className="flex flex-wrap gap-4">
+                      <TransitionLink
+                        to={item.ctaLink}
+                        className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
+                      >
+                        {item.ctaLabel}
+                      </TransitionLink>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </section>
+        );
+      })}
     </>
   );
 }
