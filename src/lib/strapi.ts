@@ -15,7 +15,9 @@ export async function strapiFetch(path: string) {
         // Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`,
       },
     });
-    if (!res.ok) return null;
+    if (!res.ok)
+      console.warn(`Strapi fetch failed (${res.status}) for ${path}`);
+      return null;
     const json = await res.json();
     return json;
   } catch (err) {

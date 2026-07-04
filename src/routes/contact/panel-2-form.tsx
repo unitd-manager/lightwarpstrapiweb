@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import locationIcon from "../../assets/images/cms/location_info.svg";
-import contactIcon from "../../assets/images/cms/contact_info.svg";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import locationIconFallback from "../../assets/images/cms/location_info.svg";
+import contactIconFallback from "../../assets/images/cms/contact_info.svg";
+import { getStrapiMedia } from "../../lib/strapi";
 
 const subjects = [
   "General Inquiry",
@@ -22,12 +24,13 @@ function GoogleGIcon() {
   );
 }
 
-
-function FieldError({ msg }: { msg: string }) {
+function FieldError(props: { msg: string }) {
+  const msg = props.msg;
   return (
-    <div className="flex items-center gap-1" style={{ color: '#FF4D4D', fontSize: '13px', fontWeight: 400, marginTop: '-20px' }}>
+    <div className="flex items-center gap-1" style={{ color: "#FF4D4D", fontSize: "13px", fontWeight: 400, marginTop: "-20px" }}>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-        <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
       </svg>
       {msg}
     </div>
@@ -38,248 +41,259 @@ function isValidEmail(raw: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(raw.trim());
 }
 
-export function ContactPanelForm() {
+function RichDescription(props: { content: any }) {
+  const content = props.content;
+
+  // Static fallback: plain string with \n line breaks
+  if (typeof content === "string") {
+    const lines = content.split("\n");
+    return (
+      <p className="text-white" style={{ fontSize: "16px", fontWeight: 300, lineHeight: "24px" }}>
+        {lines.map(function (line, i) {
+          return (
+            <span key={i}>
+              {line}
+              {i < lines.length - 1 ? <br /> : null}
+            </span>
+          );
+        })}
+      </p>
+    );
+  }
+
+  // Strapi Blocks format: array of rich-text nodes
+  return (
+    <div className="text-white" style={{ fontSize: "16px", fontWeight: 300, lineHeight: "24px" }}>
+      <BlocksRenderer
+        content={content}
+        blocks={{
+          paragraph: ({ children }) => <p style={{ marginBottom: "12px" }}>{children}</p>,
+        }}
+      />
+    </div>
+  );
+}
+
+const STATIC_CONTACT = {
+  sub_heading: "Get in touch",
+  description:
+    "We are ready to do business with you and create stunning visuals and stories!\nSend us a message through the form or contact us through the emails below to get started! To schedule an appointment/virtual meeting via Google Meet, click on the button below",
+  Contact_card1: "New Business",
+  Contact_card2: "Information",
+  Contact_card3: "newbiz@lightwarp3d.com",
+  Contact_card4: "info@lightwarp3d.com",
+  CTA_button: "Schedule a Meeting",
+  CTA_link: "https://calendar.app.google/zYHnxEYxui76S9tR6",
+  heading: "We would love to hear from you!",
+  send_btn: "Send",
+};
+
+export function ContactPanelForm(props: { data?: any }) {
+  const data = props.data;
+
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState("");
   const [messageError, setMessageError] = useState("");
 
+  const subHeading = (data && data.sub_heading) || STATIC_CONTACT.sub_heading;
+  const description = (data && data.description) || STATIC_CONTACT.description;
+  const card1Label = (data && data.Contact_card1) || STATIC_CONTACT.Contact_card1;
+  const card2Label = (data && data.Contact_card2) || STATIC_CONTACT.Contact_card2;
+  const card1Email = (data && data.Contact_card3) || STATIC_CONTACT.Contact_card3;
+  const card2Email = (data && data.Contact_card4) || STATIC_CONTACT.Contact_card4;
+  const ctaLabel = (data && data.CTA_button) || STATIC_CONTACT.CTA_button;
+  const ctaLink = (data && data.CTA_link) || STATIC_CONTACT.CTA_link;
+  const formHeading = (data && data.heading) || STATIC_CONTACT.heading;
+  const sendLabel = (data && data.send_btn) || STATIC_CONTACT.send_btn;
+
+  const businessImage = getStrapiMedia(data && data.business_image) || locationIconFallback;
+  const informationImage = getStrapiMedia(data && data.information_image) || contactIconFallback;
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const name = String(formData.get("name") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const subject = String(formData.get("subject") ?? "").trim();
+    const message = String(formData.get("message") ?? "").trim();
+    const website = String(formData.get("website") ?? "").trim();
+
+    let hasError = false;
+
+    if (!email) {
+      setEmailError("Email is required.");
+      hasError = true;
+    } else if (!isValidEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      hasError = true;
+    }
+
+    if (!message) {
+      setMessageError("Message is required.");
+      hasError = true;
+    }
+
+    if (hasError) {
+      return;
+    }
+
+    setSending(true);
+    setError(null);
+    setEmailError("");
+    setMessageError("");
+
+    fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: name, email: email, subject: subject, message: message, website: website }),
+    })
+      .then(function (res) {
+        if (!res.ok) {
+          return res.text().then(function (text) {
+            let friendly = "Failed to send message.";
+            try {
+              const parsed = JSON.parse(text);
+              if (parsed && parsed.error) {
+                friendly = parsed.error;
+              }
+            } catch (e) {
+              if (text) {
+                friendly = text;
+              }
+            }
+            setError(friendly);
+          });
+        }
+        form.reset();
+        setSent(true);
+      })
+      .catch(function () {
+        setError("Failed to send message.");
+      })
+      .finally(function () {
+        setSending(false);
+      });
+  }
+
   return (
-    /*
-     * Outer flex row — elementor-element-431d568a
-     *   Desktop:  flex-direction:row; padding:3% 4% 4% 4%; gap:0px; align-items:stretch;
-     *   Tablet:   padding:10% 4% 14% 4%; gap:35px; flex-wrap:wrap; justify-content:center;
-     *   Mobile:   margin-top:150px; padding:0% 6%; gap:80px;
-     *
-     * (All responsive overrides via .contact-outer-row CSS class)
-     */
     <section
       className="w-full flex flex-row flex-wrap items-stretch contact-outer-row"
-      style={{
-        fontFamily: '"Sora", sans-serif',
-        padding: '3% 4% 4% 4%',
-        gap: '30px',
-      }}
+      style={{ fontFamily: '"Sora", sans-serif', padding: "3% 4% 4% 4%", gap: "30px" }}
     >
-
-      {/*
-       * LEFT COLUMN — elementor-element-2ec5d63c
-       *   Desktop: width 45.815%; flex-direction:column; gap:25px; justify-content:flex-start;
-       *   Tablet:  width 100%; gap:25px; align-items:center;
-       *   Mobile:  width 100%; gap:90px;
-       */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
         className="flex flex-col contact-left-col"
-        style={{
-          width: '44%',
-          gap: '25px',
-          justifyContent: 'flex-start',
-        }}
+        style={{ width: "44%", gap: "25px", justifyContent: "flex-start" }}
       >
-
-        {/*
-         * "Get in touch" heading + description — elementor-element-6b2b9b08
-         *   image-box widget: text-align start, title margin-bottom 15px
-         *   NO padding-left — heading starts at left column edge (original CSS has no indent here)
-         */}
         <div>
-          {/*
-           * "Get in touch" heading — primary typography:
-           *   Sora, 45px, 600, 60px, -1px
-           *   Responsive: tablet 35px / mobile 24px (via .contact-form-heading CSS class)
-           */}
           <h3
             className="text-white contact-form-heading"
             style={{
               fontFamily: '"Sora", sans-serif',
-              fontSize: '45px',
+              fontSize: "45px",
               fontWeight: 600,
-              lineHeight: '60px',
-              letterSpacing: '-1px',
-              marginBottom: '15px',
+              lineHeight: "60px",
+              letterSpacing: "-1px",
+              marginBottom: "15px",
             }}
           >
-            Get in touch
+            {subHeading}
           </h3>
-          {/* Description — text typography: Sora, 16px, 300, 24px */}
-          <p
-            className="text-white"
-            style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
-          >
-            We are ready to do business with you and create stunning visuals and stories!
-            <br />
-            Send us a message through the form or contact us through the emails below to
-            get started! To schedule an appointment/virtual meeting via Google Meet, click
-            on the button below
-          </p>
+
+         <RichDescription content={description} />
         </div>
 
-        {/*
-         * Contact cards container — elementor-element-3cc1a6d5 (flex column, gap 0)
-         *   Inner black row — elementor-element-3324dede:
-         *     bg:#000000; padding:2%; gap:20px; justify-content:space-between;
-         *     Tablet: padding:6%;
-         *     Mobile: padding:0 30px 30px 30px;
-         */}
-        <div
-          className="w-full flex flex-col"
-          style={{ gap: '0px' }}
-        >
+        <div className="w-full flex flex-col" style={{ gap: "0px" }}>
           <div
             className="w-full flex flex-row justify-between contact-cards-bg"
-            style={{
-              backgroundColor: '#000000',
-              padding: '2%',
-              gap: '20px',
-            }}
+            style={{ backgroundColor: "#000000", padding: "2%", gap: "20px" }}
           >
-            {/* New Business card wrapper — elementor-element-f03efce (50% width) */}
             <div className="flex-1">
-              {/*
-               * New Business card — elementor-element-4afe4da9
-               *   padding:5%; border:2px solid #FFFFFF; border-radius:25px;
-               *   image width: 112px
-               */}
               <div
                 className="flex flex-col items-center text-center"
-                style={{
-                  padding: '5%',
-                  border: '2px solid #FFFFFF',
-                  borderRadius: '25px',
-                }}
+                style={{ padding: "5%", border: "2px solid #FFFFFF", borderRadius: "25px" }}
               >
                 <img
-                  src={locationIcon}
+                  src={businessImage}
                   alt=""
                   aria-hidden="true"
-                  style={{ width: '112px', height: 'auto', marginBottom: '15px' }}
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                  style={{ width: "112px", height: "auto", marginBottom: "15px" }}
+                  onError={function (e) {
+                    e.currentTarget.style.display = "none";
+                  }}
                 />
-                {/* Title — typography-31148ca: Sora, 25px, 400, 30px */}
                 <p
                   className="text-white contact-card-label"
-                  style={{
-                    fontFamily: '"Sora", sans-serif',
-                    fontSize: '25px',
-                    fontWeight: 400,
-                    lineHeight: '30px',
-                  }}
+                  style={{ fontFamily: '"Sora", sans-serif', fontSize: "25px", fontWeight: 400, lineHeight: "30px" }}
                 >
-                  New Business
+                  {card1Label}
                 </p>
-                {/* Email — text typography: 16px, 300, 24px */}
-                <p
-                  className="text-white mt-2 break-all"
-                  style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
-                >
-                  newbiz@lightwarp3d.com
+                <p className="text-white mt-2 break-all" style={{ fontSize: "16px", fontWeight: 300, lineHeight: "24px" }}>
+                  {card1Email}
                 </p>
               </div>
             </div>
 
-            {/* Information card wrapper — elementor-element-0877fa5 (50% width) */}
             <div className="flex-1">
-              {/*
-               * Information card — elementor-element-58cbd48b
-               *   padding:5%; border:2px solid #FFFFFF; border-radius:25px;
-               *   image width: 112px
-               */}
               <div
                 className="flex flex-col items-center text-center"
-                style={{
-                  padding: '5%',
-                  border: '2px solid #FFFFFF',
-                  borderRadius: '25px',
-                }}
+                style={{ padding: "5%", border: "2px solid #FFFFFF", borderRadius: "25px" }}
               >
                 <img
-                  src={contactIcon}
+                  src={informationImage}
                   alt=""
                   aria-hidden="true"
-                  style={{ width: '112px', height: 'auto', marginBottom: '15px' }}
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                  style={{ width: "112px", height: "auto", marginBottom: "15px" }}
+                  onError={function (e) {
+                    e.currentTarget.style.display = "none";
+                  }}
                 />
-                {/* Title — typography-31148ca: Sora, 25px, 400, 30px */}
                 <p
                   className="text-white contact-card-label"
-                  style={{
-                    fontFamily: '"Sora", sans-serif',
-                    fontSize: '25px',
-                    fontWeight: 400,
-                    lineHeight: '30px',
-                  }}
+                  style={{ fontFamily: '"Sora", sans-serif', fontSize: "25px", fontWeight: 400, lineHeight: "30px" }}
                 >
-                  Information
+                  {card2Label}
                 </p>
-                {/* Email — text typography: 16px, 300, 24px */}
-                <p
-                  className="text-white mt-2 break-all"
-                  style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
-                >
-                  info@lightwarp3d.com
+                <p className="text-white mt-2 break-all" style={{ fontSize: "16px", fontWeight: 300, lineHeight: "24px" }}>
+                  {card2Email}
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/*
-         * Schedule button row — elementor-element-17e3b8ff / 0dbad69 / f7da458
-         *   padding-left: 5%; gap: 50px (single child so gap doesn't matter visually)
-         *   Button: bg #F64418 (--e-global-color-c1efd99); border-radius: 10px;
-         *   accent typography: Sora, 16px, normal/400, 20px line-height
-         *   padding-block: 12px; padding-inline: 40px (from accent button defaults)
-         */}
-        <div style={{ marginTop: '5px', alignSelf: 'center' }}>
-          {/*
-           * Schedule a Meeting button — elementor-element-f7da458
-           *   bg: #F64418 (c1efd99); color: #FFFFFF; border-radius: 10px;
-           *   hover color: #000000 (secondary); NO icon — plain text only
-           *   accent typography: Sora, 16px, 400, 20px line-height
-           */}
+        <div style={{ marginTop: "5px", alignSelf: "center" }}>
           <a
-            href="https://calendar.app.google/zYHnxEYxui76S9tR6"
+            href={ctaLink}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-white hover:text-black transition-colors"
             style={{
               fontFamily: '"Sora", sans-serif',
-              fontSize: '16px',
+              fontSize: "16px",
               fontWeight: 400,
-              lineHeight: '20px',
-              backgroundColor: '#F64418',
-              borderRadius: '10px',
-              paddingTop: '20px',
-              paddingBottom: '20px',
-              paddingLeft: '44px',
-              paddingRight: '44px',
+              lineHeight: "20px",
+              backgroundColor: "#F64418",
+              borderRadius: "10px",
+              paddingTop: "20px",
+              paddingBottom: "20px",
+              paddingLeft: "44px",
+              paddingRight: "44px",
             }}
           >
             <GoogleGIcon />
-            Schedule a Meeting
+            {ctaLabel}
           </a>
         </div>
       </motion.div>
 
-      {/*
-       * RIGHT COLUMN — Form card: elementor-element-7f84906a
-       *   Desktop: width 55%; flex-direction:column; gap:40px; padding:3%;
-       *            border:2px solid #000000; border-radius:25px; bg:#6250DA;
-       *   Mobile:  padding:10% 7%;
-       *
-       * Form widget — elementor-element-58dc0fdf:
-       *   --ehp-form-row-gap: 32px;
-       *   --ehp-form-field-border-width: 1px; --ehp-form-field-border-color: #FFFFFF;
-       *   --ehp-form-field-bg-color: #ffffff; --ehp-form-field-text-color: #58595B;
-       *   --ehp-form-button-padding-block: 12px; --ehp-form-button-padding-inline: 40px;
-       *   Send button bg: --e-global-color-78ad7a8 = #000000; hover bg: #FFFFFF;
-       *   Send button text: #FCFCFC; hover text: #000000;
-       */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -287,100 +301,24 @@ export function ContactPanelForm() {
         transition={{ duration: 0.6, delay: 0.1 }}
         className="flex flex-col contact-right-col contact-form-card"
         style={{
-          flex: '1 1 0',
-          gap: '40px',
-          padding: '3%',
-          border: '2px solid #000000',
-          borderRadius: '25px',
-          backgroundColor: '#6250DA',
+          flex: "1 1 0",
+          gap: "40px",
+          padding: "3%",
+          border: "2px solid #000000",
+          borderRadius: "25px",
+          backgroundColor: "#6250DA",
         }}
       >
-        {/* "We would love to hear from you!" — typography-31148ca: 25px/400/30px */}
         <p
           className="text-white"
-          style={{
-            fontFamily: '"Sora", sans-serif',
-            fontSize: '25px',
-            fontWeight: 400,
-            lineHeight: '30px',
-          }}
+          style={{ fontFamily: '"Sora", sans-serif', fontSize: "25px", fontWeight: 400, lineHeight: "30px" }}
         >
-          We would love to hear from you!
+          {formHeading}
         </p>
 
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault();
-            const form = e.currentTarget;
-            const formData = new FormData(form);
+        <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: "32px" }}>
+          <input name="website" type="text" tabIndex={-1} autoComplete="off" className="hidden" />
 
-            const name = String(formData.get("name") ?? "").trim();
-            const email = String(formData.get("email") ?? "").trim();
-            const subject = String(formData.get("subject") ?? "").trim();
-            const message = String(formData.get("message") ?? "").trim();
-            const website = String(formData.get("website") ?? "").trim();
-
-            let hasError = false;
-
-            if (!email) {
-              setEmailError("Email is required.");
-              hasError = true;
-            } else if (!isValidEmail(email)) {
-              setEmailError("Please enter a valid email address.");
-              hasError = true;
-            }
-
-            if (!message) {
-              setMessageError("Message is required.");
-              hasError = true;
-            }
-
-            if (hasError) return;
-
-            setSending(true);
-            setError(null);
-            setEmailError("");
-            setMessageError("");
-
-            try {
-              const res = await fetch("/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, subject, message, website }),
-              });
-
-              if (!res.ok) {
-                const text = await res.text();
-                let friendly = "Failed to send message.";
-                try {
-                  const data = JSON.parse(text);
-                  if (data?.error) friendly = data.error;
-                } catch {
-                  if (text) friendly = text;
-                }
-                setError(friendly);
-                return;
-              }
-
-              form.reset();
-              setSent(true);
-            } catch {
-              setError("Failed to send message.");
-            } finally {
-              setSending(false);
-            }
-          }}
-          className="flex flex-col"
-          style={{ gap: '32px' }}
-        >
-          <input
-            name="website"
-            type="text"
-            tabIndex={-1}
-            autoComplete="off"
-            className="hidden"
-          />
-          {/* Name field */}
           <input
             name="name"
             type="text"
@@ -388,127 +326,119 @@ export function ContactPanelForm() {
             className="w-full outline-none"
             style={{
               fontFamily: '"Sora", sans-serif',
-              fontSize: '16px',
+              fontSize: "16px",
               fontWeight: 300,
-              lineHeight: '24px',
-              color: '#58595B',
-              backgroundColor: '#ffffff',
-              border: '1px solid #FFFFFF',
-              borderRadius: '4px',
-              paddingTop: '10px',
-              paddingBottom: '10px',
-              paddingLeft: '14px',
-              paddingRight: '14px',
+              lineHeight: "24px",
+              color: "#58595B",
+              backgroundColor: "#ffffff",
+              border: "1px solid #FFFFFF",
+              borderRadius: "4px",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+              paddingLeft: "14px",
+              paddingRight: "14px",
             }}
           />
 
-          {/* Email field */}
           <input
             name="email"
             type="email"
             placeholder="Email"
             autoComplete="email"
             inputMode="email"
-            onChange={() => {
+            onChange={function () {
               setEmailError("");
               setError(null);
             }}
             className="w-full outline-none"
             style={{
               fontFamily: '"Sora", sans-serif',
-              fontSize: '16px',
+              fontSize: "16px",
               fontWeight: 300,
-              lineHeight: '24px',
-              color: '#58595B',
-              backgroundColor: '#ffffff',
-              border: emailError ? '1px solid #FF4D4D' : '1px solid #FFFFFF',
-              borderRadius: '4px',
-              paddingTop: '10px',
-              paddingBottom: '10px',
-              paddingLeft: '14px',
-              paddingRight: '14px',
+              lineHeight: "24px",
+              color: "#58595B",
+              backgroundColor: "#ffffff",
+              border: emailError ? "1px solid #FF4D4D" : "1px solid #FFFFFF",
+              borderRadius: "4px",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+              paddingLeft: "14px",
+              paddingRight: "14px",
             }}
           />
-          {emailError && <FieldError msg={emailError} />}
 
-          {/* Subject dropdown */}
+          {emailError ? <FieldError msg={emailError} /> : null}
+
           <div className="relative w-full">
             <select
               name="subject"
               className="w-full outline-none appearance-none cursor-pointer"
               style={{
                 fontFamily: '"Sora", sans-serif',
-                fontSize: '16px',
+                fontSize: "16px",
                 fontWeight: 300,
-                lineHeight: '24px',
-                color: '#58595B',
-                backgroundColor: '#ffffff',
-                border: '1px solid #FFFFFF',
-                borderRadius: '4px',
-                paddingTop: '10px',
-                paddingBottom: '10px',
-                paddingLeft: '14px',
-                paddingRight: '40px',
+                lineHeight: "24px",
+                color: "#58595B",
+                backgroundColor: "#ffffff",
+                border: "1px solid #FFFFFF",
+                borderRadius: "4px",
+                paddingTop: "10px",
+                paddingBottom: "10px",
+                paddingLeft: "14px",
+                paddingRight: "40px",
               }}
             >
               <option value="">Subject</option>
-              {subjects.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
+              {subjects.map(function (s) {
+                return (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                );
+              })}
             </select>
             <svg
               className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-              width="16" height="16" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <polyline points="6 9 12 15 18 9" />
             </svg>
           </div>
 
-          {/* Message textarea */}
           <textarea
             name="message"
             rows={5}
             placeholder="Message"
-            onChange={() => {
+            onChange={function () {
               setMessageError("");
               setError(null);
             }}
             className="w-full outline-none resize-none"
             style={{
               fontFamily: '"Sora", sans-serif',
-              fontSize: '16px',
+              fontSize: "16px",
               fontWeight: 300,
-              lineHeight: '24px',
-              color: '#58595B',
-              backgroundColor: '#ffffff',
-              border: messageError ? '1px solid #FF4D4D' : '1px solid #FFFFFF',
-              borderRadius: '4px',
-              paddingTop: '10px',
-              paddingBottom: '10px',
-              paddingLeft: '14px',
-              paddingRight: '14px',
+              lineHeight: "24px",
+              color: "#58595B",
+              backgroundColor: "#ffffff",
+              border: messageError ? "1px solid #FF4D4D" : "1px solid #FFFFFF",
+              borderRadius: "4px",
+              paddingTop: "10px",
+              paddingBottom: "10px",
+              paddingLeft: "14px",
+              paddingRight: "14px",
             }}
           />
-          {messageError && <FieldError msg={messageError} />}
 
-          {/*
-           * Send button — elementor-element-58dc0fdf
-           *   bg: --e-global-color-78ad7a8 = #000000
-           *   hover bg: --e-global-color-primary = #FFFFFF
-           *   text: #FCFCFC; hover text: --e-global-color-78ad7a8 = #000000
-           *   padding-block: 12px; padding-inline: 40px
-           *   accent typography: Sora, 16px, 400, 20px
-           */}
-          {/*
-           * Send button — elementor-element-58dc0fdf form button
-           *   bg: #000000 (78ad7a8); text: #FCFCFC;
-           *   border: 2px solid #FFFFFF
-           *   hover bg: #FFFFFF; hover text: #000000
-           *   padding-block: 12px; padding-inline: 40px
-           *   accent typography: Sora, 16px, 400, 20px
-           *   width: full (spans full form content width)
-           */}
+          {messageError ? <FieldError msg={messageError} /> : null}
+
           <div className="flex flex-col gap-3">
             <button
               type="submit"
@@ -516,40 +446,52 @@ export function ContactPanelForm() {
               className="inline-flex items-center justify-center contact-send-btn transition-colors hover:bg-white hover:text-black disabled:opacity-60"
               style={{
                 fontFamily: '"Sora", sans-serif',
-                fontSize: '16px',
+                fontSize: "16px",
                 fontWeight: 400,
-                lineHeight: '20px',
-                color: '#FCFCFC',
-                backgroundColor: '#000000',
-                borderRadius: '4px',
-                paddingTop: '12px',
-                paddingBottom: '12px',
-                paddingLeft: '60px',
-                paddingRight: '60px',
-                alignSelf: 'flex-start',
+                lineHeight: "20px",
+                color: "#FCFCFC",
+                backgroundColor: "#000000",
+                borderRadius: "4px",
+                paddingTop: "12px",
+                paddingBottom: "12px",
+                paddingLeft: "60px",
+                paddingRight: "60px",
+                alignSelf: "flex-start",
               }}
             >
-              {sending ? "Sending..." : "Send"}
+              {sending ? "Sending..." : sendLabel}
             </button>
 
-            {sent && (
-              <div className="flex items-center gap-2" style={{ fontFamily: '"Sora", sans-serif', fontSize: '14px', fontWeight: 400, color: '#FFFFFF' }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
+            {sent ? (
+              <div
+                className="flex items-center gap-2"
+                style={{ fontFamily: '"Sora", sans-serif', fontSize: "14px", fontWeight: 400, color: "#FFFFFF" }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="flex-shrink-0"
+                >
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
                 Your submission was successful.
               </div>
-            )}
+            ) : null}
 
-            {error && (
-              <div style={{ fontFamily: '"Sora", sans-serif', fontSize: '14px', fontWeight: 400, color: '#FFFFFF' }}>
+            {error ? (
+              <div style={{ fontFamily: '"Sora", sans-serif', fontSize: "14px", fontWeight: 400, color: "#FFFFFF" }}>
                 {error}
               </div>
-            )}
+            ) : null}
           </div>
         </form>
       </motion.div>
-
     </section>
   );
 }

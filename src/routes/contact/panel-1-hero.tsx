@@ -12,11 +12,14 @@ function Ball({ size, color }: { size: number; color: string }) {
   );
 }
 
-export function ContactPanelHero() {
+const STATIC_HERO = {
+  title: "Contact us",
+};
+
+export function ContactPanelHero({ data }: { data?: any }) {
+  const title = data?.main_title || data?.title || STATIC_HERO.title;
+
   return (
-    /* Section is the single positioning context — always 220px tall.
-       All decoratives position relative to the section, not an inner div,
-       so percentages are consistent on every screen size. */
     <section
       className="w-full bg-[#2E188D] relative overflow-hidden contact-hero-section flex items-center justify-center"
       style={{ fontFamily: '"Sora", sans-serif', minHeight: '220px' }}
@@ -78,7 +81,7 @@ export function ContactPanelHero() {
         className="relative z-10 text-center text-white contact-hero-heading"
         style={{ fontFamily: '"Sora", sans-serif', fontSize: '75px', fontWeight: 600, lineHeight: '85px', letterSpacing: '-2px' }}
       >
-        Contact us
+        {title}
       </motion.h1>
     </section>
   );
