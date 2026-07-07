@@ -1,18 +1,87 @@
-import { PageShell } from "../components/page-shell";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { LazyVimeoBackground } from "../components/lazy-vimeo-background";
+import { PageShell } from "../components/page-shell";
 import { ProjectsPanelCapabilities } from "./projects/panel-3-capabilities";
 import { ProjectsPanelExtraVideosCapabilities } from "./projects/panel-7-extra-videos-capabilities";
 
+export type CapabilityItem = {
+  id: number;
+  title: string;
+  description: string;
+  highlight_description: string;
+  ctaLabel: string;
+  ctaLink: string;
+  video_url: string;
+  copyrightText: string;
+  contributionsLabel?: string;
+  creditsLabel?: string;
+  credits?: { role: string; names: string }[];
+  watchnow_label?: string;
+  watchnow_link?: string;
+};
+
+async function fetchCapabilitiesPage() {
+  const res = await fetch(`${import.meta.env.VITE_STRAPI_URL}/api/pages/by-slug/capabilities`);
+  if (!res.ok) throw new Error("Failed to fetch capabilities page");
+  const json = await res.json();
+
+  const useCaseBlock = json.data.pageBuilder.find(
+    (block: any) => block.__component === "acf-sections.use-case-single"
+  );
+
+  return useCaseBlock;
+}
+
+function resolveWatchHref(videoUrl?: string, watchnowLink?: string): string | undefined {
+  if (watchnowLink) return watchnowLink;
+  if (!videoUrl) return undefined;
+  if (/^[a-zA-Z0-9_-]{11}$/.test(videoUrl)) return `https://www.youtube.com/watch?v=${videoUrl}`;
+
+  try {
+    const url = new URL(videoUrl);
+    const host = url.hostname.replace(/^www\./, "");
+    const path = url.pathname.replace(/(^\/|\/$)/g, "");
+
+    if (host === "youtu.be") return `https://www.youtube.com/watch?v=${path}`;
+    if (host === "youtube.com" || host === "m.youtube.com") {
+      if (path.startsWith("embed/")) return `https://www.youtube.com/watch?v=${path.split("/").pop()}`;
+      const id = url.searchParams.get("v") || path.split("/").pop();
+      return id ? `https://www.youtube.com/watch?v=${id}` : videoUrl;
+    }
+  } catch {
+    // fall through to return raw URL
+  }
+
+  return videoUrl;
+}
+
 export default function Capabilities() {
-  const vimeoId = "1204856098";
-  const posterSrc = `https://vumbnail.com/${vimeoId}.jpg`;
-  // Note: a `quality=540p` param was tried here for faster mobile start,
-  // but `quality` isn't officially supported by Vimeo's standard embed
-  // player — on iPhone it caused the player to fail to initialize entirely
-  // instead of just being ignored. Reverted to the working URL.
-  const embedSrc = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&keyboard=0`;
+  const vimeoId      = "1204856098";
+  const posterSrc    = `https://vumbnail.com/${vimeoId}.jpg`;
+  const embedSrc     = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&autopause=0&background=1&controls=0&title=0&byline=0&portrait=0&dnt=1&keyboard=0`;
   const vimeoPageUrl = `https://vimeo.com/${vimeoId}`;
+
+  const [block, setBlock] = useState<any>(null);
+
+  useEffect(() => {
+    fetchCapabilitiesPage()
+      .then(setBlock)
+      .catch(() => setBlock(null));
+  }, []);
+
+  const items: CapabilityItem[] = block?.use_case_items ?? [];
+
+  // index 0 → hero section
+  // index 1 → panel-3 (Lush Victorian Garden)
+  // index 2..n → panel-7 extra videos
+  const [heroItem, lushItem, ...extraItems] = items.length
+    ? items
+    : ([] as CapabilityItem[]);
+
+  const pageTitle = block?.main_title ?? "OUR CAPABILITIES";
+  const heroWatchHref = resolveWatchHref(heroItem?.video_url, heroItem?.watchnow_link) || heroItem?.ctaLink || vimeoPageUrl;
+  const heroWatchLabel = heroItem?.watchnow_label || heroItem?.ctaLabel || "Watch Now";
 
   return (
     <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">
@@ -23,12 +92,12 @@ export default function Capabilities() {
         <div className="absolute inset-0 bg-black/20" />
         <div className="relative mx-auto max-w-7xl px-6 py-12 lg:py-16 text-center">
           <h1 className="text-4xl font-semibold tracking-[-0.03em] sm:text-5xl text-white bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/60 [text-shadow:0_1px_0_rgba(255,255,255,0.18),0_-1px_0_rgba(0,0,0,0.7),0_14px_30px_rgba(0,0,0,0.55)]">
-            OUR CAPABILITIES
+            {pageTitle}
           </h1>
         </div>
       </section>
 
-      {/* Hero reel section */}
+      {/* Hero reel section — use_case_items[0] */}
       <section className="relative h-[calc(100svh-80px)] overflow-hidden bg-transparent text-white font-display sm:h-[calc(100vh-80px)]">
         <div className="absolute inset-0 overflow-hidden">
           <LazyVimeoBackground
@@ -50,33 +119,39 @@ export default function Capabilities() {
           >
             <div className="space-y-6">
 
-              {/* Title */}
               <h2 className="inline text-3xl sm:text-4xl font-bold leading-tight text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-2 py-1">
-                Watch our capabilities reel — a quick look at what we deliver
+                {heroItem?.title ?? "Watch our capabilities reel — a quick look at what we deliver"}
               </h2>
 
-              {/* Description */}
               <div className="rounded-xl bg-black/30 backdrop-blur-[4px] mt-[10px] px-3 py-3 space-y-3">
-                <p className="text-[16px] leading-7 text-white font-light">
-                  Before the founding of our studio, our team members have always been creating stunning 3D renders, tools, assets, and projects.
-                </p>
-                <p className="text-[16px] leading-7 text-white font-light">
-                  Our Capabilities Reel showcases many of these personal projects and collaborations to give even more context and confidence to our skillsets and quality of work.
-                </p>
+                {heroItem?.description ? (
+                  <div
+                    className="text-[16px] leading-7 text-white font-light"
+                    dangerouslySetInnerHTML={{ __html: heroItem.description }}
+                  />
+                ) : (
+                  <>
+                    <p className="text-[16px] leading-7 text-white font-light">
+                      Before the founding of our studio, our team members have always been creating stunning 3D renders, tools, assets, and projects.
+                    </p>
+                    <p className="text-[16px] leading-7 text-white font-light">
+                      Our Capabilities Reel showcases many of these personal projects and collaborations to give even more context and confidence to our skillsets and quality of work.
+                    </p>
+                  </>
+                )}
                 <p className="text-[13px] leading-7 text-white font-light">
                   Legal Note: The works featured in the Capabilities Reel are owned in whole or in part by their respective rights holders, including artists affiliated and unaffiliated with Lightwarp 3D, and are presented solely for showcase and demonstration purposes. Lightwarp 3D does not claim ownership of all featured works and asserts ownership only over projects explicitly identified on the Projects page as created by the studio. Please see project credits for copyright details and attribution.
                 </p>
               </div>
 
-              {/* Button */}
               <div className="flex flex-wrap gap-4">
                 <a
-                  href={vimeoPageUrl}
+                  href={heroWatchHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition-all duration-300 hover:bg-white/90 hover:scale-105"
                 >
-                  Watch Now
+                  {heroWatchLabel}
                 </a>
               </div>
 
@@ -85,8 +160,11 @@ export default function Capabilities() {
         </div>
       </section>
 
-      <ProjectsPanelCapabilities />
-      <ProjectsPanelExtraVideosCapabilities />
+      {/* Lush Victorian Garden — use_case_items[1] */}
+      <ProjectsPanelCapabilities item={lushItem} />
+
+      {/* Extra video panels — use_case_items[2..n] */}
+      <ProjectsPanelExtraVideosCapabilities useCaseItems={extraItems.length ? extraItems : undefined} />
 
     </PageShell>
   );

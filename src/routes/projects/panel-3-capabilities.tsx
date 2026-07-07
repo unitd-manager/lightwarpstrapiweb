@@ -2,12 +2,65 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { ProjectCredits } from "../../components/ProjectCredits";
+import type { CapabilityItem } from "../capabilities";
 
 const slugify = (s: string) =>
   s
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+
+function extractYouTubeId(videoUrl: string): string {
+  if (!videoUrl) return "";
+  if (/^[a-zA-Z0-9_-]{11}$/.test(videoUrl)) return videoUrl;
+
+  try {
+    const url = new URL(videoUrl);
+    const host = url.hostname.replace(/^www\./, "");
+    const isYouTubeHost =
+      host === "youtube.com" || host === "youtu.be" || host === "m.youtube.com";
+
+    if (isYouTubeHost) {
+      return url.searchParams.get("v") ?? url.pathname.split("/").pop() ?? videoUrl;
+    }
+    return videoUrl;
+  } catch {
+    return videoUrl;
+  }
+}
+
+function parseContributions(highlight: string): string[] {
+  if (!highlight) return [];
+  return highlight
+    .replace(/<[^>]+>/g, "")
+    .trim()
+    .split(/[•·,|]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function resolveWatchHref(videoUrl?: string, watchnowLink?: string): string | undefined {
+  if (watchnowLink) return watchnowLink;
+  if (!videoUrl) return undefined;
+  if (/^[a-zA-Z0-9_-]{11}$/.test(videoUrl)) return `https://www.youtube.com/watch?v=${videoUrl}`;
+
+  try {
+    const url = new URL(videoUrl);
+    const host = url.hostname.replace(/^www\./, "");
+    const path = url.pathname.replace(/(^\/|\/$)/g, "");
+
+    if (host === "youtu.be") return `https://www.youtube.com/watch?v=${path}`;
+    if (host === "youtube.com" || host === "m.youtube.com") {
+      if (path.startsWith("embed/")) return `https://www.youtube.com/watch?v=${path.split("/").pop()}`;
+      const id = url.searchParams.get("v") || path.split("/").pop();
+      return id ? `https://www.youtube.com/watch?v=${id}` : videoUrl;
+    }
+  } catch {
+    // fall through
+  }
+
+  return videoUrl;
+}
 
 const LUSH_VIDEO_ID = "b-qRx-LlB1A";
 
@@ -82,12 +135,12 @@ const LazyYouTubeBackground = ({
   );
 };
 
-export function ProjectsPanelCapabilities() {
+export function ProjectsPanelCapabilities({ item }: { item?: CapabilityItem }) {
   return (
     <section className="relative min-h-[90svh] overflow-hidden bg-transparent text-white font-display sm:min-h-[90vh]">
       <div className="absolute inset-0 overflow-hidden">
         <LazyYouTubeBackground
-          videoId={LUSH_VIDEO_ID}
+          videoId={extractYouTubeId(item?.video_url || LUSH_VIDEO_ID)}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[67.5vw] min-w-[213.33vh] min-h-[120%] border-0 object-cover pointer-events-none"
         />
         <div className="absolute inset-0 bg-black/20" />
@@ -107,16 +160,16 @@ export function ProjectsPanelCapabilities() {
 
               {/* Title */}
               <h2 className="inline text-5xl sm:text-6xl font-bold leading-tight text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-2 py-1">
-                Lush Victorian Garden
+                {item?.title || "Lush Victorian Garden"}
               </h2>
 
               {/* Lightwarp Contributions — matches credits container */}
               <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
                 <p className="text-xs font-bold text-white/100 uppercase tracking-widest mb-3">
-                  Lightwarp Contributions
+                  {item?.contributionsLabel || "Lightwarp Contributions"}
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  {["Lighting", "Compositing", "Camera"].map((tag) => (
+                  {(item?.highlight_description ? parseContributions(item.highlight_description) : ["Lighting", "Compositing", "Camera"]).map((tag) => (
                     <span
                       key={tag}
                       className="rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white"
@@ -131,11 +184,12 @@ export function ProjectsPanelCapabilities() {
               <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
                 <div className="text-white [&_*]:text-white">
                   <ProjectCredits
-                    entries={[
+                    entries={item?.credits?.length ? item.credits : [
                       { role: "Look Development, Set Dressing, Layout, and Procedural Assets by", names: "Alyssa Curran" },
                       { role: "Bridge Model by", names: "Nimi Parmar" },
                     ]}
-                    copyright="© 2025 Alyssa Curran, Adithya Sathyanarayanan, Nimi Parmar"
+                    label={item?.creditsLabel || "Credits"}
+                    copyright={item?.copyrightText || "© 2025 Alyssa Curran, Adithya Sathyanarayanan, Nimi Parmar"}
                   />
                 </div>
               </div>
@@ -143,26 +197,29 @@ export function ProjectsPanelCapabilities() {
               {/* Description */}
               <div className="rounded-xl bg-black/30 backdrop-blur-[4px] px-3 py-2">
                 <p className="text-[18px] leading-8 text-white font-light">
-                  Lush Victorian Garden is a collaborative exterior lighting study that merges naturalistic detail with a whimsical, storybook aesthetic. The environment balances imaginative wonder with grounded realism — every element of foliage, atmosphere, and composition crafted to feel believable while transporting the viewer into a dreamlike space. Lit and rendered using RenderMan's ML denoiser at its public release, with final compositing in Nuke layering in bloom, god rays, chromatic aberration, vignette, and precise lighting refinements, the piece demonstrates Lightwarp's command of cinematic exterior lighting and photorealistic environmental rendering.
+                  {item?.description ??
+                    "Lush Victorian Garden is a collaborative exterior lighting study that merges naturalistic detail with a whimsical, storybook aesthetic. The environment balances imaginative wonder with grounded realism — every element of foliage, atmosphere, and composition crafted to feel believable while transporting the viewer into a dreamlike space. Lit and rendered using RenderMan's ML denoiser at its public release, with final compositing in Nuke layering in bloom, god rays, chromatic aberration, vignette, and precise lighting refinements, the piece demonstrates Lightwarp's command of cinematic exterior lighting and photorealistic environmental rendering."}
                 </p>
               </div>
 
               {/* Buttons */}
               <div className="flex flex-wrap gap-4">
                 <TransitionLink
-                  to={"/projects/" + slugify("Our Capabilities")}
+                  to={item?.ctaLink || "/projects/" + slugify(item?.title || "Our Capabilities")}
                   className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
                 >
-                  Learn More
+                  {item?.ctaLabel || "Learn More"}
                 </TransitionLink>
-                <a
-                  href={"https://www.youtube.com/watch?v=" + LUSH_VIDEO_ID}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
-                >
-                  Watch Now
-                </a>
+                {resolveWatchHref(item?.video_url, item?.watchnow_link) ? (
+                  <a
+                    href={resolveWatchHref(item?.video_url, item?.watchnow_link)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
+                  >
+                    {item?.watchnow_label || "Watch Now"}
+                  </a>
+                ) : null}
               </div>
 
             </div>

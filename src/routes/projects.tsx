@@ -1,5 +1,6 @@
 // src/pages/projects/Projects.tsx
 import { useEffect, useState } from "react";
+import { PageShell } from "../components/page-shell";
 import { PanelHeroes } from "./projects/panel-hero";
 import { ProjectsPanelHero } from "./projects/panel-1-hero";
 import { ProjectsPanelExtraVideos } from "./projects/panel-7-extra-videos";
@@ -29,10 +30,10 @@ export default function Projects() {
   const [featured, ...rest] = items.length ? items : [undefined, undefined, undefined];
 
   return (
-    <div>
+    <PageShell>
       <PanelHeroes data={block} />
       <ProjectsPanelHero data={featured} />
       <ProjectsPanelExtraVideos data={items.length ? rest : undefined} />
-    </div>
+    </PageShell>
   );
 }
