@@ -4,24 +4,20 @@ import { TransitionLink } from "../../components/page-transition-overlay";
 import { ProjectCredits } from "../../components/ProjectCredits";
 import type { CapabilityItem } from "../capabilities";
 
-import video from "../../assets/images/lego-fluid-dance.mp4";
-import videoPoster from "../../assets/images/lego-fluid-dance-poster.jpg";
-import image from "../../assets/images/WW2_Trench_Scene.jpg";
-
-// ─── Fallback hardcoded projects (used when Strapi returns nothing) ────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 type CreditEntry = { role: string; names: string };
 
-type FallbackProject = {
+type MappedProject = {
   id: number;
   title: string;
   contributions: string[];
-  contributionsLabel?: string;
-  creditsLabel?: string;
-  credits?: CreditEntry[];
+  contributionsLabel: string;
+  creditsLabel: string;
+  credits: CreditEntry[];
   description: string;
   videoId: string;
-  hideLearnMore?: boolean;
+  hideLearnMore: boolean;
   start?: number;
   watchLink?: string;
   watchLabel?: string;
@@ -30,93 +26,14 @@ type FallbackProject = {
   copyrightText?: string;
 };
 
-const fallbackProjects: FallbackProject[] = [
-  {
-    id: 29,
-    title: "Caught Off Guard",
-    contributions: ["Lighting", "Compositing", "Rough Layout", "Pipeline", "R&D", "Production Management", "Look Development"],
-    contributionsLabel: "Lightwarp Contributions",
-    creditsLabel: "Credits",
-    credits: [
-      { role: "Story & Production by", names: "Adithya Sathyanarayanan & Alyssa Curran" },
-      { role: "Design and Concepts by", names: "Gus McClain, Rachel Fikir, & Alyssa Curran" },
-      { role: "Character and Environment Models by", names: "Jaime Diaz, Britain Thomas, Rachel Fikir" },
-      { role: "Look Development and Surfacing by", names: "Alyssa Curran, Adithya Sathyanarayanan, Rachel Fikir & Britain Thomas" },
-      { role: "Animation, Storyboard, Camera and Final Layout by", names: "Gus McClain & Ethan Umanos" },
-    ],
-    copyrightText: "© 2021 Rachel Fikir, Britain Thomas, Ethan Umanos, Gus McClain, Adithya Sathyanarayan, Alyssa Curran, Jaime Diaz.",
-    description: "Caught Off Guard is a playful student short film produced at Texas A&M, distinguished by its dynamic lighting design and stylized visual language. Lightwarp led production management and pipeline development on the project, overseeing the team across all stages of the short. Notably, this was one of the first studio productions at Texas A&M to implement the ACES color workflow — well ahead of its widespread adoption across the industry — with Lightwarp driving its integration into the live pipeline.",
-    videoId: "7iZBroHtizk",
-  },
-  {
-    id: 10,
-    title: "The Jab",
-    contributions: ["Lighting", "Compositing", "Final Layout", "Shading"],
-    contributionsLabel: "Lightwarp Contributions",
-    creditsLabel: "Credits",
-    credits: [
-      { role: "Story, Production and Set Dressing by", names: "Cooper Heathcock" },
-      { role: "3D Animation, Layout and Character by", names: "Theron Smith" },
-      { role: "Character Model by", names: "Corain Marnweck" },
-      { role: "Character Rig by", names: "Spencer Bryant" },
-      { role: "2D Matte and Set Painting by", names: "Steve Leal" },
-      { role: "Visual Effects by", names: "Saif Chowdhury" },
-      { role: "Character Surfacing by", names: "Emma Peace" },
-      { role: "2D Animation and Final Credits by", names: "Liz Mars & Maleah Miller" },
-    ],
-    copyrightText: "© 2025 Cooper Heathcock, Adithya Sathyanarayanan, Theron Smith, Corain Marneweck, Spencer Bryant, Steven Leal, Saif Chowdhury, Emma Peace, Liz Mars, Maleah Miller",
-    description: "The Jab was a collaborative student short film and the capstone production completed prior to graduating with a master's degree from Texas A&M. Lightwarp joined the project late in the pipeline as lighting and compositing artists, and within a single month delivered a fully polished short — resolving critical data pipeline issues, reconstructing final layout, and driving material assembly across the board to carry the film across the finish line.",
-    videoId: "4d27i10x2wI",
-  },
-  {
-    id: 1,
-    title: "Stray Vista Studios",
-    contributions: ["Lighting", "Cinematography", "Look Development", "Compositing", "VFX"],
-    contributionsLabel: "Lightwarp Contributions",
-    creditsLabel: "Credits",
-    credits: [
-      { role: "Role", names: "Only responsible for showcased CG Shots. Produced and Shot at Stray Vista Studios for BMG" },
-    ],
-    copyrightText: "© 2024 BMG",
-    description: "Stray Vista Studios in Dripping Springs, Texas stands as one of the largest active virtual production facilities in the state and a genuine pioneer in the field. Lightwarp's first industry engagement took place here, embedded with the studio team as an Unreal Engine Technical Director, on-site representative, and Production Assistant — contributing across both pipeline development and live production support.",
-    videoId: "w0GfewGYR3g",
-    start: 5,
-  },
-  {
-    id: 11,
-    title: "Lego Fluid Dance",
-    contributions: ["Founder Created"],
-    contributionsLabel: "Lightwarp Contributions",
-    creditsLabel: "Credits",
-    credits: [
-      { role: "Background Stage provided by", names: "Ben House and Texas A&M Visualization" },
-    ],
-    description: "This digital simulation project accomplished through a mix of Houdini-based FLIP fluids and voxel-based quantization and instancing showcases a fun animated character who gushes with happiness, joy, and lego-style bricks as it dances! Rendered fully in Karma XPU and composed through USD and Solaris as a showcase project.",
-    hideLearnMore: true,
-    videoId: video,
-  },
-  {
-    id: 12,
-    title: "Trench Render",
-    contributions: ["Lighting", "Compositing", "Final Layout", "Shading"],
-    contributionsLabel: "Lightwarp Contributions",
-    creditsLabel: "Credits",
-    credits: [
-      { role: "Look Development and Texturing by", names: "Magnus Haarseth" },
-      { role: "Cinematography and Layout by", names: "Anantha Sathyanarayanan" },
-    ],
-    copyrightText: "© 2026 Magnus Haarseth, Anantha Sathyanarayanan, Adithya Sathyanarayanan",
-    description: "This still environment scene of a filmic WW1 scene created in Blender 3D depicting trench warfare and the use of helmet decoys was conceptualized, modelled, textured and surfaced by Lightwarp artist Magnus Haarseth, camera composition, layout, and set-dressing by artist Anantha Sathyanarayanan, and lit, rendered and composited to simulate filmed footage by artist Adithya Sathyanarayanan.",
-    hideLearnMore: true,
-    videoId: image,
-  },
-];
+const slugify = (s: string) =>
+  s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+const watchBtnClass =
+  "inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105";
 
 function extractYouTubeId(videoUrl: string): string {
   if (!videoUrl) return "";
-  // Bare 11-char YouTube ID passed directly
   if (/^[a-zA-Z0-9_-]{11}$/.test(videoUrl)) return videoUrl;
 
   try {
@@ -125,9 +42,6 @@ function extractYouTubeId(videoUrl: string): string {
     const isYouTubeHost =
       host === "youtube.com" || host === "youtu.be" || host === "m.youtube.com";
 
-    // Only pull an ID out of actual YouTube URLs.
-    // Any other URL (e.g. your Strapi/localhost media files) is returned as-is,
-    // so the full protocol+host+path stays intact.
     if (isYouTubeHost) {
       return url.searchParams.get("v") ?? url.pathname.split("/").pop() ?? videoUrl;
     }
@@ -137,8 +51,6 @@ function extractYouTubeId(videoUrl: string): string {
   }
 }
 
-// Parses Strapi rich-text e.g. "<p>Lighting • Compositing • Camera</p>"
-// into badge array ["Lighting", "Compositing", "Camera"]
 function parseContributions(highlight: string): string[] {
   if (!highlight) return [];
   return highlight
@@ -172,13 +84,7 @@ function resolveWatchHref(videoUrl?: string, watchnowLink?: string): string | un
   return videoUrl;
 }
 
-// ─── LazyMediaBackground (unchanged from original) ───────────────────────────
-
-const slugify = (s: string) =>
-  s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-
-const watchBtnClass =
-  "inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105";
+// ─── LazyMediaBackground ─────────────────────────────────────────────────────
 
 const LazyMediaBackground = ({
   videoId,
@@ -222,8 +128,8 @@ const LazyMediaBackground = ({
     };
   }, [priority]);
 
-  const isVideo   = videoId === video || /\.(mp4|webm|ogg|mov)$/i.test(videoId);
-  const isImage   = videoId === image || /\.(avif|webp|jpe?g|png|gif|svg)$/i.test(videoId);
+  const isVideo   = /\.(mp4|webm|ogg|mov)$/i.test(videoId);
+  const isImage   = /\.(avif|webp|jpe?g|png|gif|svg)$/i.test(videoId);
   const isYouTube = !isVideo && !isImage;
 
   const embedSrc =
@@ -233,12 +139,16 @@ const LazyMediaBackground = ({
 
   const posterSrc = isYouTube
     ? "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg"
-    : isVideo ? videoPoster : undefined;
+    : undefined;
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden">
-      {!shouldLoad && isImage    ? <img src={videoId}  alt="" className={className} loading={priority ? "eager" : "lazy"} decoding="async" /> : null}
-      {!shouldLoad && !isImage && posterSrc ? <img src={posterSrc} alt="" className={className} loading={priority ? "eager" : "lazy"} decoding="async" /> : null}
+      {!shouldLoad && isImage
+        ? <img src={videoId} alt="" className={className} loading={priority ? "eager" : "lazy"} decoding="async" />
+        : null}
+      {!shouldLoad && !isImage && posterSrc
+        ? <img src={posterSrc} alt="" className={className} loading={priority ? "eager" : "lazy"} decoding="async" />
+        : null}
       {shouldLoad ? (
         isVideo ? (
           <video src={videoId} className={className} autoPlay muted loop playsInline preload="auto" />
@@ -263,32 +173,28 @@ const LazyMediaBackground = ({
 // ─── Component ────────────────────────────────────────────────────────────────
 
 type Props = {
-  // use_case_items[2..n] passed from capabilities.tsx
-  // Falls back to hardcoded fallbackProjects when empty/undefined
   useCaseItems?: CapabilityItem[];
 };
 
 export function ProjectsPanelExtraVideosCapabilities({ useCaseItems }: Props) {
-  // Map Strapi items to the internal shape; fall back if empty
-  const projects: FallbackProject[] =
-    useCaseItems && useCaseItems.length > 0
-      ? useCaseItems.map((item) => ({
-          id:                 item.id,
-          title:              item.title,
-          contributions:      parseContributions(item.highlight_description),
-          contributionsLabel: item.contributionsLabel || "Lightwarp Contributions",
-          creditsLabel:       item.creditsLabel || "Credits",
-          credits:            item.credits || [],
-          description:        item.description,
-          videoId:            extractYouTubeId(item.video_url) || item.video_url,
-          hideLearnMore:      !item.ctaLink,
-          ctaLink:            item.ctaLink,
-          ctaLabel:           item.ctaLabel,
-          watchLabel:         item?.watchnow_label || "Watch Now",
-          watchLink:          resolveWatchHref(item.video_url, item?.watchnow_link),
-          copyrightText:      item.copyrightText,
-        }))
-      : fallbackProjects;
+  const projects: MappedProject[] = (useCaseItems ?? []).map((item) => ({
+    id:                 item.id,
+    title:              item.title ?? "",
+    contributions:      parseContributions(item.highlight_description ?? ""),
+    contributionsLabel: item.contributionsLabel ?? "",
+    creditsLabel:       item.creditsLabel ?? "",
+    credits:            item.credits ?? [],
+    description:        item.description ?? "",
+    videoId:            extractYouTubeId(item.video_url ?? "") || (item.video_url ?? ""),
+    hideLearnMore:      !item.ctaLink,
+    ctaLink:            item.ctaLink,
+    ctaLabel:           item.ctaLabel,
+    watchLabel:         item.watchnow_label,
+    watchLink:          resolveWatchHref(item.video_url, item.watchnow_link),
+    copyrightText:      item.copyrightText,
+  }));
+
+  if (projects.length === 0) return null;
 
   return (
     <>
@@ -319,17 +225,21 @@ export function ProjectsPanelExtraVideosCapabilities({ useCaseItems }: Props) {
               >
                 <div className="space-y-6">
 
-                  {/* Title — Strapi title field */}
-                  <h2 className="inline text-5xl sm:text-6xl font-bold leading-tight text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-2 py-1">
-                    {item.title}
-                  </h2>
+                  {/* Title */}
+                  {item.title && (
+                    <h2 className="inline text-5xl sm:text-6xl font-bold leading-tight text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-2 py-1">
+                      {item.title}
+                    </h2>
+                  )}
 
-                  {/* Contributions — Strapi highlight_description + contributionsLabel fields */}
+                  {/* Contributions */}
                   {item.contributions.length > 0 && (
                     <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
-                      <p className="text-xs font-bold text-white/100 uppercase tracking-widest mb-3">
-                        {item.contributionsLabel}
-                      </p>
+                      {item.contributionsLabel && (
+                        <p className="text-xs font-bold text-white/100 uppercase tracking-widest mb-3">
+                          {item.contributionsLabel}
+                        </p>
+                      )}
                       <div className="flex flex-wrap gap-3">
                         {item.contributions.map((c) => (
                           <span
@@ -343,8 +253,8 @@ export function ProjectsPanelExtraVideosCapabilities({ useCaseItems }: Props) {
                     </div>
                   )}
 
-                  {/* Credits — Strapi credits repeatable field + creditsLabel */}
-                  {item.credits && item.credits.length > 0 && (
+                  {/* Credits */}
+                  {item.credits.length > 0 && (
                     <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
                       <div className="text-white [&_*]:text-white">
                         <ProjectCredits
@@ -356,33 +266,38 @@ export function ProjectsPanelExtraVideosCapabilities({ useCaseItems }: Props) {
                     </div>
                   )}
 
-                  {/* Description — Strapi description field (may contain HTML) */}
-                  <div className="rounded-xl bg-black/25 backdrop-blur-[4px] px-3 py-2">
-                    <div
-                      className="text-[18px] leading-8 text-white font-light"
-                      dangerouslySetInnerHTML={{ __html: item.description }}
-                    />
-                  </div>
+                  {/* Description */}
+                {item.description && (
+  <div className="rounded-xl bg-black/25 backdrop-blur-[4px] px-3 py-2 space-y-3">
+    {item.description.split("\n\n").map((para, i) => (
+      <p key={i} className="text-[18px] leading-8 text-white font-light">
+        {para}
+      </p>
+    ))}
+  </div>
+)}
 
-                  {/* CTA — Strapi ctaLabel + ctaLink fields */}
+                  {/* CTA */}
                   {!item.hideLearnMore && (
                     <div className="flex flex-wrap gap-4">
-                      <TransitionLink
-                        to={item.ctaLink || "/" + slugify(item.title)}
-                        className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
-                      >
-                        {item.ctaLabel || "Learn More"}
-                      </TransitionLink>
-                      {!item.videoId.startsWith("/") && !/\.(mp4|webm|mov)$/i.test(item.videoId) && item.watchLink ? (
+                      {item.ctaLabel && (
+                        <TransitionLink
+                          to={item.ctaLink || "/" + slugify(item.title)}
+                          className={watchBtnClass}
+                        >
+                          {item.ctaLabel}
+                        </TransitionLink>
+                      )}
+                      {!isVideoOrImage(item.videoId) && item.watchLink && item.watchLabel && (
                         <a
                           href={item.watchLink}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={watchBtnClass}
                         >
-                          {item.watchLabel || "Watch Now"}
+                          {item.watchLabel}
                         </a>
-                      ) : null}
+                      )}
                     </div>
                   )}
 
@@ -394,4 +309,8 @@ export function ProjectsPanelExtraVideosCapabilities({ useCaseItems }: Props) {
       ))}
     </>
   );
+}
+
+function isVideoOrImage(videoId: string): boolean {
+  return /\.(mp4|webm|mov|avif|webp|jpe?g|png|gif|svg)$/i.test(videoId);
 }

@@ -9,6 +9,7 @@ export type CapabilityItem = {
   id: number;
   title: string;
   description: string;
+  sub_heading: string;
   highlight_description: string;
   ctaLabel: string;
   ctaLink: string;
@@ -71,20 +72,14 @@ export default function Capabilities() {
   }, []);
 
   const items: CapabilityItem[] = block?.use_case_items ?? [];
+  const [heroItem, lushItem, ...extraItems] = items;
 
-  // index 0 → hero section
-  // index 1 → panel-3 (Lush Victorian Garden)
-  // index 2..n → panel-7 extra videos
-  const [heroItem, lushItem, ...extraItems] = items.length
-    ? items
-    : ([] as CapabilityItem[]);
-
-  const pageTitle = block?.main_title ?? "OUR CAPABILITIES";
-  const heroWatchHref = resolveWatchHref(heroItem?.video_url, heroItem?.watchnow_link) || heroItem?.ctaLink || vimeoPageUrl;
-  const heroWatchLabel = heroItem?.watchnow_label || heroItem?.ctaLabel || "Watch Now";
+  const pageTitle      = block?.main_title ?? "";
+  const heroWatchHref  = resolveWatchHref(heroItem?.video_url, heroItem?.watchnow_link) || heroItem?.ctaLink || vimeoPageUrl;
+  const heroWatchLabel = heroItem?.watchnow_label || heroItem?.ctaLabel || "";
 
   return (
-    <PageShell copyrightText="© 2025 Lightwarp LLC. All rights reserved.">
+    <PageShell>
 
       {/* Page title banner */}
       <section className="relative text-white">
@@ -119,41 +114,36 @@ export default function Capabilities() {
           >
             <div className="space-y-6">
 
-              <h2 className="inline text-3xl sm:text-4xl font-bold leading-tight text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-2 py-1">
-                {heroItem?.title ?? "Watch our capabilities reel — a quick look at what we deliver"}
-              </h2>
+              {heroItem?.title && (
+                <h2 className="inline text-3xl sm:text-4xl font-bold leading-tight text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-2 py-1">
+                  {heroItem.title}
+                </h2>
+              )}
 
               <div className="rounded-xl bg-black/30 backdrop-blur-[4px] mt-[10px] px-3 py-3 space-y-3">
-                {heroItem?.description ? (
+                {heroItem?.description && (
                   <div
                     className="text-[16px] leading-7 text-white font-light"
                     dangerouslySetInnerHTML={{ __html: heroItem.description }}
                   />
-                ) : (
-                  <>
-                    <p className="text-[16px] leading-7 text-white font-light">
-                      Before the founding of our studio, our team members have always been creating stunning 3D renders, tools, assets, and projects.
-                    </p>
-                    <p className="text-[16px] leading-7 text-white font-light">
-                      Our Capabilities Reel showcases many of these personal projects and collaborations to give even more context and confidence to our skillsets and quality of work.
-                    </p>
-                  </>
                 )}
                 <p className="text-[13px] leading-7 text-white font-light">
-                  Legal Note: The works featured in the Capabilities Reel are owned in whole or in part by their respective rights holders, including artists affiliated and unaffiliated with Lightwarp 3D, and are presented solely for showcase and demonstration purposes. Lightwarp 3D does not claim ownership of all featured works and asserts ownership only over projects explicitly identified on the Projects page as created by the studio. Please see project credits for copyright details and attribution.
+                  {heroItem?.highlight_description}
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-4">
-                <a
-                  href={heroWatchHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition-all duration-300 hover:bg-white/90 hover:scale-105"
-                >
-                  {heroWatchLabel}
-                </a>
-              </div>
+              {heroWatchLabel && (
+                <div className="flex flex-wrap gap-4">
+                  <a
+                    href={heroWatchHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition-all duration-300 hover:bg-white/90 hover:scale-105"
+                  >
+                    {heroWatchLabel}
+                  </a>
+                </div>
+              )}
 
             </div>
           </motion.div>

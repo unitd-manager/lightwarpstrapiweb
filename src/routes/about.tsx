@@ -42,8 +42,6 @@ export default function About() {
     let cancelled = false;
     getAboutPage().then((page) => {
       if (cancelled) return;
-      console.log("STRAPI PAGE RESPONSE:", page);
-      console.log("PAGE BUILDER BLOCKS:", page?.pageBuilder);
       setBlocks(page?.pageBuilder ?? []);
     });
     return () => {
@@ -63,14 +61,6 @@ const ctaData = blocks?.find((b) => b.__component === "acf-sections.footer-commo
             <AboutPanelStory data={bannerData} />
             <AboutPanelTeam data={teamData} />
             <AboutPanelCta data={ctaData} />
-          </div>
-
-          <div className="static w-80 sm:w-40 md:w-0 flex-shrink-0 overflow-visible">
-            <img
-              src={keepInTouch2}
-              alt=""
-              className="static h-[710px] w-auto -ml-5 scale-[1] mt-[1875px] pointer-events-none select-none"
-            />
           </div>
         </div>
       </div>

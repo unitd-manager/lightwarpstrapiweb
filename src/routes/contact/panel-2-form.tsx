@@ -24,8 +24,7 @@ function GoogleGIcon() {
   );
 }
 
-function FieldError(props: { msg: string }) {
-  const msg = props.msg;
+function FieldError({ msg }: { msg: string }) {
   return (
     <div className="flex items-center gap-1" style={{ color: "#FF4D4D", fontSize: "13px", fontWeight: 400, marginTop: "-20px" }}>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
@@ -41,27 +40,21 @@ function isValidEmail(raw: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(raw.trim());
 }
 
-function RichDescription(props: { content: any }) {
-  const content = props.content;
-
-  // Static fallback: plain string with \n line breaks
+function RichDescription({ content }: { content: any }) {
   if (typeof content === "string") {
     const lines = content.split("\n");
     return (
       <p className="text-white" style={{ fontSize: "16px", fontWeight: 300, lineHeight: "24px" }}>
-        {lines.map(function (line, i) {
-          return (
-            <span key={i}>
-              {line}
-              {i < lines.length - 1 ? <br /> : null}
-            </span>
-          );
-        })}
+        {lines.map((line, i) => (
+          <span key={i}>
+            {line}
+            {i < lines.length - 1 ? <br /> : null}
+          </span>
+        ))}
       </p>
     );
   }
 
-  // Strapi Blocks format: array of rich-text nodes
   return (
     <div className="text-white" style={{ fontSize: "16px", fontWeight: 300, lineHeight: "24px" }}>
       <BlocksRenderer
@@ -74,50 +67,34 @@ function RichDescription(props: { content: any }) {
   );
 }
 
-const STATIC_CONTACT = {
-  sub_heading: "Get in touch",
-  description:
-    "We are ready to do business with you and create stunning visuals and stories!\nSend us a message through the form or contact us through the emails below to get started! To schedule an appointment/virtual meeting via Google Meet, click on the button below",
-  Contact_card1: "New Business",
-  Contact_card2: "Information",
-  Contact_card3: "newbiz@lightwarp3d.com",
-  Contact_card4: "info@lightwarp3d.com",
-  CTA_button: "Schedule a Meeting",
-  CTA_link: "https://calendar.app.google/zYHnxEYxui76S9tR6",
-  heading: "We would love to hear from you!",
-  send_btn: "Send",
-};
-
-export function ContactPanelForm(props: { data?: any }) {
-  const data = props.data;
-
+export function ContactPanelForm({ data }: { data?: any }) {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState("");
   const [messageError, setMessageError] = useState("");
 
-  const subHeading = (data && data.sub_heading) || STATIC_CONTACT.sub_heading;
-  const description = (data && data.description) || STATIC_CONTACT.description;
-  const card1Label = (data && data.Contact_card1) || STATIC_CONTACT.Contact_card1;
-  const card2Label = (data && data.Contact_card2) || STATIC_CONTACT.Contact_card2;
-  const card1Email = (data && data.Contact_card3) || STATIC_CONTACT.Contact_card3;
-  const card2Email = (data && data.Contact_card4) || STATIC_CONTACT.Contact_card4;
-  const ctaLabel = (data && data.CTA_button) || STATIC_CONTACT.CTA_button;
-  const ctaLink = (data && data.CTA_link) || STATIC_CONTACT.CTA_link;
-  const formHeading = (data && data.heading) || STATIC_CONTACT.heading;
-  const sendLabel = (data && data.send_btn) || STATIC_CONTACT.send_btn;
+  const subHeading   = data?.sub_heading ?? "";
+  const description  = data?.description ?? "";
+  const card1Label   = data?.Contact_card1 ?? "";
+  const card2Label   = data?.Contact_card2 ?? "";
+  const card1Email   = data?.Contact_card3 ?? "";
+  const card2Email   = data?.Contact_card4 ?? "";
+  const ctaLabel     = data?.CTA_button ?? "";
+  const ctaLink      = data?.CTA_link ?? "#";
+  const formHeading  = data?.heading ?? "";
+  const sendLabel    = data?.send_btn ?? "Send";
 
-  const businessImage = getStrapiMedia(data && data.business_image) || locationIconFallback;
-  const informationImage = getStrapiMedia(data && data.information_image) || contactIconFallback;
+  const businessImage    = getStrapiMedia(data?.business_image) || locationIconFallback;
+  const informationImage = getStrapiMedia(data?.information_image) || contactIconFallback;
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
 
-    const name = String(formData.get("name") ?? "").trim();
-    const email = String(formData.get("email") ?? "").trim();
+    const name    = String(formData.get("name") ?? "").trim();
+    const email   = String(formData.get("email") ?? "").trim();
     const subject = String(formData.get("subject") ?? "").trim();
     const message = String(formData.get("message") ?? "").trim();
     const website = String(formData.get("website") ?? "").trim();
@@ -137,46 +114,40 @@ export function ContactPanelForm(props: { data?: any }) {
       hasError = true;
     }
 
-    if (hasError) {
-      return;
-    }
+    if (hasError) return;
 
     setSending(true);
     setError(null);
     setEmailError("");
     setMessageError("");
 
-    fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: name, email: email, subject: subject, message: message, website: website }),
-    })
-      .then(function (res) {
-        if (!res.ok) {
-          return res.text().then(function (text) {
-            let friendly = "Failed to send message.";
-            try {
-              const parsed = JSON.parse(text);
-              if (parsed && parsed.error) {
-                friendly = parsed.error;
-              }
-            } catch (e) {
-              if (text) {
-                friendly = text;
-              }
-            }
-            setError(friendly);
-          });
-        }
-        form.reset();
-        setSent(true);
-      })
-      .catch(function () {
-        setError("Failed to send message.");
-      })
-      .finally(function () {
-        setSending(false);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, subject, message, website }),
       });
+
+      if (!res.ok) {
+        const text = await res.text();
+        let friendly = "Failed to send message.";
+        try {
+          const parsed = JSON.parse(text);
+          if (parsed?.error) friendly = parsed.error;
+        } catch {
+          if (text) friendly = text;
+        }
+        setError(friendly);
+        return;
+      }
+
+      form.reset();
+      setSent(true);
+    } catch {
+      setError("Failed to send message.");
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -184,6 +155,7 @@ export function ContactPanelForm(props: { data?: any }) {
       className="w-full flex flex-row flex-wrap items-stretch contact-outer-row"
       style={{ fontFamily: '"Sora", sans-serif', padding: "3% 4% 4% 4%", gap: "30px" }}
     >
+      {/* LEFT COLUMN */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -195,19 +167,11 @@ export function ContactPanelForm(props: { data?: any }) {
         <div>
           <h3
             className="text-white contact-form-heading"
-            style={{
-              fontFamily: '"Sora", sans-serif',
-              fontSize: "45px",
-              fontWeight: 600,
-              lineHeight: "60px",
-              letterSpacing: "-1px",
-              marginBottom: "15px",
-            }}
+            style={{ fontFamily: '"Sora", sans-serif', fontSize: "45px", fontWeight: 600, lineHeight: "60px", letterSpacing: "-1px", marginBottom: "15px" }}
           >
             {subHeading}
           </h3>
-
-         <RichDescription content={description} />
+          <RichDescription content={description} />
         </div>
 
         <div className="w-full flex flex-col" style={{ gap: "0px" }}>
@@ -215,6 +179,7 @@ export function ContactPanelForm(props: { data?: any }) {
             className="w-full flex flex-row justify-between contact-cards-bg"
             style={{ backgroundColor: "#000000", padding: "2%", gap: "20px" }}
           >
+            {/* New Business card */}
             <div className="flex-1">
               <div
                 className="flex flex-col items-center text-center"
@@ -225,14 +190,9 @@ export function ContactPanelForm(props: { data?: any }) {
                   alt=""
                   aria-hidden="true"
                   style={{ width: "112px", height: "auto", marginBottom: "15px" }}
-                  onError={function (e) {
-                    e.currentTarget.style.display = "none";
-                  }}
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                 />
-                <p
-                  className="text-white contact-card-label"
-                  style={{ fontFamily: '"Sora", sans-serif', fontSize: "25px", fontWeight: 400, lineHeight: "30px" }}
-                >
+                <p className="text-white contact-card-label" style={{ fontFamily: '"Sora", sans-serif', fontSize: "25px", fontWeight: 400, lineHeight: "30px" }}>
                   {card1Label}
                 </p>
                 <p className="text-white mt-2 break-all" style={{ fontSize: "16px", fontWeight: 300, lineHeight: "24px" }}>
@@ -241,6 +201,7 @@ export function ContactPanelForm(props: { data?: any }) {
               </div>
             </div>
 
+            {/* Information card */}
             <div className="flex-1">
               <div
                 className="flex flex-col items-center text-center"
@@ -251,14 +212,9 @@ export function ContactPanelForm(props: { data?: any }) {
                   alt=""
                   aria-hidden="true"
                   style={{ width: "112px", height: "auto", marginBottom: "15px" }}
-                  onError={function (e) {
-                    e.currentTarget.style.display = "none";
-                  }}
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                 />
-                <p
-                  className="text-white contact-card-label"
-                  style={{ fontFamily: '"Sora", sans-serif', fontSize: "25px", fontWeight: 400, lineHeight: "30px" }}
-                >
+                <p className="text-white contact-card-label" style={{ fontFamily: '"Sora", sans-serif', fontSize: "25px", fontWeight: 400, lineHeight: "30px" }}>
                   {card2Label}
                 </p>
                 <p className="text-white mt-2 break-all" style={{ fontSize: "16px", fontWeight: 300, lineHeight: "24px" }}>
@@ -269,24 +225,14 @@ export function ContactPanelForm(props: { data?: any }) {
           </div>
         </div>
 
+        {/* Schedule button */}
         <div style={{ marginTop: "5px", alignSelf: "center" }}>
           <a
             href={ctaLink}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-white hover:text-black transition-colors"
-            style={{
-              fontFamily: '"Sora", sans-serif',
-              fontSize: "16px",
-              fontWeight: 400,
-              lineHeight: "20px",
-              backgroundColor: "#F64418",
-              borderRadius: "10px",
-              paddingTop: "20px",
-              paddingBottom: "20px",
-              paddingLeft: "44px",
-              paddingRight: "44px",
-            }}
+            style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 400, lineHeight: "20px", backgroundColor: "#F64418", borderRadius: "10px", paddingTop: "20px", paddingBottom: "20px", paddingLeft: "44px", paddingRight: "44px" }}
           >
             <GoogleGIcon />
             {ctaLabel}
@@ -294,25 +240,16 @@ export function ContactPanelForm(props: { data?: any }) {
         </div>
       </motion.div>
 
+      {/* RIGHT COLUMN — Form */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 }}
         className="flex flex-col contact-right-col contact-form-card"
-        style={{
-          flex: "1 1 0",
-          gap: "40px",
-          padding: "3%",
-          border: "2px solid #000000",
-          borderRadius: "25px",
-          backgroundColor: "#6250DA",
-        }}
+        style={{ flex: "1 1 0", gap: "40px", padding: "3%", border: "2px solid #000000", borderRadius: "25px", backgroundColor: "#6250DA" }}
       >
-        <p
-          className="text-white"
-          style={{ fontFamily: '"Sora", sans-serif', fontSize: "25px", fontWeight: 400, lineHeight: "30px" }}
-        >
+        <p className="text-white" style={{ fontFamily: '"Sora", sans-serif', fontSize: "25px", fontWeight: 400, lineHeight: "30px" }}>
           {formHeading}
         </p>
 
@@ -324,20 +261,7 @@ export function ContactPanelForm(props: { data?: any }) {
             type="text"
             placeholder="Name"
             className="w-full outline-none"
-            style={{
-              fontFamily: '"Sora", sans-serif',
-              fontSize: "16px",
-              fontWeight: 300,
-              lineHeight: "24px",
-              color: "#58595B",
-              backgroundColor: "#ffffff",
-              border: "1px solid #FFFFFF",
-              borderRadius: "4px",
-              paddingTop: "10px",
-              paddingBottom: "10px",
-              paddingLeft: "14px",
-              paddingRight: "14px",
-            }}
+            style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "#58595B", backgroundColor: "#ffffff", border: "1px solid #FFFFFF", borderRadius: "4px", paddingTop: "10px", paddingBottom: "10px", paddingLeft: "14px", paddingRight: "14px" }}
           />
 
           <input
@@ -346,67 +270,27 @@ export function ContactPanelForm(props: { data?: any }) {
             placeholder="Email"
             autoComplete="email"
             inputMode="email"
-            onChange={function () {
-              setEmailError("");
-              setError(null);
-            }}
+            onChange={() => { setEmailError(""); setError(null); }}
             className="w-full outline-none"
-            style={{
-              fontFamily: '"Sora", sans-serif',
-              fontSize: "16px",
-              fontWeight: 300,
-              lineHeight: "24px",
-              color: "#58595B",
-              backgroundColor: "#ffffff",
-              border: emailError ? "1px solid #FF4D4D" : "1px solid #FFFFFF",
-              borderRadius: "4px",
-              paddingTop: "10px",
-              paddingBottom: "10px",
-              paddingLeft: "14px",
-              paddingRight: "14px",
-            }}
+            style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "#58595B", backgroundColor: "#ffffff", border: emailError ? "1px solid #FF4D4D" : "1px solid #FFFFFF", borderRadius: "4px", paddingTop: "10px", paddingBottom: "10px", paddingLeft: "14px", paddingRight: "14px" }}
           />
-
-          {emailError ? <FieldError msg={emailError} /> : null}
+          {emailError && <FieldError msg={emailError} />}
 
           <div className="relative w-full">
             <select
               name="subject"
               className="w-full outline-none appearance-none cursor-pointer"
-              style={{
-                fontFamily: '"Sora", sans-serif',
-                fontSize: "16px",
-                fontWeight: 300,
-                lineHeight: "24px",
-                color: "#58595B",
-                backgroundColor: "#ffffff",
-                border: "1px solid #FFFFFF",
-                borderRadius: "4px",
-                paddingTop: "10px",
-                paddingBottom: "10px",
-                paddingLeft: "14px",
-                paddingRight: "40px",
-              }}
+              style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "#58595B", backgroundColor: "#ffffff", border: "1px solid #FFFFFF", borderRadius: "4px", paddingTop: "10px", paddingBottom: "10px", paddingLeft: "14px", paddingRight: "40px" }}
             >
               <option value="">Subject</option>
-              {subjects.map(function (s) {
-                return (
-                  <option key={s} value={s}>
-                    {s}
-                  </option>
-                );
-              })}
+              {subjects.map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
             </select>
             <svg
               className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
             >
               <polyline points="6 9 12 15 18 9" />
             </svg>
@@ -416,79 +300,36 @@ export function ContactPanelForm(props: { data?: any }) {
             name="message"
             rows={5}
             placeholder="Message"
-            onChange={function () {
-              setMessageError("");
-              setError(null);
-            }}
+            onChange={() => { setMessageError(""); setError(null); }}
             className="w-full outline-none resize-none"
-            style={{
-              fontFamily: '"Sora", sans-serif',
-              fontSize: "16px",
-              fontWeight: 300,
-              lineHeight: "24px",
-              color: "#58595B",
-              backgroundColor: "#ffffff",
-              border: messageError ? "1px solid #FF4D4D" : "1px solid #FFFFFF",
-              borderRadius: "4px",
-              paddingTop: "10px",
-              paddingBottom: "10px",
-              paddingLeft: "14px",
-              paddingRight: "14px",
-            }}
+            style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "#58595B", backgroundColor: "#ffffff", border: messageError ? "1px solid #FF4D4D" : "1px solid #FFFFFF", borderRadius: "4px", paddingTop: "10px", paddingBottom: "10px", paddingLeft: "14px", paddingRight: "14px" }}
           />
-
-          {messageError ? <FieldError msg={messageError} /> : null}
+          {messageError && <FieldError msg={messageError} />}
 
           <div className="flex flex-col gap-3">
             <button
               type="submit"
               disabled={sent || sending}
               className="inline-flex items-center justify-center contact-send-btn transition-colors hover:bg-white hover:text-black disabled:opacity-60"
-              style={{
-                fontFamily: '"Sora", sans-serif',
-                fontSize: "16px",
-                fontWeight: 400,
-                lineHeight: "20px",
-                color: "#FCFCFC",
-                backgroundColor: "#000000",
-                borderRadius: "4px",
-                paddingTop: "12px",
-                paddingBottom: "12px",
-                paddingLeft: "60px",
-                paddingRight: "60px",
-                alignSelf: "flex-start",
-              }}
+              style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 400, lineHeight: "20px", color: "#FCFCFC", backgroundColor: "#000000", borderRadius: "4px", paddingTop: "12px", paddingBottom: "12px", paddingLeft: "60px", paddingRight: "60px", alignSelf: "flex-start" }}
             >
               {sending ? "Sending..." : sendLabel}
             </button>
 
-            {sent ? (
-              <div
-                className="flex items-center gap-2"
-                style={{ fontFamily: '"Sora", sans-serif', fontSize: "14px", fontWeight: 400, color: "#FFFFFF" }}
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="flex-shrink-0"
-                >
+            {sent && (
+              <div className="flex items-center gap-2" style={{ fontFamily: '"Sora", sans-serif', fontSize: "14px", fontWeight: 400, color: "#FFFFFF" }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
                 Your submission was successful.
               </div>
-            ) : null}
+            )}
 
-            {error ? (
+            {error && (
               <div style={{ fontFamily: '"Sora", sans-serif', fontSize: "14px", fontWeight: 400, color: "#FFFFFF" }}>
                 {error}
               </div>
-            ) : null}
+            )}
           </div>
         </form>
       </motion.div>

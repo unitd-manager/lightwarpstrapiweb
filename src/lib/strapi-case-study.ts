@@ -28,6 +28,7 @@ export type StrapiCaseStudy = {
   description: any; // Strapi "blocks" rich text
   full_description: any; // Strapi "blocks" rich text
   video_url: string;
+  sub_heading: string;
   video_url_2: string;
   ctaLabel: string;
   ctaLink: string;
@@ -89,6 +90,7 @@ export async function fetchCaseStudyBySlug(slug: string): Promise<StrapiCaseStud
     contributions: attrs.contributions,
     creditsLabel: attrs.creditsLabel,
     rate: attrs.rate || [],
+    sub_heading: attrs.sub_heading,
     copyrightText: attrs.copyrightText,
     description: attrs.description,
     full_description: attrs.full_description,

@@ -1,5 +1,6 @@
 // src/pages/contact/Contact.tsx
 import { useEffect, useState } from "react";
+import { PageShell } from "../components/page-shell";
 import { ContactPanelHero } from "./contact/panel-1-hero";
 import { ContactPanelForm } from "./contact/panel-2-form";
 
@@ -29,11 +30,17 @@ export default function Contact() {
         setBlock(null);
       });
   }, []);
-
-  return (
-    <div>
-      <ContactPanelHero data={block} />
-      <ContactPanelForm data={block} />
-    </div>
-  );
+  
+   return (
+      <PageShell>
+        <div className="w-full overflow-x-auto md:overflow-visible">
+          <div className="flex min-w-[520px] md:min-w-0 overflow-visible">
+            <div className="flex-1 min-w-[390px] overflow-visible">
+              <ContactPanelHero data={block} />
+              <ContactPanelForm data={block} />
+            </div>
+          </div>
+        </div>
+      </PageShell>
+    );
 }

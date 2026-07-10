@@ -1,5 +1,4 @@
 import { Instagram, Youtube } from "lucide-react";
-import lightwarpLogo from "../assets/images/lightwarp_transparent_fixed3.png";
 
 const SORA: React.CSSProperties = { fontFamily: '"Sora", sans-serif' };
 
@@ -11,114 +10,194 @@ function TikTokIcon({ size = 20 }: { size?: number }) {
   );
 }
 
-export function Footer({ copyrightText }: { copyrightText?: string }) {
+const SOCIAL_ICONS: Record<string, (size: number) => React.ReactNode> = {
+  instagram: (size) => <Instagram size={size} strokeWidth={1.5} />,
+  tiktok: (size) => <TikTokIcon size={size} />,
+  youtube: (size) => <Youtube size={size} strokeWidth={1.5} />,
+  
+};
+const STRAPI_URL = import.meta.env.VITE_STRAPI_URL as string;
+interface SocialLink {
+  platform: string;
+  url: string;
+}
+
+interface StrapiMedia {
+  url: string;
+  alternativeText?: string;
+}
+
+export interface FooterData {
+  logo?: StrapiMedia;
+  logo_link?: string;
+  copyright_text?: string;
+
+  contact_heading?: string;
+  email?: string;
+  email_link?: string;
+  phone?: string;
+  phone_link?: string;
+
+  follow_heading?: string;
+  social_links?: SocialLink[];
+
+  meeting_heading?: string;
+  meeting_link_label?: string;
+  meeting_link_url?: string;
+}
+
+export function Footer({ data }: { data: FooterData }) {
+console.log("Rendering footer with:", data);
+
+  const {
+    logo,
+    logo_link,
+    copyright_text,
+    contact_heading,
+    email,
+    email_link,
+    phone,
+    phone_link,
+    follow_heading,
+    social_links = [],
+    meeting_heading,
+    meeting_link_label,
+    meeting_link_url,
+  } = data ?? {};
+
   return (
     <footer className="w-full bg-black/50 backdrop-blur-xl border-t border-white/10" style={SORA}>
 
-      {/* Main grid — 4 cols desktop / 2 cols tablet / 1 col mobile */}
       <div className="lw-container lw-section-tight">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[340px_1fr_1fr_1fr] gap-y-[60px] gap-x-[40px]">
 
-        {/* Logo — no copyright here on mobile */}
-        <div className="flex flex-col items-start gap-5">
-          <a href="/">
-            <img
-              src={lightwarpLogo}
-              alt="Lightwarp"
-              className="h-[65px] w-auto object-contain lg:h-[180px] lg:w-[320px] lg:max-w-none"
-            />
-          </a>
-          {/* Copyright visible on desktop only */}
-          <p
-            className="text-white hidden lg:block"
-            style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
-          >
-            {copyrightText ?? "© 2025 Lightwarp LLC. All rights reserved."}
-          </p>
-        </div>
-
-        {/* Contact for Inquiries */}
-        <div>
-          <h6
-            className="text-white leading-[30px] mb-[20px]"
-            style={{ fontSize: '20px', fontWeight: 400 }}
-          >
-            Contact for Inquiries
-          </h6>
-          <ul className="space-y-[8px]">
-            <li>
-              <a
-                href="mailto:info@lightwarp3d.com?subject=Consultation/Information Request"
-                className="text-white hover:text-[#6250da] transition-colors"
-                style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
-              >
-                Email: info@lightwarp3d.com
+          {/* Logo */}
+          <div className="flex flex-col items-start gap-5">
+            
+            {logo?.url && (
+              <a href={logo_link ?? "/"}>
+                <img
+                  src={logo.url.startsWith("http") ? logo.url : `${STRAPI_URL}${logo.url}`}
+                  alt={logo.alternativeText ?? "Logo"}
+                  className="h-[65px] w-auto object-contain lg:h-[180px] lg:w-[320px] lg:max-w-none"
+                />
               </a>
-            </li>
-            <li>
-              <a
-                href="tel:615-571-9395"
-                className="text-white hover:text-[#6250da] transition-colors"
-                style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
+            )}
+            {copyright_text && (
+              <p
+                className="text-white hidden lg:block"
+                style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
               >
-                Phone: (615) 571-9395
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Follow */}
-        <div>
-          <h6
-            className="text-white leading-[30px] mb-[20px]"
-            style={{ fontSize: '20px', fontWeight: 400 }}
-          >
-            Follow
-          </h6>
-          <div className="flex items-center gap-3">
-            <a aria-label="Instagram" href="https://www.instagram.com/lightwarp3d" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#6250da] transition-colors">
-              <Instagram size={20} strokeWidth={1.5} />
-            </a>
-            <a aria-label="TikTok" href="https://www.tiktok.com/@lightwarp3d" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#6250da] transition-colors">
-              <TikTokIcon size={20} />
-            </a>
-            <a aria-label="YouTube" href="https://www.youtube.com/@lightwarpstudios" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#6250da] transition-colors">
-              <Youtube size={20} strokeWidth={1.5} />
-            </a>
+                {copyright_text}
+              </p>
+            )}
           </div>
-        </div>
 
-        {/* Meet with us */}
-        <div>
-          <h6
-            className="text-white leading-[30px] mb-[20px]"
-            style={{ fontSize: '20px', fontWeight: 400 }}
-          >
-            Meet with us
-          </h6>
-          <a
-            href="https://calendar.app.google/zYHnxEYxui76S9tR6"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white hover:text-[#6250da] transition-colors"
-            style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
-          >
-            Schedule a meeting
-          </a>
-        </div>
+          {/* Contact for Inquiries */}
+          {(email || phone) && (
+            <div>
+              {contact_heading && (
+                <h6
+                  className="text-white leading-[30px] mb-[20px]"
+                  style={{ fontSize: '20px', fontWeight: 400 }}
+                >
+                  {contact_heading}
+                </h6>
+              )}
+              <ul className="space-y-[8px]">
+                {email && (
+                  <li>
+                    <a
+                      href={email_link ?? `mailto:${email}`}
+                      className="text-white hover:text-[#6250da] transition-colors"
+                      style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
+                    >
+                      {email}
+                    </a>
+                  </li>
+                )}
+                {phone && (
+                  <li>
+                    <a
+                      href={phone_link ?? `tel:${phone}`}
+                      className="text-white hover:text-[#6250da] transition-colors"
+                      style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
+                    >
+                      {phone}
+                    </a>
+                  </li>
+                )}
+              </ul>
+            </div>
+          )}
+
+          {/* Follow */}
+          {social_links.length > 0 && (
+            <div>
+              {follow_heading && (
+                <h6
+                  className="text-white leading-[30px] mb-[20px]"
+                  style={{ fontSize: '20px', fontWeight: 400 }}
+                >
+                  {follow_heading}
+                </h6>
+              )}
+              <div className="flex items-center gap-3">
+                {social_links.map((link, i) => {
+                  const iconFn = SOCIAL_ICONS[link.platform?.toLowerCase()];
+                  return (
+                    <a
+                      key={i}
+                      aria-label={link.platform}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white hover:text-[#6250da] transition-colors"
+                    >
+                      {iconFn ? iconFn(20) : null}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Meet with us */}
+          {meeting_link_url && (
+            <div>
+              {meeting_heading && (
+                <h6
+                  className="text-white leading-[30px] mb-[20px]"
+                  style={{ fontSize: '20px', fontWeight: 400 }}
+                >
+                  {meeting_heading}
+                </h6>
+              )}
+              <a
+                href={meeting_link_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-[#6250da] transition-colors"
+                style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
+              >
+                {meeting_link_label ?? meeting_link_url}
+              </a>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Copyright — mobile only, at the very bottom */}
-      <p
-        className="lg:hidden text-white lw-container pb-[32px]"
-        style={{ fontSize: '14px', fontWeight: 300, lineHeight: '24px' }}
-      >
-        {copyrightText ?? "© 2025 Lightwarp LLC. All rights reserved."}
-      </p>
+      {copyright_text && (
+        <p
+          className="lg:hidden text-white lw-container pb-[32px]"
+          style={{ fontSize: '14px', fontWeight: 300, lineHeight: '24px' }}
+        >
+          {copyright_text}
+        </p>
+      )}
 
-      {/* Bottom border line */}
       <div className="border-t border-white/10" />
     </footer>
   );
+  
 }

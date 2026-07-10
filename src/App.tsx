@@ -1,6 +1,6 @@
 import { useLayoutEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-
+import DynamicPage from "./routes/dynamic-page";
 import Home from "./routes";
 import About from "./routes/about";
 import Contact from "./routes/contact";
@@ -56,6 +56,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/projects/:slug" element={<CaseStudyPage />} />
+        <Route path="/:slug" element={<DynamicPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </TransitionProvider>

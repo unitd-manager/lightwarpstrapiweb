@@ -1,20 +1,45 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import lightwarpLogo from "../assets/images/lightwarp_transparent_fixed3.png";
 import { TransitionLink } from "./page-transition-overlay";
 
-const links = [
-  { to: "/", label: "Home" },
-  { to: "/services", label: "Services" },
-  { to: "/projects", label: "Projects" },
-  { to: "/capabilities", label: "Capabilities" },
-  { to: "/about", label: "About" },
-];
+const STRAPI_URL = import.meta.env.VITE_STRAPI_URL as string;
 
-export function Navbar() {
+interface NavLink {
+  label: string;
+  url: string;
+}
+
+interface StrapiMedia {
+  url: string;
+  alternativeText?: string;
+}
+
+export interface NavbarData {
+  logo?: StrapiMedia;
+  logo_link?: string;
+  nav_links?: NavLink[];
+  cta_label?: string;
+  cta_url?: string;
+}
+
+export function Navbar({ data }: { data?: NavbarData }) {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+
+  const {
+    logo,
+    logo_link = "/",
+    nav_links = [],
+    cta_label = "Contact Now",
+    cta_url = "/contact",
+  } = data ?? {};
+
+  const logoSrc = logo?.url
+    ? logo.url.startsWith("http")
+      ? logo.url
+      : `${STRAPI_URL}${logo.url}`
+    : undefined;
 
   useEffect(() => {
     setOpen(false);
@@ -41,15 +66,17 @@ export function Navbar() {
           </button>
 
           {/* Logo – CENTER */}
-          <TransitionLink to="/" className="absolute left-1/2 -translate-x-1/2">
-            <img
-              data-logo-beacon
-              src={lightwarpLogo}
-              alt="Lightwarp"
-              className="h-14 w-auto object-contain"
-              decoding="async"
-              draggable={false}
-            />
+          <TransitionLink to={logo_link} className="absolute left-1/2 -translate-x-1/2">
+            {logoSrc && (
+              <img
+                data-logo-beacon
+                src={logoSrc}
+                alt={logo?.alternativeText ?? "Logo"}
+                className="h-14 w-auto object-contain"
+                decoding="async"
+                draggable={false}
+              />
+            )}
           </TransitionLink>
 
           {/* Right spacer – same width as hamburger to keep logo centered */}
@@ -60,23 +87,25 @@ export function Navbar() {
         <nav className="hidden md:flex w-full items-center justify-between relative">
 
           {/* Logo */}
-          <TransitionLink to="/" className="z-10 flex-shrink-0">
-            <img
-              data-logo-beacon
-              src={lightwarpLogo}
-              alt="Lightwarp"
-              className="h-12 sm:h-14 w-auto object-contain"
-            />
+          <TransitionLink to={logo_link} className="z-10 flex-shrink-0">
+            {logoSrc && (
+              <img
+                data-logo-beacon
+                src={logoSrc}
+                alt={logo?.alternativeText ?? "Logo"}
+                className="h-12 sm:h-14 w-auto object-contain"
+              />
+            )}
           </TransitionLink>
 
           {/* Center nav links */}
           <ul className="flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
-            {links.map((l) => {
-              const active = pathname === l.to;
+            {nav_links.map((l) => {
+              const active = pathname === l.url;
               return (
-                <li key={l.to}>
+                <li key={l.url}>
                   <TransitionLink
-                    to={l.to}
+                    to={l.url}
                     className={`text-[18px] font-semibold tracking-[-0.2px] transition-all underline-offset-8 decoration-[#6250DA] hover:underline hover:text-[#6250DA] ${
                       active ? "text-white" : "text-white/70"
                     }`}
@@ -90,10 +119,10 @@ export function Navbar() {
 
           {/* Contact button */}
           <TransitionLink
-            to="/contact"
+            to={cta_url}
             className="inline-flex items-center gap-2 rounded-full bg-[#6250DA] px-6 py-2.5 text-base font-semibold text-white hover:bg-[#7361e8] transition-all duration-300"
           >
-            Contact Now
+            {cta_label}
           </TransitionLink>
         </nav>
 
@@ -108,12 +137,12 @@ export function Navbar() {
           className="md:hidden w-full bg-black border-t border-white/10"
         >
           <ul className="flex flex-col items-center py-4 gap-1">
-            {links.map((l) => {
-              const active = pathname === l.to;
+            {nav_links.map((l) => {
+              const active = pathname === l.url;
               return (
-                <li key={l.to} className="w-full text-center">
+                <li key={l.url} className="w-full text-center">
                   <TransitionLink
-                    to={l.to}
+                    to={l.url}
                     className={`block py-3 text-lg font-semibold transition-colors ${
                       active ? "text-white" : "text-white/70 hover:text-white"
                     }`}
@@ -126,10 +155,10 @@ export function Navbar() {
           </ul>
           <div className="px-6 pb-6">
             <TransitionLink
-              to="/contact"
+              to={cta_url}
               className="block w-full text-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 text-base font-semibold text-white hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
             >
-              Contact Now
+              {cta_label}
             </TransitionLink>
           </div>
         </motion.div>

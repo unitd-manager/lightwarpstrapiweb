@@ -38,6 +38,7 @@ type ProjectDetailLayoutProps = {
   previousHref?: string;
   previousLabel?: string;
   nextHref?: string;
+  sub_heading?: string;
   nextLabel?: string;
   copyrightText?: string;
   pageCredits?: string;
@@ -101,6 +102,7 @@ export function ProjectDetailLayout({
   watchLabel,
   backgroundImage,
   logos = [],
+  sub_heading,
   relatedProjects = [],
   previousHref,
   previousLabel,
@@ -117,7 +119,7 @@ export function ProjectDetailLayout({
   const isYouTube2 = isYouTubeEmbed(videoSrc2 || "");
 
   return (
-    <PageShell copyrightText={copyrightText}>
+    <PageShell>
       <section className="bg-[#050517] text-white font-display">
         {backgroundImage ? (
           <div className="w-full overflow-hidden">
@@ -152,7 +154,7 @@ export function ProjectDetailLayout({
                 {roles && roles.length > 0 ? (
                   <div className="rounded-xl border border-white/10 bg-white/5 px-6 py-5 max-w-xl">
                     <p className="text-xs font-semibold uppercase tracking-wide text-white/50 mb-3">
-                      {contributionsLabel || "Lightwarp Contributions"}
+                      {contributionsLabel}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {roles.map((role) => (
@@ -273,7 +275,7 @@ export function ProjectDetailLayout({
             </div>
 
             {credits && credits.length > 0 ? (
-              <CreditsSlider credits={credits} label={creditsLabel} />
+              <CreditsSlider credits={credits} />
             ) : null}
           </div>
         </div>
@@ -375,14 +377,14 @@ export function ProjectDetailLayout({
                 href={previousHref}
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
-                {previousLabel || "Previous"}
+                {previousLabel}
               </a>
             ) : (
               <span
     aria-disabled="true"
     className="inline-flex rounded-full bg-white/20 px-8 py-4 text-sm font-semibold text-white/40 cursor-not-allowed"
   >
-    {previousLabel || "Previous"}
+    {previousLabel}
   </span>
             )}
 
@@ -398,14 +400,14 @@ export function ProjectDetailLayout({
                 href={nextHref}
                 className="inline-flex rounded-full bg-white px-8 py-4 text-sm font-semibold text-black transition hover:opacity-95"
               >
-                {nextLabel || "Next"}
+                {nextLabel}
               </a>
             ) : (
               <span
     aria-disabled="true"
     className="inline-flex rounded-full bg-white/20 px-8 py-4 text-sm font-semibold text-white/40 cursor-not-allowed"
   >
-    {nextLabel || "Next"}
+    {nextLabel}
   </span>
               
             )}

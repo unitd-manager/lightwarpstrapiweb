@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"; // adjust import if using a different router
+import { useParams } from "react-router-dom";
 import { ProjectDetailLayout } from "./project-detail-layout";
+import { PageShell } from "../../components/page-shell";
 import {
   fetchCaseStudyBySlug,
   blocksToParagraphs,
   parseContributionsString,
   type StrapiCaseStudy,
-} from "../../lib/strapi-case-study"; // adjust path to wherever you put the file above
+} from "../../lib/strapi-case-study";
+
+const STRAPI_URL = import.meta.env.VITE_STRAPI_URL as string;
 
 export default function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -29,7 +32,7 @@ export default function CaseStudyPage() {
       })
       .catch((err) => {
         if (cancelled) return;
-        setError(err.message || "Failed to load case study");
+        setError(err.message ?? "Failed to load case study");
         setLoading(false);
       });
 
@@ -40,38 +43,51 @@ export default function CaseStudyPage() {
 
   if (loading) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center bg-[#050517] text-white/60">
-        Loading...
-      </div>
+      <PageShell>
+        <div className="min-h-[60vh] flex items-center justify-center text-white/60">
+          Loading...
+        </div>
+      </PageShell>
     );
   }
 
   if (error || !caseStudy) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center bg-[#050517] text-white/60">
-        Case study not found.
-      </div>
+      <PageShell>
+        <div className="min-h-[60vh] flex items-center justify-center text-white/60">
+          Case study not found.
+        </div>
+      </PageShell>
     );
   }
-const STRAPI_BASE_URL = "http://localhost:1337"; // same as in strapi-case-study.ts
 
-const logos = (caseStudy.logo || [])
-  .map((item) => item.link)
-  .filter(Boolean)
-  .map((link) => ({
-    src: link,
-    alt: "Software logo",
-  }));
-  
+  // ✅ Resolve logo image URLs — use STRAPI_URL for relative paths
+  const logos = (caseStudy.logo ?? [])
+    .map((item) => item.link)
+    .filter(Boolean)
+    .map((link) => ({
+      src: link.startsWith("http") ? link : `${STRAPI_URL}${link}`,
+      alt: "Software logo",
+    }));
+
   const overviewParagraphs = blocksToParagraphs(caseStudy.description);
   const fullDescriptionParagraphs = blocksToParagraphs(caseStudy.full_description);
   const combinedOverview = [...overviewParagraphs, ...fullDescriptionParagraphs];
 
   const roles = parseContributionsString(caseStudy.contributions);
 
-  const extraImages = caseStudy.gallery
+  // ✅ Resolve gallery image URLs
+  const extraImages = (caseStudy.gallery ?? [])
     .map((g) => g.link)
-    .filter(Boolean);
+    .filter(Boolean)
+    .map((link) => (link.startsWith("http") ? link : `${STRAPI_URL}${link}`));
+
+  // ✅ Resolve banner image URL
+  const backgroundImage = caseStudy.bannerImage
+    ? caseStudy.bannerImage.startsWith("http")
+      ? caseStudy.bannerImage
+      : `${STRAPI_URL}${caseStudy.bannerImage}`
+    : undefined;
 
   return (
     <ProjectDetailLayout
@@ -86,11 +102,14 @@ const logos = (caseStudy.logo || [])
       videoSrc={caseStudy.video_url}
       videoSrc2={caseStudy.video_url_2}
       watchHref={caseStudy.video_url}
-      watchLabel={caseStudy.ctaLabel || "Watch Full Reel"}
-      backgroundImage={caseStudy.bannerImage}
+      watchLabel={caseStudy.ctaLabel}
+      sub_heading={caseStudy.sub_heading}
+      backgroundImage={backgroundImage}
       previousHref={caseStudy.previous_link}
+      nextLabel={caseStudy.next_label}
       nextHref={caseStudy.next_link}
       credits={caseStudy.rate}
+      previousLabel={caseStudy.previous_label}
       extraImages={extraImages}
       logos={logos}
     />

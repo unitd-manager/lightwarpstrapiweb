@@ -93,50 +93,24 @@ const LazyYouTubeBackground = ({
   );
 };
 
-const STATIC_EXTRA_PROJECTS = [
-  {
-    id: 17,
-    title: "Samsung S7 ad",
-    copyrightText: "© 2016 Adithya Sathyanarayanan",
-    description:
-      "This early production marks Lightwarp's first foray into full 3D animation — a high school commercial project executed entirely in Blender that went well beyond the scope of the original assignment. Over the course of two months, every asset was built from the ground up, encompassing modeling, surfacing, and lighting entirely from scratch. The project served as the foundation for Lightwarp's lighting philosophy, exploring HDRI-based product lighting, IES profiles, and deliberate camera choreography to draw out form, material detail, and visual storytelling. Though produced at an early stage, the discipline of running a complete production cycle and the creative possibilities unlocked through light established the core sensibilities that continue to define Lightwarp's work today.",
-    video_url: "https://www.youtube.com/watch?v=4Esie0f7HVw",
-    ctaLabel: "Learn More",
-    ctaLink: `/projects/${slugify("Samsung S7 ad")}`,
-    align: "right" as const,
-  },
-  {
-    id: 4,
-    title: "Cyberia 2084",
-    copyrightText: "© 2016 Adithya Sathyanarayanan",
-    description:
-      "Cyberia 2084 is a solo worldbuilding project conceived and executed in a single semester — a travelogue-style introduction to a sprawling, multilayered cyberpunk city built entirely from the ground up. Drawing inspiration from Ian Hubert's dense image-based texturing techniques, the project pushed how much atmospheric depth and narrative scale could be achieved independently. Rendered in Blender using baked lighting, irradiance caching, and optimized approaches to reflections and global illumination, it stands as Lightwarp's first real-time cinematic experiment. Cyberia 2084 earned the Disney Aggie Alumni Award scholarship, presented by the head of characters at Walt Disney Animation Studios and signed by Disney alumni — recognition that cemented the studio's commitment to building worlds that tell stories through scale, atmosphere, and light.",
-    video_url: "https://www.youtube.com/watch?v=pTmzrHqdS_4",
-    ctaLabel: "Learn More",
-    ctaLink: `/projects/${slugify("Cyberia 2084")}`,
-    align: "left" as const,
-  },
-];
-
 export function ProjectsPanelExtraVideos({ data }: { data?: any[] }) {
-  const items =
-    data && data.length > 0
-      ? data.map((item, idx) => ({
-          id: item.id ?? idx,
-          title: item.title,
-          copyrightText: item.copyrightText,
-          description: item.description,
-          video_url: item.video_url,
-          ctaLabel: item.ctaLabel || "Learn More",
-          ctaLink: item.ctaLink || `/projects/${slugify(item.title)}`,
-          align: idx % 2 === 0 ? ("right" as const) : ("left" as const),
-        }))
-      : STATIC_EXTRA_PROJECTS;
+  const items = (data ?? []).map((item, idx) => ({
+    id: item.id ?? idx,
+    title: item.title ?? "",
+    copyrightText: item.copyrightText ?? "",
+    description: item.description ?? "",
+    video_url: item.video_url ?? "",
+    ctaLabel: item.ctaLabel ?? "Learn More",
+    ctaLink: item.ctaLink ?? (item.title ? `/projects/${slugify(item.title)}` : "/"),
+    align: idx % 2 === 0 ? ("right" as const) : ("left" as const),
+  }));
+
+  if (items.length === 0) return null;
 
   return (
     <>
       {items.map((item, idx) => {
-        const videoId = getYouTubeId(item.video_url) || "";
+        const videoId = getYouTubeId(item.video_url) ?? "";
         return (
           <section
             key={item.id}
@@ -169,18 +143,22 @@ export function ProjectsPanelExtraVideos({ data }: { data?: any[] }) {
 
                     <div className="text-sm text-white/100">{item.copyrightText}</div>
 
-                    <div className="rounded-xl bg-black/25 backdrop-blur-[4px] px-3 py-2">
-                      <RichDescription text={item.description} />
-                    </div>
+                    {item.description && (
+                      <div className="rounded-xl bg-black/25 backdrop-blur-[4px] px-3 py-2">
+                        <RichDescription text={item.description} />
+                      </div>
+                    )}
 
-                    <div className="flex flex-wrap gap-4">
-                      <TransitionLink
-                        to={item.ctaLink}
-                        className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
-                      >
-                        {item.ctaLabel}
-                      </TransitionLink>
-                    </div>
+                    {item.ctaLabel && (
+                      <div className="flex flex-wrap gap-4">
+                        <TransitionLink
+                          to={item.ctaLink}
+                          className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
+                        >
+                          {item.ctaLabel}
+                        </TransitionLink>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               </div>

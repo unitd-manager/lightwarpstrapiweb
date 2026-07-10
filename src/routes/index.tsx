@@ -4,25 +4,17 @@ import { HomePanelPartners } from "./home/panel-5-partners";
 import PromoBar from "../components/promo-bar";
 import { HomePanelAwards } from "./home/panel-6-awards";
 import { HomePanelCta } from "./home/panel-9-cta";
-import { Navbar } from "../components/navbar";
-import { Footer } from "../components/footer";
-import { MouseLight } from "../components/mouse-light";
+import { PageShell } from "../components/page-shell";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
-      <MouseLight />
-      <Navbar />
+    <PageShell>
       <HomePanelHero />
-    
       <ServicesPanels />
-    
       <PromoBar />
       <HomePanelPartners />
       <HomePanelAwards />
-    
       <HomePanelCta />
-      <Footer />
-    </div>
+    </PageShell>
   );
 }

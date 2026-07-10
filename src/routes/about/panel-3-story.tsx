@@ -1,23 +1,9 @@
 import { motion } from "framer-motion";
-import crabStill from "../../assets/images/cms/CrabStill.webp";
 import { getStrapiMedia } from "../../lib/strapi";
-
-const STATIC_STORY = {
-  title: "Our Story",
-  description: `Started by an alum of Texas A&M University, Lightwarp 3D
-    Studio was built on a vision of using real-time rendering with
-    tools like Unreal Engine and Blender to create high-quality 3D
-    stories and visuals at blazing fast speed. With our proprietary
-    real-time pipeline and workflows, we create, iterate, and deliver
-    results fast and with cinematic quality as a leading-edge studio.
-    We bring our industry experience at major animated studios and a
-    talented associate team to ensure quality and results for you.`,
-};
-
 export function AboutPanelStory({ data }: { data?: any }) {
-  const title = data?.main_title || STATIC_STORY.title;
-  const description = data?.description || STATIC_STORY.description;
-  const image = getStrapiMedia(data?.image) || crabStill;
+  const title = data?.main_title
+  const description = data?.description
+  const image = getStrapiMedia(data?.image)
 
   return (
     <section className="w-full px-4 pt-[20px] pb-12 sm:px-6">
@@ -31,7 +17,7 @@ export function AboutPanelStory({ data }: { data?: any }) {
         style={{ fontFamily: '"Sora", sans-serif' }}
       >
         <div className="flex justify-center">
-          <img src={image} alt="3D Studio Crab" className="w-full max-w-[300px] h-auto object-contain" />
+          {image && <img src={image} alt="3D Studio Crab" className="w-full max-w-[300px] h-auto object-contain" />}
         </div>
         <h4 className="mt-4 text-[26px] text-white font-extrabold tracking-[-1px] text-center leading-15">
           {title}
@@ -51,7 +37,7 @@ export function AboutPanelStory({ data }: { data?: any }) {
         style={{ fontFamily: '"Sora", sans-serif' }}
       >
         <div className="w-[45%] flex items-center justify-center py-12">
-          <img src={image} alt="3D Studio Crab" className="w-full h-auto object-contain translate-x-20" />
+          {image && <img src={image} alt="3D Studio Crab" className="w-full h-auto object-contain translate-x-20" />}
         </div>
         <div className="w-[55%] p-[6%] flex flex-col justify-center">
           <h4 className="text-[46px] pb-[30px] text-white font-extrabold leading-[1.2] [word-spacing:2px] tracking-[-1.4px]">

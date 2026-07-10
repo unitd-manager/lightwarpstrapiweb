@@ -1,6 +1,6 @@
 // src/pages/projects/PanelHeroes.tsx
 export function PanelHeroes({ data }: { data?: any }) {
-  const title = data?.main_title || "Projects";
+  const title = data?.main_title
 
   return (
     <section
