@@ -1,9 +1,54 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import qs from "qs";
 import { PageShell } from "../components/page-shell";
 import { PageBuilderRenderer } from "../components/blocks/page-builder-renderer";
 
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL as string;
+
+// Deep-populate map for every pageBuilder component this renderer knows about.
+// A flat `populate[pageBuilder][populate]=*` only goes ONE level deep in
+// Strapi v5, so nested repeaters (e.g. grid_items -> icon_and_text_boxes ->
+// list) come back empty. This mirrors the explicit "on"-based populate that
+// the hardcoded Home route (routes/index.tsx) already uses, so any page
+// created dynamically in Strapi resolves the same nested data.
+const PAGE_BUILDER_POPULATE = {
+  on: {
+    "acf-sections.banner-layout": {
+      populate: { image: true, background_image: true, banner_image: true, button: true, secondary_button: true },
+    },
+    "acf-sections.about-team-section": { populate: "*" },
+    "acf-sections.footer-common-cta": {
+      populate: { image: true, image1: true, cta_button: true },
+    },
+    "acf-sections.use-case-single": {
+      populate: { use_case_items: { populate: "*" } },
+    },
+    "acf-sections.contact-location-section": { populate: "*" },
+    "acf-sections.home-partner": { populate: "*" },
+    "acf-sections.grid-layout": {
+      populate: {
+        cta_button: true,
+        image: true,
+        grid_items: {
+          populate: {
+            icon_and_text_boxes: { populate: { list: { populate: "*" } } },
+          },
+        },
+      },
+    },
+    "acf-sections.home-client-logo": {
+      populate: { logo_list: { populate: "*" } },
+    },
+    "acf-sections.home-awards-and-certificates": {
+      populate: { award_and_certificate_list: { populate: "*" } },
+    },
+    "acf-sections.home-award-winner": {
+      populate: { award_winner_list: { populate: "*" } },
+    },
+    "acf-sections.content-image-split-block": { populate: "*" },
+  },
+};
 
 export default function DynamicPage() {
   const { slug } = useParams();
@@ -16,9 +61,13 @@ export default function DynamicPage() {
     async function fetchPage() {
       try {
         // ✅ Use standard Strapi v5 filter query — /api/pages/by-slug/ does NOT exist
-        const query =
-          `filters[slug][$eq]=${encodeURIComponent(slug!)}` +
-          `&populate[pageBuilder][populate]=*`;
+        const query = qs.stringify(
+          {
+            filters: { slug: { $eq: slug } },
+            populate: { pageBuilder: PAGE_BUILDER_POPULATE },
+          },
+          { encodeValuesOnly: true }
+        );
 
         const res = await fetch(`${STRAPI_URL}/api/pages?${query}`);
         if (!res.ok) {

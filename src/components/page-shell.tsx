@@ -27,7 +27,6 @@ export function PageShell({ children, copyrightText }: PageShellProps) {
         const headerQuery =
           `filters[slug][$eq]=header` +
           `&populate[pageBuilder][populate]=*`;
-
         const [footerRes, headerRes] = await Promise.all([
           fetch(`${STRAPI_URL}/api/pages?${footerQuery}`),
           fetch(`${STRAPI_URL}/api/pages?${headerQuery}`),
@@ -36,9 +35,15 @@ export function PageShell({ children, copyrightText }: PageShellProps) {
         const footerJson = await footerRes.json();
         const headerJson = await headerRes.json();
 
+        console.log("PageShell footerJson:", footerJson);
+        console.log("PageShell headerJson:", headerJson);
+
         // ✅ Strapi v5: data is array, first element, pageBuilder is flat array (no attributes wrapper)
         const footerPage = footerJson.data?.[0];
         const headerPage = headerJson.data?.[0];
+
+        console.log("PageShell footerPage:", footerPage);
+        console.log("PageShell headerPage:", headerPage);
 
         const footerBlock = footerPage?.pageBuilder?.find(
           (b: any) => b.__component === "acf-sections.footer-common-cta"

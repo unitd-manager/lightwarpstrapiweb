@@ -1,144 +1,134 @@
 import { motion } from "framer-motion";
-import austinLaurel from "../../assets/images/austin-laurel-cropped.png";
-import shortShortsLaurel from "../../assets/images/shortshorts-laurel.png";
-import wdasTransparent from "../../assets/images/wdas-white-transparent.png";
-import dreamWorksLogo from "../../assets/images/cms/dwalogo.png";
+import { getStrapiMedia } from "../../lib/strapi";
 
 const AWARDS_HEADING_STYLE: React.CSSProperties = {
-  fontFamily: '"DM Sans", sans-serif',
-  fontSize: "35px",
-  fontWeight: 500,
-  fontStyle: "normal",
-  textDecoration: "none",
-  lineHeight: "1.3em",
-  letterSpacing: "0px",
-  wordSpacing: "0px",
+  fontFamily: '"DM Sans", sans-serif', fontSize: "35px", fontWeight: 500,
+  fontStyle: "normal", textDecoration: "none", lineHeight: "1.3em",
+  letterSpacing: "0px", wordSpacing: "0px",
 };
 
 const AWARDS_HEADING_STYLESS: React.CSSProperties = {
-  fontFamily: '"DM Sans", sans-serif',
-  fontSize: "30px",
-  fontWeight: 500,
-  fontStyle: "normal",
-  textDecoration: "none",
-  lineHeight: "1.3em",
-  letterSpacing: "0px",
-  wordSpacing: "0px",
+  fontFamily: '"DM Sans", sans-serif', fontSize: "30px", fontWeight: 500,
+  fontStyle: "normal", textDecoration: "none", lineHeight: "1.3em",
+  letterSpacing: "0px", wordSpacing: "0px",
 };
 
-const awards = [
-  {
-    // Original source had a 1080x1080 canvas with the laurel artwork only
-    // filling ~60% of the height — cropped locally to its real content
-    // bounds so it renders at the same visual size as the other laurel.
-    image: austinLaurel,
-    title: "Austin Under the Stars",
-    blendScreen: false,
-  },
-  {
-    // Original source had a solid black background baked in with no alpha —
-    // re-exported locally with the black chroma-keyed to real transparency.
-    image: shortShortsLaurel,
-    title: "ShortShorts Film Festival",
-    blendScreen: false,
-  },
-];
+export function HomePanelAwards({
+  awardsData,
+  artistsData,
+}: {
+  awardsData?: any;
+  artistsData?: any;
+}) {
+  const awardsTitle = awardsData?.main_title;
+  const artistsTitle = artistsData?.main_title;
+  const disclaimer = artistsData?.disclaimer;
 
-const artists = [
-  {
-    image: dreamWorksLogo,
-    name: "DreamWorks",
-    blendScreen: false,
-  },
-  {
-    // Original source had a fully opaque black background — re-exported
-    // locally with the black chroma-keyed to real transparency.
-    image: wdasTransparent,
-    name: "Walt Disney Animation Studios",
-    blendScreen: false,
-  },
-];
+  const awards =
+    awardsData?.award_and_certificate_list
+      ?.map((item: any, i: number) => ({
+        image: getStrapiMedia(item.image),
+        title: `Award ${i + 1}`,
+      }))
+      .filter((a: any) => a.image) || [];
 
-export function HomePanelAwards() {
+  const artists =
+    artistsData?.award_winner_list
+      ?.map((item: any, i: number) => ({
+        image: getStrapiMedia(item.image),
+        name: `Artist ${i + 1}`,
+        href: item.link?.url || "#",
+      }))
+      .filter((a: any) => a.image) || [];
+
+  const showAwardsBlock = awardsTitle || awards.length > 0;
+  const showArtistsBlock = artistsTitle || artists.length > 0;
+
+  if (!showAwardsBlock && !showArtistsBlock) return null;
+
   return (
     <section className="lw-section-tight bg-transparent">
       <div className="lw-container">
-        {/* Awards Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-24"
-        >
-          <h3
-            className="text-white mb-16"
-            style={AWARDS_HEADING_STYLE}
+        {showAwardsBlock && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-24"
           >
-            Awards & Accolades
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-            {awards.map((award, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="flex items-center justify-center h-48"
-              >
-                <img
-                  src={award.image}
-                  alt={award.title}
-                  className="max-h-40 md:max-h-48 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
-                  style={award.blendScreen ? { mixBlendMode: "screen" } : undefined}
-                />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+            {awardsTitle && (
+              <h3 className="text-white mb-16" style={AWARDS_HEADING_STYLE}>
+                {awardsTitle}
+              </h3>
+            )}
+            {awards.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+                {awards.map((award: any, i: number) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.1 }}
+                    className="flex items-center justify-center h-48"
+                  >
+                    <img
+                      src={award.image}
+                      alt={award.title}
+                      className="max-h-40 md:max-h-48 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </motion.div>
+        )}
 
-        {/* Artists Experience Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h3
-            className="text-white mb-8"
-            style={AWARDS_HEADING_STYLESS}
+        {showArtistsBlock && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-            Artists with experience from*
-          </h3>
-       
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-            {artists.map((artist, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="flex items-center justify-center h-32 md:h-40"
-              >
-                <img
-                  src={artist.image}
-                  alt={artist.name}
-                  className="max-h-32 md:max-h-40 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
-                  style={artist.blendScreen ? { mixBlendMode: "screen" } : undefined}
-                />
-              </motion.div>
-            ))}
-          </div>
+            {artistsTitle && (
+              <h3 className="text-white mb-8" style={AWARDS_HEADING_STYLESS}>
+                {artistsTitle}
+              </h3>
+            )}
 
-          <p
-            className="mt-6 ml-auto max-w-[420px] text-right text-[10px] leading-[1.4] text-white/50"
-            style={{ fontFamily: '"DM Sans", sans-serif' }}
-          >
-            *Logos shown only to represent prior professional experience of team members and do not imply current affiliation, partnership, or endorsement. All logos and trademarks are the property of their respective owners.
-          </p>
-        </motion.div>
+            {artists.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+                {artists.map((artist: any, i: number) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.1 }}
+                    className="flex items-center justify-center h-32 md:h-40"
+                  >
+                    <img
+                      src={artist.image}
+                      alt={artist.name}
+                      className="max-h-32 md:max-h-40 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            )}
+
+            {disclaimer && (
+              <p
+                className="mt-6 ml-auto max-w-[420px] text-right text-[10px] leading-[1.4] text-white/50"
+                style={{ fontFamily: '"DM Sans", sans-serif' }}
+              >
+                {disclaimer}
+              </p>
+            )}
+          </motion.div>
+        )}
       </div>
     </section>
   );

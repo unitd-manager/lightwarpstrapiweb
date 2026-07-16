@@ -1,27 +1,33 @@
-import { AboutPanelStory } from "../../routes/about/panel-3-story";
-import { AboutPanelTeam } from "../../routes/about/panel-4-team";
-import { AboutPanelCta } from "../../routes/about/panel-5-cta";
-import { PanelHeroes } from "../../routes/projects/panel-hero";
-import { ProjectsPanelHero } from "../../routes/projects/panel-1-hero";
-import { ProjectsPanelExtraVideos } from "../../routes/projects/panel-7-extra-videos";
+// src/components/blocks/page-builder-renderer.tsx
+import { BannerLayout } from "./banner-layout";
+import { TeamSection } from "./team-section";
+import { FooterCommonCta } from "./footer-common-cta";
+import { UseCaseSingle } from "./use-case-single";
 import { ContactPanelHero } from "../../routes/contact/panel-1-hero";
 import { ContactPanelForm } from "../../routes/contact/panel-2-form";
 
-// Wrapper components: the route-specific About/Projects components expect a single
-// `data` prop (they were authored as `Component({ data })`). When rendering
-// blocks from Strapi we receive the block's fields directly, so wrap them
-// to pass `data={props}` so the components render content correctly.
+import { HomePanelHero } from "../../routes/home/panel-1-hero";
+import { ServicesPanels } from "../services-panel";
+import PromoBar from "../promo-bar";
+import { HomePanelPartners } from "../../routes/home/panel-5-partners";
+import { HomePanelAwards } from "../../routes/home/panel-6-awards";
+import { HomePanelCta } from "../../routes/home/panel-9-cta";
+
 const BLOCK_COMPONENTS: Record<string, React.ComponentType<any>> = {
+  // Generic banner (used by About, Services, etc.)
   "acf-sections.banner-layout": function BannerWrapper(props: any) {
-    return <AboutPanelStory data={props} />;
+    return <BannerLayout {...props} />;
   },
   "acf-sections.about-team-section": function TeamWrapper(props: any) {
-    return <AboutPanelTeam data={props} />;
+    return <TeamSection {...props} />;
   },
+  // Generic CTA (used by About, Services, etc.)
   "acf-sections.footer-common-cta": function CtaWrapper(props: any) {
-    return <AboutPanelCta data={props} />;
+    return <FooterCommonCta {...props} />;
   },
-  "acf-sections.use-case-single": ProjectUseCaseSingle,
+  "acf-sections.use-case-single": function UseCaseWrapper(props: any) {
+    return <UseCaseSingle {...props} />;
+  },
   "acf-sections.contact-location-section": function ContactWrapper(props: any) {
     return (
       <>
@@ -30,37 +36,54 @@ const BLOCK_COMPONENTS: Record<string, React.ComponentType<any>> = {
       </>
     );
   },
+  "acf-sections.grid-layout": function GridLayoutWrapper(props: any) {
+    return (
+      <>
+        <ServicesPanels data={props} />
+        <PromoBar data={props} />
+      </>
+    );
+  },
+  "acf-sections.home-client-logo": function ClientLogoWrapper(props: any) {
+    return <HomePanelPartners data={props} />;
+  },
+  // Home page hero — Strapi component is "home-partner", not "banner-layout"
+  "acf-sections.home-partner": function HomeHeroWrapper(props: any) {
+    return <HomePanelHero data={props} />;
+  },
+  // Home page CTA — Strapi component is "content-image-split-block", not "footer-common-cta"
+  "acf-sections.content-image-split-block": function HomeCtaWrapper(props: any) {
+    return <HomePanelCta data={props} />;
+  },
 };
 
-function ProjectUseCaseSingle(props: any) {
-  const items: any[] = props.use_case_items ?? [];
-  const [featured, ...rest] = items;
-
-  return (
-    <>
-      {props.main_title ? <PanelHeroes data={props} /> : null}
-      {featured ? <ProjectsPanelHero data={featured} /> : null}
-      {rest.length > 0 ? <ProjectsPanelExtraVideos data={rest} /> : null}
-    </>
-  );
-}
-
 export function PageBuilderRenderer({ blocks }: { blocks: any[] }) {
+  const awardsBlock = blocks.find((b) => b.__component === "acf-sections.home-awards-and-certificates");
+  const awardWinnerBlock = blocks.find((b) => b.__component === "acf-sections.home-award-winner");
+
   return (
     <>
       {blocks.map((block, i) => {
+        if (
+          block.__component === "acf-sections.home-awards-and-certificates" ||
+          block.__component === "acf-sections.home-award-winner"
+        ) {
+          return null;
+        }
         const Component = BLOCK_COMPONENTS[block.__component];
         if (!Component) {
-          // Helps you identify unmapped blocks during development:
           if (import.meta.env.DEV) {
             console.warn("[PageBuilderRenderer] No component for:", block.__component);
           }
           return null;
         }
-        // ✅ Spread block fields directly as props — Strapi v5 is already flat
         const { id, __component, ...props } = block;
         return <Component key={id ?? i} {...props} />;
       })}
+
+      {(awardsBlock || awardWinnerBlock) && (
+        <HomePanelAwards awardsData={awardsBlock} artistsData={awardWinnerBlock} />
+      )}
     </>
   );
 }

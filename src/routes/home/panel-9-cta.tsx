@@ -1,8 +1,21 @@
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
-import shellyPose from "../../assets/images/cms/ShellyPose1.png";
+import { getStrapiMedia } from "../../lib/strapi";
 
-export function HomePanelCta() {
+// Connected to the existing "acf-sections.content-image-split-block"
+// component in Strapi (fields: main_title, description, image, cta_button)
+// instead of footer-common-cta, since that one is reused elsewhere.
+export function HomePanelCta({ data }: { data?: any }) {
+  const title = data?.main_title;
+  const description = data?.description ? data.description.replace(/<[^>]+>/g, "") : "";
+  const buttonLabel = data?.cta_button?.label;
+  const buttonUrl = data?.cta_button?.url;
+  const image = getStrapiMedia(data?.image);
+
+  if (!title && !description && !image) return null;
+
+  const titleLines = title ? title.split("\n") : [];
+
   return (
     <section className="lw-section-tight bg-transparent">
       <div className="lw-container">
@@ -14,44 +27,41 @@ export function HomePanelCta() {
           className="overflow-hidden rounded-[2.5rem] bg-[#6b5bf7e1] p-5 sm:p-6 md:p-8 lg:p-10 shadow-[0_40px_80px_rgba(91,74,235,0.25)]"
         >
           <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 lg:gap-4 items-center">
-            <div className="flex justify-center lg:justify-end">
-              <img
-                src={shellyPose}
-                alt="Shelly Character"
-                className="w-full max-w-[320px] md:max-w-[380px] lg:max-w-[360px] object-contain"
-              />
-            </div>
+            {image && (
+              <div className="flex justify-center lg:justify-end">
+                <img
+                  src={image}
+                  alt="Shelly Character"
+                  className="w-full max-w-[320px] md:max-w-[380px] lg:max-w-[360px] object-contain"
+                />
+              </div>
+            )}
 
             <div className="text-center text-white">
-              <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight tracking-[-0.03em] mb-6">
-                <span className="block">We are excited to</span>
-                <span className="block">work with you!</span>
-              </h2>
-              <p className="mx-auto max-w-3xl text-base sm:text-lg text-white/90 leading-relaxed mb-10">
-                Get started with your 3D animated vision today! Click on the Connect button for inquiries, questions, or needs! We will get back to you quickly and help you get started!
-              </p>
-              <TransitionLink
-                to="/contact"
-                /*className="inline-flex items-center justify-center rounded-[5xl] border border-white/70 bg-white/10 px-12 py-4 text-base sm:text-lg font-semibold text-white shadow-[0_24px_40px_rgba(0,0,0,0.18)] transition duration-300 hover:bg-white/20"*/
-              className=" inline-flex
-  items-center
-  justify-center
-  rounded-lg
-  border-2
-  border-white
-  px-4
-  py-3
-  text-[20px]
-  font-bold
-  text-white
-  shadow-[0_30px_40px_rgba(0,0,0,0.35)]
-  transition-all
-  duration-300
-  hover:bg-white
-  hover:text-[#6453FF]"
-              >
-                Connect
-              </TransitionLink>
+              {titleLines.length > 0 && (
+                <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight tracking-[-0.03em] mb-6">
+                  {titleLines.map((line: string, idx: number) => (
+                    <span className="block" key={idx}>
+                      {line}
+                    </span>
+                  ))}
+                </h2>
+              )}
+
+              {description && (
+                <p className="mx-auto max-w-3xl text-base sm:text-lg text-white/90 leading-relaxed mb-10">
+                  {description}
+                </p>
+              )}
+
+              {buttonLabel && buttonUrl && (
+                <TransitionLink
+                  to={buttonUrl}
+                  className="inline-flex items-center justify-center rounded-lg border-2 border-white px-4 py-3 text-[20px] font-bold text-white shadow-[0_30px_40px_rgba(0,0,0,0.35)] transition-all duration-300 hover:bg-white hover:text-[#6453FF]"
+                >
+                  {buttonLabel}
+                </TransitionLink>
+              )}
             </div>
           </div>
         </motion.div>
