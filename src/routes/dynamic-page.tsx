@@ -48,6 +48,13 @@ const PAGE_BUILDER_POPULATE = {
     },
     "acf-sections.content-image-split-block": { populate: "*" },
   },
+  "acf-sections.common-heading-section": { populate: "*" },
+    "acf-sections.content-highlight-block": {
+      populate: { logos: { populate: "*" } },
+    },
+    "acf-sections.general-cta-section": {
+      populate: { cta_button: true, secondary_cta_button: true },
+    },
 };
 
 export default function DynamicPage() {

@@ -13,6 +13,12 @@ import { HomePanelPartners } from "../../routes/home/panel-5-partners";
 import { HomePanelAwards } from "../../routes/home/panel-6-awards";
 import { HomePanelCta } from "../../routes/home/panel-9-cta";
 
+import { ServicesPanelHero } from "../../routes/services/panel-1-hero";
+import { ServicesPanelServices } from "../../routes/services/panel-2-services";
+import { ServicesPanelProcess } from "../../routes/services/panel-3-process";
+import { ServicesPanelCta } from "../../routes/services/panel-4-cta";
+
+
 const BLOCK_COMPONENTS: Record<string, React.ComponentType<any>> = {
   // Generic banner (used by About, Services, etc.)
   "acf-sections.banner-layout": function BannerWrapper(props: any) {
@@ -37,6 +43,14 @@ const BLOCK_COMPONENTS: Record<string, React.ComponentType<any>> = {
     );
   },
   "acf-sections.grid-layout": function GridLayoutWrapper(props: any) {
+     const isNewServiceGridDesign = props?.grid_items?.some(
+      (item: any) => item?.bg_color || item?.full_description
+    );
+
+    if (isNewServiceGridDesign) {
+      return <ServicesPanelServices data={props} />;
+    }
+
     return (
       <>
         <ServicesPanels data={props} />
@@ -54,6 +68,15 @@ const BLOCK_COMPONENTS: Record<string, React.ComponentType<any>> = {
   // Home page CTA — Strapi component is "content-image-split-block", not "footer-common-cta"
   "acf-sections.content-image-split-block": function HomeCtaWrapper(props: any) {
     return <HomePanelCta data={props} />;
+  },
+    "acf-sections.common-heading-section": function ServiceHeroWrapper(props: any) {
+    return <ServicesPanelHero data={props} />;
+  },
+  "acf-sections.content-highlight-block": function ServiceProcessWrapper(props: any) {
+    return <ServicesPanelProcess data={props} />;
+  },
+  "acf-sections.general-cta-section": function ServiceCtaWrapper(props: any) {
+    return <ServicesPanelCta data={props} />;
   },
 };
 

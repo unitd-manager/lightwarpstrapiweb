@@ -1,4 +1,10 @@
-export function ServicesPanelHero() {
+export function ServicesPanelHero({ data }: { data?: any }) {
+  if (!data) return null;
+
+  const title = data.main_title || data.title || "";
+
+  if (!title) return null;
+
   return (
     <section
       className="relative overflow-hidden flex items-center justify-center py-5"
@@ -6,10 +12,9 @@ export function ServicesPanelHero() {
     >
       <div className="relative z-10 text-center">
         <h1 style={{ fontFamily: '"Sora", sans-serif', fontSize: '75px', fontWeight: 600, lineHeight: '85px', letterSpacing: '-2px', color: '#FFFFFF' }}>
-          Services
+          {title}
         </h1>
       </div>
     </section>
   );
 }
-

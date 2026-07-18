@@ -1,94 +1,39 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-const services = [
-  {
-    title: "3D Commercials & Cinematics",
-    bg: "bg-[#341FBE]",
-    hex: "#341FBE",
-    description: (
-      <>
-        Want to capture attention and spark engagement with <strong>high-quality animated commercial campaigns</strong> that tell your story with style? Our team can help you do that!
-        <br />
-        <br />
-        We can deliver fully 3D-animated <strong>advertisements</strong> for your campaign and brand from start to finish. From 30-second spots to full 1-2 min ads, we offer the most pristine quality artistry, design, and rendering to help showcase your brand for any platform, enhance brand recall, and drive sales and results.
-      </>
-    ),
-    subItems: [
-      "CG Commercials & TV Ads",
-      "Short Form/Social Media Ads",
-      "Game Cinematics & 3D Animatics",
-      "Brand Films",
-      "Product Rendering & Motion Graphics",
-      "Visual Effects",
-    ],
-  },
-  {
-    title: "3D Asset Services",
-    bg: "bg-[#AC1F72]",
-    hex: "#AC1F72",
-    description: (
-      <>
-        Need <strong>stunning, optimized 3D assets</strong> for your game, film, or virtual production? We can craft <strong>environments, props, and in-world assets</strong> with precision and creativity—balancing artistry with technical performance.
-        <br />
-        <br />
-        Whether you need us to own <strong>full environment builds, create standout hero assets</strong>, or handle <strong>specific tasks like look development, modeling, or texturing</strong>, we plug in where you need us most. Every asset is built with production in mind—clean, scalable, and ready for real-time or cinematic use.
-      </>
-    ),
-    subItems: [
-      "3D Modelling",
-      "Character Creation",
-      "Hero Assets & Props",
-      "3D Virtual Environments and VAD",
-      "Optimized Game Assets",
-      "Look Development & Texturing",
-    ],
-  },
-  {
-    title: "Original IP & Content",
-    bg: "bg-[#168399]",
-    hex: "#168399",
-    description: (
-      <>
-        Looking for <strong>original characters, rich backstories, or IP development?</strong> We design <strong>iconic characters and immersive storylines</strong> tailored to your brand, campaign, or transmedia universe—ready to evolve into animations, games, comics, or merchandise.
-        <br />
-        <br />
-        Need a story or campaign idea? Our team of creatives can craft <strong>engaging narratives</strong> that align with your vision and capture your audience's attention.
-      </>
-    ),
-    subItems: [
-      "IP & Concept Development",
-      "Narratives and Stories",
-      "Storyboard and Scripts",
-      "Campaigns",
-      "Creative Concepts",
-      "Visual Development",
-    ],
-  },
-  {
-    title: "Creative & Technical Consulting",
-    bg: "bg-[#4C11A7]",
-    hex: "#4C11A7",
-    description: (
-      <>
-        Need help <strong>navigating real-time production?</strong> We offer <strong>expert consulting in real-time rendering workflows, pipeline development, and creative problem-solving</strong>. With real-world experience delivering projects across animation, games, and virtual production, we understand what it takes to move ideas from concept to execution efficiently and at scale.
-        <br />
-        <br />
-        Whether you're <strong>optimizing a team, building a pipeline, or planning a project</strong>, we're here to help you do it smarter.
-      </>
-    ),
-    subItems: [
-      "Real-Time Rendering Workflows",
-      "Pipeline Development",
-      "Creative Problem Solving",
-      "Team & Workflow Optimization",
-      "Project Planning & Strategy",
-      "Production Execution Support",
-    ],
-  },
-];
+function hexFromBgColor(bgColor: string | null | undefined) {
+  if (!bgColor) return "#341FBE";
+  const stripped = bgColor.replace(/^color/i, "").trim();
+  return stripped.startsWith("#") ? stripped : `#${stripped}`;
+}
 
-function ServiceCard({ service }: { service: (typeof services)[number] }) {
+function buildServicesFromGridData(data: any) {
+  const gridItems = data?.grid_items || [];
+  return gridItems.map((item: any) => {
+    const checklist =
+      item?.icon_and_text_boxes?.list?.map((entry: any) => entry.title).filter(Boolean) || [];
+
+    return {
+      title: item.title || "",
+      hex: hexFromBgColor(item.bg_color),
+      description: (
+        <>
+          {item.description}
+          {item.full_description && (
+            <>
+              <br />
+              <br />
+              {item.full_description}
+            </>
+          )}
+        </>
+      ),
+      subItems: checklist,
+    };
+  });
+}
+
+function ServiceCard({ service }: { service: { title: string; hex: string; description: React.ReactNode; subItems: string[] } }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -97,15 +42,14 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className={`${service.bg} text-white shadow-[0_40px_80px_rgba(0,0,0,0.25)] flex flex-col`}
-      style={{ borderRadius: "49px", padding: "5%", alignItems: "center", textAlign: "center" }}
+      className="text-white shadow-[0_40px_80px_rgba(0,0,0,0.25)] flex flex-col"
+      style={{ backgroundColor: service.hex, borderRadius: "49px", padding: "5%", alignItems: "center", textAlign: "center" }}
     >
       <h3
         className="font-semibold mb-6"
         style={{ fontFamily: '"DM Sans", sans-serif', fontWeight: 600, fontSize: '34px', lineHeight: '1.2em' }}
       >{service.title}</h3>
 
-      {/* Description with clamp */}
       <div className="relative" style={{ width: "100%" }}>
         <div
           className={`overflow-hidden transition-all duration-500 ease-in-out ${
@@ -116,7 +60,6 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
           {service.description}
         </div>
 
-        {/* Fade mask — only visible when collapsed */}
         {!expanded && (
           <div
             className="absolute bottom-0 left-0 right-0 h-10 pointer-events-none"
@@ -142,7 +85,6 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
         </svg>
       </button>
 
-      {/* Sub-items — always visible, pinned to bottom */}
       {service.subItems && service.subItems.length > 0 && (
         <div className="mt-auto pt-8" style={{ width: "100%" }}>
           <div className="grid grid-cols-2 gap-2">
@@ -168,7 +110,12 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
   );
 }
 
-export function ServicesPanelServices() {
+export function ServicesPanelServices({ data }: { data?: any }) {
+  if (!data) return null;
+
+  const services = buildServicesFromGridData(data);
+  const heading = data?.main_title || "";
+
   return (
     <section className="bg-transparent px-6 pt-24 pb-8 services-main-section">
       <div className="mx-auto max-w-7xl">
@@ -185,12 +132,12 @@ export function ServicesPanelServices() {
               textAlign: "center",
             }}
           >
-            Lightwarp has you covered
+            {heading}
           </h2>
         </div>
 
         <div className="grid md:grid-cols-2" style={{ gap: "clamp(12px, 2vw, 40px)" }}>
-          {services.map((service) => (
+          {services.map((service: any) => (
             <ServiceCard key={service.title} service={service} />
           ))}
         </div>
