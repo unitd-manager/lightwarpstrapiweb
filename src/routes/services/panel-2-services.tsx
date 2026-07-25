@@ -8,10 +8,15 @@ function hexFromBgColor(bgColor: string | null | undefined) {
 }
 
 function buildServicesFromGridData(data: any) {
-  const gridItems = data?.grid_items || [];
+  // Skip whole grid_items entries that are individually unpublished
+  const gridItems = (data?.grid_items || []).filter((item: any) => item?.publish !== false);
+
   return gridItems.map((item: any) => {
-    const checklist =
-      item?.icon_and_text_boxes?.list?.map((entry: any) => entry.title).filter(Boolean) || [];
+    // Skip unpublished checklist entries inside icon_and_text_boxes.list
+    const publishedList = (item?.icon_and_text_boxes?.list || []).filter(
+      (entry: any) => entry?.publish !== false
+    );
+    const checklist = publishedList.map((entry: any) => entry.title).filter(Boolean);
 
     return {
       title: item.title || "",
@@ -112,6 +117,7 @@ function ServiceCard({ service }: { service: { title: string; hex: string; descr
 
 export function ServicesPanelServices({ data }: { data?: any }) {
   if (!data) return null;
+  if (data.publish === false) return null;
 
   const services = buildServicesFromGridData(data);
   const heading = data?.main_title || "";

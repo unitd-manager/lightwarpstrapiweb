@@ -8,10 +8,11 @@ export function AboutPanelCta({ data }: { data?: any }) {
   const description = data?.description ?? "";
   const buttonLabel = data?.cta_button?.label ?? "";
   const buttonUrl = data?.cta_button?.url ?? "/";
+  const showButton = !!data?.cta_button && data.cta_button.publish !== false;
 
   const image1 = getStrapiMedia(data?.image);
   const image2 = getStrapiMedia(data?.image1?.[0]);
-console.log("CTA data keys:", Object.keys(data || {}));
+
   const [line1, line2] = title.split("\n");
 
   return (
@@ -34,12 +35,14 @@ console.log("CTA data keys:", Object.keys(data || {}));
         <p className="mt-8 max-w-[280px] text-[14px] leading-[1.5] text-black font-light relative z-10 tracking-[0.013em]">
           {description}
         </p>
-        <TransitionLink
-          to={buttonUrl}
-          className="mt-10 w-[170px] h-[60px] bg-[#6250DA] border-2 border-white rounded-[8px] text-white text-[16px] font-medium flex items-center justify-center no-underline relative z-10"
-        >
-          {buttonLabel}
-        </TransitionLink>
+        {showButton && (
+          <TransitionLink
+            to={buttonUrl}
+            className="mt-10 w-[170px] h-[60px] bg-[#6250DA] border-2 border-white rounded-[8px] text-white text-[16px] font-medium flex items-center justify-center no-underline relative z-10"
+          >
+            {buttonLabel}
+          </TransitionLink>
+        )}
       </motion.div>
 
       {/* ================= DESKTOP ================= */}
@@ -70,12 +73,14 @@ console.log("CTA data keys:", Object.keys(data || {}));
           <p className="text-[16px] leading-[1.8] text-black max-w-[600px] mb-[45px] font-light">
             {description}
           </p>
-          <TransitionLink
-            to={buttonUrl}
-            className="w-[180px] h-[64px] bg-[#6250DA] border-2 border-white rounded-[8px] text-white text-[16px] font-medium flex items-center justify-center no-underline transition-all duration-300"
-          >
-            {buttonLabel}
-          </TransitionLink>
+          {showButton && (
+            <TransitionLink
+              to={buttonUrl}
+              className="w-[180px] h-[64px] bg-[#6250DA] border-2 border-white rounded-[8px] text-white text-[16px] font-medium flex items-center justify-center no-underline transition-all duration-300"
+            >
+              {buttonLabel}
+            </TransitionLink>
+          )}
         </div>
         {image2 && (
           <motion.img

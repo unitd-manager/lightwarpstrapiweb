@@ -35,6 +35,11 @@ const registry: Record<string, React.FC<{ data?: any }>> = {
   "acf-sections.footer-common-cta": AboutPanelCta,
 };
 
+// A block is hidden ONLY when publish is explicitly false.
+function isPublished(block: any) {
+  return block?.publish !== false;
+}
+
 export default function About() {
   const [blocks, setBlocks] = useState<any[] | null>(null);
 
@@ -49,18 +54,18 @@ export default function About() {
     };
   }, []);
 
-const bannerData = blocks?.find((b) => b.__component === "acf-sections.banner-layout");
-const teamData = blocks?.find((b) => b.__component === "acf-sections.about-team-section");
-const ctaData = blocks?.find((b) => b.__component === "acf-sections.footer-common-cta");
+  const bannerData = blocks?.find((b) => b.__component === "acf-sections.banner-layout");
+  const teamData = blocks?.find((b) => b.__component === "acf-sections.about-team-section");
+  const ctaData = blocks?.find((b) => b.__component === "acf-sections.footer-common-cta");
 
   return (
     <PageShell>
       <div className="w-full overflow-x-auto md:overflow-visible">
         <div className="flex min-w-[520px] md:min-w-0 overflow-visible">
           <div className="flex-1 min-w-[390px] overflow-visible">
-            <AboutPanelStory data={bannerData} />
-            <AboutPanelTeam data={teamData} />
-            <AboutPanelCta data={ctaData} />
+            {isPublished(bannerData) && <AboutPanelStory data={bannerData} />}
+            {isPublished(teamData) && <AboutPanelTeam data={teamData} />}
+            {isPublished(ctaData) && <AboutPanelCta data={ctaData} />}
           </div>
         </div>
       </div>

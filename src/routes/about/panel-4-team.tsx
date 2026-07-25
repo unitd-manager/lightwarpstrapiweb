@@ -8,7 +8,11 @@ function chunkIntoThrees<T>(arr: T[]): T[][] {
 }
 
 export function AboutPanelTeam({ data }: { data?: any }) {
-  const members = data?.team_members?.member ?? [];
+  const teamMembersBlock = data?.team_members;
+  const teamMembersPublished = teamMembersBlock?.publish !== false;
+
+  const allMembers = teamMembersPublished ? (teamMembersBlock?.member ?? []) : [];
+  const members = allMembers.filter((m: any) => m.publish !== false);
 
   const founderEntry = members.find((m: any) => m.is_founder) || members[0];
   const associateEntries = members.filter((m: any) => m !== founderEntry);
@@ -79,16 +83,18 @@ export function AboutPanelTeam({ data }: { data?: any }) {
         </div>
       )}
 
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="w-full text-center text-white"
-        style={{ fontFamily: '"Sora", sans-serif', fontSize: "clamp(28px, 4vw, 45px)", fontWeight: 600, lineHeight: "60px", letterSpacing: "-1px", marginTop: "10px" }}
-      >
-        {subTitle}
-      </motion.h2>
+      {teamMembersPublished && associateRows.length > 0 && (
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="w-full text-center text-white"
+          style={{ fontFamily: '"Sora", sans-serif', fontSize: "clamp(28px, 4vw, 45px)", fontWeight: 600, lineHeight: "60px", letterSpacing: "-1px", marginTop: "10px" }}
+        >
+          {subTitle}
+        </motion.h2>
+      )}
 
       {associateRows.map((row, rowIdx) => (
         <div key={rowIdx} className="associate-row flex flex-row flex-wrap justify-around px-[3%]" style={{ marginBottom: 0 }}>

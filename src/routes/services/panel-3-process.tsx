@@ -8,13 +8,15 @@ function stripHtml(value: string | null | undefined) {
 
 export function ServicesPanelProcess({ data }: { data?: any }) {
   if (!data) return null;
+  if (data.publish === false) return null;
 
   const heading = data.title || "";
   const body = stripHtml(data.description);
 
   const logos =
     data?.logos
-      ?.map((entry: any) => {
+      ?.filter((entry: any) => entry?.publish !== false)
+      .map((entry: any) => {
         const src = getStrapiMedia(entry.logo_image);
         if (!src) return null;
         return { src, alt: entry.logo_name || entry.logo_image?.alternativeText || entry.logo_image?.name || "Logo" };

@@ -9,12 +9,13 @@ async function fetchContactPage() {
   if (!res.ok) throw new Error(`Failed to fetch contact page: ${res.status}`);
 
   const json = await res.json();
-  console.log("Full JSON:", json); // 👈 log the parsed JSON, not the raw response
 
   const found = json.data?.pageBuilder?.find(
     (block: any) => block.__component === "acf-sections.contact-location-section"
   );
-  console.log("Matched block:", found); // 👈 log the actual block you're returning
+
+  // Whole Contact-Location section is hidden if its own publish is false
+  if (found && found.publish === false) return null;
 
   return found;
 }
@@ -30,17 +31,19 @@ export default function Contact() {
         setBlock(null);
       });
   }, []);
-  
-   return (
-      <PageShell>
-        <div className="w-full overflow-x-auto md:overflow-visible">
-          <div className="flex min-w-[520px] md:min-w-0 overflow-visible">
-            <div className="flex-1 min-w-[390px] overflow-visible">
-              <ContactPanelHero data={block} />
-              <ContactPanelForm data={block} />
-            </div>
+
+  if (!block) return null;
+
+  return (
+    <PageShell>
+      <div className="w-full overflow-x-auto md:overflow-visible">
+        <div className="flex min-w-[520px] md:min-w-0 overflow-visible">
+          <div className="flex-1 min-w-[390px] overflow-visible">
+            <ContactPanelHero data={block} />
+            <ContactPanelForm data={block} />
           </div>
         </div>
-      </PageShell>
-    );
+      </div>
+    </PageShell>
+  );
 }

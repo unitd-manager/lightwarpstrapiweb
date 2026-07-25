@@ -177,13 +177,19 @@ type Props = {
 };
 
 export function ProjectsPanelExtraVideosCapabilities({ useCaseItems }: Props) {
-  const projects: MappedProject[] = (useCaseItems ?? []).map((item) => ({
+  // Drop individually unpublished items first (Caught Off Guard, The Jab, etc.)
+  const publishedItems = (useCaseItems ?? []).filter(
+    (item: any) => item.publish !== false
+  );
+
+  const projects: MappedProject[] = publishedItems.map((item) => ({
     id:                 item.id,
     title:              item.title ?? "",
     contributions:      parseContributions(item.highlight_description ?? ""),
     contributionsLabel: item.contributionsLabel ?? "",
     creditsLabel:       item.creditsLabel ?? "",
-    credits:            item.credits ?? [],
+    // Drop individually unpublished credit rows within each item
+    credits:            (item.credits ?? []).filter((c: any) => c.publish !== false),
     description:        item.description ?? "",
     videoId:            extractYouTubeId(item.video_url ?? "") || (item.video_url ?? ""),
     hideLearnMore:      !item.ctaLink,

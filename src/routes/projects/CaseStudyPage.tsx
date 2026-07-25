@@ -51,7 +51,8 @@ export default function CaseStudyPage() {
     );
   }
 
-  if (error || !caseStudy) {
+  // 👇 Treat an unpublished case study the same as "not found"
+  if (error || !caseStudy || caseStudy.publish === false) {
     return (
       <PageShell>
         <div className="min-h-[60vh] flex items-center justify-center text-white/60">
@@ -63,6 +64,7 @@ export default function CaseStudyPage() {
 
   // ✅ Resolve logo image URLs — use STRAPI_URL for relative paths
   const logos = (caseStudy.logo ?? [])
+  .filter((item) => item.publish !== false)
     .map((item) => item.link)
     .filter(Boolean)
     .map((link) => ({
@@ -78,6 +80,7 @@ export default function CaseStudyPage() {
 
   // ✅ Resolve gallery image URLs
   const extraImages = (caseStudy.gallery ?? [])
+   .filter((g) => g.publish !== false)
     .map((g) => g.link)
     .filter(Boolean)
     .map((link) => (link.startsWith("http") ? link : `${STRAPI_URL}${link}`));
@@ -88,6 +91,9 @@ export default function CaseStudyPage() {
       ? caseStudy.bannerImage
       : `${STRAPI_URL}${caseStudy.bannerImage}`
     : undefined;
+
+  // 👇 Only pass through credits that are explicitly published (or missing the flag)
+  const visibleCredits = (caseStudy.rate ?? []).filter((c) => c.publish !== false);
 
   return (
     <ProjectDetailLayout
@@ -108,7 +114,7 @@ export default function CaseStudyPage() {
       previousHref={caseStudy.previous_link}
       nextLabel={caseStudy.next_label}
       nextHref={caseStudy.next_link}
-      credits={caseStudy.rate}
+      credits={visibleCredits}
       previousLabel={caseStudy.previous_label}
       extraImages={extraImages}
       logos={logos}

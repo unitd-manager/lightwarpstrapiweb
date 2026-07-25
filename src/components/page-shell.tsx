@@ -55,6 +55,7 @@ export function PageShell({ children, copyrightText }: PageShellProps) {
         if (footerBlock) {
           // ✅ Map Strapi footer block fields → FooterData interface
           setFooterData({
+            publish: footerBlock.publish,
             logo: footerBlock.logo ?? undefined,
             logo_link: footerBlock.logo_link ?? "/",
             copyright_text: footerBlock.copyright_text ?? undefined,
@@ -74,6 +75,7 @@ export function PageShell({ children, copyrightText }: PageShellProps) {
         if (headerBlock) {
           // ✅ Map Strapi header block fields → NavbarData interface
           setNavbarData({
+            publish: headerBlock.publish,
             logo: headerBlock.logo ?? undefined,
             logo_link: headerBlock.logo_link ?? "/",
             nav_links: headerBlock.nav_links ?? [],

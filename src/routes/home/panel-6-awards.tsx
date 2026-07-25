@@ -20,26 +20,34 @@ export function HomePanelAwards({
   awardsData?: any;
   artistsData?: any;
 }) {
-  const awardsTitle = awardsData?.main_title;
-  const artistsTitle = artistsData?.main_title;
-  const disclaimer = artistsData?.disclaimer;
+  // Each half of this combined section can be hidden independently
+  const awardsEnabled = awardsData?.publish !== false;
+  const artistsEnabled = artistsData?.publish !== false;
 
-  const awards =
-    awardsData?.award_and_certificate_list
-      ?.map((item: any, i: number) => ({
-        image: getStrapiMedia(item.image),
-        title: `Award ${i + 1}`,
-      }))
-      .filter((a: any) => a.image) || [];
+  const awardsTitle = awardsEnabled ? awardsData?.main_title : undefined;
+  const artistsTitle = artistsEnabled ? artistsData?.main_title : undefined;
+  const disclaimer = artistsEnabled ? artistsData?.disclaimer : undefined;
 
-  const artists =
-    artistsData?.award_winner_list
-      ?.map((item: any, i: number) => ({
-        image: getStrapiMedia(item.image),
-        name: `Artist ${i + 1}`,
-        href: item.link?.url || "#",
-      }))
-      .filter((a: any) => a.image) || [];
+  const awards = awardsEnabled
+    ? (awardsData?.award_and_certificate_list ?? [])
+        .filter((item: any) => item?.publish !== false)
+        .map((item: any, i: number) => ({
+          image: getStrapiMedia(item.image),
+          title: `Award ${i + 1}`,
+        }))
+        .filter((a: any) => a.image)
+    : [];
+
+  const artists = artistsEnabled
+    ? (artistsData?.award_winner_list ?? [])
+        .filter((item: any) => item?.publish !== false)
+        .map((item: any, i: number) => ({
+          image: getStrapiMedia(item.image),
+          name: `Artist ${i + 1}`,
+          href: item.link?.url || "#",
+        }))
+        .filter((a: any) => a.image)
+    : [];
 
   const showAwardsBlock = awardsTitle || awards.length > 0;
   const showArtistsBlock = artistsTitle || artists.length > 0;

@@ -18,16 +18,13 @@ import { ServicesPanelServices } from "../../routes/services/panel-2-services";
 import { ServicesPanelProcess } from "../../routes/services/panel-3-process";
 import { ServicesPanelCta } from "../../routes/services/panel-4-cta";
 
-
 const BLOCK_COMPONENTS: Record<string, React.ComponentType<any>> = {
-  // Generic banner (used by About, Services, etc.)
   "acf-sections.banner-layout": function BannerWrapper(props: any) {
     return <BannerLayout {...props} />;
   },
   "acf-sections.about-team-section": function TeamWrapper(props: any) {
     return <TeamSection {...props} />;
   },
-  // Generic CTA (used by About, Services, etc.)
   "acf-sections.footer-common-cta": function CtaWrapper(props: any) {
     return <FooterCommonCta {...props} />;
   },
@@ -43,7 +40,7 @@ const BLOCK_COMPONENTS: Record<string, React.ComponentType<any>> = {
     );
   },
   "acf-sections.grid-layout": function GridLayoutWrapper(props: any) {
-     const isNewServiceGridDesign = props?.grid_items?.some(
+    const isNewServiceGridDesign = props?.grid_items?.some(
       (item: any) => item?.bg_color || item?.full_description
     );
 
@@ -61,15 +58,13 @@ const BLOCK_COMPONENTS: Record<string, React.ComponentType<any>> = {
   "acf-sections.home-client-logo": function ClientLogoWrapper(props: any) {
     return <HomePanelPartners data={props} />;
   },
-  // Home page hero — Strapi component is "home-partner", not "banner-layout"
   "acf-sections.home-partner": function HomeHeroWrapper(props: any) {
     return <HomePanelHero data={props} />;
   },
-  // Home page CTA — Strapi component is "content-image-split-block", not "footer-common-cta"
   "acf-sections.content-image-split-block": function HomeCtaWrapper(props: any) {
     return <HomePanelCta data={props} />;
   },
-    "acf-sections.common-heading-section": function ServiceHeroWrapper(props: any) {
+  "acf-sections.common-heading-section": function ServiceHeroWrapper(props: any) {
     return <ServicesPanelHero data={props} />;
   },
   "acf-sections.content-highlight-block": function ServiceProcessWrapper(props: any) {
@@ -80,13 +75,28 @@ const BLOCK_COMPONENTS: Record<string, React.ComponentType<any>> = {
   },
 };
 
+/**
+ * A block is hidden ONLY when publish is explicitly false.
+ * If publish is true, or missing entirely (older entries / components
+ * that don't have the field yet), it still shows.
+ */
+function isBlockPublished(block: any) {
+  return block?.publish !== false;
+}
+
 export function PageBuilderRenderer({ blocks }: { blocks: any[] }) {
-  const awardsBlock = blocks.find((b) => b.__component === "acf-sections.home-awards-and-certificates");
-  const awardWinnerBlock = blocks.find((b) => b.__component === "acf-sections.home-award-winner");
+  const visibleBlocks = (blocks ?? []).filter(isBlockPublished);
+
+  const awardsBlock = visibleBlocks.find(
+    (b) => b.__component === "acf-sections.home-awards-and-certificates"
+  );
+  const awardWinnerBlock = visibleBlocks.find(
+    (b) => b.__component === "acf-sections.home-award-winner"
+  );
 
   return (
     <>
-      {blocks.map((block, i) => {
+      {visibleBlocks.map((block, i) => {
         if (
           block.__component === "acf-sections.home-awards-and-certificates" ||
           block.__component === "acf-sections.home-award-winner"

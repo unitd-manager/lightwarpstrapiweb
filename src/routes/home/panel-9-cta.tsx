@@ -6,8 +6,11 @@ import { getStrapiMedia } from "../../lib/strapi";
 // component in Strapi (fields: main_title, description, image, cta_button)
 // instead of footer-common-cta, since that one is reused elsewhere.
 export function HomePanelCta({ data }: { data?: any }) {
+  if (data?.publish === false) return null;
+
   const title = data?.main_title;
   const description = data?.description ? data.description.replace(/<[^>]+>/g, "") : "";
+  const showButton = !!data?.cta_button && data.cta_button.publish !== false;
   const buttonLabel = data?.cta_button?.label;
   const buttonUrl = data?.cta_button?.url;
   const image = getStrapiMedia(data?.image);
@@ -54,7 +57,7 @@ export function HomePanelCta({ data }: { data?: any }) {
                 </p>
               )}
 
-              {buttonLabel && buttonUrl && (
+              {showButton && buttonLabel && buttonUrl && (
                 <TransitionLink
                   to={buttonUrl}
                   className="inline-flex items-center justify-center rounded-lg border-2 border-white px-4 py-3 text-[20px] font-bold text-white shadow-[0_30px_40px_rgba(0,0,0,0.35)] transition-all duration-300 hover:bg-white hover:text-[#6453FF]"

@@ -1,5 +1,6 @@
 export function ServicesPanelHero({ data }: { data?: any }) {
   if (!data) return null;
+  if (data.publish === false) return null;
 
   const title = data.main_title || data.title || "";
 

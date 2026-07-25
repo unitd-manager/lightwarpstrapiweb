@@ -8,6 +8,7 @@ const STRAPI_URL = import.meta.env.VITE_STRAPI_URL as string;
 interface NavLink {
   label: string;
   url: string;
+  publish?: boolean;
 }
 
 interface StrapiMedia {
@@ -16,6 +17,7 @@ interface StrapiMedia {
 }
 
 export interface NavbarData {
+  publish?: boolean;
   logo?: StrapiMedia;
   logo_link?: string;
   nav_links?: NavLink[];
@@ -27,6 +29,11 @@ export function Navbar({ data }: { data?: NavbarData }) {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
 
+  // Whole header hidden if its own publish flag is explicitly false.
+  if (data?.publish === false) {
+    return null;
+  }
+
   const {
     logo,
     logo_link = "/",
@@ -34,6 +41,9 @@ export function Navbar({ data }: { data?: NavbarData }) {
     cta_label = "Contact Now",
     cta_url = "/contact",
   } = data ?? {};
+
+  // Only show nav links that are explicitly published (or don't have the flag yet).
+  const visibleNavLinks = nav_links.filter((l) => l.publish !== false);
 
   const logoSrc = logo?.url
     ? logo.url.startsWith("http")
@@ -100,7 +110,7 @@ export function Navbar({ data }: { data?: NavbarData }) {
 
           {/* Center nav links */}
           <ul className="flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
-            {nav_links.map((l) => {
+            {visibleNavLinks.map((l) => {
               const active = pathname === l.url;
               return (
                 <li key={l.url}>
@@ -137,7 +147,7 @@ export function Navbar({ data }: { data?: NavbarData }) {
           className="md:hidden w-full bg-black border-t border-white/10"
         >
           <ul className="flex flex-col items-center py-4 gap-1">
-            {nav_links.map((l) => {
+            {visibleNavLinks.map((l) => {
               const active = pathname === l.url;
               return (
                 <li key={l.url} className="w-full text-center">

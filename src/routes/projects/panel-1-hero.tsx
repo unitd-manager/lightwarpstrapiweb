@@ -33,6 +33,9 @@ function RichDescription({ text }: { text: string }) {
 }
 
 export function ProjectsPanelHero({ data }: { data?: any }) {
+  if (!data) return null;
+  if (data.publish === false) return null;
+
   const title       = data?.title ?? "";
   const highlight   = data?.highlight_description ?? "";
   const copyright   = data?.copyrightText ?? "";

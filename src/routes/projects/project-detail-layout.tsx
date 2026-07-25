@@ -6,6 +6,7 @@ import { VideoPlayer } from "../../components/video-player";
 type CreditItem = {
   role: string;
   names: string;
+  publish?: boolean;
 };
 
 type LogoItem = {
@@ -118,6 +119,10 @@ export function ProjectDetailLayout({
   const isYouTube = isYouTubeEmbed(videoSrc);
   const isYouTube2 = isYouTubeEmbed(videoSrc2 || "");
 
+  // Defensive filter — hides any credit explicitly marked unpublished,
+  // even if the caller forgot to filter upstream.
+  const visibleCredits = (credits ?? []).filter((c) => c.publish !== false);
+
   return (
     <PageShell>
       <section className="bg-[#050517] text-white font-display">
@@ -227,55 +232,55 @@ export function ProjectDetailLayout({
                 ))}
               </div>
 
-             {videoSrc ? (
-  <motion.div
-    initial={{ opacity: 0, x: 30 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.8, delay: 0.1 }}
-    className="space-y-4"
-  >
-    <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
-      <div className={videoWrapperClass}>
-        {isYouTube ? (
-          <VideoPlayer src={videoSrc} title={title} />
-        ) : (
-          <VideoRenderer
-            src={videoSrc}
-            className={videoMediaClass}
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-        )}
-      </div>
-    </div>
+              {videoSrc ? (
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
+                  className="space-y-4"
+                >
+                  <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
+                    <div className={videoWrapperClass}>
+                      {isYouTube ? (
+                        <VideoPlayer src={videoSrc} title={title} />
+                      ) : (
+                        <VideoRenderer
+                          src={videoSrc}
+                          className={videoMediaClass}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                        />
+                      )}
+                    </div>
+                  </div>
 
-    {videoSrc2 ? (
-      <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
-        <div className={videoWrapperClass}>
-          {isYouTube2 ? (
-            <VideoPlayer src={videoSrc2} title={title} />
-          ) : (
-            <VideoRenderer
-              src={videoSrc2}
-              className={videoMediaClass}
-              autoPlay
-              muted
-              loop
-              playsInline
-            />
-          )}
-        </div>
-      </div>
-    ) : null}
-  </motion.div>
-) : null}
+                  {videoSrc2 ? (
+                    <div className="overflow-hidden rounded-none border border-white/10 bg-black shadow-2xl shadow-black/50">
+                      <div className={videoWrapperClass}>
+                        {isYouTube2 ? (
+                          <VideoPlayer src={videoSrc2} title={title} />
+                        ) : (
+                          <VideoRenderer
+                            src={videoSrc2}
+                            className={videoMediaClass}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                          />
+                        )}
+                      </div>
+                    </div>
+                  ) : null}
+                </motion.div>
+              ) : null}
             </div>
 
-            {credits && credits.length > 0 ? (
-              <CreditsSlider credits={credits} />
+            {visibleCredits.length > 0 ? (
+              <CreditsSlider credits={visibleCredits} />
             ) : null}
           </div>
         </div>
@@ -381,11 +386,11 @@ export function ProjectDetailLayout({
               </a>
             ) : (
               <span
-    aria-disabled="true"
-    className="inline-flex rounded-full bg-white/20 px-8 py-4 text-sm font-semibold text-white/40 cursor-not-allowed"
-  >
-    {previousLabel}
-  </span>
+                aria-disabled="true"
+                className="inline-flex rounded-full bg-white/20 px-8 py-4 text-sm font-semibold text-white/40 cursor-not-allowed"
+              >
+                {previousLabel}
+              </span>
             )}
 
             <a
@@ -404,12 +409,11 @@ export function ProjectDetailLayout({
               </a>
             ) : (
               <span
-    aria-disabled="true"
-    className="inline-flex rounded-full bg-white/20 px-8 py-4 text-sm font-semibold text-white/40 cursor-not-allowed"
-  >
-    {nextLabel}
-  </span>
-              
+                aria-disabled="true"
+                className="inline-flex rounded-full bg-white/20 px-8 py-4 text-sm font-semibold text-white/40 cursor-not-allowed"
+              >
+                {nextLabel}
+              </span>
             )}
           </div>
         </div>

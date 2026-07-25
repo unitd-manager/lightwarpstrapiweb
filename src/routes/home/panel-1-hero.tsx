@@ -1,10 +1,10 @@
 // src/routes/home/panel-1-hero.tsx
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
+import { getStrapiMedia } from "../../lib/strapi";
 import lightwarpLogo from "../../assets/images/cms/Lightwarp_Horizontal.png";
 
-// Imported directly since it lives in src/assets (not public/) — Vite
-// needs the import so it can resolve and bundle the file correctly.
+// Used only if Strapi doesn't return a logo image for this block.
 const FALLBACK_LOGO_SRC = lightwarpLogo;
 
 // Editors paste a full Vimeo link (e.g. https://vimeo.com/1177318410 or
@@ -28,11 +28,12 @@ function extractVimeoId(input?: string): string | undefined {
 }
 
 export function HomePanelHero({ data }: { data?: any }) {
-  // No logo field exists on "home-partner", so this stays a fixed
-  // technical asset. Video is fully dynamic — editors paste a full Vimeo
-  // link into Strapi's video_url field, no hardcoded video anywhere.
-  const logoSrc = FALLBACK_LOGO_SRC;
-
+  // Prefer the CMS-managed logo if editors have uploaded one to Strapi's
+  // "logo" field on this component; fall back to the bundled static asset
+  // if the field is empty or missing.
+  const logoSrc = getStrapiMedia(data?.image) || FALLBACK_LOGO_SRC;
+  console.log("raw data.image:", data?.image);
+  console.log("logo", logoSrc);
   const vimeoId = extractVimeoId(data?.video_url);
   const videoSrc = vimeoId
     ? `https://player.vimeo.com/video/${vimeoId}?autoplay=1&loop=1&muted=1&background=1`
@@ -44,7 +45,7 @@ export function HomePanelHero({ data }: { data?: any }) {
   const subtitle = data?.sub_title;
   const description = data?.description ? data.description.replace(/<[^>]+>/g, "") : "";
 
-  const ctaLabel = data?.button?.label;
+  const ctaLabel = data?.button?.publish !== false ? data?.button?.label : undefined;
   const ctaHref = data?.button?.url;
 
   const subtitleLines = subtitle

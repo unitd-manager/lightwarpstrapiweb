@@ -14,7 +14,10 @@ async function fetchProjectsPage() {
     (block: any) => block.__component === "acf-sections.use-case-single"
   );
 
-  return useCaseBlock; // return the whole block now, not just use_case_items
+  // Whole "Use Case Single" section is hidden if its own publish is false
+  if (useCaseBlock && useCaseBlock.publish === false) return null;
+
+  return useCaseBlock;
 }
 
 export default function Projects() {
@@ -26,14 +29,20 @@ export default function Projects() {
       .catch(() => setBlock(null));
   }, []);
 
-  const items = block?.use_case_items ?? [];
-  const [featured, ...rest] = items.length ? items : [undefined, undefined, undefined];
+  // Split by ORIGINAL position first, then check publish per-slot.
+  // This keeps "featured" always mapped to use_case_items[0], and prevents
+  // an unpublished item from shifting the rest of the array out of order.
+  const allItems = block?.use_case_items ?? [];
+  const [featuredRaw, ...restRaw] = allItems;
+
+  const featured = featuredRaw && featuredRaw.publish !== false ? featuredRaw : undefined;
+  const rest = restRaw.filter((item: any) => item.publish !== false);
 
   return (
     <PageShell>
       <PanelHeroes data={block} />
       <ProjectsPanelHero data={featured} />
-      <ProjectsPanelExtraVideos data={items.length ? rest : undefined} />
+      <ProjectsPanelExtraVideos data={rest.length ? rest : undefined} />
     </PageShell>
   );
 }

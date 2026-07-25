@@ -25,12 +25,17 @@ function resolveUrl(url?: string) {
 }
 
 export function FooterCommonCta({
+  publish,
   main_title,
   description,
   cta_button,
   image,
   image1,
-}: FooterCommonCtaProps) {
+}: FooterCommonCtaProps & { publish?: boolean }) {
+  if (publish === false) {
+    return null;
+  }
+
   const leftImg = image;
   const rightImg = image1?.[0];
 

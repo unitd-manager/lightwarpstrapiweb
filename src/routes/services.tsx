@@ -64,10 +64,17 @@ export default function Services() {
     };
   }, []);
 
-  const bannerData = blocks?.find((b) => b.__component === "acf-sections.common-heading-section");
-  const gridData = blocks?.find((b) => b.__component === "acf-sections.grid-layout");
-  const highlightData = blocks?.find((b) => b.__component === "acf-sections.content-highlight-block");
-  const ctaData = blocks?.find((b) => b.__component === "acf-sections.general-cta-section");
+  // Returns the block only if it exists AND is not explicitly unpublished.
+  const getBlock = (componentName: string) => {
+    const found = blocks?.find((b) => b.__component === componentName);
+    if (found && found.publish === false) return undefined;
+    return found;
+  };
+
+  const bannerData = getBlock("acf-sections.common-heading-section");
+  const gridData = getBlock("acf-sections.grid-layout");
+  const highlightData = getBlock("acf-sections.content-highlight-block");
+  const ctaData = getBlock("acf-sections.general-cta-section");
 
   return (
     <PageShell>

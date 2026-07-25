@@ -126,11 +126,15 @@ const LazyYouTubeBackground = ({
 
 export function ProjectsPanelCapabilities({ item }: { item?: CapabilityItem }) {
   if (!item) return null;
+  if (item.publish === false) return null;
 
   const videoId      = extractYouTubeId(item.video_url ?? "");
   const contributions = parseContributions(item.highlight_description ?? "");
   const watchHref    = resolveWatchHref(item.video_url, item.watchnow_link);
   const ctaLink      = item.ctaLink || (item.title ? `/projects/${slugify(item.title)}` : "/");
+
+  // Only keep individually published credit rows
+  const credits = (item.credits ?? []).filter((c: any) => c.publish !== false);
 
   return (
     <section className="relative min-h-[90svh] overflow-hidden bg-transparent text-white font-display sm:min-h-[90vh]">
@@ -185,11 +189,11 @@ export function ProjectsPanelCapabilities({ item }: { item?: CapabilityItem }) {
               )}
 
               {/* Credits */}
-              {item.credits?.length ? (
+              {credits.length > 0 ? (
                 <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
                   <div className="text-white [&_*]:text-white">
                     <ProjectCredits
-                      entries={item.credits}
+                      entries={credits}
                       label={item.creditsLabel ?? ""}
                       copyright={item.copyrightText ?? ""}
                     />

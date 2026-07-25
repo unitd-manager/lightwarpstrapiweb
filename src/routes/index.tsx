@@ -78,8 +78,12 @@ export default function Home() {
     return () => controller.abort();
   }, []);
 
-  const getBlock = (componentName: string) =>
-    blocks.find((b) => b.__component === componentName);
+  // Returns the block only if it exists AND is not explicitly unpublished.
+  const getBlock = (componentName: string) => {
+    const found = blocks.find((b) => b.__component === componentName);
+    if (found && found.publish === false) return undefined;
+    return found;
+  };
 
   const heroBlock = getBlock("acf-sections.home-partner");
   const gridLayoutBlock = getBlock("acf-sections.grid-layout");

@@ -2,11 +2,14 @@ import { motion } from "framer-motion";
 import { getStrapiMedia } from "../../lib/strapi";
 
 export function HomePanelPartners({ data }: { data?: any }) {
+  if (data?.publish === false) return null;
+
   const mainTitle = data?.main_title;
 
   const partners =
     data?.logo_list?.length > 0
       ? data.logo_list
+          .filter((item: any) => item?.publish !== false)
           .map((item: any, i: number) => ({
             image: getStrapiMedia(item.image),
             name: `Partner ${i + 1}`,

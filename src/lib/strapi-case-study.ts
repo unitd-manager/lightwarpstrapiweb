@@ -1,22 +1,26 @@
 // ─── Strapi API client for Case Study collection ──────────────────────────────
 
-const STRAPI_BASE_URL = "http://localhost:1337"; // ← set to your real Strapi URL
+const STRAPI_BASE_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337"; // ← set to your real Strapi URL
 
 export type StrapiCreditEntry = {
   role: string;
   names: string;
+  publish?: boolean; // 👈 added
 };
 
 export type StrapiGalleryItem = {
   link: string;
+  publish?: boolean;
 };
 
 export type StrapiLogoItem = {
   link: string;
+  publish?: boolean;
 };
 
 export type StrapiCaseStudy = {
   id: number;
+  publish?: boolean; // 👈 added
   title: string;
   slug: string;
   bannerImage: string;
@@ -83,13 +87,18 @@ export async function fetchCaseStudyBySlug(slug: string): Promise<StrapiCaseStud
 
   return {
     id: entry.id,
+    publish: attrs.publish, // 👈 added
     title: attrs.title,
     slug: attrs.slug,
     bannerImage: attrs.bannerImage,
     contributionsLabel: attrs.contributionsLabel,
     contributions: attrs.contributions,
     creditsLabel: attrs.creditsLabel,
-    rate: attrs.rate || [],
+    rate: (attrs.rate || []).map((r: any) => ({
+      role: r.role,
+      names: r.names,
+      publish: r.publish, // 👈 added
+    })),
     sub_heading: attrs.sub_heading,
     copyrightText: attrs.copyrightText,
     description: attrs.description,
@@ -98,8 +107,14 @@ export async function fetchCaseStudyBySlug(slug: string): Promise<StrapiCaseStud
     video_url_2: attrs.video_url_2 || "",
     ctaLabel: attrs.ctaLabel,
     ctaLink: attrs.ctaLink,
-    gallery: attrs.gallery || [],
-    logo: attrs.logo || [],
+   gallery: (attrs.gallery || []).map((g: any) => ({
+      link: g.link,
+      publish: g.publish,
+    })),
+    logo: (attrs.logo || []).map((l: any) => ({
+      link: l.link,
+      publish: l.publish,
+    })),
     next_label: attrs.next_label,
     next_link: attrs.next_link || "",
     previous_label: attrs.previous_label,

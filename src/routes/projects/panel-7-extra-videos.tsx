@@ -94,7 +94,11 @@ const LazyYouTubeBackground = ({
 };
 
 export function ProjectsPanelExtraVideos({ data }: { data?: any[] }) {
-  const items = (data ?? []).map((item, idx) => ({
+  // Drop any individually unpublished items that slipped through
+  // (defensive — Projects.tsx already filters, but safe to double-check here)
+  const publishedData = (data ?? []).filter((item) => item.publish !== false);
+
+  const items = publishedData.map((item, idx) => ({
     id: item.id ?? idx,
     title: item.title ?? "",
     copyrightText: item.copyrightText ?? "",

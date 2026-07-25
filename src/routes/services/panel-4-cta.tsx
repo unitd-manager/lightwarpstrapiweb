@@ -5,9 +5,11 @@ import keepInTouch2 from "../../assets/images/cms/KeepInTouch2.svg";
 
 export function ServicesPanelCta({ data }: { data?: any }) {
   if (!data) return null;
+  if (data.publish === false) return null;
 
   const title = data.main_title || "";
   const body = data.description || "";
+  const showCta = !!data?.cta_button && data.cta_button.publish !== false;
   const ctaLabel = data?.cta_button?.label || "";
   const ctaUrl = (data?.cta_button?.url || "/contact").trim();
 
@@ -42,7 +44,7 @@ export function ServicesPanelCta({ data }: { data?: any }) {
           {body}
         </p>
 
-        {ctaLabel && (
+        {showCta && ctaLabel && (
           <TransitionLink
             to={ctaUrl}
             className="mt-10 w-[170px] h-[60px] bg-[#6250DA] hover:bg-white border-2 border-white rounded-[8px] text-white hover:text-black text-[16px] font-medium flex items-center justify-center no-underline relative z-10 transition-colors duration-200"
@@ -99,7 +101,7 @@ export function ServicesPanelCta({ data }: { data?: any }) {
             {body}
           </p>
 
-          {ctaLabel && (
+          {showCta && ctaLabel && (
             <TransitionLink
               to={ctaUrl}
               className="inline-flex items-center justify-center bg-[#6250DA] hover:bg-white text-white hover:text-black transition-colors duration-200"

@@ -57,16 +57,19 @@ function renderServiceTitle(rawTitle: string, padShortTitlesToTwoLines: boolean)
 }
 
 function flattenGridLayoutToServices(data: any) {
-  const items = data?.grid_items || [];
-  const cards: { title: string; description: string; href: string }[] = [];
+  const items = (data?.grid_items || []).filter((gridItem: any) => gridItem?.publish !== false);
+  const cards: { title: string; description: string; href: string; linkPublished: boolean }[] = [];
 
   items.forEach((gridItem: any) => {
     const list = gridItem?.icon_and_text_boxes?.list || [];
-    list.forEach((entry: any) => {
+    const publishedList = list.filter((entry: any) => entry?.publish !== false);
+    publishedList.forEach((entry: any) => {
+      const linkPublished = entry.link?.publish !== false;
       cards.push({
         title: entry.title || "",
         description: (entry.description || "").replace(/<[^>]+>/g, ""),
-        href: entry.link?.url || "#",
+        href: linkPublished ? (entry.link?.url || "#") : "#",
+        linkPublished,
       });
     });
   });
@@ -75,6 +78,8 @@ function flattenGridLayoutToServices(data: any) {
 }
 
 export function ServicesPanels({ data }: { data?: any }) {
+  if (data?.publish === false) return null;
+
   const mainTitle = data?.main_title;
 
   const flattened = data ? flattenGridLayoutToServices(data) : [];
@@ -109,71 +114,70 @@ export function ServicesPanels({ data }: { data?: any }) {
         {/* Services Grid */}
         {services.length > 0 && (
           <div className="services-grid e-con-boxed e-grid">
-            {services.map((service, i) => (
-              <motion.div
-                key={`${service.title}-${i}`}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="service-card-wrapper"
-              >
+            {services.map((service, i) => {
+              const CardWrapper = service.linkPublished ? TransitionLink : "div";
+              const cardProps = service.linkPublished ? { to: service.href } : {};
 
-
-
-                <TransitionLink
-    to={service.href}
-    className="service-card e-con-full e-flex e-con animated-fast fadeInUp"
-    style={
-      service.bgSolid
-        ? { backgroundColor: service.bgSolid }
-        : undefined
-    }
-  >
-                {/*<TransitionLink
-                  to={service.href}
-                  className={`service-card e-con-full e-flex e-con ${service.bgColor ? `bg-gradient-to-br ${service.bgColor}` : ""} animated-fast fadeInUp`}
-                  style={service.bgSolid ? { backgroundColor: service.bgSolid } : undefined}
-                >*/}
-                  {/* Title Container */}
-                  <div className="e-con-full e-flex e-con service-title-container">
-                    <div className="elementor-widget elementor-widget-heading">
-                      <h2 className="service-title">
-                        {renderServiceTitle(service.title, shouldPadShortTitlesToTwoLines)}
-                      </h2>
-                    </div>
-                  </div>
-
-                  {/* Description Container */}
-                  <div className="e-con-full e-flex e-con service-description-container">
-                    <div className="elementor-widget elementor-widget-text-editor">
-                      <p className="service-description">{service.description}</p>
-                    </div>
-                  </div>
-
-                  {/* Learn More Container */}
-                  <div className="e-con-full e-flex e-con service-learn-container">
-                    <div className="elementor-widget elementor-widget-text-editor">
-                      <h6 className="service-learn-text">Learn More</h6>
-                    </div>
-                    <div className="elementor-widget elementor-widget-icon service-icon-widget">
-                      <div className="elementor-icon-wrapper">
-                        <div className="elementor-icon">
-                          <svg
-                            aria-hidden="true"
-                            className="e-font-icon-svg e-fas-arrow-circle-right"
-                            viewBox="0 0 512 512"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z" />
-                          </svg>
-                        </div>
+              return (
+                <motion.div
+                  key={`${service.title}-${i}`}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="service-card-wrapper"
+                >
+                  <CardWrapper
+                    {...cardProps}
+                    className="service-card e-con-full e-flex e-con animated-fast fadeInUp"
+                    style={
+                      service.bgSolid
+                        ? { backgroundColor: service.bgSolid }
+                        : undefined
+                    }
+                  >
+                    {/* Title Container */}
+                    <div className="e-con-full e-flex e-con service-title-container">
+                      <div className="elementor-widget elementor-widget-heading">
+                        <h2 className="service-title">
+                          {renderServiceTitle(service.title, shouldPadShortTitlesToTwoLines)}
+                        </h2>
                       </div>
                     </div>
-                  </div>
-                </TransitionLink>
-              </motion.div>
-            ))}
+
+                    {/* Description Container */}
+                    <div className="e-con-full e-flex e-con service-description-container">
+                      <div className="elementor-widget elementor-widget-text-editor">
+                        <p className="service-description">{service.description}</p>
+                      </div>
+                    </div>
+
+                    {/* Learn More Container — hidden if link is unpublished */}
+                    {service.linkPublished && (
+                      <div className="e-con-full e-flex e-con service-learn-container">
+                        <div className="elementor-widget elementor-widget-text-editor">
+                          <h6 className="service-learn-text">Learn More</h6>
+                        </div>
+                        <div className="elementor-widget elementor-widget-icon service-icon-widget">
+                          <div className="elementor-icon-wrapper">
+                            <div className="elementor-icon">
+                              <svg
+                                aria-hidden="true"
+                                className="e-font-icon-svg e-fas-arrow-circle-right"
+                                viewBox="0 0 512 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z" />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </CardWrapper>
+                </motion.div>
+              );
+            })}
           </div>
         )}
       </div>

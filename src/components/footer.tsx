@@ -14,12 +14,14 @@ const SOCIAL_ICONS: Record<string, (size: number) => React.ReactNode> = {
   instagram: (size) => <Instagram size={size} strokeWidth={1.5} />,
   tiktok: (size) => <TikTokIcon size={size} />,
   youtube: (size) => <Youtube size={size} strokeWidth={1.5} />,
-  
 };
+
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL as string;
+
 interface SocialLink {
   platform: string;
   url: string;
+  publish?: boolean;
 }
 
 interface StrapiMedia {
@@ -28,6 +30,8 @@ interface StrapiMedia {
 }
 
 export interface FooterData {
+  publish?: boolean;
+
   logo?: StrapiMedia;
   logo_link?: string;
   copyright_text?: string;
@@ -47,7 +51,12 @@ export interface FooterData {
 }
 
 export function Footer({ data }: { data: FooterData }) {
-console.log("Rendering footer with:", data);
+  console.log("Rendering footer with:", data);
+
+  // Whole footer hidden if its own publish flag is explicitly false.
+  if (data?.publish === false) {
+    return null;
+  }
 
   const {
     logo,
@@ -65,15 +74,16 @@ console.log("Rendering footer with:", data);
     meeting_link_url,
   } = data ?? {};
 
+  // Only show social links that are explicitly published (or don't have the flag yet).
+  const visibleSocialLinks = social_links.filter((link) => link.publish !== false);
+
   return (
     <footer className="w-full bg-black/50 backdrop-blur-xl border-t border-white/10" style={SORA}>
-
       <div className="lw-container lw-section-tight">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[340px_1fr_1fr_1fr] gap-y-[60px] gap-x-[40px]">
 
           {/* Logo */}
           <div className="flex flex-col items-start gap-5">
-            
             {logo?.url && (
               <a href={logo_link ?? "/"}>
                 <img
@@ -132,7 +142,7 @@ console.log("Rendering footer with:", data);
           )}
 
           {/* Follow */}
-          {social_links.length > 0 && (
+          {visibleSocialLinks.length > 0 && (
             <div>
               {follow_heading && (
                 <h6
@@ -143,7 +153,7 @@ console.log("Rendering footer with:", data);
                 </h6>
               )}
               <div className="flex items-center gap-3">
-                {social_links.map((link, i) => {
+                {visibleSocialLinks.map((link, i) => {
                   const iconFn = SOCIAL_ICONS[link.platform?.toLowerCase()];
                   return (
                     <a
@@ -199,5 +209,4 @@ console.log("Rendering footer with:", data);
       <div className="border-t border-white/10" />
     </footer>
   );
-  
 }

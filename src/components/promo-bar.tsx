@@ -2,9 +2,12 @@ import { motion } from "framer-motion";
 import { TransitionLink } from "./page-transition-overlay";
 
 export default function PromoBar({ data }: { data?: any }) {
+  if (data?.publish === false) return null;
+
   const message = data?.description
     ? data.description.replace(/<[^>]+>/g, "").trim()
     : "";
+  const showButton = !!data?.cta_button && data.cta_button.publish !== false;
   const label = data?.cta_button?.label;
   const url = data?.cta_button?.url;
   const bgColor = data?.background_color || "#ffffff";
@@ -24,7 +27,7 @@ export default function PromoBar({ data }: { data?: any }) {
         <h3 className="text-2xl md:text-3xl font-bold text-center md:text-left flex-1">
           {message}
         </h3>
-        {label && url && (
+        {showButton && label && url && (
           <div className="flex-shrink-0">
             <TransitionLink
               to={url}
