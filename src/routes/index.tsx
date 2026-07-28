@@ -28,7 +28,6 @@ export default function Home() {
                   "acf-sections.home-partner": {
                     populate: {
                       image: true,
-                      workflow_list: { populate: "*" },
                       button: true,
                     },
                   },
@@ -38,7 +37,6 @@ export default function Home() {
                   "acf-sections.grid-layout": {
                     populate: {
                       cta_button: true,
-                      image: true,
                       grid_items: {
                         populate: {
                           icon_and_text_boxes: { populate: { list: { populate: "*" } } },

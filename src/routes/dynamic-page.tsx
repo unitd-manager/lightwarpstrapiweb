@@ -53,7 +53,7 @@ const PAGE_BUILDER_POPULATE = {
       populate: { logos: { populate: "*" } },
     },
     "acf-sections.general-cta-section": {
-      populate: { cta_button: true, secondary_cta_button: true },
+      populate: { cta_button: true },
     },
 };
 

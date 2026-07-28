@@ -12,8 +12,6 @@ const PAGE_BUILDER_POPULATE = {
     "acf-sections.common-heading-section": { populate: "*" },
     "acf-sections.grid-layout": {
       populate: {
-        cta_button: true,
-        image: true,
         grid_items: {
           populate: {
             icon_and_text_boxes: { populate: { list: { populate: "*" } } },
@@ -25,7 +23,7 @@ const PAGE_BUILDER_POPULATE = {
       populate: { logos: { populate: "*" } },
     },
     "acf-sections.general-cta-section": {
-      populate: { cta_button: true, secondary_cta_button: true },
+      populate: { cta_button: true },
     },
   },
 };
