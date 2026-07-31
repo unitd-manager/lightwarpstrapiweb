@@ -4,14 +4,14 @@ import { motion } from "framer-motion";
 import { getStrapiMedia } from "../../lib/strapi";
 
 export function AboutPanelCta({ data }: { data?: any }) {
-  const title = data?.main_title ?? "";
-  const description = data?.description ?? "";
-  const buttonLabel = data?.cta_button?.label ?? "";
-  const buttonUrl = data?.cta_button?.url ?? "/";
-  const showButton = !!data?.cta_button && data.cta_button.publish !== false;
+  const title = data?.MainTitle ?? "";
+  const description = data?.Description ?? "";
+  const buttonLabel = data?.CTAButton?.Label ?? "";
+  const buttonUrl = data?.CTAButton?.URL ?? "/";
+  const showButton = !!data?.CTAButton && data.CTAButton.Publish !== false;
 
-  const image1 = getStrapiMedia(data?.image);
-  const image2 = getStrapiMedia(data?.image1?.[0]);
+  const image1 = getStrapiMedia(data?.Image);
+  const image2 = getStrapiMedia(data?.Image1?.[0]); 
 
   const [line1, line2] = title.split("\n");
 

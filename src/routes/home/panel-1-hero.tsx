@@ -1,11 +1,9 @@
 // src/routes/home/panel-1-hero.tsx
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
-import { getStrapiMedia } from "../../lib/strapi";
-import lightwarpLogo from "../../assets/images/cms/Lightwarp_Horizontal.png";
 
-// Used only if Strapi doesn't return a logo image for this block.
-const FALLBACK_LOGO_SRC = lightwarpLogo;
+// Strapi API base for resolving relative media URLs (e.g. "/uploads/xxx.png")
+const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337";
 
 // Editors paste a full Vimeo link (e.g. https://vimeo.com/1177318410 or
 // https://vimeo.com/1177318410/abcdef123). This pulls out just the numeric
@@ -27,25 +25,38 @@ function extractVimeoId(input?: string): string | undefined {
   }
 }
 
+// Resolves Strapi's media object (data.image) into a usable <img> src.
+// Handles both the flat v5 shape ({ url, ... }) and the older
+// { data: { attributes: { url } } } shape, just in case.
+function resolveImageUrl(image: any): string | undefined {
+  if (!image) return undefined;
+
+  const raw =
+    image?.url ??
+    image?.data?.attributes?.url ??
+    image?.attributes?.url;
+
+  if (!raw) return undefined;
+
+  return raw.startsWith("http") ? raw : `${STRAPI_URL}${raw}`;
+}
+
 export function HomePanelHero({ data }: { data?: any }) {
-  // Prefer the CMS-managed logo if editors have uploaded one to Strapi's
-  // "logo" field on this component; fall back to the bundled static asset
-  // if the field is empty or missing.
-  const logoSrc = getStrapiMedia(data?.image) || FALLBACK_LOGO_SRC;
-  console.log("raw data.image:", data?.image);
-  console.log("logo", logoSrc);
+  // Logo is now fully dynamic — pulled from Strapi's "image" field on
+  // home-partner. If no image is set in Strapi, nothing renders here.
+  const logoSrc = resolveImageUrl(data?.image);
+  const logoAlt = data?.image?.alternativeText || "Lightwarp";
+
   const vimeoId = extractVimeoId(data?.video_url);
   const videoSrc = vimeoId
     ? `https://player.vimeo.com/video/${vimeoId}?autoplay=1&loop=1&muted=1&background=1`
     : undefined;
 
-  // Video starts playing immediately once the section mounts.
-
   const mainTitle = data?.main_title;
   const subtitle = data?.sub_title;
   const description = data?.description ? data.description.replace(/<[^>]+>/g, "") : "";
 
-  const ctaLabel = data?.button?.publish !== false ? data?.button?.label : undefined;
+  const ctaLabel = data?.button?.label;
   const ctaHref = data?.button?.url;
 
   const subtitleLines = subtitle
@@ -92,7 +103,7 @@ export function HomePanelHero({ data }: { data?: any }) {
             >
               <img
                 src={logoSrc}
-                alt="Lightwarp"
+                alt={logoAlt}
                 className="h-[clamp(120px,10vw,280px)] w-auto object-contain"
               />
             </motion.div>

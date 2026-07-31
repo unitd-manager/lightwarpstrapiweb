@@ -10,7 +10,6 @@ interface PageShellProps {
   children: ReactNode;
   copyrightText?: string;
 }
-
 export function PageShell({ children, copyrightText }: PageShellProps) {
   const { pathname } = useLocation();
   const [footerData, setFooterData] = useState<FooterData | undefined>();
@@ -55,33 +54,33 @@ export function PageShell({ children, copyrightText }: PageShellProps) {
         if (footerBlock) {
           // ✅ Map Strapi footer block fields → FooterData interface
           setFooterData({
-            publish: footerBlock.publish,
-            logo: footerBlock.logo ?? undefined,
-            logo_link: footerBlock.logo_link ?? "/",
-            copyright_text: footerBlock.copyright_text ?? undefined,
-            contact_heading: footerBlock.contact_heading ?? undefined,
-            email: footerBlock.email ?? undefined,
-            email_link: footerBlock.email_link ?? undefined,
-            phone: footerBlock.phone ?? undefined,
-            phone_link: footerBlock.phone_link ?? undefined,
-            follow_heading: footerBlock.follow_heading ?? undefined,
-            social_links: footerBlock.social_links ?? [],
-            meeting_heading: footerBlock.meeting_heading ?? undefined,
-            meeting_link_label: footerBlock.meeting_link_label ?? undefined,
-            meeting_link_url: footerBlock.meeting_link_url ?? undefined,
+             Publish: footerBlock.Publish,
+    Logo: footerBlock.Logo ?? undefined,
+    LogoLink: footerBlock.LogoLink ?? "/",
+    CopyrightText: footerBlock.CopyrightText ?? undefined,
+    ContactHeading: footerBlock.ContactHeading ?? undefined,
+    Email: footerBlock.Email ?? undefined,
+    EmailLink: footerBlock.EmailLink ?? undefined,
+    Phone: footerBlock.Phone ?? undefined,
+    PhoneLink: footerBlock.PhoneLink ?? undefined,
+    FollowHeading: footerBlock.FollowHeading ?? undefined,
+    SocialLinks: footerBlock.SocialLinks ?? [],
+    MeetingHeading: footerBlock.MeetingHeading ?? undefined,
+    LinkLabel: footerBlock.LinkLabel ?? undefined,
+    LinkURL: footerBlock.LinkURL ?? undefined,
           });
         }
 
         if (headerBlock) {
           // ✅ Map Strapi header block fields → NavbarData interface
-          setNavbarData({
-            publish: headerBlock.publish,
-            logo: headerBlock.logo ?? undefined,
-            logo_link: headerBlock.logo_link ?? "/",
-            nav_links: headerBlock.nav_links ?? [],
-            cta_label: headerBlock.cta_label ?? "Contact Now",
-            cta_url: headerBlock.cta_url ?? "/contact",
-          });
+         setNavbarData({
+    Publish: headerBlock.Publish,
+    Logo: headerBlock.Logo ?? undefined,
+    LogoLink: headerBlock.LogoLink ?? "/",
+    NavLinks: headerBlock.NavLinks ?? [],
+    CTALabel: headerBlock.CTALabel ?? "Contact Now",
+    CTAURL: headerBlock.CTAURL ?? "/contact",
+  });
         }
       } catch (err) {
         console.error("Failed to fetch layout data:", err);

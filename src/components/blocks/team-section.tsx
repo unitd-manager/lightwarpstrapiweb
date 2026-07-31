@@ -1,6 +1,12 @@
-import { useEffect, useState } from "react";
-
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL as string;
+
+interface RawTeamMember {
+  id: number;
+  name?: string;
+  designation?: string;
+  publish?: boolean;
+  profile_picture?: { url: string; alternativeText?: string } | null;
+}
 
 interface TeamMember {
   id: number;
@@ -14,7 +20,7 @@ export interface TeamSectionProps {
   sub_title?: string;
   main_description?: string;
   sub_description?: string;
-  team_members?: { id: number } | TeamMember[] | null;
+  team_members?: { id: number; member?: RawTeamMember[] } | null;
 }
 
 function resolveUrl(url?: string) {
@@ -29,30 +35,19 @@ export function TeamSection({
   sub_description,
   team_members,
 }: TeamSectionProps) {
-  const [members, setMembers] = useState<TeamMember[]>([]);
-
-  useEffect(() => {
-    if (Array.isArray(team_members)) {
-      setMembers(team_members);
-      return;
-    }
-    const componentId = (team_members as any)?.id;
-    if (!componentId) return;
-
-    async function fetchMembers() {
-      try {
-        const res = await fetch(
-          `${STRAPI_URL}/api/about-team-sections/${componentId}?populate[team_members][populate]=*`
-        );
-        if (!res.ok) return;
-        const json = await res.json();
-        setMembers(json.data?.team_members ?? []);
-      } catch (err) {
-        console.error("Failed to fetch team members:", err);
-      }
-    }
-    fetchMembers();
-  }, [team_members]);
+  // Data already arrives fully populated from the parent page fetch —
+  // no separate request needed. (/api/about-team-sections/:id doesn't
+  // exist as a route since this is a component, not a collection type —
+  // that fetch was the source of the 404.)
+  const raw = team_members?.member ?? [];
+  const members: TeamMember[] = raw
+    .filter((m) => m.publish !== false)
+    .map((m) => ({
+      id: m.id,
+      name: m.name,
+      role: m.designation,
+      photo: m.profile_picture ?? undefined,
+    }));
 
   // WordPress layout: first member = lead (centered, big photo)
   // Remaining = associates grid (3 cols, name + role only, no photos)
@@ -62,7 +57,6 @@ export function TeamSection({
 
   return (
     <section className="lw-container lw-section">
-
       {/* Section title — "Meet our Team" centered */}
       {main_title && (
         <div className="text-center mb-12">
@@ -88,7 +82,6 @@ export function TeamSection({
               className="w-44 h-44 rounded-full object-cover mx-auto mb-5 border-4 border-[#6250da]/30"
             />
           ) : (
-            // Placeholder circle if no photo
             <div className="w-44 h-44 rounded-full bg-white/10 mx-auto mb-5 border-4 border-[#6250da]/30" />
           )}
           {lead.name && (

@@ -19,9 +19,9 @@ const SOCIAL_ICONS: Record<string, (size: number) => React.ReactNode> = {
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL as string;
 
 interface SocialLink {
-  platform: string;
-  url: string;
-  publish?: boolean;
+  Platform: string;
+  URL: string;
+  Publish?: boolean;
 }
 
 interface StrapiMedia {
@@ -30,52 +30,52 @@ interface StrapiMedia {
 }
 
 export interface FooterData {
-  publish?: boolean;
+  Publish?: boolean;
 
-  logo?: StrapiMedia;
-  logo_link?: string;
-  copyright_text?: string;
+  Logo?: StrapiMedia;
+  LogoLink?: string;
+  CopyrightText?: string;
 
-  contact_heading?: string;
-  email?: string;
-  email_link?: string;
-  phone?: string;
-  phone_link?: string;
+  ContactHeading?: string;
+  Email?: string;
+  EmailLink?: string;
+  PhoneLink?: string;
+  Phone?: string;
 
-  follow_heading?: string;
-  social_links?: SocialLink[];
+  FollowHeading?: string;
+  SocialLinks?: SocialLink[];
 
-  meeting_heading?: string;
-  meeting_link_label?: string;
-  meeting_link_url?: string;
+  MeetingHeading?: string;
+  LinkLabel?: string;
+  LinkURL?: string;
 }
 
 export function Footer({ data }: { data: FooterData }) {
   console.log("Rendering footer with:", data);
 
   // Whole footer hidden if its own publish flag is explicitly false.
-  if (data?.publish === false) {
+  if (data?.Publish === false) {
     return null;
   }
 
   const {
-    logo,
-    logo_link,
-    copyright_text,
-    contact_heading,
-    email,
-    email_link,
-    phone,
-    phone_link,
-    follow_heading,
-    social_links = [],
-    meeting_heading,
-    meeting_link_label,
-    meeting_link_url,
+    Logo,
+    LogoLink,
+    CopyrightText,
+    ContactHeading,
+    Email,
+    EmailLink,
+    Phone,
+    PhoneLink,
+    FollowHeading,
+    SocialLinks = [],
+    MeetingHeading,
+    LinkLabel,
+    LinkURL,
   } = data ?? {};
 
   // Only show social links that are explicitly published (or don't have the flag yet).
-  const visibleSocialLinks = social_links.filter((link) => link.publish !== false);
+  const visibleSocialLinks = SocialLinks.filter((Link) => Link.Publish !== false);
 
   return (
     <footer className="w-full bg-black/50 backdrop-blur-xl border-t border-white/10" style={SORA}>
@@ -84,56 +84,56 @@ export function Footer({ data }: { data: FooterData }) {
 
           {/* Logo */}
           <div className="flex flex-col items-start gap-5">
-            {logo?.url && (
-              <a href={logo_link ?? "/"}>
+            {Logo?.url && (
+              <a href={LogoLink ?? "/"}>
                 <img
-                  src={logo.url.startsWith("http") ? logo.url : `${STRAPI_URL}${logo.url}`}
-                  alt={logo.alternativeText ?? "Logo"}
+                  src={Logo.url.startsWith("http") ? Logo.url : `${STRAPI_URL}${Logo.url}`}
+                  alt={Logo.alternativeText ?? "Logo"}
                   className="h-[65px] w-auto object-contain lg:h-[180px] lg:w-[320px] lg:max-w-none"
                 />
               </a>
             )}
-            {copyright_text && (
+            {CopyrightText && (
               <p
                 className="text-white hidden lg:block"
                 style={{ fontSize: '16px', fontWeight: 300, lineHeight: '24px' }}
               >
-                {copyright_text}
+                {CopyrightText}
               </p>
             )}
           </div>
 
           {/* Contact for Inquiries */}
-          {(email || phone) && (
+          {(Email || Phone) && (
             <div>
-              {contact_heading && (
+              {ContactHeading && (
                 <h6
                   className="text-white leading-[30px] mb-[20px]"
                   style={{ fontSize: '20px', fontWeight: 400 }}
                 >
-                  {contact_heading}
+                  {ContactHeading}
                 </h6>
               )}
               <ul className="space-y-[8px]">
-                {email && (
+                {Email && (
                   <li>
                     <a
-                      href={email_link ?? `mailto:${email}`}
+                      href={EmailLink ?? `mailto:${Email}`}
                       className="text-white hover:text-[#6250da] transition-colors"
                       style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
                     >
-                      {email}
+                      {Email}
                     </a>
                   </li>
                 )}
-                {phone && (
+                {Phone && (
                   <li>
                     <a
-                      href={phone_link ?? `tel:${phone}`}
+                      href={PhoneLink ?? `tel:${Phone}`}
                       className="text-white hover:text-[#6250da] transition-colors"
                       style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
                     >
-                      {phone}
+                      {Phone}
                     </a>
                   </li>
                 )}
@@ -144,22 +144,22 @@ export function Footer({ data }: { data: FooterData }) {
           {/* Follow */}
           {visibleSocialLinks.length > 0 && (
             <div>
-              {follow_heading && (
+              {FollowHeading && (
                 <h6
                   className="text-white leading-[30px] mb-[20px]"
                   style={{ fontSize: '20px', fontWeight: 400 }}
                 >
-                  {follow_heading}
+                  {FollowHeading}
                 </h6>
               )}
               <div className="flex items-center gap-3">
-                {visibleSocialLinks.map((link, i) => {
-                  const iconFn = SOCIAL_ICONS[link.platform?.toLowerCase()];
+                {visibleSocialLinks.map((Link, i) => {
+                  const iconFn = SOCIAL_ICONS[Link.Platform?.toLowerCase()];
                   return (
                     <a
                       key={i}
-                      aria-label={link.platform}
-                      href={link.url}
+                      aria-label={Link.Platform}
+                      href={Link.URL}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white hover:text-[#6250da] transition-colors"
@@ -173,36 +173,36 @@ export function Footer({ data }: { data: FooterData }) {
           )}
 
           {/* Meet with us */}
-          {meeting_link_url && (
+          {LinkURL && (
             <div>
-              {meeting_heading && (
+              {MeetingHeading && (
                 <h6
                   className="text-white leading-[30px] mb-[20px]"
                   style={{ fontSize: '20px', fontWeight: 400 }}
                 >
-                  {meeting_heading}
+                  {MeetingHeading}
                 </h6>
               )}
               <a
-                href={meeting_link_url}
+                href={LinkURL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:text-[#6250da] transition-colors"
                 style={{ fontSize: '16px', fontWeight: 600, lineHeight: '24px' }}
               >
-                {meeting_link_label ?? meeting_link_url}
+                {LinkLabel ?? LinkURL}
               </a>
             </div>
           )}
         </div>
       </div>
 
-      {copyright_text && (
+      {CopyrightText && (
         <p
           className="lg:hidden text-white lw-container pb-[32px]"
           style={{ fontSize: '14px', fontWeight: 300, lineHeight: '24px' }}
         >
-          {copyright_text}
+          {CopyrightText}
         </p>
       )}
 

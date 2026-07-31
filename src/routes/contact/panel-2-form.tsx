@@ -74,19 +74,19 @@ export function ContactPanelForm({ data }: { data?: any }) {
   const [emailError, setEmailError] = useState("");
   const [messageError, setMessageError] = useState("");
 
-  const subHeading   = data?.sub_heading ?? "";
-  const description  = data?.description ?? "";
-  const card1Label   = data?.Contact_card1 ?? "";
-  const card2Label   = data?.Contact_card2 ?? "";
-  const card1Email   = data?.Contact_card3 ?? "";
-  const card2Email   = data?.Contact_card4 ?? "";
-  const ctaLabel     = data?.CTA_button ?? "";
-  const ctaLink      = data?.CTA_link ?? "#";
-  const formHeading  = data?.heading ?? "";
-  const sendLabel    = data?.send_btn ?? "Send";
+  const subHeading   = data?.SubHeading ?? "";
+  const description  = data?.Description ?? "";
+  const card1Label   = data?.ContactCard1 ?? "";
+  const card2Label   = data?.ContactCard2 ?? "";
+  const card1Email   = data?.ContactCard3 ?? "";
+  const card2Email   = data?.ContactCard4 ?? "";
+  const ctaLabel     = data?.CTAButton ?? "";
+  const ctaLink      = data?.CTALink?? "#";
+  const formHeading  = data?.Heading ?? "";
+  const sendLabel    = data?.SendButton ?? "Send";
 
-  const businessImage    = getStrapiMedia(data?.business_image) || locationIconFallback;
-  const informationImage = getStrapiMedia(data?.information_image) || contactIconFallback;
+  const businessImage    = getStrapiMedia(data?.BusinessImage) || locationIconFallback;
+  const informationImage = getStrapiMedia(data?.InformationImage) || contactIconFallback;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

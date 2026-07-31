@@ -1,5 +1,5 @@
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 interface UseCaseItem {
   id: number;
@@ -12,6 +12,7 @@ interface UseCaseItem {
   copyrightText?: string;
   watchnow_label?: string;
   watchnow_link?: string;
+  publish?: boolean;
 }
 
 export interface UseCaseSingleProps {
@@ -20,137 +21,219 @@ export interface UseCaseSingleProps {
   use_case_items?: UseCaseItem[];
 }
 
-// Convert YouTube watch URL → embed URL
-function toEmbedUrl(url: string) {
-  const match = url.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-  if (!match) return null;
-  return `https://www.youtube.com/embed/${match[1]}?rel=0&modestbranding=1`;
+function extractYouTubeId(videoUrl: string): string {
+  if (!videoUrl) return "";
+  if (/^[a-zA-Z0-9_-]{11}$/.test(videoUrl)) return videoUrl;
+
+  try {
+    const url = new URL(videoUrl);
+    const host = url.hostname.replace(/^www\./, "");
+    const isYouTubeHost =
+      host === "youtube.com" || host === "youtu.be" || host === "m.youtube.com";
+
+    if (isYouTubeHost) {
+      return url.searchParams.get("v") ?? url.pathname.split("/").pop() ?? videoUrl;
+    }
+    return videoUrl;
+  } catch {
+    return videoUrl;
+  }
 }
 
-function isYouTube(url: string) {
-  return url.includes("youtube.com") || url.includes("youtu.be");
+function parseContributions(highlight: string): string[] {
+  if (!highlight) return [];
+  return highlight
+    .replace(/<[^>]+>/g, "")
+    .trim()
+    .split(/[•·,|]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
 }
 
-function isVideo(url: string) {
-  return /\.(mp4|webm|ogg|mov)(\?|$)/i.test(url);
+function resolveWatchHref(videoUrl?: string, watchnowLink?: string): string | undefined {
+  if (watchnowLink) return watchnowLink;
+  if (!videoUrl) return undefined;
+  if (/^[a-zA-Z0-9_-]{11}$/.test(videoUrl)) return `https://www.youtube.com/watch?v=${videoUrl}`;
+
+  try {
+    const url = new URL(videoUrl);
+    const host = url.hostname.replace(/^www\./, "");
+    const path = url.pathname.replace(/(^\/|\/$)/g, "");
+
+    if (host === "youtu.be") return `https://www.youtube.com/watch?v=${path}`;
+    if (host === "youtube.com" || host === "m.youtube.com") {
+      if (path.startsWith("embed/")) return `https://www.youtube.com/watch?v=${path.split("/").pop()}`;
+      const id = url.searchParams.get("v") || path.split("/").pop();
+      return id ? `https://www.youtube.com/watch?v=${id}` : videoUrl;
+    }
+  } catch {
+    // fall through
+  }
+
+  return videoUrl;
 }
 
-// Single use-case card — full bleed background video/image with text overlay
-function UseCaseCard({ item }: { item: UseCaseItem }) {
-  const [playing, setPlaying] = useState(false);
+const LazyYouTubeBackground = ({
+  videoId,
+  className,
+}: {
+  videoId: string;
+  className?: string;
+}) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
 
-  const embedUrl = item.video_url && isYouTube(item.video_url)
-    ? toEmbedUrl(item.video_url)
-    : null;
+  useEffect(() => {
+    if (!containerRef.current) return;
+    let unloadTimer: ReturnType<typeof setTimeout> | undefined;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          clearTimeout(unloadTimer);
+          setShouldLoad(true);
+        } else {
+          unloadTimer = setTimeout(() => {
+            const el = containerRef.current;
+            if (!el) return;
+            const r = el.getBoundingClientRect();
+            const stillNear = r.bottom > -600 && r.top < window.innerHeight + 600;
+            if (!stillNear) setShouldLoad(false);
+          }, 3000);
+        }
+      },
+      { root: null, rootMargin: "400px 0px", threshold: 0.01 }
+    );
+    observer.observe(containerRef.current);
+    return () => {
+      clearTimeout(unloadTimer);
+      observer.disconnect();
+    };
+  }, []);
 
-  // YouTube thumbnail for background
-  const ytThumb = item.video_url && isYouTube(item.video_url)
-    ? (() => {
-        const match = item.video_url.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-        return match ? `https://img.youtube.com/vi/${match[1]}/maxresdefault.jpg` : null;
-      })()
-    : null;
+  const embedSrc =
+    "https://www.youtube.com/embed/" +
+    videoId +
+    "?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&iv_load_policy=3&playlist=" +
+    videoId;
+  const posterSrc = "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg";
 
   return (
-    <div className="relative w-full overflow-hidden rounded-2xl" style={{ minHeight: "520px" }}>
-
-      {/* Background: video playing or thumbnail */}
-      {playing && embedUrl ? (
+    <div ref={containerRef} className="absolute inset-0 overflow-hidden">
+      <img src={posterSrc} alt="" className={className} loading="lazy" decoding="async" />
+      {shouldLoad ? (
         <iframe
-          src={`${embedUrl}&autoplay=1`}
-          className="absolute inset-0 w-full h-full"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          src={embedSrc}
+          title="Use case background video"
+          className={className}
+          allow="autoplay; encrypted-media; picture-in-picture"
           allowFullScreen
-          style={{ border: "none" }}
+          loading="lazy"
         />
-      ) : item.video_url && isVideo(item.video_url) ? (
-        <video
-          src={item.video_url}
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay muted loop playsInline
-        />
-      ) : ytThumb ? (
-        <img
-          src={ytThumb}
-          alt={item.title ?? ""}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      ) : (
-        <div className="absolute inset-0 bg-[#0d0d2b]" />
-      )}
+      ) : null}
+    </div>
+  );
+};
 
-      {/* Dark gradient overlay — left side for text readability */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "linear-gradient(to right, rgba(5,5,23,0.92) 0%, rgba(5,5,23,0.75) 45%, rgba(5,5,23,0.1) 100%)"
-        }}
-      />
+// Single use-case card — now styled like ProjectsPanelCapabilities:
+// full-bleed YouTube background + right-aligned glass panel with content.
+function UseCaseCard({ item }: { item: UseCaseItem }) {
+  if (item.publish === false) return null;
 
-      {/* Play button overlay (YouTube only, not playing) */}
-      {!playing && embedUrl && (
-        <button
-          onClick={() => setPlaying(true)}
-          className="absolute inset-0 flex items-center justify-center group z-10"
-          aria-label="Play video"
-        >
-          <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/30 transition-all border border-white/30">
-            <svg className="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </button>
-      )}
+  const videoId = extractYouTubeId(item.video_url ?? "");
+  const contributions = parseContributions(item.highlight_description ?? "");
+  const watchHref = resolveWatchHref(item.video_url, item.watchnow_link);
 
-      {/* Text content overlay — bottom-left, matching WP */}
-      <div className="relative z-20 flex flex-col justify-end h-full p-8 lg:p-12" style={{ minHeight: "520px" }}>
-        <div className="max-w-xl">
-          {item.highlight_description && (
-            <p className="text-[#6250da] font-bold text-sm lg:text-base mb-3">
-              {item.highlight_description}
-            </p>
-          )}
-          {item.title && (
-            <h3 className="text-white text-3xl lg:text-5xl font-black leading-tight mb-2">
-              {item.title}
-            </h3>
-          )}
-          {item.copyrightText && (
-            <p className="text-white/50 text-xs mb-4">{item.copyrightText}</p>
-          )}
-          {item.description && (
-            <div
-              className="rounded-xl p-4 mb-6"
-              style={{ background: "rgba(5,5,23,0.65)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.08)" }}
-            >
-              <p className="text-white/80 text-sm lg:text-base leading-relaxed">
-                {item.description}
-              </p>
+  return (
+    <section className="relative min-h-[90svh] overflow-hidden bg-transparent text-white font-display sm:min-h-[90vh] rounded-2xl">
+      <div className="absolute inset-0 overflow-hidden rounded-2xl">
+        {videoId && (
+          <LazyYouTubeBackground
+            videoId={videoId}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[67.5vw] min-w-[213.33vh] min-h-[120%] border-0 object-cover pointer-events-none"
+          />
+        )}
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
+        <div className="flex justify-center sm:justify-end">
+          <motion.div
+            initial={{ opacity: 0, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="w-[95vw] mx-auto sm:mx-0 sm:w-full sm:max-w-[50vw] p-6 border border-white/40 rounded-2xl"
+          >
+            <div className="space-y-6">
+
+              {/* Title */}
+              {item.title && (
+                <h2 className="inline text-5xl sm:text-6xl font-bold leading-tight text-white [box-decoration-break:clone] [-webkit-box-decoration-break:clone] bg-black/10 backdrop-blur-[3px] px-2 py-1">
+                  {item.title}
+                </h2>
+              )}
+
+              {/* Highlight tags (parsed from highlight_description) */}
+              {contributions.length > 0 && (
+                <div className="rounded-2xl border border-white/60 bg-white/5 backdrop-blur-sm p-5">
+                  <div className="flex flex-wrap gap-3">
+                    {contributions.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm text-white"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Copyright text */}
+              {item.copyrightText && (
+                <p className="text-white/50 text-xs">{item.copyrightText}</p>
+              )}
+
+              {/* Description */}
+              {item.description && (
+                <div className="rounded-xl bg-black/30 backdrop-blur-[4px] px-3 py-2 space-y-3">
+                  {item.description.split("\n\n").map((para, i) => (
+                    <p key={i} className="text-[18px] leading-8 text-white font-light">
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              )}
+
+              {/* Buttons */}
+              <div className="flex flex-wrap gap-4">
+                {item.ctaLabel && (
+                  <a
+                    href={item.ctaLink || "/"}
+                    className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
+                  >
+                    {item.ctaLabel}
+                  </a>
+                )}
+                {watchHref && item.watchnow_label && (
+                  <a
+                    href={watchHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-white/90 hover:scale-105"
+                  >
+                    {item.watchnow_label}
+                  </a>
+                )}
+              </div>
+
             </div>
-          )}
-          <div className="flex flex-wrap gap-3">
-            {item.ctaLink && (
-              <a
-                href={item.ctaLink}
-                className="inline-flex items-center bg-white text-black px-7 py-3 rounded-full font-semibold text-sm hover:bg-white/90 transition-colors shadow-lg"
-              >
-                {item.ctaLabel ?? "Learn More"}
-              </a>
-            )}
-            {item.watchnow_link && (
-              <a
-                href={item.watchnow_link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center border border-white/40 text-white px-7 py-3 rounded-full font-semibold text-sm hover:bg-white/10 transition-colors"
-              >
-                {item.watchnow_label ?? "Watch Now"}
-              </a>
-            )}
-          </div>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -162,7 +245,7 @@ export function UseCaseSingle({
   return (
     <section className="w-full">
 
-      {/* Section heading — purple full-width banner matching WP */}
+      {/* Section heading — purple full-width banner */}
       {(main_title || category_name) && (
         <div
           className="w-full text-center py-12 lg:py-16 mb-0"
@@ -182,16 +265,8 @@ export function UseCaseSingle({
       {/* Use case items stacked */}
       <div className="lw-container">
         <div className="space-y-10 py-10">
-          {use_case_items.map((item, i) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-            >
-              <UseCaseCard item={item} />
-            </motion.div>
+          {use_case_items.map((item) => (
+            <UseCaseCard key={item.id} item={item} />
           ))}
         </div>
       </div>

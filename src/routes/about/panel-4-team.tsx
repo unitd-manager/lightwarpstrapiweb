@@ -8,32 +8,36 @@ function chunkIntoThrees<T>(arr: T[]): T[][] {
 }
 
 export function AboutPanelTeam({ data }: { data?: any }) {
-  const teamMembersBlock = data?.team_members;
-  const teamMembersPublished = teamMembersBlock?.publish !== false;
+  const teamMembersBlock = data?.TeamMembers;
+  const teamMembersPublished = teamMembersBlock?.Publish !== false;
 
-  const allMembers = teamMembersPublished ? (teamMembersBlock?.member ?? []) : [];
-  const members = allMembers.filter((m: any) => m.publish !== false);
+  const allMembers = teamMembersPublished ? (teamMembersBlock?.Member ?? []) : [];
+  const members = allMembers.filter((m: any) => m.Publish !== false);
 
+  // NOTE: double check the actual field name in Strapi — it may be
+  // `IsFounder` (PascalCase) rather than `is_founder`, given the rest
+  // of your schema (Name, Designation, ProfilePicture, Publish) is PascalCase.
   const founderEntry = members.find((m: any) => m.is_founder) || members[0];
   const associateEntries = members.filter((m: any) => m !== founderEntry);
 
   const founder = founderEntry
     ? {
-        name: founderEntry.name,
-        designation: founderEntry.designation,
-        photo: getStrapiMedia(founderEntry.profile_picture),
+        name: founderEntry.Name,
+        designation: founderEntry.Designation,
+        photo: getStrapiMedia(founderEntry.ProfilePicture),
       }
     : null;
 
   const associateRows: any[][] = chunkIntoThrees(
     associateEntries.map((m: any) => ({
-      name: m.name,
-      role: m.designation,
+      name: m.Name,
+      role: m.Designation,
+      photo: getStrapiMedia(m.ProfilePicture),
     }))
   );
 
-  const mainTitle = data?.main_title || "Meet our Team";
-  const subTitle = data?.sub_title || "Our Associates";
+  const mainTitle = data?.MainTitle || "Meet our Team";
+  const subTitle = data?.SubTitle || "Our Associates";
 
   return (
     <section
@@ -46,7 +50,13 @@ export function AboutPanelTeam({ data }: { data?: any }) {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
         className="w-full text-center text-white"
-        style={{ fontFamily: '"Sora", sans-serif', fontSize: "clamp(28px, 4vw, 45px)", fontWeight: 600, lineHeight: "60px", letterSpacing: "-1px" }}
+        style={{
+          fontFamily: '"Sora", sans-serif',
+          fontSize: "clamp(28px, 4vw, 45px)",
+          fontWeight: 600,
+          lineHeight: "60px",
+          letterSpacing: "-1px",
+        }}
       >
         {mainTitle}
       </motion.h2>
@@ -63,20 +73,56 @@ export function AboutPanelTeam({ data }: { data?: any }) {
             style={{ width: "29%", maxWidth: "29%" }}
           >
             {founder.photo && (
-              <div style={{ width: "50%", margin: "0 auto", overflow: "hidden", borderRadius: "25px", border: "2px solid white" }}>
+              <div
+                style={{
+                  width: "50%",
+                  margin: "0 auto",
+                  overflow: "hidden",
+                  borderRadius: "25px",
+                  border: "2px solid white",
+                }}
+              >
                 <img
                   src={founder.photo}
                   alt={founder.name}
-                  style={{ width: "100%", height: "auto", objectFit: "cover", objectPosition: "top", display: "block" }}
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    objectFit: "cover",
+                    objectPosition: "top",
+                    display: "block",
+                  }}
                   decoding="async"
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = "none";
+                  }}
                 />
               </div>
             )}
-            <h3 className="founder-name text-white" style={{ fontFamily: '"Sora", sans-serif', fontSize: "40px", fontWeight: 600, lineHeight: "60px", letterSpacing: "-1px", marginBottom: "20px", marginTop: 0 }}>
+            <h3
+              className="founder-name text-white"
+              style={{
+                fontFamily: '"Sora", sans-serif',
+                fontSize: "40px",
+                fontWeight: 600,
+                lineHeight: "60px",
+                letterSpacing: "-1px",
+                marginBottom: "20px",
+                marginTop: 0,
+              }}
+            >
               {founder.name}
             </h3>
-            <p className="founder-role text-white" style={{ fontFamily: '"Sora", sans-serif', fontSize: "22px", fontWeight: "normal", lineHeight: "30px", letterSpacing: 0 }}>
+            <p
+              className="founder-role text-white"
+              style={{
+                fontFamily: '"Sora", sans-serif',
+                fontSize: "22px",
+                fontWeight: "normal",
+                lineHeight: "30px",
+                letterSpacing: 0,
+              }}
+            >
               {founder.designation}
             </p>
           </motion.div>
@@ -90,14 +136,25 @@ export function AboutPanelTeam({ data }: { data?: any }) {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="w-full text-center text-white"
-          style={{ fontFamily: '"Sora", sans-serif', fontSize: "clamp(28px, 4vw, 45px)", fontWeight: 600, lineHeight: "60px", letterSpacing: "-1px", marginTop: "10px" }}
+          style={{
+            fontFamily: '"Sora", sans-serif',
+            fontSize: "clamp(28px, 4vw, 45px)",
+            fontWeight: 600,
+            lineHeight: "60px",
+            letterSpacing: "-1px",
+            marginTop: "10px",
+          }}
         >
           {subTitle}
         </motion.h2>
       )}
 
       {associateRows.map((row, rowIdx) => (
-        <div key={rowIdx} className="associate-row flex flex-row flex-wrap justify-around px-[3%]" style={{ marginBottom: 0 }}>
+        <div
+          key={rowIdx}
+          className="associate-row flex flex-row flex-wrap justify-around px-[3%]"
+          style={{ marginBottom: 0 }}
+        >
           {row.map((m, i) => (
             <motion.div
               key={m.name}
@@ -108,10 +165,56 @@ export function AboutPanelTeam({ data }: { data?: any }) {
               className="associate-item text-center"
               style={{ width: "30%", maxWidth: "30%", alignSelf: "center" }}
             >
-              <h3 className="associate-name text-white" style={{ fontFamily: '"Sora", sans-serif', fontSize: "40px", fontWeight: 600, lineHeight: "60px", letterSpacing: "-1px", marginBottom: "20px" }}>
+              {m.photo && (
+                <div
+                  style={{
+                    width: "50%",
+                    margin: "0 auto 20px",
+                    overflow: "hidden",
+                    borderRadius: "25px",
+                    border: "2px solid white",
+                  }}
+                >
+                  <img
+                    src={m.photo}
+                    alt={m.name}
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      objectFit: "cover",
+                      objectPosition: "top",
+                      display: "block",
+                    }}
+                    decoding="async"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.display = "none";
+                    }}
+                  />
+                </div>
+              )}
+              <h3
+                className="associate-name text-white"
+                style={{
+                  fontFamily: '"Sora", sans-serif',
+                  fontSize: "40px",
+                  fontWeight: 600,
+                  lineHeight: "60px",
+                  letterSpacing: "-1px",
+                  marginBottom: "20px",
+                }}
+              >
                 {m.name}
               </h3>
-              <p className="associate-role text-white" style={{ fontFamily: '"Sora", sans-serif', fontSize: "22px", fontWeight: "normal", lineHeight: "30px", letterSpacing: 0 }}>
+              <p
+                className="associate-role text-white"
+                style={{
+                  fontFamily: '"Sora", sans-serif',
+                  fontSize: "22px",
+                  fontWeight: "normal",
+                  lineHeight: "30px",
+                  letterSpacing: 0,
+                }}
+              >
                 {m.role}
               </p>
             </motion.div>

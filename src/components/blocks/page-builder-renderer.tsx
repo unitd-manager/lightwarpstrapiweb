@@ -1,7 +1,4 @@
 // src/components/blocks/page-builder-renderer.tsx
-import { BannerLayout } from "./banner-layout";
-import { TeamSection } from "./team-section";
-import { FooterCommonCta } from "./footer-common-cta";
 import { UseCaseSingle } from "./use-case-single";
 import { ContactPanelHero } from "../../routes/contact/panel-1-hero";
 import { ContactPanelForm } from "../../routes/contact/panel-2-form";
@@ -17,16 +14,19 @@ import { ServicesPanelHero } from "../../routes/services/panel-1-hero";
 import { ServicesPanelServices } from "../../routes/services/panel-2-services";
 import { ServicesPanelProcess } from "../../routes/services/panel-3-process";
 import { ServicesPanelCta } from "../../routes/services/panel-4-cta";
+import { AboutPanelStory } from "@/routes/about/panel-3-story";
+import { AboutPanelTeam } from "@/routes/about/panel-4-team";
+import AboutPanelCta from "@/routes/about/panel-5-cta";
 
 const BLOCK_COMPONENTS: Record<string, React.ComponentType<any>> = {
   "acf-sections.banner-layout": function BannerWrapper(props: any) {
-    return <BannerLayout {...props} />;
+    return <AboutPanelStory data={props} />;
   },
   "acf-sections.about-team-section": function TeamWrapper(props: any) {
-    return <TeamSection {...props} />;
+    return <AboutPanelTeam data={props} />;
   },
   "acf-sections.footer-common-cta": function CtaWrapper(props: any) {
-    return <FooterCommonCta {...props} />;
+    return <AboutPanelCta data={props} />;
   },
   "acf-sections.use-case-single": function UseCaseWrapper(props: any) {
     return <UseCaseSingle {...props} />;

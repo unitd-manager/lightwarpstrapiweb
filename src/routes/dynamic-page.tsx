@@ -14,12 +14,18 @@ const STRAPI_URL = import.meta.env.VITE_STRAPI_URL as string;
 // created dynamically in Strapi resolves the same nested data.
 const PAGE_BUILDER_POPULATE = {
   on: {
-    "acf-sections.banner-layout": {
-      populate: { image: true, background_image: true, banner_image: true, button: true, secondary_button: true },
+    "acf-sections.banner-layout": { populate: "*" },
+   "acf-sections.about-team-section": {
+  populate: {
+    TeamMembers: {
+      populate: {
+        Member: { populate: "*" },
+      },
     },
-    "acf-sections.about-team-section": { populate: "*" },
+  },
+},
     "acf-sections.footer-common-cta": {
-      populate: { image: true, image1: true, cta_button: true },
+      populate: { Image: true, Image1: true, CTAButton: true },
     },
     "acf-sections.use-case-single": {
       populate: { use_case_items: { populate: "*" } },
@@ -29,7 +35,6 @@ const PAGE_BUILDER_POPULATE = {
     "acf-sections.grid-layout": {
       populate: {
         cta_button: true,
-        image: true,
         grid_items: {
           populate: {
             icon_and_text_boxes: { populate: { list: { populate: "*" } } },
@@ -47,14 +52,14 @@ const PAGE_BUILDER_POPULATE = {
       populate: { award_winner_list: { populate: "*" } },
     },
     "acf-sections.content-image-split-block": { populate: "*" },
-  },
-  "acf-sections.common-heading-section": { populate: "*" },
+    "acf-sections.common-heading-section": { populate: "*" },
     "acf-sections.content-highlight-block": {
       populate: { logos: { populate: "*" } },
     },
     "acf-sections.general-cta-section": {
       populate: { cta_button: true },
     },
+  },
 };
 
 export default function DynamicPage() {

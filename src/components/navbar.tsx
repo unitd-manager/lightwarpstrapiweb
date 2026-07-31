@@ -6,9 +6,9 @@ import { TransitionLink } from "./page-transition-overlay";
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL as string;
 
 interface NavLink {
-  label: string;
-  url: string;
-  publish?: boolean;
+  Label: string;
+  URL: string;
+  Publish?: boolean;
 }
 
 interface StrapiMedia {
@@ -17,12 +17,12 @@ interface StrapiMedia {
 }
 
 export interface NavbarData {
-  publish?: boolean;
-  logo?: StrapiMedia;
-  logo_link?: string;
-  nav_links?: NavLink[];
-  cta_label?: string;
-  cta_url?: string;
+  Publish?: boolean;
+  Logo?: StrapiMedia;
+  LogoLink?: string;
+  NavLinks?: NavLink[];
+  CTALabel?: string;
+  CTAURL?: string;
 }
 
 export function Navbar({ data }: { data?: NavbarData }) {
@@ -30,25 +30,25 @@ export function Navbar({ data }: { data?: NavbarData }) {
   const { pathname } = useLocation();
 
   // Whole header hidden if its own publish flag is explicitly false.
-  if (data?.publish === false) {
+  if (data?.Publish === false) {
     return null;
   }
 
   const {
-    logo,
-    logo_link = "/",
-    nav_links = [],
-    cta_label = "Contact Now",
-    cta_url = "/contact",
+    Logo,
+    LogoLink = "/",
+    NavLinks = [],
+    CTALabel = "Contact Now",
+    CTAURL = "/contact",
   } = data ?? {};
 
   // Only show nav links that are explicitly published (or don't have the flag yet).
-  const visibleNavLinks = nav_links.filter((l) => l.publish !== false);
+  const visibleNavLinks = NavLinks.filter((l) => l.Publish !== false);
 
-  const logoSrc = logo?.url
-    ? logo.url.startsWith("http")
-      ? logo.url
-      : `${STRAPI_URL}${logo.url}`
+  const logoSrc = Logo?.url
+    ? Logo.url.startsWith("http")
+      ? Logo.url
+      : `${STRAPI_URL}${Logo.url}`
     : undefined;
 
   useEffect(() => {
@@ -76,12 +76,12 @@ export function Navbar({ data }: { data?: NavbarData }) {
           </button>
 
           {/* Logo – CENTER */}
-          <TransitionLink to={logo_link} className="absolute left-1/2 -translate-x-1/2">
+          <TransitionLink to={LogoLink} className="absolute left-1/2 -translate-x-1/2">
             {logoSrc && (
               <img
                 data-logo-beacon
                 src={logoSrc}
-                alt={logo?.alternativeText ?? "Logo"}
+                alt={Logo?.alternativeText ?? "Logo"}
                 className="h-14 w-auto object-contain"
                 decoding="async"
                 draggable={false}
@@ -97,12 +97,12 @@ export function Navbar({ data }: { data?: NavbarData }) {
         <nav className="hidden md:flex w-full items-center justify-between relative">
 
           {/* Logo */}
-          <TransitionLink to={logo_link} className="z-10 flex-shrink-0">
+          <TransitionLink to={LogoLink} className="z-10 flex-shrink-0">
             {logoSrc && (
               <img
                 data-logo-beacon
                 src={logoSrc}
-                alt={logo?.alternativeText ?? "Logo"}
+                alt={Logo?.alternativeText ?? "Logo"}
                 className="h-12 sm:h-14 w-auto object-contain"
               />
             )}
@@ -111,16 +111,16 @@ export function Navbar({ data }: { data?: NavbarData }) {
           {/* Center nav links */}
           <ul className="flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
             {visibleNavLinks.map((l) => {
-              const active = pathname === l.url;
+              const active = pathname === l.URL;
               return (
-                <li key={l.url}>
+                <li key={l.URL}>
                   <TransitionLink
-                    to={l.url}
+                    to={l.URL}
                     className={`text-[18px] font-semibold tracking-[-0.2px] transition-all underline-offset-8 decoration-[#6250DA] hover:underline hover:text-[#6250DA] ${
                       active ? "text-white" : "text-white/70"
                     }`}
                   >
-                    {l.label}
+                    {l.Label}
                   </TransitionLink>
                 </li>
               );
@@ -129,10 +129,10 @@ export function Navbar({ data }: { data?: NavbarData }) {
 
           {/* Contact button */}
           <TransitionLink
-            to={cta_url}
+            to={CTAURL}
             className="inline-flex items-center gap-2 rounded-full bg-[#6250DA] px-6 py-2.5 text-base font-semibold text-white hover:bg-[#7361e8] transition-all duration-300"
           >
-            {cta_label}
+            {CTALabel}
           </TransitionLink>
         </nav>
 
@@ -148,16 +148,16 @@ export function Navbar({ data }: { data?: NavbarData }) {
         >
           <ul className="flex flex-col items-center py-4 gap-1">
             {visibleNavLinks.map((l) => {
-              const active = pathname === l.url;
+              const active = pathname === l.URL;
               return (
-                <li key={l.url} className="w-full text-center">
+                <li key={l.URL} className="w-full text-center">
                   <TransitionLink
-                    to={l.url}
+                    to={l.URL}
                     className={`block py-3 text-lg font-semibold transition-colors ${
                       active ? "text-white" : "text-white/70 hover:text-white"
                     }`}
                   >
-                    {l.label}
+                    {l.Label}
                   </TransitionLink>
                 </li>
               );
@@ -165,10 +165,10 @@ export function Navbar({ data }: { data?: NavbarData }) {
           </ul>
           <div className="px-6 pb-6">
             <TransitionLink
-              to={cta_url}
+              to={CTAURL}
               className="block w-full text-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 text-base font-semibold text-white hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
             >
-              {cta_label}
+              {CTALabel}
             </TransitionLink>
           </div>
         </motion.div>

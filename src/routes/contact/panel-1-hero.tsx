@@ -13,7 +13,7 @@ function Ball({ size, color }: { size: number; color: string }) {
 }
 
 export function ContactPanelHero({ data }: { data?: any }) {
-  const title = data?.main_title ?? data?.title ?? "";
+  const title = data?.MainTitle;
 
   return (
     <section

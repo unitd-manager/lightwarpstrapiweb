@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { getStrapiMedia } from "../../lib/strapi";
 export function AboutPanelStory({ data }: { data?: any }) {
-  const title = data?.main_title
-  const description = data?.description
-  const image = getStrapiMedia(data?.image)
+  const title = data?.MainTitle
+  const description = data?.Description
+  const image = getStrapiMedia(data?.Image)
 
   return (
     <section className="w-full px-4 pt-[20px] pb-12 sm:px-6">
