@@ -85,8 +85,8 @@ export function ContactPanelForm({ data }: { data?: any }) {
   const formHeading  = data?.Heading ?? "";
   const sendLabel    = data?.SendButton ?? "Send";
 
-  const businessImage    = getStrapiMedia(data?.BusinessImage) || locationIconFallback;
-  const informationImage = getStrapiMedia(data?.InformationImage) || contactIconFallback;
+  const businessImage    = getStrapiMedia(data?.BusinessImage);
+  const informationImage = getStrapiMedia(data?.InformationImage);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -186,7 +186,7 @@ export function ContactPanelForm({ data }: { data?: any }) {
                 style={{ padding: "5%", border: "2px solid #FFFFFF", borderRadius: "25px" }}
               >
                 <img
-                  src={businessImage}
+                  src={businessImage ?? undefined}
                   alt=""
                   aria-hidden="true"
                   style={{ width: "112px", height: "auto", marginBottom: "15px" }}
@@ -208,7 +208,7 @@ export function ContactPanelForm({ data }: { data?: any }) {
                 style={{ padding: "5%", border: "2px solid #FFFFFF", borderRadius: "25px" }}
               >
                 <img
-                  src={informationImage}
+                  src={informationImage ?? undefined}
                   alt=""
                   aria-hidden="true"
                   style={{ width: "112px", height: "auto", marginBottom: "15px" }}
