@@ -9,8 +9,8 @@ export function ServicesPanelCta({ data }: { data?: any }) {
   const title = data.main_title || "";
   const body = data.description || "";
   const showCta = !!data?.cta_button && data.cta_button.publish !== false;
-  const ctaLabel = data?.cta_button?.label || "";
-  const ctaUrl = (data?.cta_button?.url || "/contact").trim();
+  const ctaLabel = data?.cta_button?.Label || "";
+  const ctaUrl = (data?.cta_button?.URL || "/contact").trim();
   const leftImage = getStrapiMedia(data?.decorative_image_left) || "";
   const rightImage = getStrapiMedia(data?.decorative_image_right) || "";
 

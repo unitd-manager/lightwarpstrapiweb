@@ -58,17 +58,18 @@ function renderServiceTitle(rawTitle: string, padShortTitlesToTwoLines: boolean)
 
 function flattenGridLayoutToServices(data: any) {
   const items = (data?.grid_items || []).filter((gridItem: any) => gridItem?.publish !== false);
-  const cards: { title: string; description: string; href: string; linkPublished: boolean }[] = [];
+  const cards: { title: string; description: string; href: string; label: string; linkPublished: boolean }[] = [];
 
   items.forEach((gridItem: any) => {
     const list = gridItem?.icon_and_text_boxes?.list || [];
     const publishedList = list.filter((entry: any) => entry?.publish !== false);
     publishedList.forEach((entry: any) => {
-      const linkPublished = entry.link?.publish !== false;
+      const linkPublished = entry.link?.Publish !== false;
       cards.push({
         title: entry.title || "",
         description: (entry.description || "").replace(/<[^>]+>/g, ""),
-        href: linkPublished ? (entry.link?.url || "#") : "#",
+        href: linkPublished ? (entry.link?.URL || "#") : "#",
+        label: linkPublished ? entry.link?.Label || "" : "",
         linkPublished,
       });
     });
@@ -156,7 +157,7 @@ export function ServicesPanels({ data }: { data?: any }) {
                     {service.linkPublished && (
                       <div className="e-con-full e-flex e-con service-learn-container">
                         <div className="elementor-widget elementor-widget-text-editor">
-                          <h6 className="service-learn-text">Learn More</h6>
+                          <h6 className="service-learn-text">{service.label}</h6>
                         </div>
                         <div className="elementor-widget elementor-widget-icon service-icon-widget">
                           <div className="elementor-icon-wrapper">

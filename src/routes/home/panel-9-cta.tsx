@@ -10,9 +10,9 @@ export function HomePanelCta({ data }: { data?: any }) {
 
   const title = data?.main_title;
   const description = data?.description ? data.description.replace(/<[^>]+>/g, "") : "";
-  const showButton = !!data?.cta_button && data.cta_button.publish !== false;
-  const buttonLabel = data?.cta_button?.label;
-  const buttonUrl = data?.cta_button?.url;
+  const showButton = !!data?.cta_button && data.cta_button.Publish !== false;
+  const buttonLabel = data?.cta_button?.Label;
+  const buttonUrl = data?.cta_button?.URL;
   const image = getStrapiMedia(data?.image);
 
   if (!title && !description && !image) return null;

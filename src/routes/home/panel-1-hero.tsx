@@ -55,9 +55,9 @@ export function HomePanelHero({ data }: { data?: any }) {
   const mainTitle = data?.main_title;
   const subtitle = data?.sub_title;
   const description = data?.description ? data.description.replace(/<[^>]+>/g, "") : "";
-
-  const ctaLabel = data?.button?.label;
-  const ctaHref = data?.button?.url;
+  const showButton = !!data?.button && data.button.Publish !== false;
+  const ctaLabel = data?.button?.Label;
+  const ctaHref = data?.button?.URL;
 
   const subtitleLines = subtitle
     ? subtitle
@@ -167,12 +167,14 @@ export function HomePanelHero({ data }: { data?: any }) {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="mt-8 flex flex-col sm:flex-row items-center gap-4"
             >
+              {showButton && ctaLabel && ctaHref && (
               <TransitionLink
                 to={ctaHref}
                 className="inline-flex items-center justify-center rounded-sm border border-white/35 bg-white/10 px-6 py-3 text-sm font-medium text-white backdrop-blur-md transition-all duration-300 hover:bg-white/15"
               >
                 {ctaLabel}
               </TransitionLink>
+              )}
             </motion.div>
           )}
         </div>
