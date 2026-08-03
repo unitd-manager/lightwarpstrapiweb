@@ -62,14 +62,14 @@ function flattenGridLayoutToServices(data: any) {
 
   items.forEach((gridItem: any) => {
     const list = gridItem?.icon_and_text_boxes?.list || [];
-    const publishedList = list.filter((entry: any) => entry?.publish !== false);
-    publishedList.forEach((entry: any) => {
-      const linkPublished = entry.link?.Publish !== false;
+    const publishedList = list.filter((link: any) => link?.publish !== false);
+    publishedList.forEach((link: any) => {
+      const linkPublished = link.link?.Publish !== false;
       cards.push({
-        title: entry.title || "",
-        description: (entry.description || "").replace(/<[^>]+>/g, ""),
-        href: linkPublished ? (entry.link?.URL || "#") : "#",
-        label: linkPublished ? entry.link?.Label || "" : "",
+        title: link.title || "",
+        description: (link.description || "").replace(/<[^>]+>/g, ""),
+        href: linkPublished ? (link.link?.URL || "#") : "#",
+        label: linkPublished ? link.link?.Label || "" : "",
         linkPublished,
       });
     });

@@ -8,6 +8,7 @@ function chunkIntoThrees<T>(arr: T[]): T[][] {
 }
 
 export function AboutPanelTeam({ data }: { data?: any }) {
+  if (!data?.Publish) return null;
   const teamMembersBlock = data?.TeamMembers;
   const teamMembersPublished = teamMembersBlock?.Publish !== false;
 

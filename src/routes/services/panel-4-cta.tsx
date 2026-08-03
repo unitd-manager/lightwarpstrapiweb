@@ -8,7 +8,7 @@ export function ServicesPanelCta({ data }: { data?: any }) {
 
   const title = data.main_title || "";
   const body = data.description || "";
-  const showCta = !!data?.cta_button && data.cta_button.publish !== false;
+  const showCta = !!data?.cta_button && data.cta_button.Publish !== false;
   const ctaLabel = data?.cta_button?.Label || "";
   const ctaUrl = (data?.cta_button?.URL || "/contact").trim();
   const leftImage = getStrapiMedia(data?.decorative_image_left) || "";

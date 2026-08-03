@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { getStrapiMedia } from "../../lib/strapi";
 
 export function AboutPanelCta({ data }: { data?: any }) {
+  if (!data?.Publish) return null;
   const title = data?.MainTitle ?? "";
   const description = data?.Description ?? "";
   const buttonLabel = data?.CTAButton?.Label ?? "";

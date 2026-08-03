@@ -14,8 +14,8 @@ async function fetchContactPage() {
     (block: any) => block.__component === "acf-sections.contact-location-section"
   );
 
-  // Whole Contact-Location section is hidden if its own publish is false
-  if (found && found.publish === false) return null;
+  // Whole Contact-Location section is hidden if its own Publish is false
+  if (found && found.Publish === false) return null;
 
   return found;
 }

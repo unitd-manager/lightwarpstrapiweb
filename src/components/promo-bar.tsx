@@ -7,9 +7,9 @@ export default function PromoBar({ data }: { data?: any }) {
   const message = data?.description
     ? data.description.replace(/<[^>]+>/g, "").trim()
     : "";
-  const showButton = !!data?.cta_button && data.cta_button.publish !== false;
-  const label = data?.cta_button?.label;
-  const url = data?.cta_button?.url;
+  const showButton = !!data?.cta_button && data.cta_button.Publish !== false;
+  const label = data?.cta_button?.Label;
+  const url = data?.cta_button?.URL;
   const bgColor = data?.background_color || "#ffffff";
 
   if (!message) return null;

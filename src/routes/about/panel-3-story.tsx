@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { getStrapiMedia } from "../../lib/strapi";
 export function AboutPanelStory({ data }: { data?: any }) {
+  if (!data?.Publish) return null;
+
   const title = data?.MainTitle
   const description = data?.Description
   const image = getStrapiMedia(data?.Image)
