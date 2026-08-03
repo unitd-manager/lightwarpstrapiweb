@@ -6,7 +6,7 @@ import { ProjectsPanelHero } from "./projects/panel-1-hero";
 import { ProjectsPanelExtraVideos } from "./projects/panel-7-extra-videos";
 
 async function fetchProjectsPage() {
-  const res = await fetch(`${import.meta.env.VITE_STRAPI_URL}/api/pages/by-slug/project`);
+  const res = await fetch(`${import.meta.env.VITE_STRAPI_URL}/api/pages/by-slug/projects`);
   if (!res.ok) throw new Error("Failed to fetch projects page");
   const json = await res.json();
 

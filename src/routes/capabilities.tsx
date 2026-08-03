@@ -17,7 +17,8 @@ export type CapabilityItem = {
   copyrightText: string;
   contributionsLabel?: string;
   creditsLabel?: string;
-  credits?: { role: string; names: string; publish?: boolean }[];
+  // Matches Strapi's actual component field name — it's "Credits" (capital C), not "credits"
+  Credits?: { role: string; names: string; publish?: boolean }[];
   watchnow_label?: string;
   watchnow_link?: string;
   publish?: boolean;

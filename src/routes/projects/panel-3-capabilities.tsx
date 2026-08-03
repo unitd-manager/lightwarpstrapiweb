@@ -133,8 +133,9 @@ export function ProjectsPanelCapabilities({ item }: { item?: CapabilityItem }) {
   const watchHref    = resolveWatchHref(item.video_url, item.watchnow_link);
   const ctaLink      = item.ctaLink || (item.title ? `/projects/${slugify(item.title)}` : "/");
 
-  // Only keep individually published credit rows
-  const credits = (item.credits ?? []).filter((c: any) => c.publish !== false);
+  // Strapi's component field is "Credits" (capital C) — this was reading
+  // the lowercase "credits", which never existed, so the box always came up empty.
+  const credits = (item.Credits ?? []).filter((c: any) => c.publish !== false);
 
   return (
     <section className="relative min-h-[90svh] overflow-hidden bg-transparent text-white font-display sm:min-h-[90vh]">

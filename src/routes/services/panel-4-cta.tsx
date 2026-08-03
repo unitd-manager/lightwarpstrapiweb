@@ -1,7 +1,6 @@
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
-import keepInTouch1 from "../../assets/images/cms/KeepinTouch1.svg";
-import keepInTouch2 from "../../assets/images/cms/KeepInTouch2.svg";
+import { getStrapiMedia } from "../../lib/strapi";
 
 export function ServicesPanelCta({ data }: { data?: any }) {
   if (!data) return null;
@@ -12,6 +11,8 @@ export function ServicesPanelCta({ data }: { data?: any }) {
   const showCta = !!data?.cta_button && data.cta_button.publish !== false;
   const ctaLabel = data?.cta_button?.label || "";
   const ctaUrl = (data?.cta_button?.url || "/contact").trim();
+  const leftImage = getStrapiMedia(data?.decorative_image_left) || "";
+  const rightImage = getStrapiMedia(data?.decorative_image_right) || "";
 
   return (
     <section className="relative overflow-hidden font-['Sora']" style={{ marginLeft: "50px", marginRight: "50px" }}>
@@ -24,13 +25,13 @@ export function ServicesPanelCta({ data }: { data?: any }) {
         className="lg:hidden relative bg-[#c72e17] min-h-[500px] flex flex-col items-center justify-center px-3 py-6 text-center overflow-hidden"
       >
         <img
-          src={keepInTouch1}
+          src={leftImage}
           alt=""
           aria-hidden="true"
           className="absolute left-[-190px] bottom-38 w-[100px] h-[300px] scale-300 select-none pointer-events-none"
         />
         <img
-          src={keepInTouch2}
+          src={rightImage}
           alt=""
           aria-hidden="true"
           className="absolute right-[-190px] bottom-38 w-[100px] h-[300px] scale-300 select-none pointer-events-none"
@@ -62,7 +63,7 @@ export function ServicesPanelCta({ data }: { data?: any }) {
         className="hidden lg:flex relative min-h-[533px] items-center justify-center bg-[#D5462F] overflow-hidden"
       >
         <motion.img
-          src={keepInTouch1}
+          src={leftImage}
           alt=""
           aria-hidden="true"
           initial={{ opacity: 0, x: -30 }}
@@ -123,7 +124,7 @@ export function ServicesPanelCta({ data }: { data?: any }) {
         </div>
 
         <motion.img
-          src={keepInTouch2}
+          src={rightImage}
           alt=""
           aria-hidden="true"
           initial={{ opacity: 0, x: 30 }}

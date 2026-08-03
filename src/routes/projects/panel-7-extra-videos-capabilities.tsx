@@ -188,8 +188,10 @@ export function ProjectsPanelExtraVideosCapabilities({ useCaseItems }: Props) {
     contributions:      parseContributions(item.highlight_description ?? ""),
     contributionsLabel: item.contributionsLabel ?? "",
     creditsLabel:       item.creditsLabel ?? "",
+    // Strapi's component field is "Credits" (capital C) — this was reading
+    // the lowercase "credits", which never existed, so the box always came up empty.
     // Drop individually unpublished credit rows within each item
-    credits:            (item.credits ?? []).filter((c: any) => c.publish !== false),
+    credits:            (item.Credits ?? []).filter((c: any) => c.publish !== false),
     description:        item.description ?? "",
     videoId:            extractYouTubeId(item.video_url ?? "") || (item.video_url ?? ""),
     hideLearnMore:      !item.ctaLink,

@@ -47,6 +47,56 @@ const DIST_DIR = path.join(__dirname, "dist");
 const CONTACT_ADMIN_EMAIL =
   process.env.CONTACT_ADMIN_EMAIL || "jasmine@unitdtechnologies.com";
 
+const STRAPI_URL = process.env.VITE_STRAPI_URL || process.env.STRAPI_URL || "http://localhost:1337";
+const REDIRECTS_REFRESH_MS = Number(process.env.REDIRECTS_REFRESH_MS || 5 * 60 * 1000); // 5 min
+
+// In-memory redirect cache: normalized source path -> { destination, statusCode }
+let redirectMap = new Map();
+
+function normalizePath(p) {
+  if (!p) return "/";
+  // Strapi's "source" field may be stored as a full URL
+  // (https://example.com/about1) or a relative path (/about1) — pull out
+  // just the pathname either way so lookups match regardless of which was used.
+  let out;
+  try {
+    out = new URL(p, "http://placeholder.local").pathname;
+  } catch {
+    out = p.split("?")[0].split("#")[0];
+  }
+  if (!out.startsWith("/")) out = "/" + out;
+  if (out.length > 1 && out.endsWith("/")) out = out.slice(0, -1);
+  return out.toLowerCase();
+}
+
+async function refreshRedirects() {
+  try {
+    const res = await fetch(`${STRAPI_URL}/api/redirects/active`);
+    if (!res.ok) throw new Error(`Strapi responded ${res.status}`);
+    const json = await res.json();
+    const rows = Array.isArray(json?.data) ? json.data : [];
+
+    const next = new Map();
+    for (const row of rows) {
+      const source = row?.source;
+      const destination = row?.destination;
+      if (!source || !destination) continue;
+      const statusCode = row?.statusCode === "302" ? 302 : 301;
+      next.set(normalizePath(source), { destination, statusCode });
+    }
+
+    redirectMap = next;
+  } catch (err) {
+    // Strapi being down/unreachable should never take the site down —
+    // keep serving with whatever redirect list we last had.
+    console.error("[redirects] refresh failed:", err?.message || err);
+  }
+}
+
+// Prime the cache at boot, then refresh on an interval.
+refreshRedirects();
+setInterval(refreshRedirects, REDIRECTS_REFRESH_MS);
+
 const SMTP_HOST = process.env.SMTP_HOST || "";
 const SMTP_PORT = Number(process.env.SMTP_PORT || 465);
 const SMTP_SECURE = String(process.env.SMTP_SECURE || "true") === "true";
@@ -286,6 +336,14 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    // Lets you force an immediate cache refresh from Strapi after adding/editing
+    // a redirect, instead of waiting for the interval (protect this in prod if needed).
+    if (url.pathname === "/api/redirects/refresh" && req.method === "POST") {
+      await refreshRedirects();
+      json(res, 200, { ok: true, count: redirectMap.size });
+      return;
+    }
+
     if (url.pathname.startsWith("/api/")) {
       json(res, 404, { ok: false, error: "Not found." });
       return;
@@ -294,6 +352,13 @@ const server = http.createServer(async (req, res) => {
     if (req.method !== "GET" && req.method !== "HEAD") {
       res.writeHead(405);
       res.end("Method not allowed");
+      return;
+    }
+
+    const redirect = redirectMap.get(normalizePath(url.pathname));
+    if (redirect) {
+      res.writeHead(redirect.statusCode, { Location: redirect.destination });
+      res.end();
       return;
     }
 

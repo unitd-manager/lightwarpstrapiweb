@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import DynamicPage from "./routes/dynamic-page";
 import Home from "./routes";
@@ -10,8 +10,16 @@ import Services from "./routes/services";
 import Privacy from "./routes/privacy";
 import { TransitionProvider } from "./components/page-transition-overlay";
 import CaseStudyPage from "./routes/projects/CaseStudyPage";
+import { logNotFound } from "./lib/logNotFound";
 
 function NotFound() {
+  const location = useLocation();
+
+  useEffect(() => {
+    logNotFound(location.pathname);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">

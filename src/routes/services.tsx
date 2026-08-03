@@ -23,8 +23,12 @@ const PAGE_BUILDER_POPULATE = {
       populate: { logos: { populate: "*" } },
     },
     "acf-sections.general-cta-section": {
-      populate: { cta_button: true },
-    },
+  populate: {
+    cta_button: true,
+    decorative_image_left: true,
+    decorative_image_right: true,
+  },
+},
   },
 };
 
@@ -38,7 +42,7 @@ export default function Services() {
       try {
         const query = qs.stringify(
           {
-            filters: { slug: { $eq: "service" } },
+            filters: { slug: { $eq: "services" } },
             populate: { pageBuilder: PAGE_BUILDER_POPULATE },
           },
           { encodeValuesOnly: true }
