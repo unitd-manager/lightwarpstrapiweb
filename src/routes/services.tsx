@@ -5,6 +5,7 @@ import { ServicesPanelHero } from "./services/panel-1-hero";
 import { ServicesPanelServices } from "./services/panel-2-services";
 import { ServicesPanelProcess } from "./services/panel-3-process";
 import { ServicesPanelCta } from "./services/panel-4-cta";
+import { usePageTitle } from "@/hooks/usePageTitle";
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337";
 
 const PAGE_BUILDER_POPULATE = {
@@ -23,17 +24,20 @@ const PAGE_BUILDER_POPULATE = {
       populate: { logos: { populate: "*" } },
     },
     "acf-sections.general-cta-section": {
-  populate: {
-    cta_button: true,
-    decorative_image_left: true,
-    decorative_image_right: true,
-  },
-},
+      populate: {
+        cta_button: true,
+        decorative_image_left: true,
+        decorative_image_right: true,
+      },
+    },
   },
 };
 
 export default function Services() {
   const [blocks, setBlocks] = useState<any[] | null>(null);
+  const [seo, setSeo] = useState<{ metaTitle?: string } | null>(null);
+
+  usePageTitle(seo?.metaTitle);
 
   useEffect(() => {
     let cancelled = false;
@@ -43,7 +47,7 @@ export default function Services() {
         const query = qs.stringify(
           {
             filters: { slug: { $eq: "services" } },
-            populate: { pageBuilder: PAGE_BUILDER_POPULATE },
+            populate: { pageBuilder: PAGE_BUILDER_POPULATE, seo: true },
           },
           { encodeValuesOnly: true }
         );
@@ -54,6 +58,7 @@ export default function Services() {
         const page = json.data?.[0];
         if (!cancelled) {
           setBlocks(page?.pageBuilder ?? null);
+          setSeo(page?.seo ?? null);
         }
       } catch (err) {
         console.warn("Failed to load Service page from Strapi:", err);

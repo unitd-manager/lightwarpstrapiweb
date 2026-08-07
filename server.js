@@ -49,9 +49,29 @@ const CONTACT_ADMIN_EMAIL =
 
 const STRAPI_URL = process.env.VITE_STRAPI_URL || process.env.STRAPI_URL || "http://localhost:1337";
 const REDIRECTS_REFRESH_MS = Number(process.env.REDIRECTS_REFRESH_MS || 5 * 60 * 1000); // 5 min
+const SEO_CACHE_TTL_MS = Number(process.env.SEO_CACHE_TTL_MS || 5 * 60 * 1000); // 5 min
 
 // In-memory redirect cache: normalized source path -> { destination, statusCode }
 let redirectMap = new Map();
+
+// In-memory SEO cache: "contentType:slug" -> { data: {title, description, image}, expiresAt }
+const seoCache = new Map();
+
+// Cache the index.html template once at boot (contains %%SEO_*%% placeholder tokens)
+const indexHtmlPath = path.join(DIST_DIR, "index.html");
+let indexHtmlTemplate = "";
+try {
+  indexHtmlTemplate = readFileSync(indexHtmlPath, "utf8");
+} catch (err) {
+  console.error("[seo] failed to read index.html template:", err?.message || err);
+}
+
+const SEO_DEFAULTS = {
+  title: "Lightwarp — 3D Animation & Cinematic Visual Studio",
+  description:
+    "Lightwarp is a premium 3D animation studio illuminating brands through CGI, VFX, motion graphics, and immersive visual experiences.",
+  image: "",
+};
 
 function normalizePath(p) {
   if (!p) return "/";
@@ -93,7 +113,73 @@ async function refreshRedirects() {
   }
 }
 
-// Prime the cache at boot, then refresh on an interval.
+// Maps App.tsx routing to Strapi content types:
+// "/projects/:slug" -> api::case-study.case-study
+// everything else (incl. "/") -> api::page.page
+function resolveContentType(urlPath) {
+  const clean = normalizePath(urlPath).replace(/^\/+/, "");
+  const segments = clean.split("/").filter(Boolean);
+
+  if (segments[0] === "projects" && segments[1]) {
+    return { contentType: "case-studies", slug: segments[1] };
+  }
+
+  const slug = segments.length === 0 ? "home" : segments[0];
+  return { contentType: "pages", slug };
+}
+
+async function fetchSeoForRoute(urlPath) {
+  const { contentType, slug } = resolveContentType(urlPath);
+  const cacheKey = `${contentType}:${slug}`;
+
+  const cached = seoCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.data;
+  }
+
+  try {
+    const res = await fetch(
+      `${STRAPI_URL}/api/${contentType}?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=seo`
+    );
+    if (!res.ok) throw new Error(`Strapi responded ${res.status}`);
+    const json = await res.json();
+    const entry = json?.data?.[0];
+    const seo = entry?.attributes?.seo || entry?.seo;
+
+    const data = seo
+      ? {
+          title: seo.metaTitle || SEO_DEFAULTS.title,
+          description: seo.metaDescription || SEO_DEFAULTS.description,
+          image: seo.ogImage?.url || seo.ogImage || SEO_DEFAULTS.image,
+        }
+      : SEO_DEFAULTS;
+
+    seoCache.set(cacheKey, { data, expiresAt: Date.now() + SEO_CACHE_TTL_MS });
+    return data;
+  } catch (err) {
+    console.error(`[seo] fetch failed for "${urlPath}" (${contentType}/${slug}):`, err?.message || err);
+    // Serve stale cache if we have it, otherwise fall back to defaults —
+    // Strapi being down should never break the page.
+    return cached?.data || SEO_DEFAULTS;
+  }
+}
+
+function escapeHtml(str = "") {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function injectSeo(html, seo) {
+  return html
+    .replaceAll("%%SEO_TITLE%%", escapeHtml(seo.title))
+    .replaceAll("%%SEO_DESCRIPTION%%", escapeHtml(seo.description))
+    .replaceAll("%%SEO_IMAGE%%", escapeHtml(seo.image));
+}
+
+// Prime the caches at boot, then refresh redirects on an interval.
 refreshRedirects();
 setInterval(refreshRedirects, REDIRECTS_REFRESH_MS);
 
@@ -220,13 +306,33 @@ function contentTypeFor(filePath) {
   }
 }
 
+// Serves index.html WITH per-route SEO tags injected (used for the SPA shell).
+async function serveIndexWithSeo(req, res, urlPath) {
+  const seo = await fetchSeoForRoute(urlPath);
+  const html = indexHtmlTemplate ? injectSeo(indexHtmlTemplate, seo) : "";
+
+  if (!html) {
+    res.writeHead(500);
+    res.end("Server error");
+    return;
+  }
+
+  res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+  res.end(html);
+}
+
 async function serveStatic(req, res, urlPath) {
   const safePath = urlPath.replace(/\0/g, "");
   const isAssetPath = safePath.includes(".") && !safePath.endsWith(".");
 
-  const filePath = isAssetPath
-    ? path.join(DIST_DIR, safePath)
-    : path.join(DIST_DIR, "index.html");
+  if (!isAssetPath) {
+    // Any non-asset request (SPA route) gets index.html with real per-page
+    // meta tags injected — this is what shows up in "View Page Source".
+    await serveIndexWithSeo(req, res, urlPath);
+    return;
+  }
+
+  const filePath = path.join(DIST_DIR, safePath);
 
   try {
     const stat = await fs.stat(filePath);
@@ -239,20 +345,9 @@ async function serveStatic(req, res, urlPath) {
     res.writeHead(200, { "Content-Type": contentTypeFor(filePath) });
     createReadStream(filePath).pipe(res);
   } catch {
-    try {
-      const indexPath = path.join(DIST_DIR, "index.html");
-      const stat = await fs.stat(indexPath);
-      if (!stat.isFile()) {
-        res.writeHead(404);
-        res.end("Not found");
-        return;
-      }
-      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-      createReadStream(indexPath).pipe(res);
-    } catch {
-      res.writeHead(404);
-      res.end("Not found");
-    }
+    // Asset not found — fall back to the SPA shell rather than a bare 404,
+    // matching the previous behavior.
+    await serveIndexWithSeo(req, res, urlPath);
   }
 }
 
@@ -344,6 +439,14 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    // Same idea for SEO — clear the cache after editing SEO fields in Strapi
+    // instead of waiting for SEO_CACHE_TTL_MS to expire.
+    if (url.pathname === "/api/seo/refresh" && req.method === "POST") {
+      seoCache.clear();
+      json(res, 200, { ok: true });
+      return;
+    }
+
     if (url.pathname.startsWith("/api/")) {
       json(res, 404, { ok: false, error: "Not found." });
       return;
@@ -362,7 +465,7 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    const pathname = url.pathname === "/" ? "/index.html" : url.pathname;
+    const pathname = url.pathname === "/" ? "/" : url.pathname;
     await serveStatic(req, res, pathname);
   } catch {
     try {
@@ -378,4 +481,6 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT);
+server.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});

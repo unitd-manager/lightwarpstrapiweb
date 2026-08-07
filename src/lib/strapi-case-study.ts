@@ -18,6 +18,12 @@ export type StrapiLogoItem = {
   publish?: boolean;
 };
 
+export type StrapiSeo = {
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: string;
+};
+
 export type StrapiCaseStudy = {
   id: number;
   publish?: boolean; // 👈 added
@@ -42,6 +48,7 @@ export type StrapiCaseStudy = {
   next_link: string;
   previous_label: string;
   previous_link: string;
+  seo?: StrapiSeo; // 👈 added
 };
 
 // Converts Strapi's "blocks" rich text format into an array of plain paragraph strings.
@@ -119,5 +126,12 @@ export async function fetchCaseStudyBySlug(slug: string): Promise<StrapiCaseStud
     next_link: attrs.next_link || "",
     previous_label: attrs.previous_label,
     previous_link: attrs.previous_link,
+    seo: attrs.seo
+      ? {
+          metaTitle: attrs.seo.metaTitle,
+          metaDescription: attrs.seo.metaDescription,
+          ogImage: attrs.seo.ogImage?.url ?? attrs.seo.ogImage,
+        }
+      : undefined, // 👈 added
   };
 }

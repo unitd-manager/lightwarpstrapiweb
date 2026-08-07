@@ -7,6 +7,7 @@ import { HomePanelPartners } from "./home/panel-5-partners";
 import { HomePanelAwards } from "./home/panel-6-awards";
 import { HomePanelCta } from "./home/panel-9-cta";
 import { PageShell } from "../components/page-shell";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const STRAPI_BASE_URL = import.meta.env.VITE_STRAPI_URL ?? "http://localhost:1337";
 
@@ -14,6 +15,9 @@ type PageBuilderBlock = { __component: string; [key: string]: any };
 
 export default function Home() {
   const [blocks, setBlocks] = useState<PageBuilderBlock[]>([]);
+  const [seo, setSeo] = useState<{ metaTitle?: string } | null>(null);
+
+  usePageTitle(seo?.metaTitle);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -23,6 +27,7 @@ export default function Home() {
           {
             filters: { slug: { $eq: "home" } },
             populate: {
+              seo: true,
               pageBuilder: {
                 on: {
                   "acf-sections.home-partner": {
@@ -69,6 +74,7 @@ export default function Home() {
         const json = await res.json();
         const page = json?.data?.[0];
         setBlocks(page?.pageBuilder ?? []);
+        setSeo(page?.seo ?? null);
       } catch {
         setBlocks([]);
       }
@@ -92,7 +98,7 @@ export default function Home() {
       <ServicesPanels data={gridLayoutBlock} />
       <PromoBar data={gridLayoutBlock} />
       <HomePanelPartners data={getBlock("acf-sections.home-client-logo")} />
-      <HomePanelAwards
+     <HomePanelAwards
         awardsData={getBlock("acf-sections.home-awards-and-certificates")}
         artistsData={getBlock("acf-sections.home-award-winner")}
       />

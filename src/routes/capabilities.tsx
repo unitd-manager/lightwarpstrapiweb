@@ -4,6 +4,7 @@ import { LazyVimeoBackground } from "../components/lazy-vimeo-background";
 import { PageShell } from "../components/page-shell";
 import { ProjectsPanelCapabilities } from "./projects/panel-3-capabilities";
 import { ProjectsPanelExtraVideosCapabilities } from "./projects/panel-7-extra-videos-capabilities";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 export type CapabilityItem = {
   id: number;
@@ -25,18 +26,20 @@ export type CapabilityItem = {
 };
 
 async function fetchCapabilitiesPage() {
-  const res = await fetch(`${import.meta.env.VITE_STRAPI_URL}/api/pages/by-slug/capabilities`);
+  const res = await fetch(`${import.meta.env.VITE_STRAPI_URL}/api/pages/by-slug/capabilities?populate=seo`);
   if (!res.ok) throw new Error("Failed to fetch capabilities page");
   const json = await res.json();
+
+  const seo = json.data?.seo ?? null;
 
   const useCaseBlock = json.data.pageBuilder.find(
     (block: any) => block.__component === "acf-sections.use-case-single"
   );
 
   // Whole "Use Case Single" section is hidden if its own publish is false
-  if (useCaseBlock && useCaseBlock.publish === false) return null;
+  if (useCaseBlock && useCaseBlock.publish === false) return { block: null, seo };
 
-  return useCaseBlock;
+  return { block: useCaseBlock, seo };
 }
 
 function resolveWatchHref(videoUrl?: string, watchnowLink?: string): string | undefined {
@@ -69,11 +72,20 @@ export default function Capabilities() {
   const vimeoPageUrl = `https://vimeo.com/${vimeoId}`;
 
   const [block, setBlock] = useState<any>(null);
+  const [seo, setSeo] = useState<{ metaTitle?: string } | null>(null);
+
+  usePageTitle(seo?.metaTitle);
 
   useEffect(() => {
     fetchCapabilitiesPage()
-      .then(setBlock)
-      .catch(() => setBlock(null));
+      .then(({ block, seo }) => {
+        setBlock(block);
+        setSeo(seo);
+      })
+      .catch(() => {
+        setBlock(null);
+        setSeo(null);
+      });
   }, []);
 
   // Split by ORIGINAL position first, then check publish per-slot.
@@ -147,8 +159,8 @@ export default function Capabilities() {
 
                 {heroWatchLabel && (
                   <div className="flex flex-wrap gap-4">
-                    <a
-                      href={heroWatchHref}
+                    
+                      <a href={heroWatchHref}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center rounded-full border border-white bg-white px-8 py-4 text-sm font-semibold text-black shadow-lg transition-all duration-300 hover:bg-white/90 hover:scale-105"

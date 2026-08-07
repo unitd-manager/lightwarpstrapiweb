@@ -4,29 +4,41 @@ import { PageShell } from "../components/page-shell";
 import { PanelHeroes } from "./projects/panel-hero";
 import { ProjectsPanelHero } from "./projects/panel-1-hero";
 import { ProjectsPanelExtraVideos } from "./projects/panel-7-extra-videos";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 async function fetchProjectsPage() {
-  const res = await fetch(`${import.meta.env.VITE_STRAPI_URL}/api/pages/by-slug/projects`);
+  const res = await fetch(`${import.meta.env.VITE_STRAPI_URL}/api/pages/by-slug/projects?populate=seo`);
   if (!res.ok) throw new Error("Failed to fetch projects page");
   const json = await res.json();
+
+  const seo = json.data?.seo ?? null;
 
   const useCaseBlock = json.data.pageBuilder.find(
     (block: any) => block.__component === "acf-sections.use-case-single"
   );
 
   // Whole "Use Case Single" section is hidden if its own publish is false
-  if (useCaseBlock && useCaseBlock.publish === false) return null;
+  if (useCaseBlock && useCaseBlock.publish === false) return { block: null, seo };
 
-  return useCaseBlock;
+  return { block: useCaseBlock, seo };
 }
 
 export default function Projects() {
   const [block, setBlock] = useState<any>(null);
+  const [seo, setSeo] = useState<{ metaTitle?: string } | null>(null);
+
+  usePageTitle(seo?.metaTitle);
 
   useEffect(() => {
     fetchProjectsPage()
-      .then(setBlock)
-      .catch(() => setBlock(null));
+      .then(({ block, seo }) => {
+        setBlock(block);
+        setSeo(seo);
+      })
+      .catch(() => {
+        setBlock(null);
+        setSeo(null);
+      });
   }, []);
 
   // Split by ORIGINAL position first, then check publish per-slot.

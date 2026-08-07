@@ -4,6 +4,7 @@ import qs from "qs";
 import { PageShell } from "../components/page-shell";
 import { PageBuilderRenderer } from "../components/blocks/page-builder-renderer";
 import { logNotFound } from "../lib/logNotFound";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL as string;
 
@@ -110,8 +111,11 @@ export default function DynamicPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [blocks, setBlocks] = useState<any[] | null>(null);
+  const [seo, setSeo] = useState<{ metaTitle?: string } | null>(null);
   const [notFound, setNotFound] = useState(false);
   const [redirecting, setRedirecting] = useState(false);
+
+  usePageTitle(seo?.metaTitle);
 
   useEffect(() => {
     if (!slug) return;
@@ -123,7 +127,7 @@ export default function DynamicPage() {
         const query = qs.stringify(
           {
             filters: { slug: { $eq: slug } },
-            populate: { pageBuilder: PAGE_BUILDER_POPULATE },
+            populate: { pageBuilder: PAGE_BUILDER_POPULATE, seo: true },
           },
           { encodeValuesOnly: true }
         );
@@ -135,6 +139,7 @@ export default function DynamicPage() {
 
         if (page) {
           setBlocks(page.pageBuilder ?? []);
+          setSeo(page.seo ?? null);
           return;
         }
 

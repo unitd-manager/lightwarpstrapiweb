@@ -8,6 +8,7 @@ import {
   parseContributionsString,
   type StrapiCaseStudy,
 } from "../../lib/strapi-case-study";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL as string;
 
@@ -16,6 +17,8 @@ export default function CaseStudyPage() {
   const [caseStudy, setCaseStudy] = useState<StrapiCaseStudy | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  usePageTitle(caseStudy?.seo?.metaTitle);
 
   useEffect(() => {
     if (!slug) return;

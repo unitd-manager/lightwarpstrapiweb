@@ -4,12 +4,13 @@ import { AboutPanelStory } from "./about/panel-3-story";
 import { AboutPanelTeam } from "./about/panel-4-team";
 import { AboutPanelCta } from "./about/panel-5-cta";
 import keepInTouch2 from "../assets/images/cms/KeepInTouch2.svg";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337";
 
 async function getAboutPage() {
   try {
-    const res = await fetch(`${STRAPI_URL}/api/pages/by-slug/about`, {
+    const res = await fetch(`${STRAPI_URL}/api/pages/by-slug/about?populate=seo`, {
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_STRAPI_TOKEN}`,
       },
@@ -42,12 +43,16 @@ function isPublished(block: any) {
 
 export default function About() {
   const [blocks, setBlocks] = useState<any[] | null>(null);
+  const [seo, setSeo] = useState<{ metaTitle?: string } | null>(null);
+
+  usePageTitle(seo?.metaTitle);
 
   useEffect(() => {
     let cancelled = false;
     getAboutPage().then((page) => {
       if (cancelled) return;
       setBlocks(page?.pageBuilder ?? []);
+      setSeo(page?.seo ?? null);
     });
     return () => {
       cancelled = true;
