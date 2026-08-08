@@ -1,6 +1,7 @@
 // src/routes/home/panel-1-hero.tsx
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
+import { LazyVimeoBackground } from "../../components/lazy-vimeo-background";
 
 // Strapi API base for resolving relative media URLs (e.g. "/uploads/xxx.png")
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337";
@@ -48,9 +49,12 @@ export function HomePanelHero({ data }: { data?: any }) {
   const logoAlt = data?.image?.alternativeText || "Lightwarp";
 
   const vimeoId = extractVimeoId(data?.video_url);
-  const videoSrc = vimeoId
-    ? `https://player.vimeo.com/video/${vimeoId}?autoplay=1&loop=1&muted=1&background=1`
+  const embedSrc = vimeoId
+    ? `https://player.vimeo.com/video/${vimeoId}?autoplay=1&loop=1&muted=1&background=1&dnt=1`
     : undefined;
+  // posterSrc is required by LazyVimeoBackground whenever we render it, so
+  // this is only read when vimeoId (and therefore embedSrc) is also set.
+  const posterSrc = vimeoId ? `https://vumbnail.com/${vimeoId}.jpg` : "";
 
   const mainTitle = data?.main_title;
   const subtitle = data?.sub_title;
@@ -69,24 +73,13 @@ export function HomePanelHero({ data }: { data?: any }) {
   return (
     <section className="relative w-full overflow-hidden">
       <div className="absolute inset-0 overflow-hidden bg-black">
-        {videoSrc && (
-          <iframe
-            key={vimeoId}
-            src={videoSrc}
-            loading="eager"
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              width: "177.78vh",
-              height: "56.25vw",
-              minWidth: "100%",
-              minHeight: "100%",
-              transform: "translate(-50%, -50%) scale(1.02)",
-              border: "none",
-            }}
-            allow="autoplay; fullscreen; picture-in-picture"
-          ></iframe>
+        {embedSrc && (
+          <LazyVimeoBackground
+            embedSrc={embedSrc}
+            posterSrc={posterSrc}
+            title="Lightwarp Hero Background Video"
+            className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.02] border-0 object-cover"
+          />
         )}
       </div>
 
@@ -104,6 +97,8 @@ export function HomePanelHero({ data }: { data?: any }) {
               <img
                 src={logoSrc}
                 alt={logoAlt}
+                width={280}
+                height={120}
                 className="h-[clamp(120px,10vw,280px)] w-auto object-contain"
               />
             </motion.div>
