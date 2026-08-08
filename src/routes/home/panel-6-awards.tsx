@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { getStrapiMedia } from "../../lib/strapi";
+import { resolveStrapiImage } from "@/lib/resolve-strapi-image";
 
 const AWARDS_HEADING_STYLE: React.CSSProperties = {
   fontFamily: '"DM Sans", sans-serif', fontSize: "35px", fontWeight: 500,
@@ -12,6 +12,15 @@ const AWARDS_HEADING_STYLESS: React.CSSProperties = {
   fontStyle: "normal", textDecoration: "none", lineHeight: "1.3em",
   letterSpacing: "0px", wordSpacing: "0px",
 };
+
+// Award badges render inside a "h-48" (192px) box, "max-h-40 md:max-h-48"
+// — matches the report's austin_laurel_cropped.png / shortshorts_laurel.png
+// target of ~200px wide.
+const AWARD_TARGET_WIDTH = 200;
+
+// Artist logos render inside a smaller "h-32 md:h-40" (128–160px) box —
+// matches the report's wdas_white_transparent.png target of ~202px wide.
+const ARTIST_TARGET_WIDTH = 210;
 
 export function HomePanelAwards({
   awardsData,
@@ -32,7 +41,7 @@ export function HomePanelAwards({
     ? (awardsData?.award_and_certificate_list ?? [])
         .filter((item: any) => item?.publish !== false)
         .map((item: any, i: number) => ({
-          image: getStrapiMedia(item.image),
+          image: resolveStrapiImage(item.image, AWARD_TARGET_WIDTH),
           title: `Award ${i + 1}`,
         }))
         .filter((a: any) => a.image)
@@ -42,7 +51,7 @@ export function HomePanelAwards({
     ? (artistsData?.award_winner_list ?? [])
         .filter((item: any) => item?.publish !== false)
         .map((item: any, i: number) => ({
-          image: getStrapiMedia(item.image),
+          image: resolveStrapiImage(item.image, ARTIST_TARGET_WIDTH),
           name: `Artist ${i + 1}`,
           href: item.link?.url || "#",
         }))
@@ -82,8 +91,12 @@ export function HomePanelAwards({
                     className="flex items-center justify-center h-48"
                   >
                     <img
-                      src={award.image}
+                      src={award.image.src}
                       alt={award.title}
+                      width={award.image.width}
+                      height={award.image.height}
+                      loading="lazy"
+                      decoding="async"
                       className="max-h-40 md:max-h-48 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
                     />
                   </motion.div>
@@ -118,8 +131,12 @@ export function HomePanelAwards({
                     className="flex items-center justify-center h-32 md:h-40"
                   >
                     <img
-                      src={artist.image}
+                      src={artist.image.src}
                       alt={artist.name}
+                      width={artist.image.width}
+                      height={artist.image.height}
+                      loading="lazy"
+                      decoding="async"
                       className="max-h-32 md:max-h-40 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
                     />
                   </motion.div>

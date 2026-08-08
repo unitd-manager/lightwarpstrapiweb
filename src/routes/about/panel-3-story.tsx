@@ -1,11 +1,20 @@
 import { motion } from "framer-motion";
-import { getStrapiMedia } from "../../lib/strapi";
-export function AboutPanelStory({ data }: { data?: any }) {
-  if (!data?.Publish) return null;
+import { resolveStrapiImage } from "@/lib/resolve-strapi-image";
 
-  const title = data?.MainTitle
-  const description = data?.Description
-  const image = getStrapiMedia(data?.Image)
+// Target widths matching the report's image slots for this panel.
+const LOGO_TARGET_WIDTH = 280;
+
+export function AboutPanelStory({ data }: { data?: any }) {
+  if (data?.Publish === false) return null;
+
+  const title = data?.MainTitle;
+  const description = data?.Description;
+  const logo = resolveStrapiImage(data?.Image, LOGO_TARGET_WIDTH);
+  const logoAlt = data?.Image?.alternativeText || "Lightwarp";
+  const logoWidth = logo?.width;
+  const logoHeight = logo?.height;
+
+  if (!title && !description && !logo) return null;
 
   return (
     <section className="w-full px-4 pt-[20px] pb-12 sm:px-6">
@@ -19,7 +28,18 @@ export function AboutPanelStory({ data }: { data?: any }) {
         style={{ fontFamily: '"Sora", sans-serif' }}
       >
         <div className="flex justify-center">
-          {image && <img src={image} alt="3D Studio Crab" className="w-full max-w-[300px] h-auto object-contain" />}
+          {logo && (
+            <img
+              src={logo.src}
+              alt={logoAlt}
+              width={logo.width}
+              height={logo.height}
+              className="w-full max-w-[300px] h-auto object-contain"
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+            />
+          )}
         </div>
         <h4 className="mt-4 text-[26px] text-white font-extrabold tracking-[-1px] text-center leading-15">
           {title}
@@ -39,7 +59,18 @@ export function AboutPanelStory({ data }: { data?: any }) {
         style={{ fontFamily: '"Sora", sans-serif' }}
       >
         <div className="w-[45%] flex items-center justify-center py-12">
-          {image && <img src={image} alt="3D Studio Crab" className="w-full h-auto object-contain translate-x-20" />}
+          {logo && (
+            <img
+              src={logo.src}
+              alt={logoAlt}
+              width={logo.width}
+              height={logo.height}
+              className="w-full h-auto object-contain translate-x-20"
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+            />
+          )}
         </div>
         <div className="w-[55%] p-[6%] flex flex-col justify-center">
           <h4 className="text-[46px] pb-[30px] text-white font-extrabold leading-[1.2] [word-spacing:2px] tracking-[-1.4px]">

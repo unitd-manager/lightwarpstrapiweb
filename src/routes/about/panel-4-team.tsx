@@ -1,5 +1,9 @@
 import { motion } from "framer-motion";
-import { getStrapiMedia } from "../../lib/strapi";
+import { resolveStrapiImage } from "@/lib/resolve-strapi-image";
+
+// Target widths matching the report's image slots for this panel.
+const FOUNDER_PHOTO_TARGET_WIDTH = 400;
+const ASSOCIATE_PHOTO_TARGET_WIDTH = 260;
 
 function chunkIntoThrees<T>(arr: T[]): T[][] {
   const rows: T[][] = [];
@@ -8,7 +12,8 @@ function chunkIntoThrees<T>(arr: T[]): T[][] {
 }
 
 export function AboutPanelTeam({ data }: { data?: any }) {
-  if (!data?.Publish) return null;
+  if (data?.Publish === false) return null;
+
   const teamMembersBlock = data?.TeamMembers;
   const teamMembersPublished = teamMembersBlock?.Publish !== false;
 
@@ -25,7 +30,7 @@ export function AboutPanelTeam({ data }: { data?: any }) {
     ? {
         name: founderEntry.Name,
         designation: founderEntry.Designation,
-        photo: getStrapiMedia(founderEntry.ProfilePicture),
+        photo: resolveStrapiImage(founderEntry.ProfilePicture, FOUNDER_PHOTO_TARGET_WIDTH),
       }
     : null;
 
@@ -33,12 +38,14 @@ export function AboutPanelTeam({ data }: { data?: any }) {
     associateEntries.map((m: any) => ({
       name: m.Name,
       role: m.Designation,
-      photo: getStrapiMedia(m.ProfilePicture),
+      photo: resolveStrapiImage(m.ProfilePicture, ASSOCIATE_PHOTO_TARGET_WIDTH),
     }))
   );
 
   const mainTitle = data?.MainTitle || "Meet our Team";
   const subTitle = data?.SubTitle || "Our Associates";
+
+  if (!founder && associateRows.length === 0) return null;
 
   return (
     <section
@@ -84,8 +91,10 @@ export function AboutPanelTeam({ data }: { data?: any }) {
                 }}
               >
                 <img
-                  src={founder.photo}
+                  src={founder.photo.src}
                   alt={founder.name}
+                  width={founder.photo.width}
+                  height={founder.photo.height}
                   style={{
                     width: "100%",
                     height: "auto",
@@ -93,7 +102,9 @@ export function AboutPanelTeam({ data }: { data?: any }) {
                     objectPosition: "top",
                     display: "block",
                   }}
+                  loading="lazy"
                   decoding="async"
+                  draggable={false}
                   onError={(e) => {
                     (e.currentTarget as HTMLImageElement).style.display = "none";
                   }}
@@ -177,8 +188,10 @@ export function AboutPanelTeam({ data }: { data?: any }) {
                   }}
                 >
                   <img
-                    src={m.photo}
+                    src={m.photo.src}
                     alt={m.name}
+                    width={m.photo.width}
+                    height={m.photo.height}
                     style={{
                       width: "100%",
                       height: "auto",
@@ -186,7 +199,9 @@ export function AboutPanelTeam({ data }: { data?: any }) {
                       objectPosition: "top",
                       display: "block",
                     }}
+                    loading="lazy"
                     decoding="async"
+                    draggable={false}
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).style.display = "none";
                     }}

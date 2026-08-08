@@ -1,5 +1,11 @@
 import { motion } from "framer-motion";
-import { getStrapiMedia } from "../../lib/strapi";
+import { resolveStrapiImage } from "@/lib/resolve-strapi-image";
+
+// The first partner renders larger ("h-46 md:h-82" ≈ up to 328px tall),
+// the rest render smaller ("h-28 md:h-46" ≈ up to 184px tall). Matches the
+// report's Brayer_Pictures_logo.png target of ~187px wide for the smaller slot.
+const FIRST_PARTNER_TARGET_WIDTH = 300;
+const OTHER_PARTNER_TARGET_WIDTH = 187;
 
 export function HomePanelPartners({ data }: { data?: any }) {
   if (data?.publish === false) return null;
@@ -11,7 +17,10 @@ export function HomePanelPartners({ data }: { data?: any }) {
       ? data.logo_list
           .filter((item: any) => item?.publish !== false)
           .map((item: any, i: number) => ({
-            image: getStrapiMedia(item.image),
+            image: resolveStrapiImage(
+              item.image,
+              i === 0 ? FIRST_PARTNER_TARGET_WIDTH : OTHER_PARTNER_TARGET_WIDTH
+            ),
             name: `Partner ${i + 1}`,
           }))
           .filter((p: any) => p.image)
@@ -39,8 +48,10 @@ export function HomePanelPartners({ data }: { data?: any }) {
             {partners.map((partner: any, idx: number) => (
               <img
                 key={`${partner.name}-${idx}`}
-                src={partner.image}
+                src={partner.image.src}
                 alt={partner.name}
+                width={partner.image.width}
+                height={partner.image.height}
                 className={
                   idx === 0
                     ? "h-46 md:h-82 w-auto object-contain opacity-90"

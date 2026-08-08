@@ -1,10 +1,15 @@
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
-import { getStrapiMedia } from "../../lib/strapi";
+import { resolveStrapiImage } from "@/lib/resolve-strapi-image";
 
 // Connected to the existing "acf-sections.content-image-split-block"
 // component in Strapi (fields: main_title, description, image, cta_button)
 // instead of footer-common-cta, since that one is reused elsewhere.
+//
+// Image renders at "lg:max-w-[360px]" — matches the report's
+// Octopus_Still.png ("Shelly Character") target of 360×360 exactly.
+const CTA_IMAGE_TARGET_WIDTH = 360;
+
 export function HomePanelCta({ data }: { data?: any }) {
   if (data?.publish === false) return null;
 
@@ -13,7 +18,7 @@ export function HomePanelCta({ data }: { data?: any }) {
   const showButton = !!data?.cta_button && data.cta_button.Publish !== false;
   const buttonLabel = data?.cta_button?.Label;
   const buttonUrl = data?.cta_button?.URL;
-  const image = getStrapiMedia(data?.image);
+  const image = resolveStrapiImage(data?.image, CTA_IMAGE_TARGET_WIDTH);
 
   if (!title && !description && !image) return null;
 
@@ -33,8 +38,12 @@ export function HomePanelCta({ data }: { data?: any }) {
             {image && (
               <div className="flex justify-center lg:justify-end">
                 <img
-                  src={image}
+                  src={image.src}
                   alt="Shelly Character"
+                  width={image.width}
+                  height={image.height}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full max-w-[320px] md:max-w-[380px] lg:max-w-[360px] object-contain"
                 />
               </div>

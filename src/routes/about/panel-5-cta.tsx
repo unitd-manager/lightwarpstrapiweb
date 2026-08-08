@@ -1,20 +1,29 @@
 // src/pages/about/AboutPanelCta.tsx
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
-import { getStrapiMedia } from "../../lib/strapi";
+import { resolveStrapiImage } from "@/lib/resolve-strapi-image";
+
+// Target widths matching the report's image slots for this panel.
+const IMAGE1_MOBILE_TARGET_WIDTH = 100;
+const IMAGE1_DESKTOP_TARGET_WIDTH = 260;
+const IMAGE2_DESKTOP_TARGET_WIDTH = 260;
 
 export function AboutPanelCta({ data }: { data?: any }) {
-  if (!data?.Publish) return null;
+  if (data?.Publish === false) return null;
+
   const title = data?.MainTitle ?? "";
   const description = data?.Description ?? "";
   const buttonLabel = data?.CTAButton?.Label ?? "";
   const buttonUrl = data?.CTAButton?.URL ?? "/";
   const showButton = !!data?.CTAButton && data.CTAButton.Publish !== false;
 
-  const image1 = getStrapiMedia(data?.Image);
-  const image2 = getStrapiMedia(data?.Image1?.[0]); 
+  const image1Mobile = resolveStrapiImage(data?.Image, IMAGE1_MOBILE_TARGET_WIDTH);
+  const image1Desktop = resolveStrapiImage(data?.Image, IMAGE1_DESKTOP_TARGET_WIDTH);
+  const image2 = resolveStrapiImage(data?.Image1?.[0], IMAGE2_DESKTOP_TARGET_WIDTH);
 
   const [line1, line2] = title.split("\n");
+
+  if (!title && !description && !image1Mobile && !image2) return null;
 
   return (
     <section className="relative w-full overflow-hidden font-['Sora']">
@@ -26,8 +35,17 @@ export function AboutPanelCta({ data }: { data?: any }) {
         transition={{ duration: 0.7 }}
         className="lg:hidden relative bg-[#c72e17] min-h-[500px] flex flex-col items-center justify-center px-3 py-6 text-center overflow-hidden"
       >
-        {image1 && (
-          <img src={image1} alt="" className="absolute left-[-190px] bottom-38 w-[100px] h-[300px] scale-300 select-none pointer-events-none" />
+        {image1Mobile && (
+          <img
+            src={image1Mobile.src}
+            alt=""
+            width={image1Mobile.width}
+            height={image1Mobile.height}
+            className="absolute left-[-190px] bottom-38 w-[100px] h-[300px] scale-300 select-none pointer-events-none"
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+          />
         )}
         <h2 className="text-[45px] font-extrabold leading-[1.05] tracking-[-2px] text-black relative z-10">
           {line1}
@@ -54,16 +72,21 @@ export function AboutPanelCta({ data }: { data?: any }) {
         transition={{ duration: 0.7 }}
         className="hidden lg:flex relative min-h-[620px] items-center justify-center bg-[#D5462F]"
       >
-        {image1 && (
+        {image1Desktop && (
           <motion.img
-            src={image1}
+            src={image1Desktop.src}
             alt=""
+            width={image1Desktop.width}
+            height={image1Desktop.height}
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="absolute select-none pointer-events-none"
             style={{ left: "100px", top: "84px", height: "360px", width: "auto" }}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
           />
         )}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-[760px]">
@@ -85,14 +108,19 @@ export function AboutPanelCta({ data }: { data?: any }) {
         </div>
         {image2 && (
           <motion.img
-            src={image2}
+            src={image2.src}
             alt=""
+            width={image2.width}
+            height={image2.height}
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="absolute select-none pointer-events-none"
             style={{ right: "100px", top: "84px", height: "360px", width: "auto" }}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
           />
         )}
       </motion.div>

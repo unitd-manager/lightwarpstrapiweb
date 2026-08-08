@@ -2,9 +2,7 @@
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
 import { LazyVimeoBackground } from "../../components/lazy-vimeo-background";
-
-// Strapi API base for resolving relative media URLs (e.g. "/uploads/xxx.png")
-const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337";
+import { resolveStrapiImage } from "@/lib/resolve-strapi-image";
 
 // Editors paste a full Vimeo link (e.g. https://vimeo.com/1177318410 or
 // https://vimeo.com/1177318410/abcdef123). This pulls out just the numeric
@@ -26,27 +24,16 @@ function extractVimeoId(input?: string): string | undefined {
   }
 }
 
-// Resolves Strapi's media object (data.image) into a usable <img> src.
-// Handles both the flat v5 shape ({ url, ... }) and the older
-// { data: { attributes: { url } } } shape, just in case.
-function resolveImageUrl(image: any): string | undefined {
-  if (!image) return undefined;
-
-  const raw =
-    image?.url ??
-    image?.data?.attributes?.url ??
-    image?.attributes?.url;
-
-  if (!raw) return undefined;
-
-  return raw.startsWith("http") ? raw : `${STRAPI_URL}${raw}`;
-}
-
 export function HomePanelHero({ data }: { data?: any }) {
   // Logo is now fully dynamic — pulled from Strapi's "image" field on
-  // home-partner. If no image is set in Strapi, nothing renders here.
-  const logoSrc = resolveImageUrl(data?.image);
+  // home-partner. resolveStrapiImage already returns the final absolute
+  // URL (plus real width/height) for the closest-fit generated format —
+  // no extra resolving step needed on top of it.
+  const logo = resolveStrapiImage(data?.image, 280);
+  const logoSrc = logo?.src;
   const logoAlt = data?.image?.alternativeText || "Lightwarp";
+  const logoWidth = logo?.width;
+  const logoHeight = logo?.height;
 
   const vimeoId = extractVimeoId(data?.video_url);
   const embedSrc = vimeoId
@@ -97,8 +84,8 @@ export function HomePanelHero({ data }: { data?: any }) {
               <img
                 src={logoSrc}
                 alt={logoAlt}
-                width={280}
-                height={120}
+                width={logoWidth}
+                height={logoHeight}
                 className="h-[clamp(120px,10vw,280px)] w-auto object-contain"
               />
             </motion.div>
