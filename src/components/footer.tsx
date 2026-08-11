@@ -51,7 +51,6 @@ export interface FooterData {
 }
 
 export function Footer({ data }: { data: FooterData }) {
-  console.log("Rendering footer with:", data);
 
   // Whole footer hidden if its own publish flag is explicitly false.
   if (data?.Publish === false) {
