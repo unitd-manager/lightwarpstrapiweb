@@ -1,47 +1,22 @@
 // src/routes/home/panel-1-hero.tsx
 import { TransitionLink } from "../../components/page-transition-overlay";
 import { motion } from "framer-motion";
-import { LazyVimeoBackground } from "../../components/lazy-vimeo-background";
+import { LazyVideoBackground } from "../../components/lazy-video-background";
 import { resolveStrapiImage } from "@/lib/resolve-strapi-image";
 
-// Editors paste a full Vimeo link (e.g. https://vimeo.com/1177318410 or
-// https://vimeo.com/1177318410/abcdef123). This pulls out just the numeric
-// video ID we need to build the embed/poster URLs. Falls back to treating
-// the input as a bare ID if it isn't a URL at all.
-function extractVimeoId(input?: string): string | undefined {
-  if (!input) return undefined;
-  const trimmed = input.trim();
-
-  if (/^\d+$/.test(trimmed)) return trimmed;
-
-  try {
-    const url = new URL(trimmed);
-    if (!url.hostname.replace(/^www\./, "").includes("vimeo.com")) return undefined;
-    const match = url.pathname.match(/(\d+)/);
-    return match ? match[1] : undefined;
-  } catch {
-    return undefined;
-  }
-}
-
 export function HomePanelHero({ data }: { data?: any }) {
-  // Logo is now fully dynamic — pulled from Strapi's "image" field on
-  // home-partner. resolveStrapiImage already returns the final absolute
-  // URL (plus real width/height) for the closest-fit generated format —
-  // no extra resolving step needed on top of it.
   const logo = resolveStrapiImage(data?.image, 280);
   const logoSrc = logo?.src;
   const logoAlt = data?.image?.alternativeText || "Lightwarp";
   const logoWidth = logo?.width;
   const logoHeight = logo?.height;
 
-  const vimeoId = extractVimeoId(data?.video_url);
-  const embedSrc = vimeoId
-    ? `https://player.vimeo.com/video/${vimeoId}?autoplay=1&loop=1&muted=1&background=1&dnt=1`
-    : undefined;
-  // posterSrc is required by LazyVimeoBackground whenever we render it, so
-  // this is only read when vimeoId (and therefore embedSrc) is also set.
-  const posterSrc = vimeoId ? `https://vumbnail.com/${vimeoId}.jpg` : "";
+  // video_url now points directly to a self-hosted mp4 in Strapi's media
+  // library instead of a Vimeo link.
+  const videoSrc = data?.video_url;
+  // Optional poster frame — shown instantly while the video loads. Falls
+  // back to no poster (just black/gradient) if not set in Strapi yet.
+  const posterSrc = resolveStrapiImage(data?.video_poster, 1920)?.src;
 
   const mainTitle = data?.main_title;
   const subtitle = data?.sub_title;
@@ -60,9 +35,9 @@ export function HomePanelHero({ data }: { data?: any }) {
   return (
     <section className="relative w-full overflow-hidden">
       <div className="absolute inset-0 overflow-hidden bg-black">
-        {embedSrc && (
-          <LazyVimeoBackground
-            embedSrc={embedSrc}
+        {videoSrc && (
+          <LazyVideoBackground
+            videoSrc={videoSrc}
             posterSrc={posterSrc}
             title="Lightwarp Hero Background Video"
             className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.02] border-0 object-cover"
@@ -150,12 +125,12 @@ export function HomePanelHero({ data }: { data?: any }) {
               className="mt-8 flex flex-col sm:flex-row items-center gap-4"
             >
               {showButton && ctaLabel && ctaHref && (
-              <TransitionLink
-                to={ctaHref}
-                className="inline-flex items-center justify-center rounded-sm border border-white/35 bg-white/10 px-6 py-3 text-sm font-medium text-white backdrop-blur-md transition-all duration-300 hover:bg-white/15"
-              >
-                {ctaLabel}
-              </TransitionLink>
+                <TransitionLink
+                  to={ctaHref}
+                  className="inline-flex items-center justify-center rounded-sm border border-white/35 bg-white/10 px-6 py-3 text-sm font-medium text-white backdrop-blur-md transition-all duration-300 hover:bg-white/15"
+                >
+                  {ctaLabel}
+                </TransitionLink>
               )}
             </motion.div>
           )}

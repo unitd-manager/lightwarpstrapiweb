@@ -1,16 +1,18 @@
-import { useLayoutEffect, useEffect } from "react";
+import { useLayoutEffect, useEffect, Suspense, lazy } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import DynamicPage from "./routes/dynamic-page";
-import Home from "./routes";
-import About from "./routes/about";
-import Contact from "./routes/contact";
-import Projects from "./routes/projects";
-import Capabilities from "./routes/capabilities";
-import Services from "./routes/services";
-import Privacy from "./routes/privacy";
+import { LazyMotion, domAnimation } from "framer-motion";
 import { TransitionProvider } from "./components/page-transition-overlay";
-import CaseStudyPage from "./routes/projects/CaseStudyPage";
 import { logNotFound } from "./lib/logNotFound";
+
+const Home = lazy(() => import("./routes"));
+const About = lazy(() => import("./routes/about"));
+const Contact = lazy(() => import("./routes/contact"));
+const Projects = lazy(() => import("./routes/projects"));
+const Capabilities = lazy(() => import("./routes/capabilities"));
+const Services = lazy(() => import("./routes/services"));
+const Privacy = lazy(() => import("./routes/privacy"));
+const DynamicPage = lazy(() => import("./routes/dynamic-page"));
+const CaseStudyPage = lazy(() => import("./routes/projects/CaseStudyPage"));
 
 function NotFound() {
   const location = useLocation();
@@ -29,8 +31,8 @@ function NotFound() {
           The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="mt-6">
-          <a
-            href="/"
+          
+            <a href="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             Go home
@@ -53,20 +55,24 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <TransitionProvider>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/capabilities" element={<Capabilities />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/projects/:slug" element={<CaseStudyPage />} />
-        <Route path="/:slug" element={<DynamicPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </TransitionProvider>
+    <LazyMotion features={domAnimation}>
+      <TransitionProvider>
+        <ScrollToTop />
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/capabilities" element={<Capabilities />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/projects/:slug" element={<CaseStudyPage />} />
+            <Route path="/:slug" element={<DynamicPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </TransitionProvider>
+    </LazyMotion>
   );
 }

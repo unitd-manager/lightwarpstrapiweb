@@ -1,4 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Gilroy:wght@400;700&display=swap");
+/* Playfair Display is now loaded via the non-blocking preload link in
+   index.html (same pattern as the other font families) instead of a
+   render-blocking @import here. "Gilroy" was removed — Google Fonts never
+   actually served it, so that half of the request was a dead network call
+   on every page load. If you have a licensed Gilroy webfont, self-host it
+   with @font-face + font-display: swap instead of an @import. */
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -37,7 +42,7 @@
   --font-display: "Space Grotesk", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --font-serif-display: "Playfair Display", "playfair-display-v2", serif;
-  --font-body: "Gilroy", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
 }
 
 :root {

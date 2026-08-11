@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-
 /**
  * Lazily mounts a Vimeo background iframe only while the section is near the
  * viewport, and unmounts it again once scrolled well away. A poster image
@@ -25,12 +24,9 @@ export function LazyVimeoBackground({
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
-
   useEffect(() => {
     if (!containerRef.current) return;
-
     let unloadTimer: ReturnType<typeof setTimeout> | undefined;
-
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
@@ -55,17 +51,21 @@ export function LazyVimeoBackground({
       },
       { root: null, rootMargin: "400px 0px", threshold: 0.01 }
     );
-
     observer.observe(containerRef.current);
     return () => {
       clearTimeout(unloadTimer);
       observer.disconnect();
     };
   }, []);
-
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden">
-      <img src={posterSrc} alt="" className={className} loading="lazy" decoding="async" />
+      <img
+        src={posterSrc}
+        alt=""
+        className={className}
+        fetchPriority="high"
+        decoding="async"
+      />
       {shouldLoad ? (
         <iframe
           src={embedSrc}
