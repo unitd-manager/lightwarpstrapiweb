@@ -17,7 +17,6 @@ async function fetchProjectsPage() {
     (block: any) => block.__component === "acf-sections.use-case-single"
   );
 
-  // Whole "Use Case Single" section is hidden if its own publish is false
   if (useCaseBlock && useCaseBlock.publish === false) return { block: null, seo };
 
   return { block: useCaseBlock, seo };
@@ -35,15 +34,13 @@ export default function Projects() {
         setBlock(block);
         setSeo(seo);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("Projects page fetch failed:", err);
         setBlock(null);
         setSeo(null);
       });
   }, []);
 
-  // Split by ORIGINAL position first, then check publish per-slot.
-  // This keeps "featured" always mapped to use_case_items[0], and prevents
-  // an unpublished item from shifting the rest of the array out of order.
   const allItems = block?.use_case_items ?? [];
   const [featuredRaw, ...restRaw] = allItems;
 

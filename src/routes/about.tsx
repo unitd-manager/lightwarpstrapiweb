@@ -3,7 +3,6 @@ import { PageShell } from "../components/page-shell";
 import { AboutPanelStory } from "./about/panel-3-story";
 import { AboutPanelTeam } from "./about/panel-4-team";
 import { AboutPanelCta } from "./about/panel-5-cta";
-import keepInTouch2 from "../assets/images/cms/KeepInTouch2.svg";
 import { usePageTitle } from "@/hooks/usePageTitle";
 
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337";
@@ -30,19 +29,39 @@ async function getAboutPage() {
   }
 }
 
+function AboutSkeleton() {
+  return (
+    <div aria-hidden="true" className="animate-pulse">
+      {/* Matches AboutPanelStory's min-height footprint */}
+      <div className="w-full px-4 pt-[20px] pb-12 sm:px-6">
+        <div className="mx-auto w-full max-w-[1250px] h-[500px] rounded-[20px] bg-white/5" />
+      </div>
+      {/* Matches AboutPanelTeam's min-h-[380px] */}
+      <div className="min-h-[380px] mb-[60px] px-[2%] pt-[3%]">
+        <div className="h-10 w-1/3 mx-auto bg-white/5 rounded mb-10" />
+        <div className="flex justify-center gap-6">
+          <div className="w-[29%] h-[400px] bg-white/5 rounded-[25px]" />
+        </div>
+      </div>
+      {/* Matches AboutPanelCta's min-h-[620px] */}
+      <div className="min-h-[500px] lg:min-h-[620px] bg-white/5" />
+    </div>
+  );
+}
+
 const registry: Record<string, React.FC<{ data?: any }>> = {
   "acf-sections.banner-layout": AboutPanelStory,
   "acf-sections.about-team-section": AboutPanelTeam,
   "acf-sections.footer-common-cta": AboutPanelCta,
 };
 
-// A block is hidden ONLY when publish is explicitly false.
 function isPublished(block: any) {
   return block?.publish !== false;
 }
 
 export default function About() {
   const [blocks, setBlocks] = useState<any[] | null>(null);
+  const [loading, setLoading] = useState(true);
   const [seo, setSeo] = useState<{ metaTitle?: string } | null>(null);
 
   usePageTitle(seo?.metaTitle);
@@ -53,6 +72,7 @@ export default function About() {
       if (cancelled) return;
       setBlocks(page?.pageBuilder ?? []);
       setSeo(page?.seo ?? null);
+      setLoading(false);
     });
     return () => {
       cancelled = true;
@@ -68,9 +88,15 @@ export default function About() {
       <div className="w-full overflow-x-auto md:overflow-visible">
         <div className="flex min-w-[520px] md:min-w-0 overflow-visible">
           <div className="flex-1 min-w-[390px] overflow-visible">
-            {isPublished(bannerData) && <AboutPanelStory data={bannerData} />}
-            {isPublished(teamData) && <AboutPanelTeam data={teamData} />}
-            {isPublished(ctaData) && <AboutPanelCta data={ctaData} />}
+            {loading ? (
+              <AboutSkeleton />
+            ) : (
+              <>
+                {isPublished(bannerData) && <AboutPanelStory data={bannerData} />}
+                {isPublished(teamData) && <AboutPanelTeam data={teamData} />}
+                {isPublished(ctaData) && <AboutPanelCta data={ctaData} />}
+              </>
+            )}
           </div>
         </div>
       </div>

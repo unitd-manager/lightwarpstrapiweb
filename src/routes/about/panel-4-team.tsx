@@ -1,7 +1,6 @@
-import { motion } from "framer-motion";
+import { FadeIn } from "@/hooks/FadeIn";
 import { resolveStrapiImage } from "@/lib/resolve-strapi-image";
 
-// Target widths matching the report's image slots for this panel.
 const FOUNDER_PHOTO_TARGET_WIDTH = 400;
 const ASSOCIATE_PHOTO_TARGET_WIDTH = 260;
 
@@ -20,9 +19,6 @@ export function AboutPanelTeam({ data }: { data?: any }) {
   const allMembers = teamMembersPublished ? (teamMembersBlock?.Member ?? []) : [];
   const members = allMembers.filter((m: any) => m.Publish !== false);
 
-  // NOTE: double check the actual field name in Strapi — it may be
-  // `IsFounder` (PascalCase) rather than `is_founder`, given the rest
-  // of your schema (Name, Designation, ProfilePicture, Publish) is PascalCase.
   const founderEntry = members.find((m: any) => m.is_founder) || members[0];
   const associateEntries = members.filter((m: any) => m !== founderEntry);
 
@@ -52,31 +48,21 @@ export function AboutPanelTeam({ data }: { data?: any }) {
       style={{ fontFamily: '"Sora", sans-serif', overflow: "hidden" }}
       className="flex flex-col gap-[50px] px-[2%] pt-[3%] pb-[1%] min-h-[380px] mb-[60px]"
     >
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="w-full text-center text-white"
-        style={{
-          fontFamily: '"Sora", sans-serif',
-          fontSize: "clamp(28px, 4vw, 45px)",
-          fontWeight: 600,
-          lineHeight: "60px",
-          letterSpacing: "-1px",
-        }}
-      >
+      <FadeIn as="h2" className="w-full text-center text-white" style={{
+        fontFamily: '"Sora", sans-serif',
+        fontSize: "clamp(28px, 4vw, 45px)",
+        fontWeight: 600,
+        lineHeight: "60px",
+        letterSpacing: "-1px",
+      }}>
         {mainTitle}
-      </motion.h2>
+      </FadeIn>
 
       {/* Founder */}
       {founder && (
         <div className="flex justify-center" style={{ marginTop: "-20px" }}>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+          <FadeIn
+            y={30}
             className="text-center founder-box"
             style={{ width: "29%", maxWidth: "29%" }}
           >
@@ -137,28 +123,21 @@ export function AboutPanelTeam({ data }: { data?: any }) {
             >
               {founder.designation}
             </p>
-          </motion.div>
+          </FadeIn>
         </div>
       )}
 
       {teamMembersPublished && associateRows.length > 0 && (
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="w-full text-center text-white"
-          style={{
-            fontFamily: '"Sora", sans-serif',
-            fontSize: "clamp(28px, 4vw, 45px)",
-            fontWeight: 600,
-            lineHeight: "60px",
-            letterSpacing: "-1px",
-            marginTop: "10px",
-          }}
-        >
+        <FadeIn as="h2" className="w-full text-center text-white" style={{
+          fontFamily: '"Sora", sans-serif',
+          fontSize: "clamp(28px, 4vw, 45px)",
+          fontWeight: 600,
+          lineHeight: "60px",
+          letterSpacing: "-1px",
+          marginTop: "10px",
+        }}>
           {subTitle}
-        </motion.h2>
+        </FadeIn>
       )}
 
       {associateRows.map((row, rowIdx) => (
@@ -168,12 +147,10 @@ export function AboutPanelTeam({ data }: { data?: any }) {
           style={{ marginBottom: 0 }}
         >
           {row.map((m, i) => (
-            <motion.div
+            <FadeIn
               key={m.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: (rowIdx * 3 + i) * 0.05 }}
+              delay={(rowIdx * 3 + i) * 0.05}
+              duration={0.4}
               className="associate-item text-center"
               style={{ width: "30%", maxWidth: "30%", alignSelf: "center" }}
             >
@@ -233,7 +210,7 @@ export function AboutPanelTeam({ data }: { data?: any }) {
               >
                 {m.role}
               </p>
-            </motion.div>
+            </FadeIn>
           ))}
         </div>
       ))}

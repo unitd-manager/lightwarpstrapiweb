@@ -1,12 +1,7 @@
 // src/pages/projects/ProjectsPanelHero.tsx
 import { motion } from "framer-motion";
 import { TransitionLink } from "../../components/page-transition-overlay";
-
-function getYouTubeId(url?: string) {
-  if (!url) return null;
-  const match = url.match(/(?:v=|\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
-  return match ? match[1] : null;
-}
+import { VideoBackground } from "../../components/VideoBackground";
 
 function RichDescription({ text }: { text: string }) {
   const isHtml = /<[a-z][\s\S]*>/i.test(text);
@@ -42,36 +37,16 @@ export function ProjectsPanelHero({ data }: { data?: any }) {
   const description = data?.description ?? "";
   const ctaLabel    = data?.ctaLabel ?? "";
   const ctaLink     = data?.ctaLink ?? "/";
-  const videoId     = getYouTubeId(data?.video_url);
-
-  const embedSrc = videoId
-    ? `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&iv_load_policy=3&playlist=${videoId}`
-    : null;
-
-  const posterSrc = videoId
-    ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
-    : null;
+  const videoSrc    = data?.video_url || null;
 
   return (
     <section className="relative min-h-[calc(100svh-80px)] bg-transparent text-white font-display sm:min-h-[calc(100vh-80px)]">
       <div className="absolute inset-0 overflow-hidden">
-        {posterSrc && (
-          <img
-            src={posterSrc}
-            alt=""
-            className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.75] border-0 object-cover sm:scale-[1.25] md:scale-[1.15]"
-            loading="eager"
-            decoding="async"
-          />
-        )}
-        {embedSrc && (
-          <iframe
-            src={embedSrc}
-            title={`${title} Background Video`}
-            className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.75] border-0 sm:scale-[1.25] md:scale-[1.15]"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            allowFullScreen
-            loading="eager"
+        {videoSrc && (
+          <VideoBackground
+            src={videoSrc}
+            className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[56.25vw] w-[100vw] min-h-full min-w-[177.78vh] scale-[1.75] object-cover sm:scale-[1.25] md:scale-[1.15]"
+            priority
           />
         )}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(94,58,255,0.24),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(0,255,205,0.16),transparent_28%)]" />

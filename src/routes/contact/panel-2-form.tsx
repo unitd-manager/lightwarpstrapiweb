@@ -24,9 +24,14 @@ function GoogleGIcon() {
   );
 }
 
-function FieldError({ msg }: { msg: string }) {
+function FieldError({ msg, id }: { msg: string; id?: string }) {
   return (
-    <div className="flex items-center gap-1" style={{ color: "#FF4D4D", fontSize: "13px", fontWeight: 400, marginTop: "-20px" }}>
+    <div
+      id={id}
+      role="alert"
+      className="flex items-center gap-1"
+      style={{ color: "#FF4D4D", fontSize: "13px", fontWeight: 400, marginTop: "-20px" }}
+    >
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
         <line x1="18" y1="6" x2="6" y2="18" />
         <line x1="6" y1="6" x2="18" y2="18" />
@@ -165,12 +170,13 @@ export function ContactPanelForm({ data }: { data?: any }) {
         style={{ width: "44%", gap: "25px", justifyContent: "flex-start" }}
       >
         <div>
-          <h3
+          {/* was h3 — promoted to h2 to keep heading order sequential after the h1 in the hero panel */}
+          <h2
             className="text-white contact-form-heading"
             style={{ fontFamily: '"Sora", sans-serif', fontSize: "45px", fontWeight: 600, lineHeight: "60px", letterSpacing: "-1px", marginBottom: "15px" }}
           >
             {subHeading}
-          </h3>
+          </h2>
           <RichDescription content={description} />
         </div>
 
@@ -227,12 +233,24 @@ export function ContactPanelForm({ data }: { data?: any }) {
 
         {/* Schedule button */}
         <div style={{ marginTop: "5px", alignSelf: "center" }}>
-          <a
-            href={ctaLink}
+          
+           <a href={ctaLink}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-white hover:text-black transition-colors"
-            style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 400, lineHeight: "20px", backgroundColor: "#F64418", borderRadius: "10px", paddingTop: "20px", paddingBottom: "20px", paddingLeft: "44px", paddingRight: "44px" }}
+            style={{
+              fontFamily: '"Sora", sans-serif',
+              fontSize: "16px",
+              fontWeight: 400,
+              lineHeight: "20px",
+              // was #F64418 — darkened to clear 4.5:1 contrast against white text (WCAG AA)
+              backgroundColor: "#D63A10",
+              borderRadius: "10px",
+              paddingTop: "20px",
+              paddingBottom: "20px",
+              paddingLeft: "44px",
+              paddingRight: "44px",
+            }}
           >
             <GoogleGIcon />
             {ctaLabel}
@@ -253,34 +271,47 @@ export function ContactPanelForm({ data }: { data?: any }) {
           {formHeading}
         </p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: "32px" }}>
-          <input name="website" type="text" tabIndex={-1} autoComplete="off" className="hidden" />
+        <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: "32px" }} noValidate>
+          <input name="website" type="text" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
-          <input
-            name="name"
-            type="text"
-            placeholder="Name"
-            className="w-full outline-none"
-            style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "#58595B", backgroundColor: "#ffffff", border: "1px solid #FFFFFF", borderRadius: "4px", paddingTop: "10px", paddingBottom: "10px", paddingLeft: "14px", paddingRight: "14px" }}
-          />
+          <div>
+            <label htmlFor="contact-name" className="sr-only">Name</label>
+            <input
+              id="contact-name"
+              name="name"
+              type="text"
+              placeholder="Name"
+              autoComplete="name"
+              className="w-full outline-none"
+              style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "#3F4042", backgroundColor: "#ffffff", border: "1px solid #FFFFFF", borderRadius: "4px", paddingTop: "10px", paddingBottom: "10px", paddingLeft: "14px", paddingRight: "14px" }}
+            />
+          </div>
 
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            autoComplete="email"
-            inputMode="email"
-            onChange={() => { setEmailError(""); setError(null); }}
-            className="w-full outline-none"
-            style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "#58595B", backgroundColor: "#ffffff", border: emailError ? "1px solid #FF4D4D" : "1px solid #FFFFFF", borderRadius: "4px", paddingTop: "10px", paddingBottom: "10px", paddingLeft: "14px", paddingRight: "14px" }}
-          />
-          {emailError && <FieldError msg={emailError} />}
+          <div>
+            <label htmlFor="contact-email" className="sr-only">Email</label>
+            <input
+              id="contact-email"
+              name="email"
+              type="email"
+              placeholder="Email"
+              autoComplete="email"
+              inputMode="email"
+              onChange={() => { setEmailError(""); setError(null); }}
+              className="w-full outline-none"
+              style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "#3F4042", backgroundColor: "#ffffff", border: emailError ? "1px solid #FF4D4D" : "1px solid #FFFFFF", borderRadius: "4px", paddingTop: "10px", paddingBottom: "10px", paddingLeft: "14px", paddingRight: "14px" }}
+              aria-invalid={!!emailError}
+              aria-describedby={emailError ? "email-error" : undefined}
+            />
+            {emailError && <FieldError id="email-error" msg={emailError} />}
+          </div>
 
           <div className="relative w-full">
+            <label htmlFor="contact-subject" className="sr-only">Subject</label>
             <select
+              id="contact-subject"
               name="subject"
               className="w-full outline-none appearance-none cursor-pointer"
-              style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "#58595B", backgroundColor: "#ffffff", border: "1px solid #FFFFFF", borderRadius: "4px", paddingTop: "10px", paddingBottom: "10px", paddingLeft: "14px", paddingRight: "40px" }}
+              style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "#3F4042", backgroundColor: "#ffffff", border: "1px solid #FFFFFF", borderRadius: "4px", paddingTop: "10px", paddingBottom: "10px", paddingLeft: "14px", paddingRight: "40px" }}
             >
               <option value="">Subject</option>
               {subjects.map((s) => (
@@ -291,20 +322,27 @@ export function ContactPanelForm({ data }: { data?: any }) {
               className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
               width="16" height="16" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+              aria-hidden="true"
             >
               <polyline points="6 9 12 15 18 9" />
             </svg>
           </div>
 
-          <textarea
-            name="message"
-            rows={5}
-            placeholder="Message"
-            onChange={() => { setMessageError(""); setError(null); }}
-            className="w-full outline-none resize-none"
-            style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "#58595B", backgroundColor: "#ffffff", border: messageError ? "1px solid #FF4D4D" : "1px solid #FFFFFF", borderRadius: "4px", paddingTop: "10px", paddingBottom: "10px", paddingLeft: "14px", paddingRight: "14px" }}
-          />
-          {messageError && <FieldError msg={messageError} />}
+          <div>
+            <label htmlFor="contact-message" className="sr-only">Message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows={5}
+              placeholder="Message"
+              onChange={() => { setMessageError(""); setError(null); }}
+              className="w-full outline-none resize-none"
+              style={{ fontFamily: '"Sora", sans-serif', fontSize: "16px", fontWeight: 300, lineHeight: "24px", color: "#3F4042", backgroundColor: "#ffffff", border: messageError ? "1px solid #FF4D4D" : "1px solid #FFFFFF", borderRadius: "4px", paddingTop: "10px", paddingBottom: "10px", paddingLeft: "14px", paddingRight: "14px" }}
+              aria-invalid={!!messageError}
+              aria-describedby={messageError ? "message-error" : undefined}
+            />
+            {messageError && <FieldError id="message-error" msg={messageError} />}
+          </div>
 
           <div className="flex flex-col gap-3">
             <button
@@ -317,8 +355,8 @@ export function ContactPanelForm({ data }: { data?: any }) {
             </button>
 
             {sent && (
-              <div className="flex items-center gap-2" style={{ fontFamily: '"Sora", sans-serif', fontSize: "14px", fontWeight: 400, color: "#FFFFFF" }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
+              <div role="status" className="flex items-center gap-2" style={{ fontFamily: '"Sora", sans-serif', fontSize: "14px", fontWeight: 400, color: "#FFFFFF" }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
                 Your submission was successful.
@@ -326,7 +364,7 @@ export function ContactPanelForm({ data }: { data?: any }) {
             )}
 
             {error && (
-              <div style={{ fontFamily: '"Sora", sans-serif', fontSize: "14px", fontWeight: 400, color: "#FFFFFF" }}>
+              <div role="alert" style={{ fontFamily: '"Sora", sans-serif', fontSize: "14px", fontWeight: 400, color: "#FFFFFF" }}>
                 {error}
               </div>
             )}

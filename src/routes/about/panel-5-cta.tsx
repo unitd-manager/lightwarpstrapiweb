@@ -1,9 +1,8 @@
 // src/pages/about/AboutPanelCta.tsx
 import { TransitionLink } from "../../components/page-transition-overlay";
-import { motion } from "framer-motion";
+import { FadeIn } from "@/hooks/FadeIn";
 import { resolveStrapiImage } from "@/lib/resolve-strapi-image";
 
-// Target widths matching the report's image slots for this panel.
 const IMAGE1_MOBILE_TARGET_WIDTH = 100;
 const IMAGE1_DESKTOP_TARGET_WIDTH = 260;
 const IMAGE2_DESKTOP_TARGET_WIDTH = 260;
@@ -28,13 +27,7 @@ export function AboutPanelCta({ data }: { data?: any }) {
   return (
     <section className="relative w-full overflow-hidden font-['Sora']">
       {/* ================= MOBILE ================= */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-        className="lg:hidden relative bg-[#c72e17] min-h-[500px] flex flex-col items-center justify-center px-3 py-6 text-center overflow-hidden"
-      >
+      <FadeIn className="lg:hidden relative bg-[#c72e17] min-h-[500px] flex flex-col items-center justify-center px-3 py-6 text-center overflow-hidden">
         {image1Mobile && (
           <img
             src={image1Mobile.src}
@@ -62,31 +55,22 @@ export function AboutPanelCta({ data }: { data?: any }) {
             {buttonLabel}
           </TransitionLink>
         )}
-      </motion.div>
+      </FadeIn>
 
       {/* ================= DESKTOP ================= */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-        className="hidden lg:flex relative min-h-[620px] items-center justify-center bg-[#D5462F]"
-      >
+      <FadeIn className="hidden lg:flex relative min-h-[620px] items-center justify-center bg-[#D5462F]">
         {image1Desktop && (
-          <motion.img
-            src={image1Desktop.src}
-            alt=""
-            width={image1Desktop.width}
-            height={image1Desktop.height}
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+          <FadeIn
+            as="img"
+            {...{
+              src: image1Desktop.src,
+              alt: "",
+              width: image1Desktop.width,
+              height: image1Desktop.height,
+            }}
+            y={0}
             className="absolute select-none pointer-events-none"
             style={{ left: "100px", top: "84px", height: "360px", width: "auto" }}
-            loading="lazy"
-            decoding="async"
-            draggable={false}
           />
         )}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-[760px]">
@@ -107,15 +91,11 @@ export function AboutPanelCta({ data }: { data?: any }) {
           )}
         </div>
         {image2 && (
-          <motion.img
+          <img
             src={image2.src}
             alt=""
             width={image2.width}
             height={image2.height}
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
             className="absolute select-none pointer-events-none"
             style={{ right: "100px", top: "84px", height: "360px", width: "auto" }}
             loading="lazy"
@@ -123,7 +103,7 @@ export function AboutPanelCta({ data }: { data?: any }) {
             draggable={false}
           />
         )}
-      </motion.div>
+      </FadeIn>
     </section>
   );
 }

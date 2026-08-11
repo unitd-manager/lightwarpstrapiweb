@@ -46,14 +46,15 @@ export default function Contact() {
 
   return (
     <PageShell>
-      <div className="w-full overflow-x-auto md:overflow-visible">
+      {/* main landmark so screen-reader users can skip straight to page content */}
+      <main className="w-full overflow-x-auto md:overflow-visible">
         <div className="flex min-w-[520px] md:min-w-0 overflow-visible">
           <div className="flex-1 min-w-[390px] overflow-visible">
             <ContactPanelHero data={block} />
             <ContactPanelForm data={block} />
           </div>
         </div>
-      </div>
+      </main>
     </PageShell>
   );
 }
